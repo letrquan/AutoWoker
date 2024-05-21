@@ -1,0 +1,29 @@
+{
+	"BUILD_DIR" : "D:/AutoWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/AutoWorker_autogen",
+	"CMAKE_BINARY_DIR" : "D:/AutoWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug",
+	"CMAKE_CURRENT_BINARY_DIR" : "D:/AutoWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug",
+	"CMAKE_CURRENT_SOURCE_DIR" : "D:/AutoWorker/AutoWoker",
+	"CMAKE_SOURCE_DIR" : "D:/AutoWorker/AutoWoker",
+	"INCLUDE_DIR" : "D:/AutoWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/AutoWorker_autogen/include",
+	"INPUTS" : 
+	[
+		"D:/AutoWorker/AutoWoker/img/search.png",
+		"D:/AutoWorker/AutoWoker/img/refresh.png",
+		"D:/AutoWorker/AutoWoker/img/plus.png",
+		"D:/AutoWorker/AutoWoker/img/eagle.png",
+		"D:/AutoWorker/AutoWoker/img/pencil.png",
+		"D:/AutoWorker/AutoWoker/img/play-button.png",
+		"D:/AutoWorker/AutoWoker/img/profile-user.png",
+		"D:/AutoWorker/AutoWoker/img/minus.png"
+	],
+	"LOCK_FILE" : "D:/AutoWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/CMakeFiles/AutoWorker_autogen.dir/AutoRcc_resource_EWIEGA46WW_Lock.lock",
+	"MULTI_CONFIG" : false,
+	"OPTIONS" : [ "--no-zstd", "-name", "resource" ],
+	"OUTPUT_CHECKSUM" : "EWIEGA46WW",
+	"OUTPUT_NAME" : "qrc_resource.cpp",
+	"RCC_EXECUTABLE" : "C:/Qt/6.7.1/mingw_64/./bin/rcc.exe",
+	"RCC_LIST_OPTIONS" : [ "--list" ],
+	"SETTINGS_FILE" : "D:/AutoWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/CMakeFiles/AutoWorker_autogen.dir/AutoRcc_resource_EWIEGA46WW_Used.txt",
+	"SOURCE" : "D:/AutoWorker/AutoWoker/resource.qrc",
+	"VERBOSITY" : 0
+}

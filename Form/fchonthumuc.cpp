@@ -30,6 +30,7 @@ QList<QString> fChonThuMuc::lstChooseIdFilesFromBin;
 bool fChonThuMuc::isAdd;
 void fChonThuMuc::on_button5_clicked()
 {
+    QModelIndexList selectedIndexes = ui->dtgvAcc->selectionModel()->selectedRows();
     int index = ui->dtgvAcc->currentRow();
     QString statusDataGridView = DatagridviewHelper::GetStatusDataGridView(ui->dtgvAcc, index - 1, "Id");
     QString statusDataGridView2 = DatagridviewHelper::GetStatusDataGridView(ui->dtgvAcc, index, "Id");

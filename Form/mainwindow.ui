@@ -33,8 +33,8 @@ border-radius:15px;</string>
       <height>707</height>
      </rect>
     </property>
-    <layout class="QHBoxLayout" name="horizontalLayout_5">
-     <item>
+    <layout class="QGridLayout" name="gridLayout_3">
+     <item row="0" column="0">
       <widget class="QFrame" name="frame">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -171,7 +171,7 @@ border-width: 2px; /* Set the width of the border */
 border-style: solid; /* Define the style of the border */
 border-color: black; /* Define the color of the border */
 border-radius: 20px;
-qproperty-icon: url(:/img/C:/Users/quan2/Downloads/play-button.png);
+qproperty-icon: url(:/img/img/play-button.png);
 qproperty-iconSize: 20px 20px;
 text-align: center;
 }
@@ -597,7 +597,7 @@ border-width: 0; /* Set the width of the border */</string>
        </layout>
       </widget>
      </item>
-     <item>
+     <item row="0" column="1">
       <layout class="QVBoxLayout" name="verticalLayout_6" stretch="0,0">
        <item>
         <widget class="QFrame" name="frame_2">
@@ -760,7 +760,7 @@ font: 500 9pt &quot;Roboto Medium&quot;;</string>
                     </size>
                    </property>
                    <property name="styleSheet">
-                    <string notr="true">image: url(:/img/C:/Users/quan2/Downloads/search.png);
+                    <string notr="true">image: url(:/img/search.png);
 border-width: 1px; /* Set the width of the border */
 border-style: solid; /* Define the style of the border */
 border-color: black; /* Define the color of the border */
@@ -940,7 +940,7 @@ border-radius: 5px;</string>
                 </size>
                </property>
                <property name="styleSheet">
-                <string notr="true">image: url(:/img/C:/Users/quan2/Downloads/refresh.png);</string>
+                <string notr="true">image: url(:/img/img/refresh.png);</string>
                </property>
                <property name="text">
                 <string/>
@@ -956,8 +956,7 @@ border-radius: 5px;</string>
                 </size>
                </property>
                <property name="styleSheet">
-                <string notr="true">
-image: url(:/img/C:/Users/quan2/Downloads/pencil.png);</string>
+                <string notr="true">image: url(:/img/img/pencil.png);</string>
                </property>
                <property name="text">
                 <string/>
@@ -973,8 +972,8 @@ image: url(:/img/C:/Users/quan2/Downloads/pencil.png);</string>
                 </size>
                </property>
                <property name="styleSheet">
-                <string notr="true">image: url(:/img/C:/Users/quan2/Downloads/minus.png);
-</string>
+                <string notr="true">
+image: url(:/img/img/minus.png);</string>
                </property>
                <property name="text">
                 <string/>
@@ -990,7 +989,7 @@ image: url(:/img/C:/Users/quan2/Downloads/pencil.png);</string>
                 </size>
                </property>
                <property name="styleSheet">
-                <string notr="true">image: url(:/img/C:/Users/quan2/Downloads/add.png);
+                <string notr="true">image: url(:/img/img/plus.png);
 </string>
                </property>
                <property name="text">
@@ -1041,7 +1040,7 @@ font: 500 9pt &quot;Roboto Medium&quot;;</string>
                    </property>
                    <property name="styleSheet">
                     <string notr="true">border-radius:50%;
-image: url(:/img/C:/Users/quan2/Downloads/profile-user.png);</string>
+image: url(:/img/img/profile-user.png);</string>
                    </property>
                    <property name="text">
                     <string/>
@@ -1154,7 +1153,7 @@ font-weight:bold;</string>
         </widget>
        </item>
        <item>
-        <widget class="QTableWidget" name="tableWidget">
+        <widget class="QTableView" name="tableView">
          <property name="minimumSize">
           <size>
            <width>1081</width>
@@ -1169,381 +1168,6 @@ border-radius:15px;</string>
          <property name="sortingEnabled">
           <bool>true</bool>
          </property>
-         <column>
-          <property name="text">
-           <string>Chọn</string>
-          </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>STT</string>
-          </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Id</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Uid</string>
-          </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Token</string>
-          </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Cookies</string>
-          </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Email</string>
-          </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Phone</string>
-          </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Tên</string>
-          </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Page</string>
-          </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Bạn Bè</string>
-          </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Nhóm</string>
-          </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>PagePro5</string>
-          </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Ngày sinh</string>
-          </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Giới tính</string>
-          </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Mật khẩu</string>
-          </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Mail Khôi Phục</string>
-          </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Mật khẩu Mail</string>
-          </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Backup</string>
-          </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Mã 2FA</string>
-          </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Proxy</string>
-          </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Ngày tạo tài khoản</string>
-          </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Avatar</string>
-          </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Profile</string>
-          </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Thư Mục</string>
-          </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Lần Tương Tác Cuối</string>
-          </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Tình Trạng</string>
-          </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Ghi Chú</string>
-          </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Status282</string>
-          </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Location</string>
-          </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Home Town</string>
-          </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Current City</string>
-          </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Dating</string>
-          </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Ads</string>
-          </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>BM</string>
-          </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>FbBlock</string>
-          </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Job</string>
-          </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Trạng thái</string>
-          </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-         </column>
         </widget>
        </item>
       </layout>

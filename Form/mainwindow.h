@@ -1,6 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "qsqlquerymodel.h"
 #include <QMainWindow>
 #include <QSettings>
 #include <QHostInfo>
@@ -45,7 +46,7 @@ private:
     int indexCbbThuMucOld = -1;
     QList<QString> GetIdFile();
     void LoadAccountFromFile(QList<QString> lstIdFile =QList<QString>(), QString info = "");
-    void LoadDtgvAccFromDatatable(QVariantList *tableAccount);
+    void LoadDtgvAccFromDatatable(QSqlQueryModel *tableAccount);
     void CountCheckedAccount(int count = -1);
     void CountTotalAccount();
     void SetRowColor(int indexRow = -1);
