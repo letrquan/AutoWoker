@@ -1,0 +1,15 @@
+<RCC>
+    <qresource prefix="/res/img">
+        <file>img/AutoWoker.webp</file>
+        <file>C:/Users/quan2/Downloads/Roboto/Roboto-Medium.ttf</file>
+        <file>C:/Users/quan2/Downloads/3d-casual-life-present-with-balloon.gif</file>
+        <file>C:/Users/quan2/Downloads/droll-coming-soon.gif</file>
+        <file>C:/Users/quan2/Downloads/handy-loading-paper-into-the-printer.gif</file>
+        <file>C:/Users/quan2/Downloads/social-contactless-payment-with-mobile-phone.gif</file>
+        <file>C:/Users/quan2/Downloads/bouncy-multiple-errors-on-the-computer.gif</file>
+        <file>C:/Users/quan2/Downloads/Telegram Desktop/AutoPC/AutoPC/autoworkerpc.ico</file>
+        <file>C:/Users/quan2/Downloads/close.png</file>
+        <file>C:/Users/quan2/Downloads/play.png</file>
+        <file>C:/Users/quan2/Downloads/search.png</file>
+    </qresource>
+</RCC>

@@ -1,0 +1,7 @@
+[requires]
+quazip/1.4
+[generators]
+CMakeDeps
+CMakeToolchain
+[layout]
+cmake_layout

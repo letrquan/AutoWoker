@@ -1,0 +1,943 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>fImportAccountFormatInput</class>
+ <widget class="QDialog" name="fImportAccountFormatInput">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1200</width>
+    <height>167</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: #FFFBDA;
+color:black;
+font: 500 9pt &quot;Roboto Medium&quot;;
+border-width: 2px; /* Set the width of the border */
+border-style: solid; /* Define the style of the border */
+border-color: black; /* Define the color of the border */
+border-radius: 20px;</string>
+  </property>
+  <widget class="QComboBox" name="cbbDinhDang10">
+   <property name="geometry">
+    <rect>
+     <x>937</x>
+     <y>50</y>
+     <width>91</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-radius:15px;
+background-color:white;</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>Uid</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Pass</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Token</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Cookie</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Email</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Pass Email</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2FA</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Useragent</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Proxy</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Birthday</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Bạn bè</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Ngày tạo</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Mail khôi phục</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="cbbDinhDang7">
+   <property name="geometry">
+    <rect>
+     <x>637</x>
+     <y>50</y>
+     <width>91</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-radius:15px;
+background-color:white;</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>Uid</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Pass</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Token</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Cookie</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Email</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Pass Email</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2FA</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Useragent</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Proxy</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Birthday</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Bạn bè</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Ngày tạo</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Mail khôi phục</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="cbbDinhDang8">
+   <property name="geometry">
+    <rect>
+     <x>737</x>
+     <y>50</y>
+     <width>91</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-radius:15px;
+background-color:white;</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>Uid</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Pass</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Token</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Cookie</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Email</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Pass Email</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2FA</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Useragent</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Proxy</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Birthday</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Bạn bè</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Ngày tạo</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Mail khôi phục</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="cbbDinhDang3">
+   <property name="geometry">
+    <rect>
+     <x>237</x>
+     <y>50</y>
+     <width>91</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-radius:15px;
+background-color:white;</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>Uid</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Pass</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Token</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Cookie</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Email</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Pass Email</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2FA</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Useragent</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Proxy</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Birthday</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Bạn bè</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Ngày tạo</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Mail khôi phục</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="cbbDinhDang1">
+   <property name="geometry">
+    <rect>
+     <x>37</x>
+     <y>50</y>
+     <width>91</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-radius:15px;
+background-color:white;</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>Uid</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Pass</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Token</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Cookie</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Email</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Pass Email</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2FA</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Useragent</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Proxy</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Birthday</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Bạn bè</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Ngày tạo</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Mail khôi phục</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="cbbDinhDang4">
+   <property name="geometry">
+    <rect>
+     <x>337</x>
+     <y>50</y>
+     <width>91</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-radius:15px;
+background-color:white;</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>Uid</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Pass</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Token</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Cookie</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Email</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Pass Email</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2FA</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Useragent</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Proxy</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Birthday</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Bạn bè</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Ngày tạo</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Mail khôi phục</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="cbbDinhDang5">
+   <property name="geometry">
+    <rect>
+     <x>437</x>
+     <y>50</y>
+     <width>91</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-radius:15px;
+background-color:white;</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>Uid</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Pass</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Token</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Cookie</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Email</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Pass Email</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2FA</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Useragent</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Proxy</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Birthday</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Bạn bè</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Ngày tạo</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Mail khôi phục</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="cbbDinhDang2">
+   <property name="geometry">
+    <rect>
+     <x>137</x>
+     <y>50</y>
+     <width>91</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-radius:15px;
+background-color:white;</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>Uid</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Pass</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Token</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Cookie</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Email</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Pass Email</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2FA</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Useragent</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Proxy</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Birthday</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Bạn bè</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Ngày tạo</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Mail khôi phục</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="cbbDinhDang6">
+   <property name="geometry">
+    <rect>
+     <x>537</x>
+     <y>50</y>
+     <width>91</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-radius:15px;
+background-color:white;</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>Uid</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Pass</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Token</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Cookie</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Email</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Pass Email</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2FA</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Useragent</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Proxy</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Birthday</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Bạn bè</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Ngày tạo</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Mail khôi phục</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="cbbDinhDang9">
+   <property name="geometry">
+    <rect>
+     <x>837</x>
+     <y>50</y>
+     <width>91</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-radius:15px;
+background-color:white;</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>Uid</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Pass</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Token</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Cookie</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Email</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Pass Email</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2FA</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Useragent</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Proxy</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Birthday</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Bạn bè</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Ngày tạo</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Mail khôi phục</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="cbbDinhDang11">
+   <property name="geometry">
+    <rect>
+     <x>1047</x>
+     <y>50</y>
+     <width>91</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-radius:15px;
+background-color:white;</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>Uid</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Pass</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Token</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Cookie</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Email</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Pass Email</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2FA</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Useragent</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Proxy</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Birthday</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Bạn bè</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Ngày tạo</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Mail khôi phục</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QPushButton" name="btnCancel">
+   <property name="geometry">
+    <rect>
+     <x>577</x>
+     <y>100</y>
+     <width>111</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Roboto Medium</family>
+     <pointsize>9</pointsize>
+     <italic>false</italic>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color:darkred;
+border-radius:20px;
+color:white;
+font-weight:bold;</string>
+   </property>
+   <property name="text">
+    <string>Hủy</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btnAdd">
+   <property name="geometry">
+    <rect>
+     <x>460</x>
+     <y>100</y>
+     <width>111</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-radius:20px;
+background-color: rgb(53, 120, 229);
+color:white;
+font-weight:bold;</string>
+   </property>
+   <property name="text">
+    <string>Thêm</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
