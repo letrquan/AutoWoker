@@ -34,16 +34,16 @@ public:
         reply->deleteLater();
         return isConnected;
     }
-    // static int GetIndexByColumnHeader(QTableWidget* dgv, QString colHeader){
-    //     int col=-1;
-    //     for (int i = 0; i < dgv->columnCount(); ++i) {
-    //         QTableWidgetItem *headerItem = dgv->horizontalHeaderItem(i);
-    //         if (headerItem != nullptr && headerItem->text() == colHeader) {
-    //             col = i;
-    //         }
-    //     }
-    //     return col;
-    // }
+    static int GetIndexByColumnHeader(QTableWidget* dgv, QString colHeader){
+        int col=-1;
+        for (int i = 0; i < dgv->columnCount(); ++i) {
+            QTableWidgetItem *headerItem = dgv->horizontalHeaderItem(i);
+            if (headerItem != nullptr && headerItem->text() == colHeader) {
+                col = i;
+            }
+        }
+        return col;
+    }
     static int findColumnByHeader(QTableView *tableView, const QString &headerText) {
         QAbstractItemModel *model = tableView->model();
         if (!model) {

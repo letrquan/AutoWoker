@@ -1,4 +1,0 @@
-E:/LearnC++/AutoWorker/build/build/CMakeFiles/AutoWorker.dir
-E:/LearnC++/AutoWorker/build/build/CMakeFiles/INSTALL.dir
-E:/LearnC++/AutoWorker/build/build/CMakeFiles/ALL_BUILD.dir
-E:/LearnC++/AutoWorker/build/build/CMakeFiles/ZERO_CHECK.dir
