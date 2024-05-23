@@ -220,7 +220,7 @@ border-radius:20px;</string>
     <rect>
      <x>590</x>
      <y>216</y>
-     <width>85</width>
+     <width>101</width>
      <height>17</height>
     </rect>
    </property>
@@ -534,7 +534,7 @@ border-radius:20px;</string>
     <rect>
      <x>445</x>
      <y>32</y>
-     <width>55</width>
+     <width>71</width>
      <height>17</height>
     </rect>
    </property>
@@ -660,7 +660,7 @@ border-radius:20px;</string>
     <rect>
      <x>590</x>
      <y>170</y>
-     <width>81</width>
+     <width>101</width>
      <height>17</height>
     </rect>
    </property>

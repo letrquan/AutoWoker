@@ -8,6 +8,7 @@
 #include <QTimer>
 #include <unistd.h>
 #include <windows.h>
+#include "../MCommon/connector.h"
 void Common::ExportError(const QException* ex, QString error){
     try {
         QFile file("log/log.txt");
@@ -189,4 +190,30 @@ void Common::SwapTableWidgetRows(QTableWidget* tableWidget, int oldRow, int newR
         tableWidget->item(oldRow, i)->setText(tableWidget->item(newRow, i)->text());
         tableWidget->item(newRow, i)->setText(text);
     }
+}
+bool Common::UpdateFieldToAccount(QString id, QString fieldName, QString fieldValue){
+    bool result = false;
+    try {
+        QString text = "";
+        if (fieldName == "pass")
+        {
+            text = ", pass_old=pass";
+        }
+        if (fieldName == "uid" && fieldValue.trimmed() == "")
+        {
+            return false;
+        }
+        if (fieldName == "cookie1" && fieldValue.trimmed() == "")
+        {
+            return false;
+        }
+        QString query = "update accounts set "+fieldName+" = '"+fieldValue.replace("'", "''")+"'" + text + " where id=" + id;
+        if (Connector::getInstance().ExecuteNonQuery(query) > 0)
+        {
+            result = true;
+        }
+        result = false;
+    } catch (...) {
+    }
+    return result;
 }

@@ -18,7 +18,7 @@ private:
 public:
     Connector(Connector const&) = delete;
     void operator=(Connector const&) = delete;
-    QSqlQueryModel *ExecuteQuery(QString query);
+    QVariantList *ExecuteQuery(QString query);
     int ExecuteNonQuery(QString query);
     int ExecuteScalar(QString query);
 };

@@ -46,6 +46,9 @@ void RequestHandle::setRequestHeaders(QNetworkRequest& request) {
         request.setRawHeader(it.key(), it.value());
     }
 }
+QString RequestHandle::GetUrl(){
+    return url;
+}
 QString RequestHandle::RequestPost(QString url, const QString &data, QString contentType)
 {
     QNetworkRequest request((QUrl(url)));
@@ -152,6 +155,7 @@ QByteArray RequestHandle::RequestGet(QString url){
     connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
     loop.exec();
     if(reply->error() == QNetworkReply::NoError){
+        url = reply->url().toString();
         responseData = reply->readAll();
     }
     reply->deleteLater();

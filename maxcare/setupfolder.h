@@ -8,6 +8,7 @@ public:
     static QString GetUseragentIPhone();
     static void StartApplication();
     static void CreateBaseFolder();
+    static QString smethod_88();
 private:
     static QStringList userAgents;
     static void* getUseragentIphone; // Function pointer

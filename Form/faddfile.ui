@@ -80,7 +80,8 @@ font-weight:bold;</string>
    <property name="styleSheet">
     <string notr="true">border-width: 2px; /* Set the width of the border */
 border-style: solid; /* Define the style of the border */
-border-color: white; /* Define the color of the border */</string>
+border-color: white; /* Define the color of the border */
+color:white;</string>
    </property>
   </widget>
  </widget>

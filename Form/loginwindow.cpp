@@ -22,11 +22,11 @@ LoginWindow::LoginWindow(QWidget *parent)
     // ui->gifLabel->setMovie(movie);
     // movie->start();
 
-    this->setWindowIcon(QIcon(":/res/img/C:/Users/quan2/Downloads/Telegram Desktop/AutoPC/AutoPC/autoworkerpc.ico"));
+    this->setWindowIcon(QIcon(":/img/img/eagle.png"));
     this->setWindowTitle("AutoWorker");
 
     // Set the QLineEdit to handle key press events
-    // ui->accountEdit->installEventFilter(this);
+    ui->accountEdit->installEventFilter(this);
     loadSettings();
 }
 
@@ -104,34 +104,34 @@ void LoginWindow::Loadx(){
     QFile file("update.ini");
     try {
         if(file.open(QIODevice::ReadOnly | QIODevice::Text)){
-            QTextStream in(&file);
-            QString textUpdate = in.readAll();
-            file.close();
-            QString namesoft = textUpdate.split(QRegularExpression("[\r\n]+"), Qt::SkipEmptyParts)[0].replace("[", "").replace("]", "");
-            QString currentVersion = textUpdate.split(QRegularExpression("[\r\n]+"), Qt::SkipEmptyParts)[1].replace("Version=", "");
-            ui->versionLabel->setText(namesoft+" v "+currentVersion);
-            if(!QFile::exists("AutoUpdate.exe") || QFileInfo("AutoUpdate.exe").size() != 165376 ){
-                Common::DownloadFile("https://storage.giau.cc/"+namesoft+"/autoupdate.zip");
-            }
-            try {
-                QString contentRes = AwApi::checkUpdate(namesoft);
-                QJsonDocument doc =QJsonDocument::fromJson(contentRes.toUtf8());
-                if(!doc.isEmpty()){
-                    QJsonObject obj = doc.object();
+            // QTextStream in(&file);
+            // QString textUpdate = in.readAll();
+            // file.close();
+            // QString namesoft = textUpdate.split(QRegularExpression("[\r\n]+"), Qt::SkipEmptyParts)[0].replace("[", "").replace("]", "");
+            // QString currentVersion = textUpdate.split(QRegularExpression("[\r\n]+"), Qt::SkipEmptyParts)[1].replace("Version=", "");
+            // ui->versionLabel->setText(namesoft+" v "+currentVersion);
+            // if(!QFile::exists("AutoUpdate.exe") || QFileInfo("AutoUpdate.exe").size() != 165376 ){
+            //     Common::DownloadFile("https://storage.giau.cc/"+namesoft+"/autoupdate.zip");
+            // }
+            // try {
+            //     QString contentRes = AwApi::checkUpdate(namesoft);
+            //     QJsonDocument doc =QJsonDocument::fromJson(contentRes.toUtf8());
+            //     if(!doc.isEmpty()){
+            //         QJsonObject obj = doc.object();
 
-                    QString newversion = obj["version"].toString();
-                    QString content = obj["content"].toString();
-                    QString linkupdate = obj["link"].toString();
-                    if(newversion != currentVersion){
-                        QMessageBox::information(this,"Cập nhật hệ thống","Vui lòng cập nhật phần mềm để tiếp tục sử dụng");
-                        QProcess::startDetached("Autoupdate.exe");
-                        QCoreApplication::exit(0);
-                        return;
-                    }
-                }
-            } catch (...) {
-                QMessageBox::information(this,"Error","Không thể kết nối đến server");
-            }
+            //         QString newversion = obj["version"].toString();
+            //         QString content = obj["content"].toString();
+            //         QString linkupdate = obj["link"].toString();
+            //         if(newversion != currentVersion){
+            //             QMessageBox::information(this,"Cập nhật hệ thống","Vui lòng cập nhật phần mềm để tiếp tục sử dụng");
+            //             QProcess::startDetached("Autoupdate.exe");
+            //             QCoreApplication::exit(0);
+            //             return;
+            //         }
+            //     }
+            // } catch (...) {
+            //     QMessageBox::information(this,"Error","Không thể kết nối đến server");
+            // }
             try {
                 QFile file("update.ini");
 

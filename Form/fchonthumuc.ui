@@ -97,7 +97,7 @@ font-weight:bold;</string>
     <string/>
    </property>
   </widget>
-  <widget class="QTableView" name="dtgvAcc">
+  <widget class="QTableWidget" name="dtgvAcc">
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -110,6 +110,31 @@ font-weight:bold;</string>
     <string notr="true">background-color: rgb(85, 0, 0);
 color: rgb(255, 255, 255);</string>
    </property>
+   <column>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>11</pointsize>
+     </font>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>STT</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Name</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Id</string>
+    </property>
+   </column>
   </widget>
   <widget class="QLabel" name="label">
    <property name="geometry">

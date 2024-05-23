@@ -15,6 +15,7 @@ public:
     QByteArray RequestGet(QString url);
     void IgnoreBadCertificates(QNetworkRequest& request);
     void addHeader(const QByteArray& headerName, const QByteArray& headerValue);
+    QString GetUrl();
 private slots:
     void onSslErrors(QNetworkReply *reply, const QList<QSslError> &errors);
 private:
@@ -23,6 +24,7 @@ private:
     QNetworkCookieJar* cookieJar;
     QMap<QByteArray, QByteArray> headers;
     QString cookies="";
+    QString url= "";
 };
 
 #endif // REQUESTHANDLE_H

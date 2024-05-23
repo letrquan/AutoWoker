@@ -40,7 +40,7 @@ fImportAccount::~fImportAccount()
 
 void fImportAccount::Load_cbbThuMuc(){
     indexOld = ui->cbbThuMuc->currentIndex();
-    QVariantList allFilesFromDatabase = CommonSQL::GetAllFilesFromDatabase(false,true);
+    QVariantList allFilesFromDatabase = *CommonSQL::GetAllFilesFromDatabase(false,true);
     if(!allFilesFromDatabase.isEmpty() || allFilesFromDatabase.count()>0){
         for(const QVariant &item:allFilesFromDatabase){
             QVariantMap rowMap = item.toMap();

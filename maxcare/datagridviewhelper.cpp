@@ -2,9 +2,10 @@
 #include <QHeaderView>
 #include "../maxcare/updatestatus.h"
 #include "../Utils/Utils.h"
+#include "../MCommon/Common.h"
 DatagridviewHelper::DatagridviewHelper() {}
 
-void DatagridviewHelper::LoadDtgvAccFromDatatable(QTableView* dgv, QVariantList* tableAccount, bool isUseForBin){
+void DatagridviewHelper::LoadDtgvAccFromDatatable(QTableWidget* dgv, QVariantList* tableAccount, bool isUseForBin){
     dgv->setRowCount(tableAccount->size());
     if(!isUseForBin){
         auto row =0;
@@ -142,6 +143,20 @@ QString DatagridviewHelper::GetStatusDataGridView(QTableWidget* dgv, int row, QS
     } catch (...) {
     }
     return output;
+}
+void DatagridviewHelper::SetStatusDataGridViewWithWait(QTableWidget* dgv, int row, QString colName, int timeWait, QString status){
+    try
+    {
+        int time_start = GetTickCount();
+        while ((GetTickCount() - time_start) / 1000 - timeWait < 0)
+        {
+            dgv->item(row,Utils::GetIndexByColumnHeader(dgv,colName))->setText(status.replace("{time}", QString::number((timeWait - (GetTickCount() - time_start) / 1000))));
+            Common::DelayTime(0.5);
+        }
+    }
+    catch(...)
+    {
+    }
 }
 void DatagridviewHelper::SetStatusDataGridView(QTableWidget* dgv, int row, int col, QVariant status){
     try {

@@ -1,0 +1,7 @@
+Uid|Pass|2FA|Email|Pass Email|Cookie|Token
+Uid|Pass|2FA|Email|Cookie|Token
+Cookie
+Uid|Pass
+Uid|Pass|Token|Cookie
+Uid|Pass|Token|Cookie|Email|Pass Email
+Uid|Pass|Token|Cookie|Email|Pass Email|2FA

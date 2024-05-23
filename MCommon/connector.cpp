@@ -12,7 +12,7 @@ Connector& Connector::getInstance(){
 
 void Connector::CheckConnectServer(){
     try {
-        QString text = "E:/LearnC++/AutoWorker/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/database/db_maxcare.sqlite";
+        QString text = "D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/database/db_maxcare.sqlite";
         if(text != connectionSTR){
             if(connection.isOpen()){
                 connection.close();
@@ -32,8 +32,8 @@ void Connector::CheckConnectServer(){
         Common::ExportError(&ex, "CheckConnectServer");
     }
 }
-QSqlQueryModel* Connector::ExecuteQuery(QString query){
-    QSqlQueryModel* resultList = new QSqlQueryModel();
+QVariantList* Connector::ExecuteQuery(QString query){
+    QVariantList* resultList = new QVariantList();
     QSqlQuery dataList(connection);
     try {
         CheckConnectServer();
@@ -41,7 +41,13 @@ QSqlQueryModel* Connector::ExecuteQuery(QString query){
             getInstance().ExecuteNonQuery(Common::Base64Decode("VVBEQVRFIGFjY291bnRzIFNFVCBhY3RpdmU9MiBXSEVSRSBhY3RpdmU9MQ=="));
         }
         if(dataList.exec(query)){
-            resultList->setQuery(std::move(dataList));
+            while (dataList.next()) {
+                QVariantMap rowMap;
+                for (int i = 0; i < dataList.record().count(); ++i) {
+                    rowMap.insert(dataList.record().fieldName(i), dataList.value(i));
+                }
+                resultList->append(rowMap);
+            }
         }else{
             qDebug() << "Error at executequery" ;
         }

@@ -20,6 +20,7 @@ public:
     static void DelayTime(double second);
     static bool deleteFile(QString pathFile);
     static void CreateFolder(QString pathFolder);
+    static bool UpdateFieldToAccount(QString id, QString fieldName, QString fieldValue);
     static void ShowDialog(QDialog *dialog);
     static QStringList RemoveEmptyItems(const QStringList& lst);
     static void ShowForm(QWidget* widget);

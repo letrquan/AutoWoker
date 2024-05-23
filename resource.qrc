@@ -1,17 +1,17 @@
 <RCC>
     <qresource prefix="/img">
-        <file>C:/Users/quan2/Downloads/down-arrow.png</file>
-        <file>C:/Users/quan2/Downloads/up-arrow.png</file>
-        <file>C:/Users/quan2/Downloads/profile-user.png</file>
-        <file>C:/Users/quan2/Downloads/search.png</file>
-        <file>C:/Users/quan2/Downloads/play-button.png</file>
-        <file>C:/Users/quan2/Downloads/add (1).png</file>
-        <file>C:/Users/quan2/Downloads/refresh.png</file>
-        <file>C:/Users/quan2/Downloads/add.png</file>
-        <file>C:/Users/quan2/Downloads/minus.png</file>
-        <file>C:/Users/quan2/Downloads/pencil.png</file>
-        <file>C:/Users/quan2/Downloads/handy-loading-paper-into-the-printer.gif</file>
-        <file>C:/Users/quan2/Downloads/bouncy-multiple-errors-on-the-computer.gif</file>
         <file>img/eagle.png</file>
+        <file>img/minus.png</file>
+        <file>img/pencil.png</file>
+        <file>img/play-button.png</file>
+        <file>img/plus.png</file>
+        <file>img/profile-user.png</file>
+        <file>img/refresh.png</file>
+        <file>img/search.png</file>
+        <file>img/check.png</file>
+        <file>img/hide.png</file>
+        <file>img/select-all.png</file>
+        <file>img/up-arrow.png</file>
+        <file>img/stop-button.png</file>
     </qresource>
 </RCC>

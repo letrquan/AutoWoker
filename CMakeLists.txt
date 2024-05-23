@@ -62,6 +62,8 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         Form/fimportaccountformatinput.h Form/fimportaccountformatinput.cpp Form/fimportaccountformatinput.ui
         maxcare/StringHelper.h
         Form/fchonthumuc.h Form/fchonthumuc.cpp Form/fchonthumuc.ui
+        MCommon/CommonRequest.h
+        MCommon/CommonChrome.h
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET AutoWorker APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR

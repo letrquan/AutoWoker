@@ -35,7 +35,7 @@ void fChonThuMuc::on_button5_clicked()
     QString statusDataGridView2 = DatagridviewHelper::GetStatusDataGridView(ui->dtgvAcc, index, "Id");
     if (!statusDataGridView.isEmpty() || !statusDataGridView2.isEmpty()) {
         if (CommonSQL::UpdateThuTuThuMuc(statusDataGridView, statusDataGridView2)) {
-            Common::SwapTableWidgetRows(ui->dtgvAcc->, index, index - 1, 2);
+            Common::SwapTableWidgetRows(ui->dtgvAcc, index, index - 1, 2);
             ui->dtgvAcc->clearSelection();
             ui->dtgvAcc->selectRow(index - 1);
         } else {
@@ -50,8 +50,8 @@ void fChonThuMuc::on_btnAdd_clicked()
     isAdd =true;
     if(isFromBin){
         lstChooseIdFilesFromBin = *new QList<QString>();
-        for(int i =0;i<ui->dtgvAcc->model()->rowCount();i++){
-            if(ui->dtgvAcc->){
+        for(int i =0;i<ui->dtgvAcc->rowCount();i++){
+            if(ui->dtgvAcc->item(i,0)->checkState()){
                 lstChooseIdFilesFromBin.append(DatagridviewHelper::GetStatusDataGridView(ui->dtgvAcc,i,"Id"));
             }
         }
@@ -75,40 +75,43 @@ void fChonThuMuc::on_btnAdd_clicked()
 }
 void fChonThuMuc::LoadListFiles(const QList<QString> &lstIdFile){
     try {
-        QSqlQueryModel* dataTable =  ((!isFromBin) ? CommonSQL::GetAllFilesFromDatabase() : CommonSQL::GetAllFilesFromDatabaseForBin());
-        QStandardItemModel *standardModel = new QStandardItemModel();
-        int rowCount = dataTable->rowCount();
-        int columnCount = dataTable->columnCount()+1;
-        for (int col = 0; col < columnCount; ++col) {
-            if(col==0){
-                standardModel->setHorizontalHeaderItem(col, new QStandardItem(""));
-            }else{
-                QString header = dataTable->headerData(col, Qt::Horizontal).toString();
-                standardModel->setHorizontalHeaderItem(col, new QStandardItem(header));
-            }
-        }
-
-        // Populate the QStandardItemModel with data from the QSqlQueryModel
-        for (int row = 0; row < rowCount; ++row) {
-            QList<QStandardItem *> items;
-            for (int col = 0; col < columnCount; ++col) {
-                QVariant data = dataTable->data(dataTable->index(row, col));
-                QStandardItem *item = new QStandardItem(data.toString());
-
-                // Add checkbox to the first column
-                if (col == 0) {
-                    item->setCheckable(true);
-                    item->setCheckState(Qt::Unchecked); // Default unchecked
-                }
-
-                items.append(item);
-            }
-            standardModel->appendRow(items);
-        }
-
+        QVariantList* dataTable =  ((!isFromBin) ? CommonSQL::GetAllFilesFromDatabase() : CommonSQL::GetAllFilesFromDatabaseForBin());
+        ui->dtgvAcc->insertRow(dataTable->size());
+        int row = 0;
         if(!lstIdFile.isEmpty()){
-            int i = Utils::findColumnByHeader(ui->dtgvAcc,"id");
-            ui->dtgvAcc->setColumnHidden(i,true);
+            for(const QVariant &item : *dataTable){
+                QVariantMap rowMap = item.toMap();
+                if(lstIdFile.contains(rowMap["id"].toString())){
+                    QTableWidgetItem *checkboxItem = new QTableWidgetItem();
+                    checkboxItem->setFlags(checkboxItem->flags() | Qt::ItemIsUserCheckable);
+                    checkboxItem->setCheckState(Qt::Checked);
+                    ui->dtgvAcc->setItem(row,0, checkboxItem);
+                    QTableWidgetItem *id = new QTableWidgetItem(rowMap["id"].toString());
+                    id->setFlags(id->flags() & ~Qt::ItemIsEditable);
+                    QTableWidgetItem *name = new QTableWidgetItem(rowMap["name"].toString());
+                    QTableWidgetItem *stt = new QTableWidgetItem(row+1);
+                    name->setFlags(name->flags() & ~Qt::ItemIsEditable);
+                    stt->setFlags(stt->flags() & ~Qt::ItemIsEditable);
+                    ui->dtgvAcc->setItem(row,3, id);
+                    ui->dtgvAcc->setItem(row,2, name);
+                    ui->dtgvAcc->setItem(row,1,stt);
+                }else{
+                    QTableWidgetItem *checkboxItem = new QTableWidgetItem();
+                    checkboxItem->setFlags(checkboxItem->flags() | Qt::ItemIsUserCheckable);
+                    checkboxItem->setCheckState(Qt::Unchecked);
+                    ui->dtgvAcc->setItem(row,0, checkboxItem);
+                    QTableWidgetItem *id = new QTableWidgetItem(rowMap["id"].toString());
+                    id->setFlags(id->flags() & ~Qt::ItemIsEditable);
+                    QTableWidgetItem *name = new QTableWidgetItem(rowMap["name"].toString());
+                    QTableWidgetItem *stt = new QTableWidgetItem(row+1);
+                    name->setFlags(name->flags() & ~Qt::ItemIsEditable);
+                    stt->setFlags(stt->flags() & ~Qt::ItemIsEditable);
+                    ui->dtgvAcc->setItem(row,3, id);
+                    ui->dtgvAcc->setItem(row,2, name);
+                    ui->dtgvAcc->setItem(row,1,stt);
+                }
+                row++;
+            }
         }else{
 
         }

@@ -40,11 +40,11 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     LoginWindow loginWindow;
-    if(!isRunningAsAdmin()){
-        QMessageBox::information(nullptr, "Info", "Please run the application as an administrator!");
-        runAsAdmin();
-        return 0;
-    }
+    // if(!isRunningAsAdmin()){
+    //     QMessageBox::information(nullptr, "Info", "Please run the application as an administrator!");
+    //     runAsAdmin();
+    //     return 0;
+    // }
     SetupFolder::CreateBaseFolder();
     loginWindow.show();
     return a.exec();

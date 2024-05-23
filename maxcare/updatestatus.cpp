@@ -22,10 +22,10 @@ QString UpdateStatus::GetStatusById(QString id)
 void UpdateStatus::GetValueFromDatabase(){
     if (isSaveSettings)
     {
-        QSqlQueryModel* map = CommonSQL::GetIdStatus();
-        for (int i =0; i<map->rowCount();i++){
-
-            dicIdStatus.insert(map->index(i,0).data().toString(),map->index(i,1).data().toString());
+        QVariantList* map = CommonSQL::GetIdStatus();
+        for (auto item:*map){
+            auto rowMap = item.toMap();
+            dicIdStatus.insert(rowMap["id"].toString(),rowMap["status"].toString());
         }
     }
 }

@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include "fimportaccount.h"
 #include "qnetworkreply.h"
-#include "ui_mainwindow.h"
+#include "Form/ui_mainwindow.h"
 #include <QNetworkRequest>
 #include "../MCommon/requesthandle.h"
 #include <QNetworkAccessManager>
@@ -14,13 +14,13 @@
 #include "../maxcare/setupfolder.h"
 #include "../maxcare/SettingsTool.h"
 #include <QSqlRecord>
-#include "../CloneDatabase/clonedatabase.h"
 #include "../maxcare/collectionhelper.h"
-#include "../Form/fchonthumuc.h"//"
+#include "../Form/fchonthumuc.h"
 #include "fcauhinhhienthi.h"
 #include <QTableWidget>
 #include "../maxcare/datagridviewhelper.h"
 #include "../Utils/Utils.h"
+#include "../MCommon/CommonRequest.h"
 MainWindow::MainWindow(QString tokemem, QString namemem, QString phoneMem, QString maxDeviceMem,QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -36,6 +36,9 @@ MainWindow::MainWindow(QString tokemem, QString namemem, QString phoneMem, QStri
     // ui->label_6->setText(ui->label_7->text()+Utils::buildDeviceId());
     this->setAttribute(Qt::WA_TranslucentBackground);
     setColumnVisibility("Id",false);
+    ui->tableWidget->horizontalHeader()->setStretchLastSection(true);
+    connect(ui->tableWidget, &QTableWidget::customContextMenuRequested, this, &MainWindow::showContextMenu);
+    ui->tableWidget->setContextMenuPolicy(Qt::CustomContextMenu);
     OnLoaded();
 
 }
@@ -133,7 +136,7 @@ void MainWindow::LoadcbbSearch(){
 }
 void MainWindow::LoadCbbThuMuc(int selectedIndex){
     isExcute_CbbThuMuc_SelectedIndexChanged = false;
-    QVariantList allFilesFromDatabase = CommonSQL::GetAllFilesFromDatabase(true);
+    QVariantList allFilesFromDatabase = *CommonSQL::GetAllFilesFromDatabase(true);
     ui->cbbThuMuc->clear();
     for (int i = 0; i < allFilesFromDatabase.size(); ++i) {
         const QVariant &item = allFilesFromDatabase[i];
@@ -149,7 +152,7 @@ void MainWindow::LoadCbbThuMuc(int selectedIndex){
 
 void MainWindow::LoadCbbTinhTrang(const QList<QString>& lstIdFile){
     try {
-        QVariantList allInfoFromAccount = CommonSQL::GetAllInfoFromAccount(lstIdFile);
+        QVariantList allInfoFromAccount = *CommonSQL::GetAllInfoFromAccount(lstIdFile);
         ui->cbbTinhTrang->clear();
         for (int i = 0; i < allInfoFromAccount.size(); ++i) {
             const QVariant &item = allInfoFromAccount[i];
@@ -194,20 +197,20 @@ void MainWindow::AddUI(){
 void MainWindow::changeEvent(QEvent *event){
     if (event->type() == QEvent::WindowStateChange) {
         if (isMinimized()) {
-            try {
-                try {
-                    QFile file("settings\\language.txt");
-                    file.remove();
+            // try {
+            //     try {
+            //         QFile file("settings\\language.txt");
+            //         file.remove();
 
-                } catch (...) {
-                }
-                if(SettingsTool::GetSettings("configInteractGeneral").GetValueBool("ckbBackupDB",true)){
-                    CloneDatabase::Excute();
-                }
-                QApplication::exit();
-            } catch (...) {
-                this->close();
-            }
+            //     } catch (...) {
+            //     }
+            //     if(SettingsTool::GetSettings("configInteractGeneral").GetValueBool("ckbBackupDB",true)){
+            //         CloneDatabase::Excute();
+            //     }
+            //     QApplication::exit();
+            // } catch (...) {
+            //     this->close();
+            // }
 
         }else{
             if(isMaximized()){
@@ -258,7 +261,7 @@ void MainWindow::LoadAccountFromFile(QList<QString> lstIdFile, QString info){
         {
             info = "";
         }
-        QVariantList accFromFile = CommonSQL::GetAccFromFile(&lstIdFile, info);
+        QVariantList accFromFile = *CommonSQL::GetAccFromFile(&lstIdFile, info);
         LoadDtgvAccFromDatatable(&accFromFile);
     } catch (...) {
     }
@@ -426,8 +429,446 @@ void MainWindow::on_button9_clicked()
     }
 }
 
+void MainWindow::KiemTraTaiKhoan(int type, bool useProxy){
+    QAtomicInt iThread(0);
+    int maxThread=SettingsTool::GetSettings("configGeneral").GetValueInt("nudHideThread", 10);
+    QString tokenTrungGian = SettingsTool::GetSettings("configGeneral").GetValue("token");
+    isStop = false;
+    QThread::create([this, &tokenTrungGian, &iThread, &maxThread, &type](){
+        cControl("start");
+        switch (type) {
+        case 0:
+        {
+            int num4=0;
+            while (num4 <ui->tableWidget->rowCount() && !isStop) {
+                if(ui->tableWidget->item(num4,0)->checkState() == Qt::Checked){
+                    if(iThread <maxThread){
+                        iThread.fetchAndAddOrdered(1);
+                        int row3 = num4++;
+                        QThread::create([&row3, this, &tokenTrungGian, &iThread]() {
+                            SetStatusAccount(row3, Language::GetValue("Đang kiểm tra..."));
+                            CheckMyWall(row3, tokenTrungGian);
+                            iThread.fetchAndSubOrdered(1);
+                        })->start();
+                    }else{
+                        QCoreApplication::processEvents();
+                        QThread::msleep(200);
+                    }
+                }else
+                {
+                    num4++;
+                }
+            }
+            break;
+        }
+        case 1:{
+            int num6=0;
+            while (num6 <ui->tableWidget->rowCount() && !isStop) {
+                if(ui->tableWidget->item(num6,0)->checkState() == Qt::Checked){
+                    if(iThread <maxThread){
+                        iThread.fetchAndAddOrdered(1);
+                        int row = num6++;
+                        QThread::create([&row, this, &iThread]() {
+                            SetStatusAccount(row, Language::GetValue("Đang kiểm tra..."));
+                            CheckMyToken(row);
+                            iThread.fetchAndSubOrdered(1);
+                        })->start();
+                    }else{
+                        QCoreApplication::processEvents();
+                        QThread::msleep(200);
+                    }
+                }else
+                {
+                    num6++;
+                }
+            }
+        }
+        case 2:{
+            int num2 = 0;
+            while (num2 <ui->tableWidget->rowCount() && !isStop)
+            {
+                if (ui->tableWidget->item(num2,0)->checkState() == Qt::Checked)
+                {
+                    if(iThread <maxThread){
+                        iThread.fetchAndAddOrdered(1);
+                        int row = num2++;
+                        QThread::create([&row, this, &iThread]() {
+                            SetStatusAccount(row, Language::GetValue("Đang kiểm tra..."));
+                            CheckMyCookie(row);
+                            iThread.fetchAndSubOrdered(1);
+                        })->start();
+                    }else{
+                        QCoreApplication::processEvents();
+                        QThread::msleep(200);
+                    }
+                }
+                else
+                {
+                    num2++;
+                }
+            }
+            break;
+        }
+        case 3:{
+            int num5 = 0;
+            while (num5 < ui->tableWidget->rowCount() && !isStop)
+            {
+                if (ui->tableWidget->item(num5,0)->checkState() == Qt::Checked)
+                {
+                    if (iThread < maxThread)
+                    {
+                        iThread.fetchAndAddOrdered(1);
+                        int row2 = num5++;
+                        QThread::create([&row2, this, &iThread]() {
+                            SetStatusAccount(row2, Language::GetValue("Đang kiểm tra..."));
+                            CheckDangCheckpoint(row2);
+                            iThread.fetchAndSubOrdered(1);
+                        })->start();
+                    }else{
+                        QCoreApplication::processEvents();
+                        QThread::msleep(200);
+                    }
+                }
+                else
+                {
+                    num5++;
+                }
+            }
+            break;
+        }
+        case 4:{
+            int num3 = 0;
+            while (num3 < ui->tableWidget->rowCount() && !isStop)
+            {
+                if (ui->tableWidget->item(num3,0)->checkState() == Qt::Checked)
+                {
+                    if (iThread < maxThread)
+                    {
+                        iThread.fetchAndAddOrdered(1);
+                        int row4 = num3++;
+                        QThread::create([&row4, this, &iThread]() {
+                            SetStatusAccount(row4, Language::GetValue("Đang kiểm tra..."));
+                            CheckAccountMail(row4);
+                            iThread.fetchAndSubOrdered(1);
+                        })->start();
+                    }
+                    else
+                    {
+                        QCoreApplication::processEvents();
+                        QThread::msleep(200);
+                    }
+                }
+                else
+                {
+                    num3++;
+                }
+            }
+            break;
+        }
+        default:
+            break;
+        }
+    })->start();
+}
+
+void MainWindow::CheckAccountMail(int row){
+    try {
+        QString text = "";
+        QString text2 = "";
+        text = ui->tableWidget->item(row, Utils::GetIndexByColumnHeader(ui->tableWidget,"Email"))->text();
+        text2 = ui->tableWidget->item(row, Utils::GetIndexByColumnHeader(ui->tableWidget,"Mật khẩu Mail"))->text();
+    } catch (...) {
+    }
+}
+
+void MainWindow::CheckDangCheckPoint(int indexRow, QString statusProxy, QString cookie, QString proxy, int typeProxy,  bool &isCheckpoint282){
+    try {
+        RequestHandle requestXNet(cookie, "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.131 Safari/537.36", proxy, typeProxy);
+        isCheckpoint282 = false;
+        QString text = requestXNet.RequestGet("https://mbasic.facebook.com/");
+        QString url = requestXNet.GetUrl();
+        if(url.contains("checkpoint/disabled")){
+            SetStatusAccount(indexRow, statusProxy + "Vô hiệu hóa!");
+            SetInfoAccount(indexRow, "Checkpoint: vhh");
+            SetRowColor(indexRow, 1);
+        }else if (url.contains("828281030927956"))
+        {
+            QString text2 = "956";
+            text2 = ((!text.contains("/stepper/")) ? (text2 + "-Tìm hiểu thêm") : (text2 + "-Bắt đầu"));
+            SetStatusAccount(indexRow, statusProxy + "Checkpoint " + text2 + "!");
+            SetInfoAccount(indexRow, "Checkpoint: " + text2);
+            SetRowColor(indexRow, 1);
+        }else if (url.contains("1501092823525282"))
+        {
+            SetInfoAccount(indexRow, "Checkpoint: 282");
+            SetStatusAccount(indexRow, statusProxy + "Checkpoint 282!");
+            isCheckpoint282 = true;
+        }
+        else if (url.contains("facebook.com/gettingstarted") || (text.contains("href=\"/menu/bookmarks/") && text.contains("id=\"mbasic_logout_button\"")))
+        {
+            SetInfoAccount(indexRow, "Live");
+            SetStatusAccount(indexRow, "Tài khoản live!");
+            SetRowColor(indexRow, 2);
+        }
+        else if (text.contains("https://mbasic.facebook.com/login.php") || text.contains("name=\"login\""))
+        {
+            SetStatusAccount(indexRow, statusProxy + "No login!");
+        }
+        else if (text.contains("confirmation"))
+        {
+            SetStatusAccount(indexRow, statusProxy + "Novery Live!");
+            SetRowColor(indexRow, 2);
+        }
+        else if (text.contains("/login/device-based/validate-pin/"))
+        {
+            SetStatusAccount(indexRow, statusProxy + "Cookie bị đăng xuất!");
+            SetRowColor(indexRow, 2);
+        }
+        else
+        {
+            SetStatusAccount(indexRow, statusProxy + "Dạng Checkpoint khác!");
+            SetRowColor(indexRow, 1);
+        }
+    } catch (...) {
+        SetStatusAccount(indexRow, statusProxy + "Không check được!");
+    }
+}
 
 
+void MainWindow::SetRowColor(int indexRow, int typeColor){
+    switch (typeColor) {
+    case 1:
+        Utils::changeRowColor(ui->tableWidget,indexRow,QColor(255, 118, 117));
+        break;
+    case 2:
+        Utils::changeRowColor(ui->tableWidget,indexRow,QColor(184, 233, 148));
+        break;
+    default:
+        break;
+    }
+}
+
+void MainWindow::CheckDangCheckpoint(int row){
+    QString cellAccount = GetCellAccount(row, "cCookies");
+    if (cellAccount.trimmed() == "")
+    {
+        SetStatusAccount(row, Language::GetValue("Cookie trô\u0301ng!"));
+        return;
+    }
+    // GetCellAccount(row, "cUseragent").trimmed();
+    QString text = "";
+    int typeProxy = 0;
+    if (SettingsTool::GetSettings("configGeneral").GetValueInt("ip_iTypeChangeIp") == 9)
+    {
+        text = GetCellAccount(row, "cProxy");
+        typeProxy = (text.endsWith("*1") ? 1 : 0);
+        if (text.endsWith("*0") || text.endsWith("*1"))
+        {
+            text = text.left(text.length() - 2);
+        }
+    }
+    SetStatusAccount(row, Language::GetValue("Checking..."));
+    bool isCheckpoint = false;
+    CheckDangCheckPoint(row, "", cellAccount, text, typeProxy,  isCheckpoint);
+}
+void MainWindow::CheckMyCookie(int row){
+    try {
+        QString text = "";
+        GetCellAccount(row, "cId");
+        QString cellAccount = GetCellAccount(row, "cCookies");
+        if (cellAccount.trimmed() == "")
+        {
+            SetStatusAccount(row, Language::GetValue("Cookie trô\u0301ng!"));
+            return;
+        }
+        QString userAgent = GetCellAccount(row, "cUseragent").trimmed();
+        QString text2 = "";
+        int typeProxy = 0;
+        if (SettingsTool::GetSettings("configGeneral").GetValueInt("ip_iTypeChangeIp") == 9)
+        {
+            text2 = GetCellAccount(row, "cProxy");
+            typeProxy = (text2.endsWith("*1") ? 1 : 0);
+            if (text2.endsWith("*0") || text2.endsWith("*1"))
+            {
+                text2 = text2.left(text2.length() - 2);
+            }
+        }
+        QString text3 = "";
+        if (!CommonRequest::CheckLiveCookie(cellAccount, userAgent, text2, typeProxy).startsWith("1|"))
+        {
+            text3 = "Cookie die";
+        }
+        else
+        {
+            text = "Live";
+            text3 = "Cookie live";
+        }
+        SetStatusAccount(row, text3);
+        if (text != "")
+        {
+            SetInfoAccount(row, text);
+        }
+    } catch (...) {
+    }
+}
+void MainWindow::CheckMyToken(int row){
+    try {
+        QString text = "";
+        GetCellAccount(row, "cId");
+        QString cellAccount = GetCellAccount(row, "cCookies");
+        QString cellAccount2 = GetCellAccount(row, "cToken");
+        if (cellAccount2.trimmed() == "")
+        {
+            SetStatusAccount(row, Language::GetValue("Token trô\u0301ng!"));
+            return;
+        }
+        QString useragent = GetCellAccount(row, "cUseragent").trimmed();
+        QString text2 = "";
+        int typeProxy = 0;
+        if (SettingsTool::GetSettings("configGeneral").GetValueInt("ip_iTypeChangeIp") == 9)
+        {
+            text2 = GetCellAccount(row, "cProxy");
+            typeProxy = (text2.endsWith("*1") ? 1 : 0);
+            if (text2.endsWith("*0") || text2.endsWith("*1"))
+            {
+                text2 = text2.left(text2.length() - 2);
+            }
+        }
+        QString text3 = "";
+        if (!CommonRequest::CheckLiveToken(cellAccount, cellAccount2, useragent, text2, typeProxy))
+        {
+            text3 = "Token die";
+        }
+        else
+        {
+            text = "Live";
+            text3 = "Token live";
+        }
+        SetStatusAccount(row, text3);
+        if (text != "")
+        {
+            SetInfoAccount(row, text);
+        }
+
+    } catch (...) {
+        SetStatusAccount(row, Language::GetValue("Không check đươ\u0323c!"));
+    }
+}
+
+
+void MainWindow::CheckMyWall(int row, QString tokenTg){
+    try {
+        GetCellAccount(row,"Id");
+        QString cellAccount = GetCellAccount(row,"Uid");
+        if (!CheckIsUidFacebook(cellAccount))
+        {
+            SetStatusAccount(row, Language::GetValue("Uid không hợp lệ!"));
+            return;
+        }
+        QString text = "";
+        QString text2 = "";
+        QString text3 = CommonRequest::CheckLiveWall(cellAccount);
+        if (text3.startsWith("0|"))
+        {
+            text = "Die";
+            text2 = "Wall die";
+        }
+        else if (text3.startsWith("1|"))
+        {
+            text = "Live";
+            text2 = "Wall live";
+        }
+        else
+        {
+            text2 = Language::GetValue("Không check được!");
+        }
+        SetStatusAccount(row, text2);
+        if (text != "")
+        {
+            SetInfoAccount(row, text);
+        }
+    } catch (...) {
+        SetStatusAccount(row, Language::GetValue("Không check đươ\u0323c!"));
+    }
+}
+void MainWindow::SetInfoAccount(int indexRow, QString value){
+    DatagridviewHelper::SetStatusDataGridView(ui->tableWidget, indexRow, "cInfo", value);
+    SetRowColor(indexRow);
+    Common::UpdateFieldToAccount(GetCellAccount(indexRow, "cId"), "info", value);
+}
+bool MainWindow::CheckIsUidFacebook(QString uid){
+    if (Common::IsNumber(uid))
+    {
+        if (uid.startsWith("1")|| uid.startsWith("6"))
+        {
+            return true;
+        }
+    }
+    return false;
+}
+void MainWindow::SetStatusAccount(int indexRow, QString value, int timeWait){
+    Common::UpdateFieldToAccount(GetCellAccount(indexRow, "Id"), "status", value);
+    switch (timeWait)
+    {
+    case -1:
+        DatagridviewHelper::SetStatusDataGridView(ui->tableWidget, indexRow, "cStatus", value);
+        break;
+    default:
+        DatagridviewHelper::SetStatusDataGridViewWithWait(ui->tableWidget, indexRow, "cStatus", timeWait, value);
+        break;
+    case 0:
+        break;
+    }
+}
+
+QString MainWindow::GetCellAccount(int indexRow, QString column){
+    return DatagridviewHelper::GetStatusDataGridView(ui->tableWidget, indexRow, column);
+}
+
+
+void MainWindow::cControl(QString dt){
+    try {
+        if(dt == "start"){
+            ui->btnDeleteFile->setEnabled(false);
+            ui->btnEditFile->setEnabled(false);
+            ui->btnLoadAcc->setEnabled(false);
+            ui->addFileAccount->setEnabled(false);
+            ui->frame_4->setEnabled(false);
+            ui->btnInteract->setIcon(QIcon(":/img/img/stop-button.png"));
+            ui->btnInteract->setText("Dừng tương tác");
+            DisableSort();
+        }else if(dt=="stop"){
+            ui->btnDeleteFile->setEnabled(true);
+            ui->btnEditFile->setEnabled(true);
+            ui->btnLoadAcc->setEnabled(true);
+            ui->addFileAccount->setEnabled(true);
+            ui->frame_4->setEnabled(true);
+            ui->btnInteract->setIcon(QIcon(":/img/img/play-button.png"));
+            ui->btnInteract->setText("Chạy tương tác");
+            EnableSort();
+        }
+    } catch (...) {
+    }
+}
+void MainWindow::DisableSort(){
+    try {
+        for (int column = 0; column < ui->tableWidget->columnCount(); ++column) {
+            ui->tableWidget->horizontalHeader()->setSectionResizeMode(column, QHeaderView::Interactive);
+            ui->tableWidget->horizontalHeader()->setSortIndicatorShown(false);
+        }
+        ui->tableWidget->setSortingEnabled(false);
+    } catch (...) {
+    }
+}
+void MainWindow::EnableSort(){
+    try {
+        ui->tableWidget->setSortingEnabled(true);
+        for (int column = 0; column < ui->tableWidget->columnCount(); ++column) {
+            ui->tableWidget->horizontalHeader()->setSortIndicatorShown(true);
+        }
+    } catch (...) {
+    }
+}
 void MainWindow::on_cbbThuMuc_currentIndexChanged(int index)
 {
     auto data = ui->cbbThuMuc->currentData();

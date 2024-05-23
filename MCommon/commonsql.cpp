@@ -4,8 +4,8 @@
 #include <QSqlRecord>
 CommonSQL::CommonSQL() {}
 
-QSqlQueryModel* CommonSQL::GetAllFilesFromDatabase(bool isShowAll, bool notAW){
-    QSqlQueryModel* model;
+QVariantList* CommonSQL::GetAllFilesFromDatabase(bool isShowAll, bool notAW){
+    QVariantList* model;
     try
     {
         QString aw = "";
@@ -32,8 +32,8 @@ QSqlQueryModel* CommonSQL::GetAllFilesFromDatabase(bool isShowAll, bool notAW){
     return model;
 }
 
-QSqlQueryModel* CommonSQL::GetAllInfoFromAccount(QList<QString> lstIdFile, bool isGetActive,bool foraw){
-    QSqlQueryModel* result;
+QVariantList* CommonSQL::GetAllInfoFromAccount(QList<QString> lstIdFile, bool isGetActive,bool foraw){
+    QVariantList* result;
     try {
         QString text = "";
         if(lstIdFile.count()!= 0 && !lstIdFile.isEmpty()){
@@ -72,8 +72,8 @@ bool CommonSQL::AddColumnsIntoTable(QString table, QString columnName, int typeC
     return result;
 }
 
-QSqlQueryModel* CommonSQL::GetIdStatus(){
-    QSqlQueryModel* result;
+QVariantList* CommonSQL::GetIdStatus(){
+    QVariantList* result;
     try {
         QString query = "SELECT id, status FROM accounts";
         result = Connector::getInstance().ExecuteQuery(query);
@@ -82,8 +82,8 @@ QSqlQueryModel* CommonSQL::GetIdStatus(){
     }
     return result;
 }
-QSqlQueryModel* CommonSQL::GetAllFilesFromDatabaseForBin(bool isShowAll){
-    QSqlQueryModel* result;
+QVariantList* CommonSQL::GetAllFilesFromDatabaseForBin(bool isShowAll){
+    QVariantList* result;
     try {
         QString text = "";
         text = (isShowAll ? ("select id, name from files WHERE id IN (SELECT DISTINCT idfile FROM accounts WHERE active=0) UNION SELECT -1 AS id, '" + Language::GetValue("[Tất cả thư mục]") + "' AS name UNION SELECT 999999 AS id, '" + Language::GetValue("[Chọn nhiều thư mục]") + "' AS name ORDER BY id ASC") : "select id, name from files WHERE id IN (SELECT DISTINCT idfile FROM accounts WHERE active=0)");
@@ -93,8 +93,8 @@ QSqlQueryModel* CommonSQL::GetAllFilesFromDatabaseForBin(bool isShowAll){
         return result;
     }
 }
-QSqlQueryModel* CommonSQL::GetAccFromFile(QList<QString>* lstIdFile, QString info, bool isGetActive){
-    QSqlQueryModel* result;
+QVariantList* CommonSQL::GetAccFromFile(QList<QString>* lstIdFile, QString info, bool isGetActive){
+    QVariantList* result;
     try {
         QString text = "WHERE ";
         QString text2 =  ((lstIdFile->isEmpty() && lstIdFile->count() > 0) ? ("t1.idFile IN (" + lstIdFile->join(",") + ")") : "");
@@ -177,15 +177,15 @@ bool CommonSQL::InsertFileToDatabase(QString namefile,bool aw)
 bool CommonSQL::UpdateThuTuThuMuc(const QString& id1, const QString& id2) {
     bool result = false;
     try {
-        QSqlQueryModel* queryResult1 = Connector::getInstance().ExecuteQuery("SELECT STT FROM files WHERE id = " + id1);
-        QSqlQueryModel* queryResult2 = Connector::getInstance().ExecuteQuery("SELECT STT FROM files WHERE id = " + id2);
+        QVariantList* queryResult1 = Connector::getInstance().ExecuteQuery("SELECT STT FROM files WHERE id = " + id1);
+        QVariantList* queryResult2 = Connector::getInstance().ExecuteQuery("SELECT STT FROM files WHERE id = " + id2);
 
-        if (!queryResult1 || !queryResult2 || queryResult1->rowCount() == 0 || queryResult2->rowCount()==0) {
+        if (!queryResult1 || !queryResult2 || queryResult1->isEmpty() || queryResult2->isEmpty()) {
             return result;
         }
 
-        QString text = queryResult1->index(0,0).data().toString();
-        QString text2 = queryResult2->index(0,0).data().toString();
+        QString text = queryResult1->first().toMap().value("STT").toString();
+        QString text2 = queryResult2->first().toMap().value("STT").toString();
 
         QString query1 = "UPDATE files SET STT = " + text2 + " WHERE id = " + id1;
         QString query2 = "UPDATE files SET STT = " + text + " WHERE id = " + id2;

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1381</width>
+    <width>1382</width>
     <height>723</height>
    </rect>
   </property>
@@ -24,145 +24,142 @@ border-radius:15px;</string>
      <verstretch>0</verstretch>
     </sizepolicy>
    </property>
-   <widget class="QWidget" name="layoutWidget">
+   <widget class="QFrame" name="frame">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>10</y>
-      <width>1365</width>
-      <height>707</height>
+      <x>11</x>
+      <y>11</y>
+      <width>274</width>
+      <height>705</height>
      </rect>
     </property>
-    <layout class="QHBoxLayout" name="horizontalLayout_5">
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+      <horstretch>3</horstretch>
+      <verstretch>1</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>274</width>
+      <height>705</height>
+     </size>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-radius:15px;
+background-color: #FFBB70;</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_5">
      <item>
-      <widget class="QFrame" name="frame">
+      <layout class="QHBoxLayout" name="horizontalLayout_4">
+       <item>
+        <widget class="QLabel" name="label_4">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>60</width>
+           <height>60</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <family>Jersey 10</family>
+           <pointsize>22</pointsize>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color:#FBC02D;
+image: url(:/img/img/eagle.png);</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="pixmap">
+          <pixmap>C:/Users/quan2/Downloads/Telegram Desktop/AutoPC/AutoPC/autoworkerpc.ico</pixmap>
+         </property>
+         <property name="scaledContents">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_5">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>141</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <family>Jersey 10</family>
+           <pointsize>18</pointsize>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color:black;</string>
+         </property>
+         <property name="text">
+          <string>Auto Worker</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <spacer name="verticalSpacer">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btnInteract">
        <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-         <horstretch>3</horstretch>
-         <verstretch>1</verstretch>
+        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
         </sizepolicy>
        </property>
        <property name="minimumSize">
         <size>
-         <width>274</width>
-         <height>705</height>
+         <width>211</width>
+         <height>41</height>
         </size>
        </property>
+       <property name="font">
+        <font>
+         <family>Roboto Medium</family>
+         <pointsize>9</pointsize>
+         <italic>false</italic>
+         <bold>true</bold>
+        </font>
+       </property>
        <property name="styleSheet">
-        <string notr="true">border-radius:15px;
-background-color: #FFBB70;</string>
-       </property>
-       <property name="frameShape">
-        <enum>QFrame::StyledPanel</enum>
-       </property>
-       <property name="frameShadow">
-        <enum>QFrame::Raised</enum>
-       </property>
-       <layout class="QVBoxLayout" name="verticalLayout_5">
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_4">
-          <item>
-           <widget class="QLabel" name="label_4">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>60</width>
-              <height>60</height>
-             </size>
-            </property>
-            <property name="font">
-             <font>
-              <family>Jersey 10</family>
-              <pointsize>22</pointsize>
-             </font>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">color:#FBC02D;
-image: url(:/img/img/eagle.png);</string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="pixmap">
-             <pixmap>C:/Users/quan2/Downloads/Telegram Desktop/AutoPC/AutoPC/autoworkerpc.ico</pixmap>
-            </property>
-            <property name="scaledContents">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="label_5">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>141</width>
-              <height>31</height>
-             </size>
-            </property>
-            <property name="font">
-             <font>
-              <family>Jersey 10</family>
-              <pointsize>18</pointsize>
-             </font>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">color:black;</string>
-            </property>
-            <property name="text">
-             <string>Auto Worker</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <spacer name="verticalSpacer">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>40</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item>
-         <widget class="QPushButton" name="pushButton_10">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>211</width>
-            <height>41</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <family>Roboto Medium</family>
-            <pointsize>9</pointsize>
-            <italic>false</italic>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">QPushButton
+        <string notr="true">QPushButton
 {background-color: #FFFBDA;
 color:black;
 font: 500 9pt &quot;Roboto Medium&quot;;
@@ -171,7 +168,7 @@ border-width: 2px; /* Set the width of the border */
 border-style: solid; /* Define the style of the border */
 border-color: black; /* Define the color of the border */
 border-radius: 20px;
-qproperty-icon: url(:/img/C:/Users/quan2/Downloads/play-button.png);
+qproperty-icon: url(:/img/img/play-button.png);
 qproperty-iconSize: 20px 20px;
 text-align: center;
 }
@@ -195,22 +192,22 @@ QPushButton:disabled {
 		background-color: #C40C0C;
 		color: #ffffff;
 }</string>
-          </property>
-          <property name="text">
-           <string>Chạy tương tác     </string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="pushButton">
-          <property name="minimumSize">
-           <size>
-            <width>211</width>
-            <height>41</height>
-           </size>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">QPushButton{ background-color: #FFFBDA;
+       </property>
+       <property name="text">
+        <string>Chạy tương tác     </string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton">
+       <property name="minimumSize">
+        <size>
+         <width>211</width>
+         <height>41</height>
+        </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton{ background-color: #FFFBDA;
 color:black;
 font: 500 9pt &quot;Roboto Medium&quot;;
 font-weight:bold;
@@ -239,22 +236,22 @@ QPushButton:disabled {
 		background-color: #C40C0C;
 		color: #ffffff;
 }</string>
-          </property>
-          <property name="text">
-           <string>Cấu hình chung</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="pushButton_3">
-          <property name="minimumSize">
-           <size>
-            <width>211</width>
-            <height>41</height>
-           </size>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">QPushButton{background-color: #FFFBDA;
+       </property>
+       <property name="text">
+        <string>Cấu hình chung</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_3">
+       <property name="minimumSize">
+        <size>
+         <width>211</width>
+         <height>41</height>
+        </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton{background-color: #FFFBDA;
 color:black;
 font: 500 9pt &quot;Roboto Medium&quot;;
 font-weight:bold;
@@ -282,22 +279,22 @@ QPushButton:disabled {
 		background-color: #C40C0C;
 		color: #ffffff;
 }</string>
-          </property>
-          <property name="text">
-           <string>Cấu hình tương tác</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="pushButton_4">
-          <property name="minimumSize">
-           <size>
-            <width>211</width>
-            <height>41</height>
-           </size>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">QPushButton{background-color: #FFFBDA;
+       </property>
+       <property name="text">
+        <string>Cấu hình tương tác</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_4">
+       <property name="minimumSize">
+        <size>
+         <width>211</width>
+         <height>41</height>
+        </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton{background-color: #FFFBDA;
 color:black;
 font: 500 9pt &quot;Roboto Medium&quot;;
 font-weight:bold;
@@ -325,22 +322,22 @@ QPushButton:disabled {
 		background-color: #C40C0C;
 		color: #ffffff;
 }</string>
-          </property>
-          <property name="text">
-           <string>Cấu hình hiển thị</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="pushButton_5">
-          <property name="minimumSize">
-           <size>
-            <width>211</width>
-            <height>41</height>
-           </size>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">QPushButton{background-color: #FFFBDA;
+       </property>
+       <property name="text">
+        <string>Cấu hình hiển thị</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_5">
+       <property name="minimumSize">
+        <size>
+         <width>211</width>
+         <height>41</height>
+        </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton{background-color: #FFFBDA;
 color:black;
 font: 500 9pt &quot;Roboto Medium&quot;;
 font-weight:bold;
@@ -368,22 +365,22 @@ QPushButton:disabled {
 		background-color: #C40C0C;
 		color: #ffffff;
 }</string>
-          </property>
-          <property name="text">
-           <string>Tài khoản đã xóa</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="pushButton_6">
-          <property name="minimumSize">
-           <size>
-            <width>211</width>
-            <height>41</height>
-           </size>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">QPushButton{background-color: #FFFBDA;
+       </property>
+       <property name="text">
+        <string>Tài khoản đã xóa</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_6">
+       <property name="minimumSize">
+        <size>
+         <width>211</width>
+         <height>41</height>
+        </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton{background-color: #FFFBDA;
 color:black;
 font: 500 9pt &quot;Roboto Medium&quot;;
 font-weight:bold;
@@ -411,34 +408,333 @@ QPushButton:disabled {
 		background-color: #C40C0C;
 		color: #ffffff;
 }</string>
-          </property>
-          <property name="text">
-           <string>Auto Gỡ Checkpoint</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QFrame" name="frame_5">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>251</width>
-            <height>211</height>
-           </size>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color: #FFFBDA;
+       </property>
+       <property name="text">
+        <string>Auto Gỡ Checkpoint</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QFrame" name="frame_5">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>251</width>
+         <height>211</height>
+        </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: #FFFBDA;
 color:black;
 font: 500 9pt &quot;Roboto Medium&quot;;
 border-width: 2px; /* Set the width of the border */
 border-style: solid; /* Define the style of the border */
 border-color: black; /* Define the color of the border */
 border-radius: 20px;</string>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+       <layout class="QGridLayout" name="gridLayout_2">
+        <item row="0" column="0">
+         <layout class="QVBoxLayout" name="verticalLayout_8">
+          <property name="spacing">
+           <number>2</number>
+          </property>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_7">
+            <item>
+             <widget class="QLabel" name="label_8">
+              <property name="minimumSize">
+               <size>
+                <width>61</width>
+                <height>16</height>
+               </size>
+              </property>
+              <property name="font">
+               <font>
+                <family>Roboto Medium</family>
+                <pointsize>9</pointsize>
+                <italic>false</italic>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">font-weight:bold;
+border-width: 0; /* Set the width of the border */
+</string>
+              </property>
+              <property name="text">
+               <string>Đã chọn:</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="lblCountSelect">
+              <property name="minimumSize">
+               <size>
+                <width>31</width>
+                <height>16</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">border:none;</string>
+              </property>
+              <property name="text">
+               <string>0</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_8">
+            <item>
+             <widget class="QLabel" name="label_9">
+              <property name="minimumSize">
+               <size>
+                <width>51</width>
+                <height>16</height>
+               </size>
+              </property>
+              <property name="font">
+               <font>
+                <family>Roboto Medium</family>
+                <pointsize>9</pointsize>
+                <italic>false</italic>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">font-weight:bold;
+border-width: 0; /* Set the width of the border */</string>
+              </property>
+              <property name="text">
+               <string>Tất cả:</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="lblCountTotal">
+              <property name="minimumSize">
+               <size>
+                <width>31</width>
+                <height>16</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">border:none;
+color:darkred;</string>
+              </property>
+              <property name="text">
+               <string>0</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_9">
+            <item>
+             <widget class="QLabel" name="label_10">
+              <property name="minimumSize">
+               <size>
+                <width>51</width>
+                <height>16</height>
+               </size>
+              </property>
+              <property name="font">
+               <font>
+                <family>Roboto Medium</family>
+                <pointsize>9</pointsize>
+                <italic>false</italic>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">font-weight:bold;
+border-width: 0; /* Set the width of the border */</string>
+              </property>
+              <property name="text">
+               <string>Chrome:</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_15">
+              <property name="minimumSize">
+               <size>
+                <width>31</width>
+                <height>16</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">border:none;</string>
+              </property>
+              <property name="text">
+               <string>0</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QFrame" name="frame_2">
+    <property name="geometry">
+     <rect>
+      <x>292</x>
+      <y>12</y>
+      <width>1081</width>
+      <height>121</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>1081</width>
+      <height>121</height>
+     </size>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::RightToLeft</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: #FFBB70;</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QWidget" name="layoutWidget">
+     <property name="geometry">
+      <rect>
+       <x>9</x>
+       <y>9</y>
+       <width>1021</width>
+       <height>103</height>
+      </rect>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <widget class="QPushButton" name="metroButton1">
+          <property name="minimumSize">
+           <size>
+            <width>151</width>
+            <height>40</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QPushButton{background-color: #FFFBDA;
+color:black;
+font: 500 9pt &quot;Roboto Medium&quot;;
+border:2px solid black;
+font-weight:bold;}
+QPushButton:enabled {
+		background-color: #FFFBDA;
+		color: black;
+}
+
+QPushButton:pressed {
+		background-color: #FFF2D7;
+		color: #fffffe;
+}
+
+
+QPushButton:hover:!pressed {
+		background-color: #ED9455;
+		color: white;
+}
+
+QPushButton:disabled {
+		background-color: #C40C0C;
+		color: #ffffff;
+}
+</string>
+          </property>
+          <property name="text">
+           <string>Close Chromedriver</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="button9">
+          <property name="minimumSize">
+           <size>
+            <width>151</width>
+            <height>40</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QPushButton{background-color: #FFFBDA;
+color:black;
+font: 500 9pt &quot;Roboto Medium&quot;;
+border:2px solid black;
+font-weight:bold;}
+QPushButton:enabled {
+		background-color: #FFFBDA;
+		color: black;
+}
+
+QPushButton:pressed {
+		background-color: #FFF2D7;
+		color: #fffffe;
+}
+
+
+QPushButton:hover:!pressed {
+		background-color: #ED9455;
+		color: white;
+}
+
+QPushButton:disabled {
+		background-color: #C40C0C;
+		color: #ffffff;
+}</string>
+          </property>
+          <property name="text">
+           <string>Nhập tài khoản</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <widget class="QFrame" name="frame_3">
+          <property name="minimumSize">
+           <size>
+            <width>421</width>
+            <height>40</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: #FFFBDA;
+color:black;
+font: 500 9pt &quot;Roboto Medium&quot;;</string>
           </property>
           <property name="frameShape">
            <enum>QFrame::StyledPanel</enum>
@@ -446,1109 +742,814 @@ border-radius: 20px;</string>
           <property name="frameShadow">
            <enum>QFrame::Raised</enum>
           </property>
-          <layout class="QGridLayout" name="gridLayout_2">
-           <item row="0" column="0">
-            <layout class="QVBoxLayout" name="verticalLayout_8">
-             <property name="spacing">
-              <number>2</number>
-             </property>
-             <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_7">
-               <item>
-                <widget class="QLabel" name="label_8">
-                 <property name="minimumSize">
-                  <size>
-                   <width>61</width>
-                   <height>16</height>
-                  </size>
-                 </property>
-                 <property name="font">
-                  <font>
-                   <family>Roboto Medium</family>
-                   <pointsize>9</pointsize>
-                   <italic>false</italic>
-                   <bold>true</bold>
-                  </font>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">font-weight:bold;
-border-width: 0; /* Set the width of the border */
-</string>
-                 </property>
-                 <property name="text">
-                  <string>Đã chọn:</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QLabel" name="lblCountSelect">
-                 <property name="minimumSize">
-                  <size>
-                   <width>31</width>
-                   <height>16</height>
-                  </size>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">border:none;</string>
-                 </property>
-                 <property name="text">
-                  <string>0</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </item>
-             <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_8">
-               <item>
-                <widget class="QLabel" name="label_9">
-                 <property name="minimumSize">
-                  <size>
-                   <width>51</width>
-                   <height>16</height>
-                  </size>
-                 </property>
-                 <property name="font">
-                  <font>
-                   <family>Roboto Medium</family>
-                   <pointsize>9</pointsize>
-                   <italic>false</italic>
-                   <bold>true</bold>
-                  </font>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">font-weight:bold;
-border-width: 0; /* Set the width of the border */</string>
-                 </property>
-                 <property name="text">
-                  <string>Tất cả:</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QLabel" name="lblCountTotal">
-                 <property name="minimumSize">
-                  <size>
-                   <width>31</width>
-                   <height>16</height>
-                  </size>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">border:none;
-color:darkred;</string>
-                 </property>
-                 <property name="text">
-                  <string>0</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </item>
-             <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_9">
-               <item>
-                <widget class="QLabel" name="label_10">
-                 <property name="minimumSize">
-                  <size>
-                   <width>51</width>
-                   <height>16</height>
-                  </size>
-                 </property>
-                 <property name="font">
-                  <font>
-                   <family>Roboto Medium</family>
-                   <pointsize>9</pointsize>
-                   <italic>false</italic>
-                   <bold>true</bold>
-                  </font>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">font-weight:bold;
-border-width: 0; /* Set the width of the border */</string>
-                 </property>
-                 <property name="text">
-                  <string>Chrome:</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QLabel" name="label_15">
-                 <property name="minimumSize">
-                  <size>
-                   <width>31</width>
-                   <height>16</height>
-                  </size>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">border:none;</string>
-                 </property>
-                 <property name="text">
-                  <string>0</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </item>
-            </layout>
-           </item>
-          </layout>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-     </item>
-     <item>
-      <layout class="QVBoxLayout" name="verticalLayout_6" stretch="0,0">
-       <item>
-        <widget class="QFrame" name="frame_2">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>1081</width>
-           <height>121</height>
-          </size>
-         </property>
-         <property name="layoutDirection">
-          <enum>Qt::RightToLeft</enum>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">background-color: #FFBB70;</string>
-         </property>
-         <property name="frameShape">
-          <enum>QFrame::StyledPanel</enum>
-         </property>
-         <property name="frameShadow">
-          <enum>QFrame::Raised</enum>
-         </property>
-         <widget class="QWidget" name="layoutWidget">
-          <property name="geometry">
-           <rect>
-            <x>9</x>
-            <y>9</y>
-            <width>1021</width>
-            <height>103</height>
-           </rect>
-          </property>
-          <layout class="QHBoxLayout" name="horizontalLayout_3">
-           <item>
-            <layout class="QVBoxLayout" name="verticalLayout_2">
-             <item>
-              <widget class="QPushButton" name="metroButton1">
-               <property name="minimumSize">
-                <size>
-                 <width>151</width>
-                 <height>40</height>
-                </size>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">QPushButton{background-color: #FFFBDA;
-color:black;
-font: 500 9pt &quot;Roboto Medium&quot;;
-border:2px solid black;
-font-weight:bold;}
-QPushButton:enabled {
-		background-color: #FFFBDA;
-		color: black;
-}
-
-QPushButton:pressed {
-		background-color: #FFF2D7;
-		color: #fffffe;
-}
-
-
-QPushButton:hover:!pressed {
-		background-color: #ED9455;
-		color: white;
-}
-
-QPushButton:disabled {
-		background-color: #C40C0C;
-		color: #ffffff;
-}
-</string>
-               </property>
-               <property name="text">
-                <string>Close Chromedriver</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="button9">
-               <property name="minimumSize">
-                <size>
-                 <width>151</width>
-                 <height>40</height>
-                </size>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">QPushButton{background-color: #FFFBDA;
-color:black;
-font: 500 9pt &quot;Roboto Medium&quot;;
-border:2px solid black;
-font-weight:bold;}
-QPushButton:enabled {
-		background-color: #FFFBDA;
-		color: black;
-}
-
-QPushButton:pressed {
-		background-color: #FFF2D7;
-		color: #fffffe;
-}
-
-
-QPushButton:hover:!pressed {
-		background-color: #ED9455;
-		color: white;
-}
-
-QPushButton:disabled {
-		background-color: #C40C0C;
-		color: #ffffff;
-}</string>
-               </property>
-               <property name="text">
-                <string>Nhập tài khoản</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <layout class="QVBoxLayout" name="verticalLayout">
-             <item>
-              <widget class="QFrame" name="frame_3">
-               <property name="minimumSize">
-                <size>
-                 <width>421</width>
-                 <height>40</height>
-                </size>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">background-color: #FFFBDA;
-color:black;
-font: 500 9pt &quot;Roboto Medium&quot;;</string>
-               </property>
-               <property name="frameShape">
-                <enum>QFrame::StyledPanel</enum>
-               </property>
-               <property name="frameShadow">
-                <enum>QFrame::Raised</enum>
-               </property>
-               <widget class="QWidget" name="layoutWidget">
-                <property name="geometry">
-                 <rect>
-                  <x>10</x>
-                  <y>8</y>
-                  <width>397</width>
-                  <height>26</height>
-                 </rect>
-                </property>
-                <layout class="QHBoxLayout" name="horizontalLayout">
-                 <item>
-                  <widget class="QPushButton" name="pushButton_2">
-                   <property name="minimumSize">
-                    <size>
-                     <width>31</width>
-                     <height>24</height>
-                    </size>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">image: url(:/img/C:/Users/quan2/Downloads/search.png);
+          <widget class="QWidget" name="layoutWidget">
+           <property name="geometry">
+            <rect>
+             <x>10</x>
+             <y>8</y>
+             <width>397</width>
+             <height>26</height>
+            </rect>
+           </property>
+           <layout class="QHBoxLayout" name="horizontalLayout">
+            <item>
+             <widget class="QPushButton" name="pushButton_2">
+              <property name="minimumSize">
+               <size>
+                <width>31</width>
+                <height>24</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">image: url(:/img/img/search.png);
 border-width: 1px; /* Set the width of the border */
 border-style: solid; /* Define the style of the border */
 border-color: black; /* Define the color of the border */
 border-radius: 5px;
 background-color: black;</string>
-                   </property>
-                   <property name="text">
-                    <string/>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QLineEdit" name="lineEdit">
-                   <property name="minimumSize">
-                    <size>
-                     <width>191</width>
-                     <height>24</height>
-                    </size>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">background-color: white;
-border-width: 1px; /* Set the width of the border */
-border-style: solid; /* Define the style of the border */
-border-color: black; /* Define the color of the border */
-border-radius: 5px;</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QComboBox" name="cbbSearch">
-                   <property name="minimumSize">
-                    <size>
-                     <width>161</width>
-                     <height>24</height>
-                    </size>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">background-color: white;
-border-width: 1px; /* Set the width of the border */
-border-style: solid; /* Define the style of the border */
-border-color: black; /* Define the color of the border */
-border-radius: 5px;</string>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </widget>
-              </widget>
-             </item>
-             <item>
-              <widget class="QFrame" name="frame_4">
-               <property name="minimumSize">
-                <size>
-                 <width>471</width>
-                 <height>40</height>
-                </size>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">background-color: #FFFBDA;
-color:black;
-font: 500 9pt &quot;Roboto Medium&quot;;</string>
-               </property>
-               <property name="frameShape">
-                <enum>QFrame::StyledPanel</enum>
-               </property>
-               <property name="frameShadow">
-                <enum>QFrame::Raised</enum>
-               </property>
-               <widget class="QComboBox" name="cbbThuMuc">
-                <property name="geometry">
-                 <rect>
-                  <x>80</x>
-                  <y>10</y>
-                  <width>181</width>
-                  <height>24</height>
-                 </rect>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>181</width>
-                  <height>24</height>
-                 </size>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">background-color: white;
-border-width: 1px; /* Set the width of the border */
-border-style: solid; /* Define the style of the border */
-border-color: black; /* Define the color of the border */
-border-radius: 5px;</string>
-                </property>
-               </widget>
-               <widget class="QLabel" name="label">
-                <property name="geometry">
-                 <rect>
-                  <x>10</x>
-                  <y>10</y>
-                  <width>61</width>
-                  <height>24</height>
-                 </rect>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>61</width>
-                  <height>24</height>
-                 </size>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">background-color: #FFFBDA;
-color:black;
-font: 500 9pt &quot;Roboto Medium&quot;;
-font-weight:bold;</string>
-                </property>
-                <property name="text">
-                 <string>Thư mục:</string>
-                </property>
-               </widget>
-               <widget class="QLabel" name="label_2">
-                <property name="geometry">
-                 <rect>
-                  <x>270</x>
-                  <y>10</y>
-                  <width>31</width>
-                  <height>24</height>
-                 </rect>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>31</width>
-                  <height>24</height>
-                 </size>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">background-color: #FFFBDA;
-color:black;
-font: 500 9pt &quot;Roboto Medium&quot;;
-font-weight:bold;</string>
-                </property>
-                <property name="text">
-                 <string>Lọc:</string>
-                </property>
-               </widget>
-               <widget class="QComboBox" name="cbbTinhTrang">
-                <property name="geometry">
-                 <rect>
-                  <x>310</x>
-                  <y>10</y>
-                  <width>141</width>
-                  <height>24</height>
-                 </rect>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>141</width>
-                  <height>24</height>
-                 </size>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">background-color: white;
-border-width: 1px; /* Set the width of the border */
-border-style: solid; /* Define the style of the border */
-border-color: black; /* Define the color of the border */
-border-radius: 5px;</string>
-                </property>
-               </widget>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <layout class="QGridLayout" name="gridLayout">
-             <item row="1" column="1">
-              <widget class="QPushButton" name="btnLoadAcc">
-               <property name="minimumSize">
-                <size>
-                 <width>21</width>
-                 <height>24</height>
-                </size>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">image: url(:/img/C:/Users/quan2/Downloads/refresh.png);</string>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="1">
-              <widget class="QPushButton" name="btnEditFile">
-               <property name="minimumSize">
-                <size>
-                 <width>21</width>
-                 <height>24</height>
-                </size>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">
-image: url(:/img/C:/Users/quan2/Downloads/pencil.png);</string>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="0">
-              <widget class="QPushButton" name="btnDeleteFile">
-               <property name="minimumSize">
-                <size>
-                 <width>21</width>
-                 <height>24</height>
-                </size>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">image: url(:/img/C:/Users/quan2/Downloads/minus.png);
-</string>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="0">
-              <widget class="QPushButton" name="addFileAccount">
-               <property name="minimumSize">
-                <size>
-                 <width>21</width>
-                 <height>24</height>
-                </size>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">image: url(:/img/C:/Users/quan2/Downloads/add.png);
-</string>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <widget class="QFrame" name="frame_6">
-             <property name="minimumSize">
-              <size>
-               <width>311</width>
-               <height>101</height>
-              </size>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">background-color: #FFFBDA;
-color:black;
-font: 500 9pt &quot;Roboto Medium&quot;;</string>
-             </property>
-             <property name="frameShape">
-              <enum>QFrame::StyledPanel</enum>
-             </property>
-             <property name="frameShadow">
-              <enum>QFrame::Raised</enum>
-             </property>
-             <widget class="QWidget" name="layoutWidget">
-              <property name="geometry">
-               <rect>
-                <x>10</x>
-                <y>10</y>
-                <width>294</width>
-                <height>82</height>
-               </rect>
               </property>
-              <layout class="QHBoxLayout" name="horizontalLayout_2">
-               <item>
-                <layout class="QVBoxLayout" name="verticalLayout_4">
-                 <item>
-                  <widget class="QLabel" name="label_11">
-                   <property name="minimumSize">
-                    <size>
-                     <width>61</width>
-                     <height>41</height>
-                    </size>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">border-radius:50%;
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="lineEdit">
+              <property name="minimumSize">
+               <size>
+                <width>191</width>
+                <height>24</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background-color: white;
+border-width: 1px; /* Set the width of the border */
+border-style: solid; /* Define the style of the border */
+border-color: black; /* Define the color of the border */
+border-radius: 5px;</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="cbbSearch">
+              <property name="minimumSize">
+               <size>
+                <width>161</width>
+                <height>24</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background-color: white;
+border-width: 1px; /* Set the width of the border */
+border-style: solid; /* Define the style of the border */
+border-color: black; /* Define the color of the border */
+border-radius: 5px;</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </widget>
+        </item>
+        <item>
+         <widget class="QFrame" name="frame_4">
+          <property name="minimumSize">
+           <size>
+            <width>471</width>
+            <height>40</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: #FFFBDA;
+color:black;
+font: 500 9pt &quot;Roboto Medium&quot;;</string>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <widget class="QComboBox" name="cbbThuMuc">
+           <property name="geometry">
+            <rect>
+             <x>80</x>
+             <y>10</y>
+             <width>181</width>
+             <height>24</height>
+            </rect>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>181</width>
+             <height>24</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: white;
+border-width: 1px; /* Set the width of the border */
+border-style: solid; /* Define the style of the border */
+border-color: black; /* Define the color of the border */
+border-radius: 5px;</string>
+           </property>
+          </widget>
+          <widget class="QLabel" name="label">
+           <property name="geometry">
+            <rect>
+             <x>10</x>
+             <y>10</y>
+             <width>61</width>
+             <height>24</height>
+            </rect>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>61</width>
+             <height>24</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: #FFFBDA;
+color:black;
+font: 500 9pt &quot;Roboto Medium&quot;;
+font-weight:bold;</string>
+           </property>
+           <property name="text">
+            <string>Thư mục:</string>
+           </property>
+          </widget>
+          <widget class="QLabel" name="label_2">
+           <property name="geometry">
+            <rect>
+             <x>270</x>
+             <y>10</y>
+             <width>31</width>
+             <height>24</height>
+            </rect>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>31</width>
+             <height>24</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: #FFFBDA;
+color:black;
+font: 500 9pt &quot;Roboto Medium&quot;;
+font-weight:bold;</string>
+           </property>
+           <property name="text">
+            <string>Lọc:</string>
+           </property>
+          </widget>
+          <widget class="QComboBox" name="cbbTinhTrang">
+           <property name="geometry">
+            <rect>
+             <x>310</x>
+             <y>10</y>
+             <width>141</width>
+             <height>24</height>
+            </rect>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>141</width>
+             <height>24</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: white;
+border-width: 1px; /* Set the width of the border */
+border-style: solid; /* Define the style of the border */
+border-color: black; /* Define the color of the border */
+border-radius: 5px;</string>
+           </property>
+          </widget>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QGridLayout" name="gridLayout">
+        <item row="1" column="1">
+         <widget class="QPushButton" name="btnLoadAcc">
+          <property name="minimumSize">
+           <size>
+            <width>21</width>
+            <height>24</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">image: url(:/img/img/refresh.png);</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QPushButton" name="btnEditFile">
+          <property name="minimumSize">
+           <size>
+            <width>21</width>
+            <height>24</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">
+image: url(:/img/img/pencil.png);</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QPushButton" name="btnDeleteFile">
+          <property name="minimumSize">
+           <size>
+            <width>21</width>
+            <height>24</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">image: url(:/img/img/minus.png);
+</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QPushButton" name="addFileAccount">
+          <property name="minimumSize">
+           <size>
+            <width>21</width>
+            <height>24</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">image: url(:/img/img/plus.png);
+</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QFrame" name="frame_6">
+        <property name="minimumSize">
+         <size>
+          <width>311</width>
+          <height>101</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: #FFFBDA;
+color:black;
+font: 500 9pt &quot;Roboto Medium&quot;;</string>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <widget class="QWidget" name="layoutWidget">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>10</y>
+           <width>294</width>
+           <height>82</height>
+          </rect>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_4">
+            <item>
+             <widget class="QLabel" name="label_11">
+              <property name="minimumSize">
+               <size>
+                <width>61</width>
+                <height>41</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">border-radius:50%;
 image: url(:/img/C:/Users/quan2/Downloads/profile-user.png);</string>
-                   </property>
-                   <property name="text">
-                    <string/>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QPushButton" name="pushButton_7">
-                   <property name="minimumSize">
-                    <size>
-                     <width>61</width>
-                     <height>31</height>
-                    </size>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">background-color: darkred;
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pushButton_7">
+              <property name="minimumSize">
+               <size>
+                <width>61</width>
+                <height>31</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background-color: darkred;
 color:white;
 font: 500 9pt &quot;Roboto Medium&quot;;
 font-weight:bold;</string>
-                   </property>
-                   <property name="text">
-                    <string>Exit</string>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </item>
-               <item>
-                <layout class="QVBoxLayout" name="verticalLayout_3">
-                 <item>
-                  <widget class="QLabel" name="label_3">
-                   <property name="minimumSize">
-                    <size>
-                     <width>221</width>
-                     <height>16</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <family>Roboto Medium</family>
-                     <pointsize>9</pointsize>
-                     <italic>false</italic>
-                     <bold>true</bold>
-                    </font>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">font-weight:bold;</string>
-                   </property>
-                   <property name="text">
-                    <string>Họ tên: </string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QLabel" name="label_6">
-                   <property name="minimumSize">
-                    <size>
-                     <width>211</width>
-                     <height>16</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <family>Roboto Medium</family>
-                     <pointsize>9</pointsize>
-                     <italic>false</italic>
-                     <bold>true</bold>
-                    </font>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">font-weight:bold;</string>
-                   </property>
-                   <property name="text">
-                    <string>Mã Thiết bị: </string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QLabel" name="label_7">
-                   <property name="minimumSize">
-                    <size>
-                     <width>221</width>
-                     <height>16</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <family>Roboto Medium</family>
-                     <pointsize>9</pointsize>
-                     <italic>false</italic>
-                     <bold>true</bold>
-                    </font>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">font-weight:bold;</string>
-                   </property>
-                   <property name="text">
-                    <string>SĐT: </string>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </item>
-              </layout>
+              </property>
+              <property name="text">
+               <string>Exit</string>
+              </property>
              </widget>
-            </widget>
-           </item>
-          </layout>
-         </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_3">
+            <item>
+             <widget class="QLabel" name="label_3">
+              <property name="minimumSize">
+               <size>
+                <width>221</width>
+                <height>16</height>
+               </size>
+              </property>
+              <property name="font">
+               <font>
+                <family>Roboto Medium</family>
+                <pointsize>9</pointsize>
+                <italic>false</italic>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">font-weight:bold;</string>
+              </property>
+              <property name="text">
+               <string>Họ tên: </string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_6">
+              <property name="minimumSize">
+               <size>
+                <width>211</width>
+                <height>16</height>
+               </size>
+              </property>
+              <property name="font">
+               <font>
+                <family>Roboto Medium</family>
+                <pointsize>9</pointsize>
+                <italic>false</italic>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">font-weight:bold;</string>
+              </property>
+              <property name="text">
+               <string>Mã Thiết bị: </string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_7">
+              <property name="minimumSize">
+               <size>
+                <width>221</width>
+                <height>16</height>
+               </size>
+              </property>
+              <property name="font">
+               <font>
+                <family>Roboto Medium</family>
+                <pointsize>9</pointsize>
+                <italic>false</italic>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">font-weight:bold;</string>
+              </property>
+              <property name="text">
+               <string>SĐT: </string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
         </widget>
-       </item>
-       <item>
-        <widget class="QTableWidget" name="tableWidget">
-         <property name="minimumSize">
-          <size>
-           <width>1081</width>
-           <height>571</height>
-          </size>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">color:white;
-background-color: #503C3C;
-border-radius:15px;</string>
-         </property>
-         <property name="sortingEnabled">
-          <bool>true</bool>
-         </property>
-         <column>
-          <property name="text">
-           <string>Chọn</string>
-          </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>STT</string>
-          </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Id</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Uid</string>
-          </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Token</string>
-          </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Cookies</string>
-          </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Email</string>
-          </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Phone</string>
-          </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Tên</string>
-          </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Page</string>
-          </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Bạn Bè</string>
-          </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Nhóm</string>
-          </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>PagePro5</string>
-          </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Ngày sinh</string>
-          </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Giới tính</string>
-          </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Mật khẩu</string>
-          </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Mail Khôi Phục</string>
-          </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Mật khẩu Mail</string>
-          </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Backup</string>
-          </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Mã 2FA</string>
-          </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Proxy</string>
-          </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Ngày tạo tài khoản</string>
-          </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Avatar</string>
-          </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Profile</string>
-          </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Thư Mục</string>
-          </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Lần Tương Tác Cuối</string>
-          </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Tình Trạng</string>
-          </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Ghi Chú</string>
-          </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Status282</string>
-          </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Location</string>
-          </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Home Town</string>
-          </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Current City</string>
-          </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Dating</string>
-          </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Ads</string>
-          </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>BM</string>
-          </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>FbBlock</string>
-          </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Job</string>
-          </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Trạng thái</string>
-          </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-         </column>
-        </widget>
-       </item>
-      </layout>
-     </item>
-    </layout>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </widget>
+   <widget class="QTableWidget" name="tableWidget">
+    <property name="geometry">
+     <rect>
+      <x>292</x>
+      <y>139</y>
+      <width>1081</width>
+      <height>571</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>1081</width>
+      <height>571</height>
+     </size>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color:black;
+border-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(0, 0, 0, 255), stop:1 rgba(255, 255, 255, 255));</string>
+    </property>
+    <property name="sortingEnabled">
+     <bool>true</bool>
+    </property>
+    <column>
+     <property name="text">
+      <string>Chọn</string>
+     </property>
+     <property name="font">
+      <font>
+       <bold>true</bold>
+      </font>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>STT</string>
+     </property>
+     <property name="font">
+      <font>
+       <bold>true</bold>
+      </font>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Id</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Uid</string>
+     </property>
+     <property name="font">
+      <font>
+       <bold>true</bold>
+      </font>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Token</string>
+     </property>
+     <property name="font">
+      <font>
+       <bold>true</bold>
+      </font>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Cookies</string>
+     </property>
+     <property name="font">
+      <font>
+       <bold>true</bold>
+      </font>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Email</string>
+     </property>
+     <property name="font">
+      <font>
+       <bold>true</bold>
+      </font>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Phone</string>
+     </property>
+     <property name="font">
+      <font>
+       <bold>true</bold>
+      </font>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Tên</string>
+     </property>
+     <property name="font">
+      <font>
+       <bold>true</bold>
+      </font>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Page</string>
+     </property>
+     <property name="font">
+      <font>
+       <bold>true</bold>
+      </font>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Bạn Bè</string>
+     </property>
+     <property name="font">
+      <font>
+       <bold>true</bold>
+      </font>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Nhóm</string>
+     </property>
+     <property name="font">
+      <font>
+       <bold>true</bold>
+      </font>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>PagePro5</string>
+     </property>
+     <property name="font">
+      <font>
+       <bold>true</bold>
+      </font>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Ngày sinh</string>
+     </property>
+     <property name="font">
+      <font>
+       <bold>true</bold>
+      </font>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Giới tính</string>
+     </property>
+     <property name="font">
+      <font>
+       <bold>true</bold>
+      </font>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Mật khẩu</string>
+     </property>
+     <property name="font">
+      <font>
+       <bold>true</bold>
+      </font>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Mail Khôi Phục</string>
+     </property>
+     <property name="font">
+      <font>
+       <bold>true</bold>
+      </font>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Mật khẩu Mail</string>
+     </property>
+     <property name="font">
+      <font>
+       <bold>true</bold>
+      </font>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Backup</string>
+     </property>
+     <property name="font">
+      <font>
+       <bold>true</bold>
+      </font>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Mã 2FA</string>
+     </property>
+     <property name="font">
+      <font>
+       <bold>true</bold>
+      </font>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Proxy</string>
+     </property>
+     <property name="font">
+      <font>
+       <bold>true</bold>
+      </font>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Ngày tạo tài khoản</string>
+     </property>
+     <property name="font">
+      <font>
+       <bold>true</bold>
+      </font>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Avatar</string>
+     </property>
+     <property name="font">
+      <font>
+       <bold>true</bold>
+      </font>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Profile</string>
+     </property>
+     <property name="font">
+      <font>
+       <bold>true</bold>
+      </font>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Thư Mục</string>
+     </property>
+     <property name="font">
+      <font>
+       <bold>true</bold>
+      </font>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Lần Tương Tác Cuối</string>
+     </property>
+     <property name="font">
+      <font>
+       <bold>true</bold>
+      </font>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Tình Trạng</string>
+     </property>
+     <property name="font">
+      <font>
+       <bold>true</bold>
+      </font>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Ghi Chú</string>
+     </property>
+     <property name="font">
+      <font>
+       <bold>true</bold>
+      </font>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Status282</string>
+     </property>
+     <property name="font">
+      <font>
+       <bold>true</bold>
+      </font>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Location</string>
+     </property>
+     <property name="font">
+      <font>
+       <bold>true</bold>
+      </font>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Home Town</string>
+     </property>
+     <property name="font">
+      <font>
+       <bold>true</bold>
+      </font>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Current City</string>
+     </property>
+     <property name="font">
+      <font>
+       <bold>true</bold>
+      </font>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Dating</string>
+     </property>
+     <property name="font">
+      <font>
+       <bold>true</bold>
+      </font>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Ads</string>
+     </property>
+     <property name="font">
+      <font>
+       <bold>true</bold>
+      </font>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>BM</string>
+     </property>
+     <property name="font">
+      <font>
+       <bold>true</bold>
+      </font>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>FbBlock</string>
+     </property>
+     <property name="font">
+      <font>
+       <bold>true</bold>
+      </font>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Job</string>
+     </property>
+     <property name="font">
+      <font>
+       <bold>true</bold>
+      </font>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Trạng thái</string>
+     </property>
+     <property name="font">
+      <font>
+       <bold>true</bold>
+      </font>
+     </property>
+    </column>
    </widget>
   </widget>
  </widget>
