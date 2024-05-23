@@ -1,5 +1,5 @@
-D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/AutoWorker_autogen/JLRR734WY4/moc_requesthandle.cpp: D:/AutoWorker/XWorker/AutoWoker/MCommon/requesthandle.h \
-  D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/AutoWorker_autogen/moc_predefs.h \
+D:/AutoWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/AutoWorker_autogen/JLRR734WY4/moc_requesthandle.cpp: D:/AutoWorker/AutoWoker/MCommon/requesthandle.h \
+  D:/AutoWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/AutoWorker_autogen/moc_predefs.h \
   C:/Qt/6.7.1/mingw_64/include/QtCore/QFlags \
   C:/Qt/6.7.1/mingw_64/include/QtCore/QList \
   C:/Qt/6.7.1/mingw_64/include/QtCore/QMetaType \

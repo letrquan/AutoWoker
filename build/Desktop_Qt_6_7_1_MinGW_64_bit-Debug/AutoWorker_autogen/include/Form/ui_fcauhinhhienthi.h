@@ -114,7 +114,7 @@ public:
         ckbLocation->setFont(font);
         ckbCurrentCity = new QCheckBox(fCauHinhHienThi);
         ckbCurrentCity->setObjectName("ckbCurrentCity");
-        ckbCurrentCity->setGeometry(QRect(590, 216, 101, 17));
+        ckbCurrentCity->setGeometry(QRect(590, 216, 85, 17));
         ckbCurrentCity->setFont(font);
         ckbTen = new QCheckBox(fCauHinhHienThi);
         ckbTen->setObjectName("ckbTen");
@@ -187,7 +187,7 @@ public:
         ckbAds->setStyleSheet(QString::fromUtf8(""));
         ckbProfile = new QCheckBox(fCauHinhHienThi);
         ckbProfile->setObjectName("ckbProfile");
-        ckbProfile->setGeometry(QRect(445, 32, 71, 17));
+        ckbProfile->setGeometry(QRect(445, 32, 55, 17));
         ckbProfile->setFont(font);
         ckbStatus282 = new QCheckBox(fCauHinhHienThi);
         ckbStatus282->setObjectName("ckbStatus282");
@@ -215,7 +215,7 @@ public:
         ckbCookie->setFont(font);
         ckbHomeTown = new QCheckBox(fCauHinhHienThi);
         ckbHomeTown->setObjectName("ckbHomeTown");
-        ckbHomeTown->setGeometry(QRect(590, 170, 101, 17));
+        ckbHomeTown->setGeometry(QRect(590, 170, 81, 17));
         ckbHomeTown->setFont(font);
         btnDong = new QPushButton(fCauHinhHienThi);
         btnDong->setObjectName("btnDong");

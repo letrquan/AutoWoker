@@ -8,6 +8,8 @@
 #include <QFile>
 #include <QFileInfo>
 #include <windows.h>
+#include <QSqlQueryModel>
+#include <QStandardItemModel>
 class Utils {
 public:
     static bool ValidateTcpPort(int port)
@@ -32,16 +34,16 @@ public:
         reply->deleteLater();
         return isConnected;
     }
-    static int GetIndexByColumnHeader(QTableWidget* dgv, QString colHeader){
-        int col=-1;
-        for (int i = 0; i < dgv->columnCount(); ++i) {
-            QTableWidgetItem *headerItem = dgv->horizontalHeaderItem(i);
-            if (headerItem != nullptr && headerItem->text() == colHeader) {
-                col = i;
-            }
-        }
-        return col;
-    }
+    // static int GetIndexByColumnHeader(QTableWidget* dgv, QString colHeader){
+    //     int col=-1;
+    //     for (int i = 0; i < dgv->columnCount(); ++i) {
+    //         QTableWidgetItem *headerItem = dgv->horizontalHeaderItem(i);
+    //         if (headerItem != nullptr && headerItem->text() == colHeader) {
+    //             col = i;
+    //         }
+    //     }
+    //     return col;
+    // }
     static int findColumnByHeader(QTableView *tableView, const QString &headerText) {
         QAbstractItemModel *model = tableView->model();
         if (!model) {
@@ -58,6 +60,38 @@ public:
 
         return -1; // Column not found
     }
+    static QStandardItemModel* transferData(QSqlQueryModel *sqlModel, QString string) {
+        int rowCount = sqlModel->rowCount();
+        int columnCount = sqlModel->columnCount();
+
+        // Create a new QStandardItemModel
+        QStandardItemModel *standardModel = new QStandardItemModel(rowCount, columnCount + 1);
+
+        // Set the header names
+        standardModel->setHorizontalHeaderItem(0, new QStandardItem(string));
+        for (int col = 0; col < columnCount; ++col) {
+            QString header = sqlModel->headerData(col, Qt::Horizontal).toString();
+            standardModel->setHorizontalHeaderItem(col + 1, new QStandardItem(header));
+        }
+
+        for (int row = 0; row < rowCount; ++row) {
+            // Add checkbox to the first cell of each row
+            QStandardItem *checkbox = new QStandardItem();
+            checkbox->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
+            checkbox->setData(Qt::Unchecked, Qt::CheckStateRole);
+            standardModel->setItem(row, 0, checkbox);
+
+            // Copy data from sqlModel to standardModel starting from the second column
+            for (int col = 0; col < columnCount; ++col) {
+                QVariant data = sqlModel->data(sqlModel->index(row, col));
+                QStandardItem *item = new QStandardItem(data.toString());
+                standardModel->setItem(row, col + 1, item);
+            }
+        }
+
+        return standardModel;
+    }
+
     static bool isRunningAsAdmin() {
         BOOL fIsRunAsAdmin = FALSE;
         PSID pAdministratorsGroup = NULL;
@@ -187,11 +221,11 @@ public:
                            getSystemDriveSerialNumber();
         return deviceId;
     }
-    static void changeRowColor(QTableWidget* dgv, int rowNumber, QColor color){
-        for (int col = 0; col < dgv->columnCount(); ++col) {
-            QTableWidgetItem *item = dgv->item(rowNumber, col);
-            if (item != nullptr) {
-                item->setBackground(color);
+    static void changeRowColor(QTableView* dgv, int rowNumber, QColor color){
+        for (int col = 0; col < dgv->model()->columnCount(); ++col) {
+            auto item = dgv->model()->index(rowNumber, col);
+            if (!item.data().isNull()) {
+                dgv->model()->setData(item, color);
             }
         }
     }

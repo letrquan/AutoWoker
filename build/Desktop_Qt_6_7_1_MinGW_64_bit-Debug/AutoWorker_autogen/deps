@@ -224,8 +224,10 @@ AutoWorker_autogen/timestamp: \
 	C:/Qt/6.7.1/mingw_64/include/QtNetwork/qtnetworkexports.h \
 	C:/Qt/6.7.1/mingw_64/include/QtNetwork/qtnetworkglobal.h \
 	C:/Qt/6.7.1/mingw_64/include/QtSql/QSqlQuery \
+	C:/Qt/6.7.1/mingw_64/include/QtSql/QSqlQueryModel \
 	C:/Qt/6.7.1/mingw_64/include/QtSql/qsqldatabase.h \
 	C:/Qt/6.7.1/mingw_64/include/QtSql/qsqlquery.h \
+	C:/Qt/6.7.1/mingw_64/include/QtSql/qsqlquerymodel.h \
 	C:/Qt/6.7.1/mingw_64/include/QtSql/qtsql-config.h \
 	C:/Qt/6.7.1/mingw_64/include/QtSql/qtsqlexports.h \
 	C:/Qt/6.7.1/mingw_64/include/QtSql/qtsqlglobal.h \
@@ -234,7 +236,6 @@ AutoWorker_autogen/timestamp: \
 	C:/Qt/6.7.1/mingw_64/include/QtWidgets/QMenu \
 	C:/Qt/6.7.1/mingw_64/include/QtWidgets/QTableWidget \
 	C:/Qt/6.7.1/mingw_64/include/QtWidgets/QWidget \
-	C:/Qt/6.7.1/mingw_64/include/QtWidgets/QWidgetAction \
 	C:/Qt/6.7.1/mingw_64/include/QtWidgets/qabstractitemdelegate.h \
 	C:/Qt/6.7.1/mingw_64/include/QtWidgets/qabstractitemview.h \
 	C:/Qt/6.7.1/mingw_64/include/QtWidgets/qabstractscrollarea.h \
@@ -258,7 +259,6 @@ AutoWorker_autogen/timestamp: \
 	C:/Qt/6.7.1/mingw_64/include/QtWidgets/qtwidgetsexports.h \
 	C:/Qt/6.7.1/mingw_64/include/QtWidgets/qtwidgetsglobal.h \
 	C:/Qt/6.7.1/mingw_64/include/QtWidgets/qwidget.h \
-	C:/Qt/6.7.1/mingw_64/include/QtWidgets/qwidgetaction.h \
 	C:/Qt/6.7.1/mingw_64/lib/cmake/Qt6/FindWrapAtomic.cmake \
 	C:/Qt/6.7.1/mingw_64/lib/cmake/Qt6/FindWrapVulkanHeaders.cmake \
 	C:/Qt/6.7.1/mingw_64/lib/cmake/Qt6/Qt6Config.cmake \
@@ -923,79 +923,79 @@ AutoWorker_autogen/timestamp: \
 	C:/Qt/Tools/mingw1120_64/x86_64-w64-mingw32/include/wow64apiset.h \
 	C:/Qt/Tools/mingw1120_64/x86_64-w64-mingw32/include/wtypes.h \
 	C:/Qt/Tools/mingw1120_64/x86_64-w64-mingw32/include/wtypesbase.h \
-	D:/AutoWorker/XWorker/AutoWoker/CMakeLists.txt \
-	D:/AutoWorker/XWorker/AutoWoker/CloneDatabase/clonedatabase.cpp \
-	D:/AutoWorker/XWorker/AutoWoker/CloneDatabase/clonedatabase.h \
-	D:/AutoWorker/XWorker/AutoWoker/CloneDatabase/connectsqlite.cpp \
-	D:/AutoWorker/XWorker/AutoWoker/CloneDatabase/connectsqlite.h \
-	D:/AutoWorker/XWorker/AutoWoker/Form/downloaddialog.cpp \
-	D:/AutoWorker/XWorker/AutoWoker/Form/downloaddialog.h \
-	D:/AutoWorker/XWorker/AutoWoker/Form/faddfile.cpp \
-	D:/AutoWorker/XWorker/AutoWoker/Form/faddfile.h \
-	D:/AutoWorker/XWorker/AutoWoker/Form/fcauhinhhienthi.cpp \
-	D:/AutoWorker/XWorker/AutoWoker/Form/fcauhinhhienthi.h \
-	D:/AutoWorker/XWorker/AutoWoker/Form/fchonthumuc.cpp \
-	D:/AutoWorker/XWorker/AutoWoker/Form/fchonthumuc.h \
-	D:/AutoWorker/XWorker/AutoWoker/Form/fimportaccount.cpp \
-	D:/AutoWorker/XWorker/AutoWoker/Form/fimportaccount.h \
-	D:/AutoWorker/XWorker/AutoWoker/Form/fimportaccountformatinput.cpp \
-	D:/AutoWorker/XWorker/AutoWoker/Form/fimportaccountformatinput.h \
-	D:/AutoWorker/XWorker/AutoWoker/Form/loginwindow.cpp \
-	D:/AutoWorker/XWorker/AutoWoker/Form/loginwindow.h \
-	D:/AutoWorker/XWorker/AutoWoker/Form/mainwindow.cpp \
-	D:/AutoWorker/XWorker/AutoWoker/Form/mainwindow.h \
-	D:/AutoWorker/XWorker/AutoWoker/MCommon/AwApi.cpp \
-	D:/AutoWorker/XWorker/AutoWoker/MCommon/AwApi.h \
-	D:/AutoWorker/XWorker/AutoWoker/MCommon/Common.cpp \
-	D:/AutoWorker/XWorker/AutoWoker/MCommon/Common.h \
-	D:/AutoWorker/XWorker/AutoWoker/MCommon/RequestParams.h \
-	D:/AutoWorker/XWorker/AutoWoker/MCommon/chrome.cpp \
-	D:/AutoWorker/XWorker/AutoWoker/MCommon/chrome.h \
-	D:/AutoWorker/XWorker/AutoWoker/MCommon/commonsql.cpp \
-	D:/AutoWorker/XWorker/AutoWoker/MCommon/commonsql.h \
-	D:/AutoWorker/XWorker/AutoWoker/MCommon/connector.cpp \
-	D:/AutoWorker/XWorker/AutoWoker/MCommon/connector.h \
-	D:/AutoWorker/XWorker/AutoWoker/MCommon/json_settings.cpp \
-	D:/AutoWorker/XWorker/AutoWoker/MCommon/json_settings.h \
-	D:/AutoWorker/XWorker/AutoWoker/MCommon/requesthandle.cpp \
-	D:/AutoWorker/XWorker/AutoWoker/MCommon/requesthandle.h \
-	D:/AutoWorker/XWorker/AutoWoker/Utils/Utils.h \
-	D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/.qtc/package-manager/auto-setup.cmake \
-	D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/AutoWorker_autogen/moc_predefs.h \
-	D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/CMakeFiles/3.27.7/CMakeCXXCompiler.cmake \
-	D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/CMakeFiles/3.27.7/CMakeRCCompiler.cmake \
-	D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/CMakeFiles/3.27.7/CMakeSystem.cmake \
-	D:/AutoWorker/XWorker/AutoWoker/main.cpp \
-	D:/AutoWorker/XWorker/AutoWoker/maxcare/Base.cpp \
-	D:/AutoWorker/XWorker/AutoWoker/maxcare/Base.h \
-	D:/AutoWorker/XWorker/AutoWoker/maxcare/Enum/GetContentStatusChrome.h \
-	D:/AutoWorker/XWorker/AutoWoker/maxcare/Enum/StatusChromeAccount.h \
-	D:/AutoWorker/XWorker/AutoWoker/maxcare/FileHelper.h \
-	D:/AutoWorker/XWorker/AutoWoker/maxcare/Language.cpp \
-	D:/AutoWorker/XWorker/AutoWoker/maxcare/Language.h \
-	D:/AutoWorker/XWorker/AutoWoker/maxcare/MessageBoxHelper.h \
-	D:/AutoWorker/XWorker/AutoWoker/maxcare/SettingsTool.cpp \
-	D:/AutoWorker/XWorker/AutoWoker/maxcare/SettingsTool.h \
-	D:/AutoWorker/XWorker/AutoWoker/maxcare/StringHelper.h \
-	D:/AutoWorker/XWorker/AutoWoker/maxcare/collectionhelper.cpp \
-	D:/AutoWorker/XWorker/AutoWoker/maxcare/collectionhelper.h \
-	D:/AutoWorker/XWorker/AutoWoker/maxcare/datagridviewhelper.cpp \
-	D:/AutoWorker/XWorker/AutoWoker/maxcare/datagridviewhelper.h \
-	D:/AutoWorker/XWorker/AutoWoker/maxcare/emailhelper.cpp \
-	D:/AutoWorker/XWorker/AutoWoker/maxcare/emailhelper.h \
-	D:/AutoWorker/XWorker/AutoWoker/maxcare/interactsql.cpp \
-	D:/AutoWorker/XWorker/AutoWoker/maxcare/interactsql.h \
-	D:/AutoWorker/XWorker/AutoWoker/maxcare/setupfolder.cpp \
-	D:/AutoWorker/XWorker/AutoWoker/maxcare/setupfolder.h \
-	D:/AutoWorker/XWorker/AutoWoker/maxcare/updatestatus.cpp \
-	D:/AutoWorker/XWorker/AutoWoker/maxcare/updatestatus.h \
-	D:/AutoWorker/XWorker/AutoWoker/resource.qrc \
-	D:/AutoWorker/XWorker/AutoWoker/Form/downloaddialog.ui \
-	D:/AutoWorker/XWorker/AutoWoker/Form/faddfile.ui \
-	D:/AutoWorker/XWorker/AutoWoker/Form/fcauhinhhienthi.ui \
-	D:/AutoWorker/XWorker/AutoWoker/Form/fchonthumuc.ui \
-	D:/AutoWorker/XWorker/AutoWoker/Form/fimportaccount.ui \
-	D:/AutoWorker/XWorker/AutoWoker/Form/fimportaccountformatinput.ui \
-	D:/AutoWorker/XWorker/AutoWoker/Form/loginwindow.ui \
-	D:/AutoWorker/XWorker/AutoWoker/Form/mainwindow.ui \
+	D:/AutoWorker/AutoWoker/CMakeLists.txt \
+	D:/AutoWorker/AutoWoker/CloneDatabase/clonedatabase.cpp \
+	D:/AutoWorker/AutoWoker/CloneDatabase/clonedatabase.h \
+	D:/AutoWorker/AutoWoker/CloneDatabase/connectsqlite.cpp \
+	D:/AutoWorker/AutoWoker/CloneDatabase/connectsqlite.h \
+	D:/AutoWorker/AutoWoker/Form/downloaddialog.cpp \
+	D:/AutoWorker/AutoWoker/Form/downloaddialog.h \
+	D:/AutoWorker/AutoWoker/Form/faddfile.cpp \
+	D:/AutoWorker/AutoWoker/Form/faddfile.h \
+	D:/AutoWorker/AutoWoker/Form/fcauhinhhienthi.cpp \
+	D:/AutoWorker/AutoWoker/Form/fcauhinhhienthi.h \
+	D:/AutoWorker/AutoWoker/Form/fchonthumuc.cpp \
+	D:/AutoWorker/AutoWoker/Form/fchonthumuc.h \
+	D:/AutoWorker/AutoWoker/Form/fimportaccount.cpp \
+	D:/AutoWorker/AutoWoker/Form/fimportaccount.h \
+	D:/AutoWorker/AutoWoker/Form/fimportaccountformatinput.cpp \
+	D:/AutoWorker/AutoWoker/Form/fimportaccountformatinput.h \
+	D:/AutoWorker/AutoWoker/Form/loginwindow.cpp \
+	D:/AutoWorker/AutoWoker/Form/loginwindow.h \
+	D:/AutoWorker/AutoWoker/Form/mainwindow.cpp \
+	D:/AutoWorker/AutoWoker/Form/mainwindow.h \
+	D:/AutoWorker/AutoWoker/MCommon/AwApi.cpp \
+	D:/AutoWorker/AutoWoker/MCommon/AwApi.h \
+	D:/AutoWorker/AutoWoker/MCommon/Common.cpp \
+	D:/AutoWorker/AutoWoker/MCommon/Common.h \
+	D:/AutoWorker/AutoWoker/MCommon/RequestParams.h \
+	D:/AutoWorker/AutoWoker/MCommon/chrome.cpp \
+	D:/AutoWorker/AutoWoker/MCommon/chrome.h \
+	D:/AutoWorker/AutoWoker/MCommon/commonsql.cpp \
+	D:/AutoWorker/AutoWoker/MCommon/commonsql.h \
+	D:/AutoWorker/AutoWoker/MCommon/connector.cpp \
+	D:/AutoWorker/AutoWoker/MCommon/connector.h \
+	D:/AutoWorker/AutoWoker/MCommon/json_settings.cpp \
+	D:/AutoWorker/AutoWoker/MCommon/json_settings.h \
+	D:/AutoWorker/AutoWoker/MCommon/requesthandle.cpp \
+	D:/AutoWorker/AutoWoker/MCommon/requesthandle.h \
+	D:/AutoWorker/AutoWoker/Utils/Utils.h \
+	D:/AutoWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/.qtc/package-manager/auto-setup.cmake \
+	D:/AutoWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/AutoWorker_autogen/moc_predefs.h \
+	D:/AutoWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/CMakeFiles/3.27.7/CMakeCXXCompiler.cmake \
+	D:/AutoWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/CMakeFiles/3.27.7/CMakeRCCompiler.cmake \
+	D:/AutoWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/CMakeFiles/3.27.7/CMakeSystem.cmake \
+	D:/AutoWorker/AutoWoker/main.cpp \
+	D:/AutoWorker/AutoWoker/maxcare/Base.cpp \
+	D:/AutoWorker/AutoWoker/maxcare/Base.h \
+	D:/AutoWorker/AutoWoker/maxcare/Enum/GetContentStatusChrome.h \
+	D:/AutoWorker/AutoWoker/maxcare/Enum/StatusChromeAccount.h \
+	D:/AutoWorker/AutoWoker/maxcare/FileHelper.h \
+	D:/AutoWorker/AutoWoker/maxcare/Language.cpp \
+	D:/AutoWorker/AutoWoker/maxcare/Language.h \
+	D:/AutoWorker/AutoWoker/maxcare/MessageBoxHelper.h \
+	D:/AutoWorker/AutoWoker/maxcare/SettingsTool.cpp \
+	D:/AutoWorker/AutoWoker/maxcare/SettingsTool.h \
+	D:/AutoWorker/AutoWoker/maxcare/StringHelper.h \
+	D:/AutoWorker/AutoWoker/maxcare/collectionhelper.cpp \
+	D:/AutoWorker/AutoWoker/maxcare/collectionhelper.h \
+	D:/AutoWorker/AutoWoker/maxcare/datagridviewhelper.cpp \
+	D:/AutoWorker/AutoWoker/maxcare/datagridviewhelper.h \
+	D:/AutoWorker/AutoWoker/maxcare/emailhelper.cpp \
+	D:/AutoWorker/AutoWoker/maxcare/emailhelper.h \
+	D:/AutoWorker/AutoWoker/maxcare/interactsql.cpp \
+	D:/AutoWorker/AutoWoker/maxcare/interactsql.h \
+	D:/AutoWorker/AutoWoker/maxcare/setupfolder.cpp \
+	D:/AutoWorker/AutoWoker/maxcare/setupfolder.h \
+	D:/AutoWorker/AutoWoker/maxcare/updatestatus.cpp \
+	D:/AutoWorker/AutoWoker/maxcare/updatestatus.h \
+	D:/AutoWorker/AutoWoker/resource.qrc \
+	D:/AutoWorker/AutoWoker/Form/downloaddialog.ui \
+	D:/AutoWorker/AutoWoker/Form/faddfile.ui \
+	D:/AutoWorker/AutoWoker/Form/fcauhinhhienthi.ui \
+	D:/AutoWorker/AutoWoker/Form/fchonthumuc.ui \
+	D:/AutoWorker/AutoWoker/Form/fimportaccount.ui \
+	D:/AutoWorker/AutoWoker/Form/fimportaccountformatinput.ui \
+	D:/AutoWorker/AutoWoker/Form/loginwindow.ui \
+	D:/AutoWorker/AutoWoker/Form/mainwindow.ui \
 	C:/Qt/Tools/CMake_64/bin/cmake.exe

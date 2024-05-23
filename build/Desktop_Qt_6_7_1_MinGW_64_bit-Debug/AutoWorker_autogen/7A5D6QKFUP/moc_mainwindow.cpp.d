@@ -1,5 +1,5 @@
-D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/AutoWorker_autogen/7A5D6QKFUP/moc_mainwindow.cpp: D:/AutoWorker/XWorker/AutoWoker/Form/mainwindow.h \
-  D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/AutoWorker_autogen/moc_predefs.h \
+D:/AutoWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/AutoWorker_autogen/7A5D6QKFUP/moc_mainwindow.cpp: D:/AutoWorker/AutoWoker/Form/mainwindow.h \
+  D:/AutoWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/AutoWorker_autogen/moc_predefs.h \
   C:/Qt/6.7.1/mingw_64/include/QtCore/QCryptographicHash \
   C:/Qt/6.7.1/mingw_64/include/QtCore/QSettings \
   C:/Qt/6.7.1/mingw_64/include/QtCore/q20functional.h \
@@ -160,12 +160,12 @@ D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/AutoWo
   C:/Qt/6.7.1/mingw_64/include/QtSql/QSqlQuery \
   C:/Qt/6.7.1/mingw_64/include/QtSql/qsqldatabase.h \
   C:/Qt/6.7.1/mingw_64/include/QtSql/qsqlquery.h \
+  C:/Qt/6.7.1/mingw_64/include/QtSql/qsqlquerymodel.h \
   C:/Qt/6.7.1/mingw_64/include/QtSql/qtsql-config.h \
   C:/Qt/6.7.1/mingw_64/include/QtSql/qtsqlexports.h \
   C:/Qt/6.7.1/mingw_64/include/QtSql/qtsqlglobal.h \
   C:/Qt/6.7.1/mingw_64/include/QtWidgets/QMainWindow \
   C:/Qt/6.7.1/mingw_64/include/QtWidgets/QMenu \
-  C:/Qt/6.7.1/mingw_64/include/QtWidgets/QWidgetAction \
   C:/Qt/6.7.1/mingw_64/include/QtWidgets/qmainwindow.h \
   C:/Qt/6.7.1/mingw_64/include/QtWidgets/qmenu.h \
   C:/Qt/6.7.1/mingw_64/include/QtWidgets/qsizepolicy.h \
@@ -174,7 +174,6 @@ D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/AutoWo
   C:/Qt/6.7.1/mingw_64/include/QtWidgets/qtwidgetsexports.h \
   C:/Qt/6.7.1/mingw_64/include/QtWidgets/qtwidgetsglobal.h \
   C:/Qt/6.7.1/mingw_64/include/QtWidgets/qwidget.h \
-  C:/Qt/6.7.1/mingw_64/include/QtWidgets/qwidgetaction.h \
   C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include-fixed/limits.h \
   C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include-fixed/syslimits.h \
   C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/algorithm \

@@ -1,5 +1,5 @@
-D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/AutoWorker_autogen/7A5D6QKFUP/moc_faddfile.cpp: D:/AutoWorker/XWorker/AutoWoker/Form/faddfile.h \
-  D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/AutoWorker_autogen/moc_predefs.h \
+D:/AutoWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/AutoWorker_autogen/7A5D6QKFUP/moc_faddfile.cpp: D:/AutoWorker/AutoWoker/Form/faddfile.h \
+  D:/AutoWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/AutoWorker_autogen/moc_predefs.h \
   C:/Qt/6.7.1/mingw_64/include/QtCore/q20functional.h \
   C:/Qt/6.7.1/mingw_64/include/QtCore/q20memory.h \
   C:/Qt/6.7.1/mingw_64/include/QtCore/q20type_traits.h \

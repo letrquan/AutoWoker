@@ -21,7 +21,7 @@
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSpacerItem>
-#include <QtWidgets/QTableWidget>
+#include <QtWidgets/QTableView>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
@@ -31,6 +31,8 @@ class Ui_MainWindow
 {
 public:
     QWidget *centralwidget;
+    QWidget *layoutWidget;
+    QGridLayout *gridLayout_3;
     QFrame *frame;
     QVBoxLayout *verticalLayout_5;
     QHBoxLayout *horizontalLayout_4;
@@ -55,15 +57,16 @@ public:
     QHBoxLayout *horizontalLayout_9;
     QLabel *label_10;
     QLabel *label_15;
+    QVBoxLayout *verticalLayout_6;
     QFrame *frame_2;
-    QWidget *layoutWidget;
+    QWidget *layoutWidget1;
     QHBoxLayout *horizontalLayout_3;
     QVBoxLayout *verticalLayout_2;
     QPushButton *metroButton1;
     QPushButton *button9;
     QVBoxLayout *verticalLayout;
     QFrame *frame_3;
-    QWidget *layoutWidget1;
+    QWidget *layoutWidget2;
     QHBoxLayout *horizontalLayout;
     QPushButton *pushButton_2;
     QLineEdit *lineEdit;
@@ -79,7 +82,7 @@ public:
     QPushButton *btnDeleteFile;
     QPushButton *addFileAccount;
     QFrame *frame_6;
-    QWidget *layoutWidget2;
+    QWidget *layoutWidget3;
     QHBoxLayout *horizontalLayout_2;
     QVBoxLayout *verticalLayout_4;
     QLabel *label_11;
@@ -88,13 +91,13 @@ public:
     QLabel *label_3;
     QLabel *label_6;
     QLabel *label_7;
-    QTableWidget *tableWidget;
+    QTableView *tableView;
 
     void setupUi(QMainWindow *MainWindow)
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName("MainWindow");
-        MainWindow->resize(1382, 723);
+        MainWindow->resize(1381, 723);
         MainWindow->setStyleSheet(QString::fromUtf8("background-color: #FFFBDA;\n"
 "border-radius:15px;"));
         centralwidget = new QWidget(MainWindow);
@@ -104,9 +107,14 @@ public:
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(centralwidget->sizePolicy().hasHeightForWidth());
         centralwidget->setSizePolicy(sizePolicy);
-        frame = new QFrame(centralwidget);
+        layoutWidget = new QWidget(centralwidget);
+        layoutWidget->setObjectName("layoutWidget");
+        layoutWidget->setGeometry(QRect(10, 10, 1365, 707));
+        gridLayout_3 = new QGridLayout(layoutWidget);
+        gridLayout_3->setObjectName("gridLayout_3");
+        gridLayout_3->setContentsMargins(0, 0, 0, 0);
+        frame = new QFrame(layoutWidget);
         frame->setObjectName("frame");
-        frame->setGeometry(QRect(11, 11, 274, 705));
         QSizePolicy sizePolicy1(QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Expanding);
         sizePolicy1.setHorizontalStretch(3);
         sizePolicy1.setVerticalStretch(1);
@@ -468,9 +476,13 @@ public:
 
         verticalLayout_5->addWidget(frame_5);
 
-        frame_2 = new QFrame(centralwidget);
+
+        gridLayout_3->addWidget(frame, 0, 0, 1, 1);
+
+        verticalLayout_6 = new QVBoxLayout();
+        verticalLayout_6->setObjectName("verticalLayout_6");
+        frame_2 = new QFrame(layoutWidget);
         frame_2->setObjectName("frame_2");
-        frame_2->setGeometry(QRect(292, 12, 1081, 121));
         sizePolicy.setHeightForWidth(frame_2->sizePolicy().hasHeightForWidth());
         frame_2->setSizePolicy(sizePolicy);
         frame_2->setMinimumSize(QSize(1081, 121));
@@ -478,15 +490,15 @@ public:
         frame_2->setStyleSheet(QString::fromUtf8("background-color: #FFBB70;"));
         frame_2->setFrameShape(QFrame::StyledPanel);
         frame_2->setFrameShadow(QFrame::Raised);
-        layoutWidget = new QWidget(frame_2);
-        layoutWidget->setObjectName("layoutWidget");
-        layoutWidget->setGeometry(QRect(9, 9, 1021, 103));
-        horizontalLayout_3 = new QHBoxLayout(layoutWidget);
+        layoutWidget1 = new QWidget(frame_2);
+        layoutWidget1->setObjectName("layoutWidget1");
+        layoutWidget1->setGeometry(QRect(9, 9, 1021, 103));
+        horizontalLayout_3 = new QHBoxLayout(layoutWidget1);
         horizontalLayout_3->setObjectName("horizontalLayout_3");
         horizontalLayout_3->setContentsMargins(0, 0, 0, 0);
         verticalLayout_2 = new QVBoxLayout();
         verticalLayout_2->setObjectName("verticalLayout_2");
-        metroButton1 = new QPushButton(layoutWidget);
+        metroButton1 = new QPushButton(layoutWidget1);
         metroButton1->setObjectName("metroButton1");
         metroButton1->setMinimumSize(QSize(151, 40));
         metroButton1->setStyleSheet(QString::fromUtf8("QPushButton{background-color: #FFFBDA;\n"
@@ -518,7 +530,7 @@ public:
 
         verticalLayout_2->addWidget(metroButton1);
 
-        button9 = new QPushButton(layoutWidget);
+        button9 = new QPushButton(layoutWidget1);
         button9->setObjectName("button9");
         button9->setMinimumSize(QSize(151, 40));
         button9->setStyleSheet(QString::fromUtf8("QPushButton{background-color: #FFFBDA;\n"
@@ -554,7 +566,7 @@ public:
 
         verticalLayout = new QVBoxLayout();
         verticalLayout->setObjectName("verticalLayout");
-        frame_3 = new QFrame(layoutWidget);
+        frame_3 = new QFrame(layoutWidget1);
         frame_3->setObjectName("frame_3");
         frame_3->setMinimumSize(QSize(421, 40));
         frame_3->setStyleSheet(QString::fromUtf8("background-color: #FFFBDA;\n"
@@ -562,16 +574,16 @@ public:
 "font: 500 9pt \"Roboto Medium\";"));
         frame_3->setFrameShape(QFrame::StyledPanel);
         frame_3->setFrameShadow(QFrame::Raised);
-        layoutWidget1 = new QWidget(frame_3);
-        layoutWidget1->setObjectName("layoutWidget1");
-        layoutWidget1->setGeometry(QRect(10, 8, 397, 26));
-        horizontalLayout = new QHBoxLayout(layoutWidget1);
+        layoutWidget2 = new QWidget(frame_3);
+        layoutWidget2->setObjectName("layoutWidget2");
+        layoutWidget2->setGeometry(QRect(10, 8, 397, 26));
+        horizontalLayout = new QHBoxLayout(layoutWidget2);
         horizontalLayout->setObjectName("horizontalLayout");
         horizontalLayout->setContentsMargins(0, 0, 0, 0);
-        pushButton_2 = new QPushButton(layoutWidget1);
+        pushButton_2 = new QPushButton(layoutWidget2);
         pushButton_2->setObjectName("pushButton_2");
         pushButton_2->setMinimumSize(QSize(31, 24));
-        pushButton_2->setStyleSheet(QString::fromUtf8("image: url(:/img/img/search.png);\n"
+        pushButton_2->setStyleSheet(QString::fromUtf8("image: url(:/img/search.png);\n"
 "border-width: 1px; /* Set the width of the border */\n"
 "border-style: solid; /* Define the style of the border */\n"
 "border-color: black; /* Define the color of the border */\n"
@@ -580,7 +592,7 @@ public:
 
         horizontalLayout->addWidget(pushButton_2);
 
-        lineEdit = new QLineEdit(layoutWidget1);
+        lineEdit = new QLineEdit(layoutWidget2);
         lineEdit->setObjectName("lineEdit");
         lineEdit->setMinimumSize(QSize(191, 24));
         lineEdit->setStyleSheet(QString::fromUtf8("background-color: white;\n"
@@ -591,7 +603,7 @@ public:
 
         horizontalLayout->addWidget(lineEdit);
 
-        cbbSearch = new QComboBox(layoutWidget1);
+        cbbSearch = new QComboBox(layoutWidget2);
         cbbSearch->setObjectName("cbbSearch");
         cbbSearch->setMinimumSize(QSize(161, 24));
         cbbSearch->setStyleSheet(QString::fromUtf8("background-color: white;\n"
@@ -605,7 +617,7 @@ public:
 
         verticalLayout->addWidget(frame_3);
 
-        frame_4 = new QFrame(layoutWidget);
+        frame_4 = new QFrame(layoutWidget1);
         frame_4->setObjectName("frame_4");
         frame_4->setMinimumSize(QSize(471, 40));
         frame_4->setStyleSheet(QString::fromUtf8("background-color: #FFFBDA;\n"
@@ -655,30 +667,29 @@ public:
 
         gridLayout = new QGridLayout();
         gridLayout->setObjectName("gridLayout");
-        btnLoadAcc = new QPushButton(layoutWidget);
+        btnLoadAcc = new QPushButton(layoutWidget1);
         btnLoadAcc->setObjectName("btnLoadAcc");
         btnLoadAcc->setMinimumSize(QSize(21, 24));
         btnLoadAcc->setStyleSheet(QString::fromUtf8("image: url(:/img/img/refresh.png);"));
 
         gridLayout->addWidget(btnLoadAcc, 1, 1, 1, 1);
 
-        btnEditFile = new QPushButton(layoutWidget);
+        btnEditFile = new QPushButton(layoutWidget1);
         btnEditFile->setObjectName("btnEditFile");
         btnEditFile->setMinimumSize(QSize(21, 24));
-        btnEditFile->setStyleSheet(QString::fromUtf8("\n"
-"image: url(:/img/img/pencil.png);"));
+        btnEditFile->setStyleSheet(QString::fromUtf8("image: url(:/img/img/pencil.png);"));
 
         gridLayout->addWidget(btnEditFile, 0, 1, 1, 1);
 
-        btnDeleteFile = new QPushButton(layoutWidget);
+        btnDeleteFile = new QPushButton(layoutWidget1);
         btnDeleteFile->setObjectName("btnDeleteFile");
         btnDeleteFile->setMinimumSize(QSize(21, 24));
-        btnDeleteFile->setStyleSheet(QString::fromUtf8("image: url(:/img/img/minus.png);\n"
-""));
+        btnDeleteFile->setStyleSheet(QString::fromUtf8("\n"
+"image: url(:/img/img/minus.png);"));
 
         gridLayout->addWidget(btnDeleteFile, 1, 0, 1, 1);
 
-        addFileAccount = new QPushButton(layoutWidget);
+        addFileAccount = new QPushButton(layoutWidget1);
         addFileAccount->setObjectName("addFileAccount");
         addFileAccount->setMinimumSize(QSize(21, 24));
         addFileAccount->setStyleSheet(QString::fromUtf8("image: url(:/img/img/plus.png);\n"
@@ -689,7 +700,7 @@ public:
 
         horizontalLayout_3->addLayout(gridLayout);
 
-        frame_6 = new QFrame(layoutWidget);
+        frame_6 = new QFrame(layoutWidget1);
         frame_6->setObjectName("frame_6");
         frame_6->setMinimumSize(QSize(311, 101));
         frame_6->setStyleSheet(QString::fromUtf8("background-color: #FFFBDA;\n"
@@ -697,23 +708,23 @@ public:
 "font: 500 9pt \"Roboto Medium\";"));
         frame_6->setFrameShape(QFrame::StyledPanel);
         frame_6->setFrameShadow(QFrame::Raised);
-        layoutWidget2 = new QWidget(frame_6);
-        layoutWidget2->setObjectName("layoutWidget2");
-        layoutWidget2->setGeometry(QRect(10, 10, 294, 82));
-        horizontalLayout_2 = new QHBoxLayout(layoutWidget2);
+        layoutWidget3 = new QWidget(frame_6);
+        layoutWidget3->setObjectName("layoutWidget3");
+        layoutWidget3->setGeometry(QRect(10, 10, 294, 82));
+        horizontalLayout_2 = new QHBoxLayout(layoutWidget3);
         horizontalLayout_2->setObjectName("horizontalLayout_2");
         horizontalLayout_2->setContentsMargins(0, 0, 0, 0);
         verticalLayout_4 = new QVBoxLayout();
         verticalLayout_4->setObjectName("verticalLayout_4");
-        label_11 = new QLabel(layoutWidget2);
+        label_11 = new QLabel(layoutWidget3);
         label_11->setObjectName("label_11");
         label_11->setMinimumSize(QSize(61, 41));
         label_11->setStyleSheet(QString::fromUtf8("border-radius:50%;\n"
-"image: url(:/img/C:/Users/quan2/Downloads/profile-user.png);"));
+"image: url(:/img/img/profile-user.png);"));
 
         verticalLayout_4->addWidget(label_11);
 
-        pushButton_7 = new QPushButton(layoutWidget2);
+        pushButton_7 = new QPushButton(layoutWidget3);
         pushButton_7->setObjectName("pushButton_7");
         pushButton_7->setMinimumSize(QSize(61, 31));
         pushButton_7->setStyleSheet(QString::fromUtf8("background-color: darkred;\n"
@@ -728,7 +739,7 @@ public:
 
         verticalLayout_3 = new QVBoxLayout();
         verticalLayout_3->setObjectName("verticalLayout_3");
-        label_3 = new QLabel(layoutWidget2);
+        label_3 = new QLabel(layoutWidget3);
         label_3->setObjectName("label_3");
         label_3->setMinimumSize(QSize(221, 16));
         label_3->setFont(font2);
@@ -736,7 +747,7 @@ public:
 
         verticalLayout_3->addWidget(label_3);
 
-        label_6 = new QLabel(layoutWidget2);
+        label_6 = new QLabel(layoutWidget3);
         label_6->setObjectName("label_6");
         label_6->setMinimumSize(QSize(211, 16));
         label_6->setFont(font2);
@@ -744,7 +755,7 @@ public:
 
         verticalLayout_3->addWidget(label_6);
 
-        label_7 = new QLabel(layoutWidget2);
+        label_7 = new QLabel(layoutWidget3);
         label_7->setObjectName("label_7");
         label_7->setMinimumSize(QSize(221, 16));
         label_7->setFont(font2);
@@ -758,131 +769,22 @@ public:
 
         horizontalLayout_3->addWidget(frame_6);
 
-        tableWidget = new QTableWidget(centralwidget);
-        if (tableWidget->columnCount() < 38)
-            tableWidget->setColumnCount(38);
-        QFont font3;
-        font3.setBold(true);
-        QTableWidgetItem *__qtablewidgetitem = new QTableWidgetItem();
-        __qtablewidgetitem->setFont(font3);
-        tableWidget->setHorizontalHeaderItem(0, __qtablewidgetitem);
-        QTableWidgetItem *__qtablewidgetitem1 = new QTableWidgetItem();
-        __qtablewidgetitem1->setFont(font3);
-        tableWidget->setHorizontalHeaderItem(1, __qtablewidgetitem1);
-        QTableWidgetItem *__qtablewidgetitem2 = new QTableWidgetItem();
-        tableWidget->setHorizontalHeaderItem(2, __qtablewidgetitem2);
-        QTableWidgetItem *__qtablewidgetitem3 = new QTableWidgetItem();
-        __qtablewidgetitem3->setFont(font3);
-        tableWidget->setHorizontalHeaderItem(3, __qtablewidgetitem3);
-        QTableWidgetItem *__qtablewidgetitem4 = new QTableWidgetItem();
-        __qtablewidgetitem4->setFont(font3);
-        tableWidget->setHorizontalHeaderItem(4, __qtablewidgetitem4);
-        QTableWidgetItem *__qtablewidgetitem5 = new QTableWidgetItem();
-        __qtablewidgetitem5->setFont(font3);
-        tableWidget->setHorizontalHeaderItem(5, __qtablewidgetitem5);
-        QTableWidgetItem *__qtablewidgetitem6 = new QTableWidgetItem();
-        __qtablewidgetitem6->setFont(font3);
-        tableWidget->setHorizontalHeaderItem(6, __qtablewidgetitem6);
-        QTableWidgetItem *__qtablewidgetitem7 = new QTableWidgetItem();
-        __qtablewidgetitem7->setFont(font3);
-        tableWidget->setHorizontalHeaderItem(7, __qtablewidgetitem7);
-        QTableWidgetItem *__qtablewidgetitem8 = new QTableWidgetItem();
-        __qtablewidgetitem8->setFont(font3);
-        tableWidget->setHorizontalHeaderItem(8, __qtablewidgetitem8);
-        QTableWidgetItem *__qtablewidgetitem9 = new QTableWidgetItem();
-        __qtablewidgetitem9->setFont(font3);
-        tableWidget->setHorizontalHeaderItem(9, __qtablewidgetitem9);
-        QTableWidgetItem *__qtablewidgetitem10 = new QTableWidgetItem();
-        __qtablewidgetitem10->setFont(font3);
-        tableWidget->setHorizontalHeaderItem(10, __qtablewidgetitem10);
-        QTableWidgetItem *__qtablewidgetitem11 = new QTableWidgetItem();
-        __qtablewidgetitem11->setFont(font3);
-        tableWidget->setHorizontalHeaderItem(11, __qtablewidgetitem11);
-        QTableWidgetItem *__qtablewidgetitem12 = new QTableWidgetItem();
-        __qtablewidgetitem12->setFont(font3);
-        tableWidget->setHorizontalHeaderItem(12, __qtablewidgetitem12);
-        QTableWidgetItem *__qtablewidgetitem13 = new QTableWidgetItem();
-        __qtablewidgetitem13->setFont(font3);
-        tableWidget->setHorizontalHeaderItem(13, __qtablewidgetitem13);
-        QTableWidgetItem *__qtablewidgetitem14 = new QTableWidgetItem();
-        __qtablewidgetitem14->setFont(font3);
-        tableWidget->setHorizontalHeaderItem(14, __qtablewidgetitem14);
-        QTableWidgetItem *__qtablewidgetitem15 = new QTableWidgetItem();
-        __qtablewidgetitem15->setFont(font3);
-        tableWidget->setHorizontalHeaderItem(15, __qtablewidgetitem15);
-        QTableWidgetItem *__qtablewidgetitem16 = new QTableWidgetItem();
-        __qtablewidgetitem16->setFont(font3);
-        tableWidget->setHorizontalHeaderItem(16, __qtablewidgetitem16);
-        QTableWidgetItem *__qtablewidgetitem17 = new QTableWidgetItem();
-        __qtablewidgetitem17->setFont(font3);
-        tableWidget->setHorizontalHeaderItem(17, __qtablewidgetitem17);
-        QTableWidgetItem *__qtablewidgetitem18 = new QTableWidgetItem();
-        __qtablewidgetitem18->setFont(font3);
-        tableWidget->setHorizontalHeaderItem(18, __qtablewidgetitem18);
-        QTableWidgetItem *__qtablewidgetitem19 = new QTableWidgetItem();
-        __qtablewidgetitem19->setFont(font3);
-        tableWidget->setHorizontalHeaderItem(19, __qtablewidgetitem19);
-        QTableWidgetItem *__qtablewidgetitem20 = new QTableWidgetItem();
-        __qtablewidgetitem20->setFont(font3);
-        tableWidget->setHorizontalHeaderItem(20, __qtablewidgetitem20);
-        QTableWidgetItem *__qtablewidgetitem21 = new QTableWidgetItem();
-        __qtablewidgetitem21->setFont(font3);
-        tableWidget->setHorizontalHeaderItem(21, __qtablewidgetitem21);
-        QTableWidgetItem *__qtablewidgetitem22 = new QTableWidgetItem();
-        __qtablewidgetitem22->setFont(font3);
-        tableWidget->setHorizontalHeaderItem(22, __qtablewidgetitem22);
-        QTableWidgetItem *__qtablewidgetitem23 = new QTableWidgetItem();
-        __qtablewidgetitem23->setFont(font3);
-        tableWidget->setHorizontalHeaderItem(23, __qtablewidgetitem23);
-        QTableWidgetItem *__qtablewidgetitem24 = new QTableWidgetItem();
-        __qtablewidgetitem24->setFont(font3);
-        tableWidget->setHorizontalHeaderItem(24, __qtablewidgetitem24);
-        QTableWidgetItem *__qtablewidgetitem25 = new QTableWidgetItem();
-        __qtablewidgetitem25->setFont(font3);
-        tableWidget->setHorizontalHeaderItem(25, __qtablewidgetitem25);
-        QTableWidgetItem *__qtablewidgetitem26 = new QTableWidgetItem();
-        __qtablewidgetitem26->setFont(font3);
-        tableWidget->setHorizontalHeaderItem(26, __qtablewidgetitem26);
-        QTableWidgetItem *__qtablewidgetitem27 = new QTableWidgetItem();
-        __qtablewidgetitem27->setFont(font3);
-        tableWidget->setHorizontalHeaderItem(27, __qtablewidgetitem27);
-        QTableWidgetItem *__qtablewidgetitem28 = new QTableWidgetItem();
-        __qtablewidgetitem28->setFont(font3);
-        tableWidget->setHorizontalHeaderItem(28, __qtablewidgetitem28);
-        QTableWidgetItem *__qtablewidgetitem29 = new QTableWidgetItem();
-        __qtablewidgetitem29->setFont(font3);
-        tableWidget->setHorizontalHeaderItem(29, __qtablewidgetitem29);
-        QTableWidgetItem *__qtablewidgetitem30 = new QTableWidgetItem();
-        __qtablewidgetitem30->setFont(font3);
-        tableWidget->setHorizontalHeaderItem(30, __qtablewidgetitem30);
-        QTableWidgetItem *__qtablewidgetitem31 = new QTableWidgetItem();
-        __qtablewidgetitem31->setFont(font3);
-        tableWidget->setHorizontalHeaderItem(31, __qtablewidgetitem31);
-        QTableWidgetItem *__qtablewidgetitem32 = new QTableWidgetItem();
-        __qtablewidgetitem32->setFont(font3);
-        tableWidget->setHorizontalHeaderItem(32, __qtablewidgetitem32);
-        QTableWidgetItem *__qtablewidgetitem33 = new QTableWidgetItem();
-        __qtablewidgetitem33->setFont(font3);
-        tableWidget->setHorizontalHeaderItem(33, __qtablewidgetitem33);
-        QTableWidgetItem *__qtablewidgetitem34 = new QTableWidgetItem();
-        __qtablewidgetitem34->setFont(font3);
-        tableWidget->setHorizontalHeaderItem(34, __qtablewidgetitem34);
-        QTableWidgetItem *__qtablewidgetitem35 = new QTableWidgetItem();
-        __qtablewidgetitem35->setFont(font3);
-        tableWidget->setHorizontalHeaderItem(35, __qtablewidgetitem35);
-        QTableWidgetItem *__qtablewidgetitem36 = new QTableWidgetItem();
-        __qtablewidgetitem36->setFont(font3);
-        tableWidget->setHorizontalHeaderItem(36, __qtablewidgetitem36);
-        QTableWidgetItem *__qtablewidgetitem37 = new QTableWidgetItem();
-        __qtablewidgetitem37->setFont(font3);
-        tableWidget->setHorizontalHeaderItem(37, __qtablewidgetitem37);
-        tableWidget->setObjectName("tableWidget");
-        tableWidget->setGeometry(QRect(292, 139, 1081, 571));
-        tableWidget->setMinimumSize(QSize(1081, 571));
-        tableWidget->setStyleSheet(QString::fromUtf8("color:white;\n"
+
+        verticalLayout_6->addWidget(frame_2);
+
+        tableView = new QTableView(layoutWidget);
+        tableView->setObjectName("tableView");
+        tableView->setMinimumSize(QSize(1081, 571));
+        tableView->setStyleSheet(QString::fromUtf8("color:white;\n"
 "background-color: #503C3C;\n"
-""));
-        tableWidget->setSortingEnabled(true);
+"border-radius:15px;"));
+        tableView->setSortingEnabled(true);
+
+        verticalLayout_6->addWidget(tableView);
+
+
+        gridLayout_3->addLayout(verticalLayout_6, 0, 1, 1, 1);
+
         MainWindow->setCentralWidget(centralwidget);
 
         retranslateUi(MainWindow);
@@ -921,82 +823,6 @@ public:
         label_3->setText(QCoreApplication::translate("MainWindow", "H\341\273\215 t\303\252n: ", nullptr));
         label_6->setText(QCoreApplication::translate("MainWindow", "M\303\243 Thi\341\272\277t b\341\273\213: ", nullptr));
         label_7->setText(QCoreApplication::translate("MainWindow", "S\304\220T: ", nullptr));
-        QTableWidgetItem *___qtablewidgetitem = tableWidget->horizontalHeaderItem(0);
-        ___qtablewidgetitem->setText(QCoreApplication::translate("MainWindow", "Ch\341\273\215n", nullptr));
-        QTableWidgetItem *___qtablewidgetitem1 = tableWidget->horizontalHeaderItem(1);
-        ___qtablewidgetitem1->setText(QCoreApplication::translate("MainWindow", "STT", nullptr));
-        QTableWidgetItem *___qtablewidgetitem2 = tableWidget->horizontalHeaderItem(2);
-        ___qtablewidgetitem2->setText(QCoreApplication::translate("MainWindow", "Id", nullptr));
-        QTableWidgetItem *___qtablewidgetitem3 = tableWidget->horizontalHeaderItem(3);
-        ___qtablewidgetitem3->setText(QCoreApplication::translate("MainWindow", "Uid", nullptr));
-        QTableWidgetItem *___qtablewidgetitem4 = tableWidget->horizontalHeaderItem(4);
-        ___qtablewidgetitem4->setText(QCoreApplication::translate("MainWindow", "Token", nullptr));
-        QTableWidgetItem *___qtablewidgetitem5 = tableWidget->horizontalHeaderItem(5);
-        ___qtablewidgetitem5->setText(QCoreApplication::translate("MainWindow", "Cookies", nullptr));
-        QTableWidgetItem *___qtablewidgetitem6 = tableWidget->horizontalHeaderItem(6);
-        ___qtablewidgetitem6->setText(QCoreApplication::translate("MainWindow", "Email", nullptr));
-        QTableWidgetItem *___qtablewidgetitem7 = tableWidget->horizontalHeaderItem(7);
-        ___qtablewidgetitem7->setText(QCoreApplication::translate("MainWindow", "Phone", nullptr));
-        QTableWidgetItem *___qtablewidgetitem8 = tableWidget->horizontalHeaderItem(8);
-        ___qtablewidgetitem8->setText(QCoreApplication::translate("MainWindow", "T\303\252n", nullptr));
-        QTableWidgetItem *___qtablewidgetitem9 = tableWidget->horizontalHeaderItem(9);
-        ___qtablewidgetitem9->setText(QCoreApplication::translate("MainWindow", "Page", nullptr));
-        QTableWidgetItem *___qtablewidgetitem10 = tableWidget->horizontalHeaderItem(10);
-        ___qtablewidgetitem10->setText(QCoreApplication::translate("MainWindow", "B\341\272\241n B\303\250", nullptr));
-        QTableWidgetItem *___qtablewidgetitem11 = tableWidget->horizontalHeaderItem(11);
-        ___qtablewidgetitem11->setText(QCoreApplication::translate("MainWindow", "Nh\303\263m", nullptr));
-        QTableWidgetItem *___qtablewidgetitem12 = tableWidget->horizontalHeaderItem(12);
-        ___qtablewidgetitem12->setText(QCoreApplication::translate("MainWindow", "PagePro5", nullptr));
-        QTableWidgetItem *___qtablewidgetitem13 = tableWidget->horizontalHeaderItem(13);
-        ___qtablewidgetitem13->setText(QCoreApplication::translate("MainWindow", "Ng\303\240y sinh", nullptr));
-        QTableWidgetItem *___qtablewidgetitem14 = tableWidget->horizontalHeaderItem(14);
-        ___qtablewidgetitem14->setText(QCoreApplication::translate("MainWindow", "Gi\341\273\233i t\303\255nh", nullptr));
-        QTableWidgetItem *___qtablewidgetitem15 = tableWidget->horizontalHeaderItem(15);
-        ___qtablewidgetitem15->setText(QCoreApplication::translate("MainWindow", "M\341\272\255t kh\341\272\251u", nullptr));
-        QTableWidgetItem *___qtablewidgetitem16 = tableWidget->horizontalHeaderItem(16);
-        ___qtablewidgetitem16->setText(QCoreApplication::translate("MainWindow", "Mail Kh\303\264i Ph\341\273\245c", nullptr));
-        QTableWidgetItem *___qtablewidgetitem17 = tableWidget->horizontalHeaderItem(17);
-        ___qtablewidgetitem17->setText(QCoreApplication::translate("MainWindow", "M\341\272\255t kh\341\272\251u Mail", nullptr));
-        QTableWidgetItem *___qtablewidgetitem18 = tableWidget->horizontalHeaderItem(18);
-        ___qtablewidgetitem18->setText(QCoreApplication::translate("MainWindow", "Backup", nullptr));
-        QTableWidgetItem *___qtablewidgetitem19 = tableWidget->horizontalHeaderItem(19);
-        ___qtablewidgetitem19->setText(QCoreApplication::translate("MainWindow", "M\303\243 2FA", nullptr));
-        QTableWidgetItem *___qtablewidgetitem20 = tableWidget->horizontalHeaderItem(20);
-        ___qtablewidgetitem20->setText(QCoreApplication::translate("MainWindow", "Proxy", nullptr));
-        QTableWidgetItem *___qtablewidgetitem21 = tableWidget->horizontalHeaderItem(21);
-        ___qtablewidgetitem21->setText(QCoreApplication::translate("MainWindow", "Ng\303\240y t\341\272\241o t\303\240i kho\341\272\243n", nullptr));
-        QTableWidgetItem *___qtablewidgetitem22 = tableWidget->horizontalHeaderItem(22);
-        ___qtablewidgetitem22->setText(QCoreApplication::translate("MainWindow", "Avatar", nullptr));
-        QTableWidgetItem *___qtablewidgetitem23 = tableWidget->horizontalHeaderItem(23);
-        ___qtablewidgetitem23->setText(QCoreApplication::translate("MainWindow", "Profile", nullptr));
-        QTableWidgetItem *___qtablewidgetitem24 = tableWidget->horizontalHeaderItem(24);
-        ___qtablewidgetitem24->setText(QCoreApplication::translate("MainWindow", "Th\306\260 M\341\273\245c", nullptr));
-        QTableWidgetItem *___qtablewidgetitem25 = tableWidget->horizontalHeaderItem(25);
-        ___qtablewidgetitem25->setText(QCoreApplication::translate("MainWindow", "L\341\272\247n T\306\260\306\241ng T\303\241c Cu\341\273\221i", nullptr));
-        QTableWidgetItem *___qtablewidgetitem26 = tableWidget->horizontalHeaderItem(26);
-        ___qtablewidgetitem26->setText(QCoreApplication::translate("MainWindow", "T\303\254nh Tr\341\272\241ng", nullptr));
-        QTableWidgetItem *___qtablewidgetitem27 = tableWidget->horizontalHeaderItem(27);
-        ___qtablewidgetitem27->setText(QCoreApplication::translate("MainWindow", "Ghi Ch\303\272", nullptr));
-        QTableWidgetItem *___qtablewidgetitem28 = tableWidget->horizontalHeaderItem(28);
-        ___qtablewidgetitem28->setText(QCoreApplication::translate("MainWindow", "Status282", nullptr));
-        QTableWidgetItem *___qtablewidgetitem29 = tableWidget->horizontalHeaderItem(29);
-        ___qtablewidgetitem29->setText(QCoreApplication::translate("MainWindow", "Location", nullptr));
-        QTableWidgetItem *___qtablewidgetitem30 = tableWidget->horizontalHeaderItem(30);
-        ___qtablewidgetitem30->setText(QCoreApplication::translate("MainWindow", "Home Town", nullptr));
-        QTableWidgetItem *___qtablewidgetitem31 = tableWidget->horizontalHeaderItem(31);
-        ___qtablewidgetitem31->setText(QCoreApplication::translate("MainWindow", "Current City", nullptr));
-        QTableWidgetItem *___qtablewidgetitem32 = tableWidget->horizontalHeaderItem(32);
-        ___qtablewidgetitem32->setText(QCoreApplication::translate("MainWindow", "Dating", nullptr));
-        QTableWidgetItem *___qtablewidgetitem33 = tableWidget->horizontalHeaderItem(33);
-        ___qtablewidgetitem33->setText(QCoreApplication::translate("MainWindow", "Ads", nullptr));
-        QTableWidgetItem *___qtablewidgetitem34 = tableWidget->horizontalHeaderItem(34);
-        ___qtablewidgetitem34->setText(QCoreApplication::translate("MainWindow", "BM", nullptr));
-        QTableWidgetItem *___qtablewidgetitem35 = tableWidget->horizontalHeaderItem(35);
-        ___qtablewidgetitem35->setText(QCoreApplication::translate("MainWindow", "FbBlock", nullptr));
-        QTableWidgetItem *___qtablewidgetitem36 = tableWidget->horizontalHeaderItem(36);
-        ___qtablewidgetitem36->setText(QCoreApplication::translate("MainWindow", "Job", nullptr));
-        QTableWidgetItem *___qtablewidgetitem37 = tableWidget->horizontalHeaderItem(37);
-        ___qtablewidgetitem37->setText(QCoreApplication::translate("MainWindow", "Tr\341\272\241ng th\303\241i", nullptr));
     } // retranslateUi
 
 };

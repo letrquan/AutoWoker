@@ -55,8 +55,7 @@ public:
         txbNameFile->setGeometry(QRect(90, 40, 281, 24));
         txbNameFile->setStyleSheet(QString::fromUtf8("border-width: 2px; /* Set the width of the border */\n"
 "border-style: solid; /* Define the style of the border */\n"
-"border-color: white; /* Define the color of the border */\n"
-"color:white;"));
+"border-color: white; /* Define the color of the border */"));
 
         retranslateUi(fAddFile);
 

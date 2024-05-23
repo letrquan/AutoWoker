@@ -6,7 +6,6 @@
 DatagridviewHelper::DatagridviewHelper() {}
 
 void DatagridviewHelper::LoadDtgvAccFromDatatable(QTableWidget* dgv, QVariantList* tableAccount, bool isUseForBin){
-    dgv->setRowCount(tableAccount->size());
     if(!isUseForBin){
         auto row =0;
         for(const QVariant &item:*tableAccount){
@@ -24,7 +23,6 @@ void DatagridviewHelper::LoadDtgvAccFromDatatable(QTableWidget* dgv, QVariantLis
                 }else{
                     item->setData(Qt::DisplayRole,rowMap[numToHeaderMap[col]].toString());
                     item->setFlags(item->flags() & ~Qt::ItemIsEditable);
-
                 }
                 dgv->setItem(row,col,item);
             }
@@ -41,13 +39,12 @@ void DatagridviewHelper::LoadDtgvAccFromDatatable(QTableWidget* dgv, QVariantLis
                 }else if(col==1){
                     item->setData(Qt::DisplayRole,row+1);
                     item->setFlags(item->flags() & ~Qt::ItemIsEditable);
-                }else if(col == 38){
+                }else if(col == 29){
                     item->setData(Qt::DisplayRole,UpdateStatus::GetStatusById(rowMap["id"].toString()));
                     item->setFlags(item->flags() & ~Qt::ItemIsEditable);
                 }else{
-                    item->setData(Qt::DisplayRole,rowMap[numToHeaderMap[col]].toString());
+                    item->setData(Qt::DisplayRole,rowMap[numToHeaderMapBin[col]].toString());
                     item->setFlags(item->flags() & ~Qt::ItemIsEditable);
-
                 }
                 dgv->setItem(row,col,item);
             }
@@ -57,81 +54,82 @@ void DatagridviewHelper::LoadDtgvAccFromDatatable(QTableWidget* dgv, QVariantLis
     dgv->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 }
 QMap<int,QString> DatagridviewHelper::numToHeaderMap = {
-    {2, "id"},
-    {3, "uid"},
-    {4, "token"},
-    {5, "cookie1"},
-    {6, "email"},
-    {7, "phone"},
-    {8, "name"},
-    {9, "follow"},
-    {10, "friends"},
-    {11, "groups"},
-    {12, "pagePro5"},
-    {13, "birthday"},
-    {14, "gender"},
-    {15, "pass"},
-    {16, "mailrecovery"},
-    {17, "passmail"},
-    {18, "backup"},
-    {19, "fa2"},
-    {20, "useragent"},
-    {21, "proxy"},
-    {22, "dateCreateAcc"},
-    {23, "avatar"},
-    {24, "profile"},
-    {25, "nameFile"},
-    {26, "interactEnd"},
-    {27, "info"},
-    {28, "ghiChu"},
-    {29, "status282"},
-    {30, "location"},
-    {31, "hometown"},
-    {32, "currentCity"},
-    {33, "dating"},
-    {34, "ads"},
-    {35, "bm"},
-    {36, "fbBlock"},
-    {37, "job"}
+    {2,"id"},
+    {3,"uid"},
+    {4,"token"},
+    {5,"cookie1"},
+    {6,"email"},
+    {7,"phone"},
+    {8,"name"},
+    {9,"follow"},
+    {10,"friends"},
+    {11,"groups"},
+    {12,"pagePro5"},
+    {13,"birthday"},
+    {14,"gender"},
+    {15,"pass"},
+    {16,"mailrecovery"},
+    {17,"passmail"},
+    {18,"backup"},
+    {19,"fa2"},
+    {20,"useragent"},
+    {21,"proxy"},
+    {22,"dateCreateAcc"},
+    {23,"avatar"},
+    {24,"profile"},
+    {25,"nameFile"},
+    {26,"interactEnd"},
+    {27,"info"},
+    {28,"ghiChu"},
+    {29,"status282"},
+    {30,"location"},
+    {31,"hometown"},
+    {32,"currentCity"},
+    {33,"dating"},
+    {34,"ads"},
+    {35,"bm"},
+    {36,"fbBlock"},
+    {37,"job"}
 };
 QMap<int,QString> DatagridviewHelper::numToHeaderMapBin = {
-    {2, "id"},
-    {3, "uid"},
-    {4, "token"},
-    {5, "cookie1"},
-    {6, "email"},
-    {7, "phone"},
-    {8, "name"},
-    {9, "follow"},
-    {10, "friends"},
-    {11, "groups"},
-    {12, "birthday"},
-    {13, "gender"},
-    {14, "pass"},
-    {15, "mailrecovery"},
-    {16, "passmail"},
-    {17, "backup"},
-    {18, "fa2"},
-    {19, "useragent"},
-    {20, "proxy"},
-    {21, "dateCreateAcc"},
-    {22, "avatar"},
-    {23, "profile"},
-    {24, "nameFile"},
-    {25, "interactEnd"},
-    {26, "info"},
-    {27, "ghiChu"},
-    {28, "dateDelete"},
+    {2,"id"},
+    {3,"uid"},
+    {4,"token"},
+    {5,"cookie1"},
+    {6,"email"},
+    {7,"phone"},
+    {8,"name"},
+    {9,"follow"},
+    {10,"friends"},
+    {11,"groups"},
+    {12,"birthday"},
+    {13,"gender"},
+    {14,"pass"},
+    {15,"mailrecovery"},
+    {16,"passmail"},
+    {17,"backup"},
+    {18,"fa2"},
+    {19,"useragent"},
+    {20,"proxy"},
+    {21,"dateCreateAcc"},
+    {22,"avatar"},
+    {23,"profile"},
+    {24,"nameFile"},
+    {25,"interactEnd"},
+    {26,"info"},
+    {27,"ghiChu"},
+    {28,"dateDelete"},
 };
 
-QString DatagridviewHelper::GetStatusDataGridView(QTableWidget* dgv, int row, QString colName){
+QString DatagridviewHelper::GetStatusDataGridView(QTableWidget* dgv, int row, QString colName)
+{
     QString output ="";
     int col=Utils::GetIndexByColumnHeader(dgv,colName);
     try {
         if(col !=-1){
-            if (dgv->item(row,col)) {
+            if (!dgv->item(row,col)->text().isNull()) {
                 // Check if the item has a checkbox
-                QVariant checkState = dgv->item(row,col)->data(Qt::CheckStateRole);
+                QVariant checkState = dgv->item(row,col)->checkState();
                 if (checkState.isValid()) {
                     // Return "true" or "false" based on the checkbox state
                     output = (checkState.toInt() == Qt::Checked) ? "true" : "false";
@@ -144,6 +142,7 @@ QString DatagridviewHelper::GetStatusDataGridView(QTableWidget* dgv, int row, QS
     }
     return output;
 }
+
 void DatagridviewHelper::SetStatusDataGridViewWithWait(QTableWidget* dgv, int row, QString colName, int timeWait, QString status){
     try
     {
@@ -160,15 +159,15 @@ void DatagridviewHelper::SetStatusDataGridViewWithWait(QTableWidget* dgv, int ro
 }
 void DatagridviewHelper::SetStatusDataGridView(QTableWidget* dgv, int row, int col, QVariant status){
     try {
-        auto item = dgv->item(row,col);
-        if(item && (item->flags() & Qt::ItemIsUserCheckable)){
+        auto item = dgv->model()->index(row,col);
+        if(dgv->model()->data(item, Qt::CheckStateRole).isValid()){
             if(status.toBool() == true){
-                item->setCheckState(Qt::Checked);
+                dgv->model()->setData(item,Qt::Checked, Qt::CheckStateRole);
             }else{
-                item->setCheckState(Qt::Unchecked);
+                dgv->model()->setData(item,Qt::Unchecked, Qt::CheckStateRole);
             }
         }else{
-            item->setData(Qt::DisplayRole,status);
+            dgv->model()->setData(item, status, Qt::DisplayRole);
         }
 
     } catch (...) {
@@ -180,9 +179,7 @@ void DatagridviewHelper::SetStatusDataGridView(QTableWidget* dgv, int row, QStri
             UpdateStatus::SetStatusById(GetStatusDataGridView(dgv,row,"Id"), status.toString());
         }
         try {
-            QTableWidgetItem* item = new QTableWidgetItem();
-            item->setData(Qt::DisplayRole,status);
-            dgv->setItem(row, Utils::GetIndexByColumnHeader(dgv,colName),item);
+            dgv->item(row,Utils::GetIndexByColumnHeader(dgv,colName))->setData(Qt::DisplayRole , status);
         } catch (...) {
         }
     } catch (...) {

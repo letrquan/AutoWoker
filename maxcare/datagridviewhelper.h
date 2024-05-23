@@ -13,6 +13,7 @@ public:
     static QMap<int,QString> numToHeaderMap;
     static QMap<int,QString> numToHeaderMapBin;
     static void SetStatusDataGridViewWithWait(QTableWidget* dgv, int row, QString colName, int timeWait = 0, QString status = "Đơ\u0323i {time} giây...");
+
 };
 
 #endif // DATAGRIDVIEWHELPER_H
