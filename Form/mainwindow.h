@@ -48,6 +48,7 @@ private:
     void CheckMyWall(int row, QString tokenTg);
     void CheckMyToken(int row);
     bool CheckIsUidFacebook(QString uid);
+    void CheckAccountMail(int row);
     void CheckMyCookie(int row);
     void cControl(QString dt);
     void EnableSort();
@@ -62,7 +63,7 @@ private:
     int indexCbbThuMucOld = -1;
     QList<QString> GetIdFile();
     void LoadAccountFromFile(QList<QString> lstIdFile =QList<QString>(), QString info = "");
-    void LoadDtgvAccFromDatatable(QSqlQueryModel *tableAccount);
+    void LoadDtgvAccFromDatatable(QVariantList *tableAccount);
     void CountCheckedAccount(int count = -1);
     void CountTotalAccount();
     void SetRowColor(int indexRow = -1);

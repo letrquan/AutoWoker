@@ -37,7 +37,7 @@ public:
     QLabel *label_4;
     QLabel *label_5;
     QSpacerItem *verticalSpacer;
-    QPushButton *pushButton_10;
+    QPushButton *btnInteract;
     QPushButton *pushButton;
     QPushButton *pushButton_3;
     QPushButton *pushButton_4;
@@ -157,21 +157,21 @@ public:
 
         verticalLayout_5->addItem(verticalSpacer);
 
-        pushButton_10 = new QPushButton(frame);
-        pushButton_10->setObjectName("pushButton_10");
+        btnInteract = new QPushButton(frame);
+        btnInteract->setObjectName("btnInteract");
         QSizePolicy sizePolicy2(QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Fixed);
         sizePolicy2.setHorizontalStretch(0);
         sizePolicy2.setVerticalStretch(0);
-        sizePolicy2.setHeightForWidth(pushButton_10->sizePolicy().hasHeightForWidth());
-        pushButton_10->setSizePolicy(sizePolicy2);
-        pushButton_10->setMinimumSize(QSize(211, 41));
+        sizePolicy2.setHeightForWidth(btnInteract->sizePolicy().hasHeightForWidth());
+        btnInteract->setSizePolicy(sizePolicy2);
+        btnInteract->setMinimumSize(QSize(211, 41));
         QFont font2;
         font2.setFamilies({QString::fromUtf8("Roboto Medium")});
         font2.setPointSize(9);
         font2.setBold(true);
         font2.setItalic(false);
-        pushButton_10->setFont(font2);
-        pushButton_10->setStyleSheet(QString::fromUtf8("QPushButton\n"
+        btnInteract->setFont(font2);
+        btnInteract->setStyleSheet(QString::fromUtf8("QPushButton\n"
 "{background-color: #FFFBDA;\n"
 "color:black;\n"
 "font: 500 9pt \"Roboto Medium\";\n"
@@ -205,7 +205,7 @@ public:
 "		color: #ffffff;\n"
 "}"));
 
-        verticalLayout_5->addWidget(pushButton_10);
+        verticalLayout_5->addWidget(btnInteract);
 
         pushButton = new QPushButton(frame);
         pushButton->setObjectName("pushButton");
@@ -894,7 +894,7 @@ public:
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
         label_4->setText(QString());
         label_5->setText(QCoreApplication::translate("MainWindow", "Auto Worker", nullptr));
-        pushButton_10->setText(QCoreApplication::translate("MainWindow", "Ch\341\272\241y t\306\260\306\241ng t\303\241c     ", nullptr));
+        btnInteract->setText(QCoreApplication::translate("MainWindow", "Ch\341\272\241y t\306\260\306\241ng t\303\241c     ", nullptr));
         pushButton->setText(QCoreApplication::translate("MainWindow", "C\341\272\245u h\303\254nh chung", nullptr));
         pushButton_3->setText(QCoreApplication::translate("MainWindow", "C\341\272\245u h\303\254nh t\306\260\306\241ng t\303\241c", nullptr));
         pushButton_4->setText(QCoreApplication::translate("MainWindow", "C\341\272\245u h\303\254nh hi\341\273\203n th\341\273\213", nullptr));

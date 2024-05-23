@@ -1,5 +1,5 @@
-D:/AutoWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/AutoWorker_autogen/7A5D6QKFUP/moc_downloaddialog.cpp: D:/AutoWorker/AutoWoker/Form/downloaddialog.h \
-  D:/AutoWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/AutoWorker_autogen/moc_predefs.h \
+D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/AutoWorker_autogen/7A5D6QKFUP/moc_downloaddialog.cpp: D:/AutoWorker/XWorker/AutoWoker/Form/downloaddialog.h \
+  D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/AutoWorker_autogen/moc_predefs.h \
   C:/Qt/6.7.1/mingw_64/include/QtCore/QFile \
   C:/Qt/6.7.1/mingw_64/include/QtCore/QFlags \
   C:/Qt/6.7.1/mingw_64/include/QtCore/QIODevice \

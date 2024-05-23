@@ -1,17 +1,68 @@
 {
-	"BUILD_DIR" : "D:/AutoWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/AutoWorker_autogen",
-	"CMAKE_BINARY_DIR" : "D:/AutoWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug",
-	"CMAKE_CURRENT_BINARY_DIR" : "D:/AutoWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug",
-	"CMAKE_CURRENT_SOURCE_DIR" : "D:/AutoWorker/AutoWoker",
+	"BUILD_DIR" : "D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/AutoWorker_autogen",
+	"CMAKE_BINARY_DIR" : "D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug",
+	"CMAKE_CURRENT_BINARY_DIR" : "D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug",
+	"CMAKE_CURRENT_SOURCE_DIR" : "D:/AutoWorker/XWorker/AutoWoker",
 	"CMAKE_EXECUTABLE" : "C:/Qt/Tools/CMake_64/bin/cmake.exe",
 	"CMAKE_LIST_FILES" : 
 	[
-		"D:/AutoWorker/AutoWoker/CMakeLists.txt",
-		"D:/AutoWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/.qtc/package-manager/auto-setup.cmake",
-		"D:/AutoWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/CMakeFiles/3.27.7/CMakeSystem.cmake",
+		"D:/AutoWorker/XWorker/AutoWoker/CMakeLists.txt",
+		"D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/.qtc/package-manager/auto-setup.cmake",
+		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CMakeDetermineSystem.cmake",
+		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CMakeSystem.cmake.in",
+		"D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/CMakeFiles/3.27.7/CMakeSystem.cmake",
+		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CMakeNinjaFindMake.cmake",
 		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CMakeSystemSpecificInitialize.cmake",
 		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Platform/Windows-Initialize.cmake",
-		"D:/AutoWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/CMakeFiles/3.27.7/CMakeCXXCompiler.cmake",
+		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CMakeDetermineCXXCompiler.cmake",
+		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CMakeDetermineCompiler.cmake",
+		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Platform/Windows-Determine-CXX.cmake",
+		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CMakeDetermineCompilerId.cmake",
+		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CMakeCompilerIdDetection.cmake",
+		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/ADSP-DetermineCompiler.cmake",
+		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/ARMCC-DetermineCompiler.cmake",
+		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/ARMClang-DetermineCompiler.cmake",
+		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/AppleClang-DetermineCompiler.cmake",
+		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/Clang-DetermineCompilerInternal.cmake",
+		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/Borland-DetermineCompiler.cmake",
+		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/Clang-DetermineCompiler.cmake",
+		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/Clang-DetermineCompilerInternal.cmake",
+		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/Comeau-CXX-DetermineCompiler.cmake",
+		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/Compaq-CXX-DetermineCompiler.cmake",
+		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/Cray-DetermineCompiler.cmake",
+		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/Embarcadero-DetermineCompiler.cmake",
+		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/Fujitsu-DetermineCompiler.cmake",
+		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/FujitsuClang-DetermineCompiler.cmake",
+		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/GHS-DetermineCompiler.cmake",
+		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/GNU-CXX-DetermineCompiler.cmake",
+		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/HP-CXX-DetermineCompiler.cmake",
+		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/IAR-DetermineCompiler.cmake",
+		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/IBMClang-CXX-DetermineCompiler.cmake",
+		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/Intel-DetermineCompiler.cmake",
+		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/IntelLLVM-DetermineCompiler.cmake",
+		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/LCC-CXX-DetermineCompiler.cmake",
+		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/MSVC-DetermineCompiler.cmake",
+		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/NVHPC-DetermineCompiler.cmake",
+		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/NVIDIA-DetermineCompiler.cmake",
+		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/OpenWatcom-DetermineCompiler.cmake",
+		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/PGI-DetermineCompiler.cmake",
+		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/PathScale-DetermineCompiler.cmake",
+		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/SCO-DetermineCompiler.cmake",
+		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/SunPro-CXX-DetermineCompiler.cmake",
+		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/TI-DetermineCompiler.cmake",
+		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/Tasking-DetermineCompiler.cmake",
+		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/VisualAge-CXX-DetermineCompiler.cmake",
+		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/IBMCPP-CXX-DetermineVersionInternal.cmake",
+		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/Watcom-DetermineCompiler.cmake",
+		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/XL-CXX-DetermineCompiler.cmake",
+		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/IBMCPP-CXX-DetermineVersionInternal.cmake",
+		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/XLClang-CXX-DetermineCompiler.cmake",
+		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/zOS-CXX-DetermineCompiler.cmake",
+		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/IBMCPP-CXX-DetermineVersionInternal.cmake",
+		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CMakeFindBinUtils.cmake",
+		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/GNU-FindBinUtils.cmake",
+		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CMakeCXXCompiler.cmake.in",
+		"D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/CMakeFiles/3.27.7/CMakeCXXCompiler.cmake",
 		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CMakeSystemSpecificInformation.cmake",
 		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CMakeGenericSystem.cmake",
 		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CMakeInitializeConfigs.cmake",
@@ -24,11 +75,26 @@
 		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/CMakeCommonCompilerMacros.cmake",
 		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Platform/Windows-GNU-CXX.cmake",
 		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Platform/Windows-GNU.cmake",
-		"D:/AutoWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/CMakeFiles/3.27.7/CMakeRCCompiler.cmake",
+		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CMakeDetermineRCCompiler.cmake",
+		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CMakeRCCompiler.cmake.in",
+		"D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/CMakeFiles/3.27.7/CMakeRCCompiler.cmake",
 		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CMakeRCInformation.cmake",
 		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Platform/Windows-windres.cmake",
-		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Platform/Windows-GNU-CXX-ABI.cmake",
+		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CMakeTestRCCompiler.cmake",
 		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CMakeCommonLanguageInclude.cmake",
+		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CMakeTestCXXCompiler.cmake",
+		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CMakeTestCompilerCommon.cmake",
+		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CMakeDetermineCompilerABI.cmake",
+		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CMakeParseImplicitIncludeInfo.cmake",
+		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CMakeParseImplicitLinkInfo.cmake",
+		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CMakeParseLibraryArchitecture.cmake",
+		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CMakeTestCompilerCommon.cmake",
+		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CMakeCXXCompilerABI.cpp",
+		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CMakeDetermineCompileFeatures.cmake",
+		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Internal/FeatureTesting.cmake",
+		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CMakeCXXCompiler.cmake.in",
+		"D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/CMakeFiles/3.27.7/CMakeCXXCompiler.cmake",
+		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Platform/Windows-GNU-CXX-ABI.cmake",
 		"C:/Qt/6.7.1/mingw_64/lib/cmake/Qt6/Qt6ConfigVersion.cmake",
 		"C:/Qt/6.7.1/mingw_64/lib/cmake/Qt6/Qt6ConfigVersionImpl.cmake",
 		"C:/Qt/6.7.1/mingw_64/lib/cmake/Qt6/Qt6Config.cmake",
@@ -308,215 +374,227 @@
 		"C:/Qt/6.7.1/mingw_64/lib/cmake/Qt6Sql/Qt6QSQLiteDriverPluginTargets-relwithdebinfo.cmake",
 		"C:/Qt/6.7.1/mingw_64/lib/cmake/Qt6Sql/Qt6QSQLiteDriverPluginAdditionalTargetInfo.cmake",
 		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/GNUInstallDirs.cmake",
-		"D:/AutoWorker/AutoWoker/resource.qrc"
+		"D:/AutoWorker/XWorker/AutoWoker/resource.qrc"
 	],
-	"CMAKE_SOURCE_DIR" : "D:/AutoWorker/AutoWoker",
-	"DEP_FILE" : "D:/AutoWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/AutoWorker_autogen/deps",
+	"CMAKE_SOURCE_DIR" : "D:/AutoWorker/XWorker/AutoWoker",
+	"DEP_FILE" : "D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/AutoWorker_autogen/deps",
 	"DEP_FILE_RULE_NAME" : "AutoWorker_autogen/timestamp",
 	"HEADERS" : 
 	[
 		[
-			"D:/AutoWorker/AutoWoker/CloneDatabase/clonedatabase.h",
+			"D:/AutoWorker/XWorker/AutoWoker/CloneDatabase/clonedatabase.h",
 			"MU",
 			"2PJB6RPXSW/moc_clonedatabase.cpp",
 			null
 		],
 		[
-			"D:/AutoWorker/AutoWoker/CloneDatabase/connectsqlite.h",
+			"D:/AutoWorker/XWorker/AutoWoker/CloneDatabase/connectsqlite.h",
 			"MU",
 			"2PJB6RPXSW/moc_connectsqlite.cpp",
 			null
 		],
 		[
-			"D:/AutoWorker/AutoWoker/Form/downloaddialog.h",
+			"D:/AutoWorker/XWorker/AutoWoker/Form/downloaddialog.h",
 			"MU",
 			"7A5D6QKFUP/moc_downloaddialog.cpp",
 			null
 		],
 		[
-			"D:/AutoWorker/AutoWoker/Form/faddfile.h",
+			"D:/AutoWorker/XWorker/AutoWoker/Form/faddfile.h",
 			"MU",
 			"7A5D6QKFUP/moc_faddfile.cpp",
 			null
 		],
 		[
-			"D:/AutoWorker/AutoWoker/Form/fcauhinhhienthi.h",
+			"D:/AutoWorker/XWorker/AutoWoker/Form/fcauhinhhienthi.h",
 			"MU",
 			"7A5D6QKFUP/moc_fcauhinhhienthi.cpp",
 			null
 		],
 		[
-			"D:/AutoWorker/AutoWoker/Form/fchonthumuc.h",
+			"D:/AutoWorker/XWorker/AutoWoker/Form/fchonthumuc.h",
 			"MU",
 			"7A5D6QKFUP/moc_fchonthumuc.cpp",
 			null
 		],
 		[
-			"D:/AutoWorker/AutoWoker/Form/fimportaccount.h",
+			"D:/AutoWorker/XWorker/AutoWoker/Form/fimportaccount.h",
 			"MU",
 			"7A5D6QKFUP/moc_fimportaccount.cpp",
 			null
 		],
 		[
-			"D:/AutoWorker/AutoWoker/Form/fimportaccountformatinput.h",
+			"D:/AutoWorker/XWorker/AutoWoker/Form/fimportaccountformatinput.h",
 			"MU",
 			"7A5D6QKFUP/moc_fimportaccountformatinput.cpp",
 			null
 		],
 		[
-			"D:/AutoWorker/AutoWoker/Form/loginwindow.h",
+			"D:/AutoWorker/XWorker/AutoWoker/Form/loginwindow.h",
 			"MU",
 			"7A5D6QKFUP/moc_loginwindow.cpp",
 			null
 		],
 		[
-			"D:/AutoWorker/AutoWoker/Form/mainwindow.h",
+			"D:/AutoWorker/XWorker/AutoWoker/Form/mainwindow.h",
 			"MU",
 			"7A5D6QKFUP/moc_mainwindow.cpp",
 			null
 		],
 		[
-			"D:/AutoWorker/AutoWoker/MCommon/AwApi.h",
+			"D:/AutoWorker/XWorker/AutoWoker/MCommon/AwApi.h",
 			"MU",
 			"JLRR734WY4/moc_AwApi.cpp",
 			null
 		],
 		[
-			"D:/AutoWorker/AutoWoker/MCommon/Common.h",
+			"D:/AutoWorker/XWorker/AutoWoker/MCommon/Common.h",
 			"MU",
 			"JLRR734WY4/moc_Common.cpp",
 			null
 		],
 		[
-			"D:/AutoWorker/AutoWoker/MCommon/RequestParams.h",
+			"D:/AutoWorker/XWorker/AutoWoker/MCommon/CommonChrome.h",
+			"MU",
+			"JLRR734WY4/moc_CommonChrome.cpp",
+			null
+		],
+		[
+			"D:/AutoWorker/XWorker/AutoWoker/MCommon/CommonRequest.h",
+			"MU",
+			"JLRR734WY4/moc_CommonRequest.cpp",
+			null
+		],
+		[
+			"D:/AutoWorker/XWorker/AutoWoker/MCommon/RequestParams.h",
 			"MU",
 			"JLRR734WY4/moc_RequestParams.cpp",
 			null
 		],
 		[
-			"D:/AutoWorker/AutoWoker/MCommon/chrome.h",
+			"D:/AutoWorker/XWorker/AutoWoker/MCommon/chrome.h",
 			"MU",
 			"JLRR734WY4/moc_chrome.cpp",
 			null
 		],
 		[
-			"D:/AutoWorker/AutoWoker/MCommon/commonsql.h",
+			"D:/AutoWorker/XWorker/AutoWoker/MCommon/commonsql.h",
 			"MU",
 			"JLRR734WY4/moc_commonsql.cpp",
 			null
 		],
 		[
-			"D:/AutoWorker/AutoWoker/MCommon/connector.h",
+			"D:/AutoWorker/XWorker/AutoWoker/MCommon/connector.h",
 			"MU",
 			"JLRR734WY4/moc_connector.cpp",
 			null
 		],
 		[
-			"D:/AutoWorker/AutoWoker/MCommon/json_settings.h",
+			"D:/AutoWorker/XWorker/AutoWoker/MCommon/json_settings.h",
 			"MU",
 			"JLRR734WY4/moc_json_settings.cpp",
 			null
 		],
 		[
-			"D:/AutoWorker/AutoWoker/MCommon/requesthandle.h",
+			"D:/AutoWorker/XWorker/AutoWoker/MCommon/requesthandle.h",
 			"MU",
 			"JLRR734WY4/moc_requesthandle.cpp",
 			null
 		],
 		[
-			"D:/AutoWorker/AutoWoker/Utils/Utils.h",
+			"D:/AutoWorker/XWorker/AutoWoker/Utils/Utils.h",
 			"MU",
 			"3AKZUBQRRA/moc_Utils.cpp",
 			null
 		],
 		[
-			"D:/AutoWorker/AutoWoker/maxcare/Base.h",
+			"D:/AutoWorker/XWorker/AutoWoker/maxcare/Base.h",
 			"MU",
 			"JDXPVWFE7V/moc_Base.cpp",
 			null
 		],
 		[
-			"D:/AutoWorker/AutoWoker/maxcare/Enum/GetContentStatusChrome.h",
+			"D:/AutoWorker/XWorker/AutoWoker/maxcare/Enum/GetContentStatusChrome.h",
 			"MU",
 			"QZ3AYSXNKH/moc_GetContentStatusChrome.cpp",
 			null
 		],
 		[
-			"D:/AutoWorker/AutoWoker/maxcare/Enum/StatusChromeAccount.h",
+			"D:/AutoWorker/XWorker/AutoWoker/maxcare/Enum/StatusChromeAccount.h",
 			"MU",
 			"QZ3AYSXNKH/moc_StatusChromeAccount.cpp",
 			null
 		],
 		[
-			"D:/AutoWorker/AutoWoker/maxcare/FileHelper.h",
+			"D:/AutoWorker/XWorker/AutoWoker/maxcare/FileHelper.h",
 			"MU",
 			"JDXPVWFE7V/moc_FileHelper.cpp",
 			null
 		],
 		[
-			"D:/AutoWorker/AutoWoker/maxcare/Language.h",
+			"D:/AutoWorker/XWorker/AutoWoker/maxcare/Language.h",
 			"MU",
 			"JDXPVWFE7V/moc_Language.cpp",
 			null
 		],
 		[
-			"D:/AutoWorker/AutoWoker/maxcare/MessageBoxHelper.h",
+			"D:/AutoWorker/XWorker/AutoWoker/maxcare/MessageBoxHelper.h",
 			"MU",
 			"JDXPVWFE7V/moc_MessageBoxHelper.cpp",
 			null
 		],
 		[
-			"D:/AutoWorker/AutoWoker/maxcare/SettingsTool.h",
+			"D:/AutoWorker/XWorker/AutoWoker/maxcare/SettingsTool.h",
 			"MU",
 			"JDXPVWFE7V/moc_SettingsTool.cpp",
 			null
 		],
 		[
-			"D:/AutoWorker/AutoWoker/maxcare/StringHelper.h",
+			"D:/AutoWorker/XWorker/AutoWoker/maxcare/StringHelper.h",
 			"MU",
 			"JDXPVWFE7V/moc_StringHelper.cpp",
 			null
 		],
 		[
-			"D:/AutoWorker/AutoWoker/maxcare/collectionhelper.h",
+			"D:/AutoWorker/XWorker/AutoWoker/maxcare/collectionhelper.h",
 			"MU",
 			"JDXPVWFE7V/moc_collectionhelper.cpp",
 			null
 		],
 		[
-			"D:/AutoWorker/AutoWoker/maxcare/datagridviewhelper.h",
+			"D:/AutoWorker/XWorker/AutoWoker/maxcare/datagridviewhelper.h",
 			"MU",
 			"JDXPVWFE7V/moc_datagridviewhelper.cpp",
 			null
 		],
 		[
-			"D:/AutoWorker/AutoWoker/maxcare/emailhelper.h",
+			"D:/AutoWorker/XWorker/AutoWoker/maxcare/emailhelper.h",
 			"MU",
 			"JDXPVWFE7V/moc_emailhelper.cpp",
 			null
 		],
 		[
-			"D:/AutoWorker/AutoWoker/maxcare/interactsql.h",
+			"D:/AutoWorker/XWorker/AutoWoker/maxcare/interactsql.h",
 			"MU",
 			"JDXPVWFE7V/moc_interactsql.cpp",
 			null
 		],
 		[
-			"D:/AutoWorker/AutoWoker/maxcare/setupfolder.h",
+			"D:/AutoWorker/XWorker/AutoWoker/maxcare/setupfolder.h",
 			"MU",
 			"JDXPVWFE7V/moc_setupfolder.cpp",
 			null
 		],
 		[
-			"D:/AutoWorker/AutoWoker/maxcare/updatestatus.h",
+			"D:/AutoWorker/XWorker/AutoWoker/maxcare/updatestatus.h",
 			"MU",
 			"JDXPVWFE7V/moc_updatestatus.cpp",
 			null
 		]
 	],
 	"HEADER_EXTENSIONS" : [ "h", "hh", "h++", "hm", "hpp", "hxx", "in", "txx" ],
-	"INCLUDE_DIR" : "D:/AutoWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/AutoWorker_autogen/include",
-	"MOC_COMPILATION_FILE" : "D:/AutoWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/AutoWorker_autogen/mocs_compilation.cpp",
+	"INCLUDE_DIR" : "D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/AutoWorker_autogen/include",
+	"MOC_COMPILATION_FILE" : "D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/AutoWorker_autogen/mocs_compilation.cpp",
 	"MOC_DEFINITIONS" : 
 	[
 		"MINGW_HAS_SECURE_API=1",
@@ -576,50 +654,86 @@
 		"-c",
 		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CMakeCXXCompilerABI.cpp"
 	],
-	"MOC_PREDEFS_FILE" : "D:/AutoWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/AutoWorker_autogen/moc_predefs.h",
+	"MOC_PREDEFS_FILE" : "D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/AutoWorker_autogen/moc_predefs.h",
 	"MOC_RELAXED_MODE" : false,
 	"MOC_SKIP" : [],
 	"MULTI_CONFIG" : false,
 	"PARALLEL" : 4,
-	"PARSE_CACHE_FILE" : "D:/AutoWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/CMakeFiles/AutoWorker_autogen.dir/ParseCache.txt",
+	"PARSE_CACHE_FILE" : "D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/CMakeFiles/AutoWorker_autogen.dir/ParseCache.txt",
 	"QT_MOC_EXECUTABLE" : "C:/Qt/6.7.1/mingw_64/./bin/moc.exe",
 	"QT_UIC_EXECUTABLE" : "C:/Qt/6.7.1/mingw_64/./bin/uic.exe",
 	"QT_VERSION_MAJOR" : 6,
 	"QT_VERSION_MINOR" : 7,
-	"SETTINGS_FILE" : "D:/AutoWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/CMakeFiles/AutoWorker_autogen.dir/AutogenUsed.txt",
+	"SETTINGS_FILE" : "D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/CMakeFiles/AutoWorker_autogen.dir/AutogenUsed.txt",
 	"SOURCES" : 
 	[
-		[ "D:/AutoWorker/AutoWoker/CloneDatabase/clonedatabase.cpp", "MU", null ],
-		[ "D:/AutoWorker/AutoWoker/CloneDatabase/connectsqlite.cpp", "MU", null ],
-		[ "D:/AutoWorker/AutoWoker/Form/downloaddialog.cpp", "MU", null ],
-		[ "D:/AutoWorker/AutoWoker/Form/faddfile.cpp", "MU", null ],
-		[ "D:/AutoWorker/AutoWoker/Form/fcauhinhhienthi.cpp", "MU", null ],
-		[ "D:/AutoWorker/AutoWoker/Form/fchonthumuc.cpp", "MU", null ],
-		[ "D:/AutoWorker/AutoWoker/Form/fimportaccount.cpp", "MU", null ],
 		[
-			"D:/AutoWorker/AutoWoker/Form/fimportaccountformatinput.cpp",
+			"D:/AutoWorker/XWorker/AutoWoker/CloneDatabase/clonedatabase.cpp",
 			"MU",
 			null
 		],
-		[ "D:/AutoWorker/AutoWoker/Form/loginwindow.cpp", "MU", null ],
-		[ "D:/AutoWorker/AutoWoker/Form/mainwindow.cpp", "MU", null ],
-		[ "D:/AutoWorker/AutoWoker/MCommon/AwApi.cpp", "MU", null ],
-		[ "D:/AutoWorker/AutoWoker/MCommon/Common.cpp", "MU", null ],
-		[ "D:/AutoWorker/AutoWoker/MCommon/chrome.cpp", "MU", null ],
-		[ "D:/AutoWorker/AutoWoker/MCommon/commonsql.cpp", "MU", null ],
-		[ "D:/AutoWorker/AutoWoker/MCommon/connector.cpp", "MU", null ],
-		[ "D:/AutoWorker/AutoWoker/MCommon/json_settings.cpp", "MU", null ],
-		[ "D:/AutoWorker/AutoWoker/MCommon/requesthandle.cpp", "MU", null ],
-		[ "D:/AutoWorker/AutoWoker/main.cpp", "MU", null ],
-		[ "D:/AutoWorker/AutoWoker/maxcare/Base.cpp", "MU", null ],
-		[ "D:/AutoWorker/AutoWoker/maxcare/Language.cpp", "MU", null ],
-		[ "D:/AutoWorker/AutoWoker/maxcare/SettingsTool.cpp", "MU", null ],
-		[ "D:/AutoWorker/AutoWoker/maxcare/collectionhelper.cpp", "MU", null ],
-		[ "D:/AutoWorker/AutoWoker/maxcare/datagridviewhelper.cpp", "MU", null ],
-		[ "D:/AutoWorker/AutoWoker/maxcare/emailhelper.cpp", "MU", null ],
-		[ "D:/AutoWorker/AutoWoker/maxcare/interactsql.cpp", "MU", null ],
-		[ "D:/AutoWorker/AutoWoker/maxcare/setupfolder.cpp", "MU", null ],
-		[ "D:/AutoWorker/AutoWoker/maxcare/updatestatus.cpp", "MU", null ]
+		[
+			"D:/AutoWorker/XWorker/AutoWoker/CloneDatabase/connectsqlite.cpp",
+			"MU",
+			null
+		],
+		[ "D:/AutoWorker/XWorker/AutoWoker/Form/downloaddialog.cpp", "MU", null ],
+		[ "D:/AutoWorker/XWorker/AutoWoker/Form/faddfile.cpp", "MU", null ],
+		[
+			"D:/AutoWorker/XWorker/AutoWoker/Form/fcauhinhhienthi.cpp",
+			"MU",
+			null
+		],
+		[ "D:/AutoWorker/XWorker/AutoWoker/Form/fchonthumuc.cpp", "MU", null ],
+		[ "D:/AutoWorker/XWorker/AutoWoker/Form/fimportaccount.cpp", "MU", null ],
+		[
+			"D:/AutoWorker/XWorker/AutoWoker/Form/fimportaccountformatinput.cpp",
+			"MU",
+			null
+		],
+		[ "D:/AutoWorker/XWorker/AutoWoker/Form/loginwindow.cpp", "MU", null ],
+		[ "D:/AutoWorker/XWorker/AutoWoker/Form/mainwindow.cpp", "MU", null ],
+		[ "D:/AutoWorker/XWorker/AutoWoker/MCommon/AwApi.cpp", "MU", null ],
+		[ "D:/AutoWorker/XWorker/AutoWoker/MCommon/Common.cpp", "MU", null ],
+		[ "D:/AutoWorker/XWorker/AutoWoker/MCommon/chrome.cpp", "MU", null ],
+		[ "D:/AutoWorker/XWorker/AutoWoker/MCommon/commonsql.cpp", "MU", null ],
+		[ "D:/AutoWorker/XWorker/AutoWoker/MCommon/connector.cpp", "MU", null ],
+		[
+			"D:/AutoWorker/XWorker/AutoWoker/MCommon/json_settings.cpp",
+			"MU",
+			null
+		],
+		[
+			"D:/AutoWorker/XWorker/AutoWoker/MCommon/requesthandle.cpp",
+			"MU",
+			null
+		],
+		[ "D:/AutoWorker/XWorker/AutoWoker/main.cpp", "MU", null ],
+		[ "D:/AutoWorker/XWorker/AutoWoker/maxcare/Base.cpp", "MU", null ],
+		[ "D:/AutoWorker/XWorker/AutoWoker/maxcare/Language.cpp", "MU", null ],
+		[
+			"D:/AutoWorker/XWorker/AutoWoker/maxcare/SettingsTool.cpp",
+			"MU",
+			null
+		],
+		[
+			"D:/AutoWorker/XWorker/AutoWoker/maxcare/collectionhelper.cpp",
+			"MU",
+			null
+		],
+		[
+			"D:/AutoWorker/XWorker/AutoWoker/maxcare/datagridviewhelper.cpp",
+			"MU",
+			null
+		],
+		[ "D:/AutoWorker/XWorker/AutoWoker/maxcare/emailhelper.cpp", "MU", null ],
+		[ "D:/AutoWorker/XWorker/AutoWoker/maxcare/interactsql.cpp", "MU", null ],
+		[ "D:/AutoWorker/XWorker/AutoWoker/maxcare/setupfolder.cpp", "MU", null ],
+		[
+			"D:/AutoWorker/XWorker/AutoWoker/maxcare/updatestatus.cpp",
+			"MU",
+			null
+		]
 	],
 	"UIC_OPTIONS" : [],
 	"UIC_SEARCH_PATHS" : [],

@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include "fimportaccount.h"
 #include "qnetworkreply.h"
-#include "Form/ui_mainwindow.h"
+#include "ui_mainwindow.h"
 #include <QNetworkRequest>
 #include "../MCommon/requesthandle.h"
 #include <QNetworkAccessManager>
@@ -262,8 +262,8 @@ void MainWindow::LoadAccountFromFile(QList<QString> lstIdFile, QString info){
     } catch (...) {
     }
 }
-void MainWindow::LoadDtgvAccFromDatatable(QSqlQueryModel* tableAccount){
-    DatagridviewHelper::LoadDtgvAccFromDatatable(this->ui->ta,tableAccount);
+void MainWindow::LoadDtgvAccFromDatatable(QVariantList* tableAccount){
+    DatagridviewHelper::LoadDtgvAccFromDatatable(this->ui->tableWidget,tableAccount);
     CountCheckedAccount(0);
     SetRowColor();
     CountTotalAccount();
@@ -318,70 +318,70 @@ void MainWindow::LoadConfigManHinh(){
     setColumnVisibility("Nhóm",SettingsTool::GetSettings("configDatagridview").GetValueBool("ckbNhom"));
 }
 void MainWindow::setColumnVisibility(const QString& headerLabel, bool isVisible){
-    int columnIndex = Utils::findColumnByHeader(ui->tableView,headerLabel);
+    int columnIndex = Utils::GetIndexByColumnHeader(ui->tableWidget,headerLabel);
     if(columnIndex != -1){
-        ui->tableView->setColumnHidden(columnIndex, !isVisible);
+        ui->tableWidget->setColumnHidden(columnIndex, !isVisible);
     }
 }
 void MainWindow::SetRowColor(int indexRow){
     if(SettingsTool::GetSettings("configGeneral").GetValueInt("typePhanBietMau") == 0){
         if(indexRow == -1){
-            for (int var = 0; var < ui->tableView->model()->rowCount(); var++) {
+            for (int var = 0; var < ui->tableWidget->model()->rowCount(); var++) {
                 QString infoAccount = GetInfoAccount(var);
                 if(infoAccount =="Live"){
-                    Utils::changeRowColor(ui->tableView,var,QColor(184, 233, 148));
+                    Utils::changeRowColor(ui->tableWidget,var,QColor(184, 233, 148));
                 }else if(infoAccount.contains("Die") || infoAccount.contains("Checkpoint") || infoAccount.contains("Changed pass")){
-                    Utils::changeRowColor(ui->tableView,var,QColor(255, 118, 117));
+                    Utils::changeRowColor(ui->tableWidget,var,QColor(255, 118, 117));
                 }
             }
         }else{
             QString infoAccount2 = GetInfoAccount(indexRow);
             if (infoAccount2 == "Live")
             {
-                Utils::changeRowColor(ui->tableView,indexRow,QColor(184, 233, 148));
+                Utils::changeRowColor(ui->tableWidget,indexRow,QColor(184, 233, 148));
             }
             else if (infoAccount2.contains("Die") || infoAccount2.contains("Checkpoint") || infoAccount2.contains("Changed pass"))
             {
-                Utils::changeRowColor(ui->tableView,indexRow,QColor(255, 118, 117));
+                Utils::changeRowColor(ui->tableWidget,indexRow,QColor(255, 118, 117));
             }
         }
     }else if(indexRow == -1){
-        for (int j = 0; j < ui->tableView->model()->rowCount(); j++)
+        for (int j = 0; j < ui->tableWidget->rowCount(); j++)
         {
             QString infoAccount3 = GetInfoAccount(j);
             if (infoAccount3 == "Live")
             {
-                Utils::changeRowColor(ui->tableView,j,QColor("green"));
+                Utils::changeRowColor(ui->tableWidget,j,QColor("green"));
             }
             else if (infoAccount3.contains("Die") || infoAccount3.contains("Checkpoint") || infoAccount3.contains("Changed pass"))
             {
-                Utils::changeRowColor(ui->tableView,j,QColor("red"));
+                Utils::changeRowColor(ui->tableWidget,j,QColor("red"));
             }
         }
     }else{
         QString infoAccount4 = GetInfoAccount(indexRow);
         if (infoAccount4 == "Live")
         {
-            Utils::changeRowColor(ui->tableView,indexRow,QColor("green"));
+            Utils::changeRowColor(ui->tableWidget,indexRow,QColor("green"));
         }
         else if (infoAccount4.contains("Die") || infoAccount4.contains("Checkpoint") || infoAccount4.contains("Changed pass"))
         {
-            Utils::changeRowColor(ui->tableView,indexRow,QColor("red"));
+            Utils::changeRowColor(ui->tableWidget,indexRow,QColor("red"));
         }
     }
 }
 
 QString MainWindow::GetInfoAccount(int indexRow)
 {
-    return DatagridviewHelper::GetStatusDataGridView(ui->tableView, indexRow, "Info");
+    return DatagridviewHelper::GetStatusDataGridView(ui->tableWidget, indexRow, "Info");
 }
 
 void MainWindow::CountCheckedAccount(int count){
     if(count ==-1){
         count = 0;
-        for (int i = 0; i < ui->tableView->model()->rowCount(); i++)
+        for (int i = 0; i < ui->tableWidget->rowCount(); i++)
         {
-            if (ui->tableView->model()->index(i,Utils::findColumnByHeader(ui->tableView,"Chọn")).data().toInt() == 1)
+            if (ui->tableWidget->item(i,Utils::findColumnByHeader(ui->tableWidget,"Chọn"))->text().toInt() == 1)
             {
                 count++;
             }
@@ -392,7 +392,7 @@ void MainWindow::CountCheckedAccount(int count){
 
 void MainWindow::CountTotalAccount(){
     try {
-        ui->lblCountTotal->setText(QString::number(ui->tableView->model()->rowCount()));
+        ui->lblCountTotal->setText(QString::number(ui->tableWidget->rowCount()));
     } catch (...) {
     }
 }

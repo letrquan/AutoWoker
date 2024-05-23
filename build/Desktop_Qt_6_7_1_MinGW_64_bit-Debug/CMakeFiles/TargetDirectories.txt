@@ -7,4 +7,3 @@ D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/CMakeF
 D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/CMakeFiles/install/strip.dir
 D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/CMakeFiles/AutoWorker_autogen_timestamp_deps.dir
 D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/CMakeFiles/AutoWorker_autogen.dir
-

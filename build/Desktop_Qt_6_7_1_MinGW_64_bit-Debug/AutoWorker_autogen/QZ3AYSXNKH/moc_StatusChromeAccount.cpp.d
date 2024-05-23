@@ -1,5 +1,5 @@
-D:/AutoWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/AutoWorker_autogen/QZ3AYSXNKH/moc_StatusChromeAccount.cpp: D:/AutoWorker/AutoWoker/maxcare/Enum/StatusChromeAccount.h \
-  D:/AutoWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/AutoWorker_autogen/moc_predefs.h \
+D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/AutoWorker_autogen/QZ3AYSXNKH/moc_StatusChromeAccount.cpp: D:/AutoWorker/XWorker/AutoWoker/maxcare/Enum/StatusChromeAccount.h \
+  D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/AutoWorker_autogen/moc_predefs.h \
   C:/Qt/6.7.1/mingw_64/include/QtCore/QObject \
   C:/Qt/6.7.1/mingw_64/include/QtCore/q20functional.h \
   C:/Qt/6.7.1/mingw_64/include/QtCore/q20memory.h \

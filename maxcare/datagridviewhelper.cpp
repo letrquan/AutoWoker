@@ -6,6 +6,7 @@
 DatagridviewHelper::DatagridviewHelper() {}
 
 void DatagridviewHelper::LoadDtgvAccFromDatatable(QTableWidget* dgv, QVariantList* tableAccount, bool isUseForBin){
+    dgv->setRowCount(tableAccount->size());
     if(!isUseForBin){
         auto row =0;
         for(const QVariant &item:*tableAccount){

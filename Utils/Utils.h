@@ -221,11 +221,20 @@ public:
                            getSystemDriveSerialNumber();
         return deviceId;
     }
-    static void changeRowColor(QTableView* dgv, int rowNumber, QColor color){
-        for (int col = 0; col < dgv->model()->columnCount(); ++col) {
-            auto item = dgv->model()->index(rowNumber, col);
-            if (!item.data().isNull()) {
-                dgv->model()->setData(item, color);
+    static void changeRowColor(QTableWidget* tableWidget, int row, QColor color){
+        if (!tableWidget || row < 0 || row >= tableWidget->rowCount()) {
+            return; // Invalid input, do nothing
+        }
+
+        for (int column = 0; column < tableWidget->columnCount(); ++column) {
+            QTableWidgetItem *item = tableWidget->item(row, column);
+            if (item) {
+                item->setBackground(QBrush(color)); // Set background color of each cell in the row
+            } else {
+                // Create a new item if the cell is empty
+                item = new QTableWidgetItem();
+                item->setBackground(QBrush(color));
+                tableWidget->setItem(row, column, item);
             }
         }
     }

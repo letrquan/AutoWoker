@@ -1,5 +1,5 @@
-D:/AutoWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/AutoWorker_autogen/7A5D6QKFUP/moc_fimportaccount.cpp: D:/AutoWorker/AutoWoker/Form/fimportaccount.h \
-  D:/AutoWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/AutoWorker_autogen/moc_predefs.h \
+D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/AutoWorker_autogen/7A5D6QKFUP/moc_fimportaccount.cpp: D:/AutoWorker/XWorker/AutoWoker/Form/fimportaccount.h \
+  D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/AutoWorker_autogen/moc_predefs.h \
   C:/Qt/6.7.1/mingw_64/include/QtCore/QEventLoop \
   C:/Qt/6.7.1/mingw_64/include/QtCore/QFile \
   C:/Qt/6.7.1/mingw_64/include/QtCore/QFileInfo \
@@ -670,4 +670,4 @@ D:/AutoWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/AutoWorker_aut
   C:/Qt/Tools/mingw1120_64/x86_64-w64-mingw32/include/wow64apiset.h \
   C:/Qt/Tools/mingw1120_64/x86_64-w64-mingw32/include/wtypes.h \
   C:/Qt/Tools/mingw1120_64/x86_64-w64-mingw32/include/wtypesbase.h \
-  D:/AutoWorker/AutoWoker/Utils/Utils.h
+  D:/AutoWorker/XWorker/AutoWoker/Utils/Utils.h
