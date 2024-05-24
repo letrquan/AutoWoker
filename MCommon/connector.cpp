@@ -4,6 +4,7 @@
 #include "qsqlquery.h"
 #include <QSqlRecord>
 #include <QSqlError>
+#include <mutex>
 Connector& Connector::getInstance(){
     static Connector instance; // Guaranteed to be destroyed.
         // Instantiated on first use.
@@ -11,6 +12,8 @@ Connector& Connector::getInstance(){
 }
 
 void Connector::CheckConnectServer(){
+    static std::mutex mutex;
+    std::lock_guard<std::mutex> lock(mutex);
     try {
         QString text = "D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/database/db_maxcare.sqlite";
         if(text != connectionSTR){
@@ -59,6 +62,8 @@ QVariantList* Connector::ExecuteQuery(QString query){
 }
 
 int Connector::ExecuteNonQuery(QString query){
+    static std::mutex mutex;
+    std::lock_guard<std::mutex> lock(mutex);
     int result = 0;
     try {
         CheckConnectServer();

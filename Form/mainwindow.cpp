@@ -22,6 +22,7 @@
 #include "../Utils/Utils.h"
 #include "../MCommon/CommonRequest.h"
 #include "../maxcare/ImapHelper.h"
+#include <atomic>
 MainWindow::MainWindow(QString tokemem, QString namemem, QString phoneMem, QString maxDeviceMem,QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -175,14 +176,14 @@ void MainWindow::OnLoaded(){
     QFile file("update.ini");
     try {
         if(file.open(QIODevice::ReadOnly | QIODevice::Text)){
-            QTextStream in(&file);
-            QString textUpdate = in.readAll();
-            file.close();
-            QString namesoft = textUpdate.split(QRegularExpression("[\r\n]+"), Qt::SkipEmptyParts)[0].replace("[", "").replace("]", "");
-            QString currentVersion = textUpdate.split(QRegularExpression("[\r\n]+"), Qt::SkipEmptyParts)[1].replace("Version=", "");
-            if(!QFile::exists("AutoUpdate.exe") || QFileInfo("AutoUpdate.exe").size() != 165376 ){
-                Common::DownloadFile("https://storage.giau.cc/"+namesoft+"/autoupdate.zip");
-            }
+            // QTextStream in(&file);
+            // QString textUpdate = in.readAll();
+            // file.close();
+            // QString namesoft = textUpdate.split(QRegularExpression("[\r\n]+"), Qt::SkipEmptyParts)[0].replace("[", "").replace("]", "");
+            // QString currentVersion = textUpdate.split(QRegularExpression("[\r\n]+"), Qt::SkipEmptyParts)[1].replace("Version=", "");
+            // if(!QFile::exists("AutoUpdate.exe") || QFileInfo("AutoUpdate.exe").size() != 165376 ){
+            //     Common::DownloadFile("https://storage.giau.cc/"+namesoft+"/autoupdate.zip");
+            // }
         }
         SetupFolder::StartApplication();
         LoadcbbSearch();
@@ -380,7 +381,7 @@ void MainWindow::SetRowColor(int indexRow){
 
 QString MainWindow::GetInfoAccount(int indexRow)
 {
-    return DatagridviewHelper::GetStatusDataGridView(ui->tableWidget, indexRow, "Info");
+    return DatagridviewHelper::GetStatusDataGridView(ui->tableWidget, indexRow, "Tình Trạng");
 }
 
 void MainWindow::CountCheckedAccount(int count){
@@ -425,212 +426,117 @@ void MainWindow::on_button9_clicked()
     } catch (...) {
     }
 }
+void MainWindow::KiemTraTaiKhoan(int type, bool useProxy) {
+    qDebug() << "KiemTraTaiKhoan called with type:" << type << "and useProxy:" << useProxy;
 
-void MainWindow::KiemTraTaiKhoan(int type, bool useProxy){
-    QAtomicInt iThread(0);
-    int maxThread=SettingsTool::GetSettings("configGeneral").GetValueInt("nudHideThread", 10);
-    QString tokenTrungGian = SettingsTool::GetSettings("configGeneral").GetValue("token");
-    isStop = false;
-    QThread::create([this, &tokenTrungGian, &iThread, &maxThread, &type, &useProxy](){
-        cControl("start");
+    std::atomic<int> iThread(0);
+    const int maxThread = SettingsTool::GetSettings("configGeneral").GetValueInt("nudHideThread", 10);
+    const QString tokenTrungGian = SettingsTool::GetSettings("configGeneral").GetValue("token");
+    const int sleepDuration = 200;
+    std::atomic_bool isStop(false);
+
+    qDebug() << "Starting KiemTraTaiKhoan with type:" << type << "and useProxy:" << useProxy;
+
+    auto checkAndSleep = [&]() {
+        QCoreApplication::processEvents();
+        QThread::msleep(sleepDuration);
+    };
+
+    std::vector<std::thread> threads;
+
+    auto threadFunction = [this, &iThread, maxThread, &threads, &isStop, &checkAndSleep](int row, auto checkFunction) {
+        int prevCount = iThread.fetch_add(1, std::memory_order_relaxed);
+        qDebug() << "Incrementing iThread, current count:" << prevCount + 1;
+
+        if (prevCount < maxThread) {
+            threads.emplace_back([=, &iThread, &isStop]() mutable {
+                // Perform the check function
+                checkFunction(row);
+
+                // After checking, update the UI in the main thread
+                QMetaObject::invokeMethod(this, [=, &iThread]() {
+                        SetStatusAccount(row, Language::GetValue("Đang kiểm tra..."));
+                        int newCount = iThread.fetch_sub(1, std::memory_order_relaxed) - 1;
+                        qDebug() << "Decrementing iThread, current count:" << newCount;
+                    }, Qt::QueuedConnection);
+            });
+        } else {
+            checkAndSleep();
+        }
+    };
+
+    auto checkRows = [this, &iThread, maxThread, &checkAndSleep, &threadFunction, &isStop](auto checkFunction) {
+        int row = 0;
+        while (row < ui->tableWidget->rowCount() && !isStop.load(std::memory_order_relaxed)) {
+            if (ui->tableWidget->item(row, 0)->checkState() == Qt::Checked) {
+                threadFunction(row++, checkFunction);
+            } else {
+                row++;
+            }
+        }
+    };
+
+    // Create a new thread to start the checking process
+    std::thread checkingThread([this, type, useProxy, tokenTrungGian, maxThread, &iThread, &checkRows, &isStop]() {
+        qDebug() << "Checking process started with type:" << type;
+
+        // Control start
+        QMetaObject::invokeMethod(this, [this]() {
+                cControl("start");
+                qDebug() << "Control start invoked";
+            }, Qt::QueuedConnection);
+
+        // Perform checks based on type
+
         switch (type) {
         case 0:
-        {
-            int num4=0;
-            while (num4 <ui->tableWidget->rowCount() && !isStop) {
-                if(ui->tableWidget->item(num4,0)->checkState() == Qt::Checked){
-                    if(iThread <maxThread){
-                        iThread.fetchAndAddOrdered(1);
-                        int row3 = num4++;
-                        QThread::create([&row3, this, &tokenTrungGian, &iThread]() {
-                            SetStatusAccount(row3, Language::GetValue("Đang kiểm tra..."));
-                            CheckMyWall(row3, tokenTrungGian);
-                            iThread.fetchAndSubOrdered(1);
-                        })->start();
-                    }else{
-                        QCoreApplication::processEvents();
-                        QThread::msleep(200);
-                    }
-                }else
-                {
-                    num4++;
-                }
-            }
+            qDebug() << "Case 0: CheckMyWall";
+            checkRows([this, tokenTrungGian](int row) { CheckMyWall(row, tokenTrungGian); });
             break;
-        }
-        case 1:{
-            int num6=0;
-            while (num6 <ui->tableWidget->rowCount() && !isStop) {
-                if(ui->tableWidget->item(num6,0)->checkState() == Qt::Checked){
-                    if(iThread <maxThread){
-                        iThread.fetchAndAddOrdered(1);
-                        int row = num6++;
-                        QThread::create([&row, this, &iThread]() {
-                            SetStatusAccount(row, Language::GetValue("Đang kiểm tra..."));
-                            CheckMyToken(row);
-                            iThread.fetchAndSubOrdered(1);
-                        })->start();
-                    }else{
-                        QCoreApplication::processEvents();
-                        QThread::msleep(200);
-                    }
-                }else
-                {
-                    num6++;
-                }
-            }
-        }
-        case 2:{
-            int num2 = 0;
-            while (num2 <ui->tableWidget->rowCount() && !isStop)
-            {
-                if (ui->tableWidget->item(num2,0)->checkState() == Qt::Checked)
-                {
-                    if(iThread <maxThread){
-                        iThread.fetchAndAddOrdered(1);
-                        int row = num2++;
-                        QThread::create([&row, this, &iThread]() {
-                            SetStatusAccount(row, Language::GetValue("Đang kiểm tra..."));
-                            CheckMyCookie(row);
-                            iThread.fetchAndSubOrdered(1);
-                        })->start();
-                    }else{
-                        QCoreApplication::processEvents();
-                        QThread::msleep(200);
-                    }
-                }
-                else
-                {
-                    num2++;
-                }
-            }
+        case 1:
+            qDebug() << "Case 1: CheckMyToken";
+            checkRows([this](int row) { CheckMyToken(row); });
             break;
-        }
-        case 3:{
-            int num5 = 0;
-            while (num5 < ui->tableWidget->rowCount() && !isStop)
-            {
-                if (ui->tableWidget->item(num5,0)->checkState() == Qt::Checked)
-                {
-                    if (iThread < maxThread)
-                    {
-                        iThread.fetchAndAddOrdered(1);
-                        int row2 = num5++;
-                        QThread::create([&row2, this, &iThread]() {
-                            SetStatusAccount(row2, Language::GetValue("Đang kiểm tra..."));
-                            CheckDangCheckpoint(row2);
-                            iThread.fetchAndSubOrdered(1);
-                        })->start();
-                    }else{
-                        QCoreApplication::processEvents();
-                        QThread::msleep(200);
-                    }
-                }
-                else
-                {
-                    num5++;
-                }
-            }
+        case 2:
+            qDebug() << "Case 2: CheckMyCookie";
+            checkRows([this](int row) { CheckMyCookie(row); });
             break;
-        }
-        case 4:{
-            int num3 = 0;
-            while (num3 < ui->tableWidget->rowCount() && !isStop)
-            {
-                if (ui->tableWidget->item(num3,0)->checkState() == Qt::Checked)
-                {
-                    if (iThread < maxThread)
-                    {
-                        iThread.fetchAndAddOrdered(1);
-                        int row4 = num3++;
-                        QThread::create([&row4, this, &iThread]() {
-                            SetStatusAccount(row4, Language::GetValue("Đang kiểm tra..."));
-                            CheckAccountMail(row4);
-                            iThread.fetchAndSubOrdered(1);
-                        })->start();
-                    }
-                    else
-                    {
-                        QCoreApplication::processEvents();
-                        QThread::msleep(200);
-                    }
-                }
-                else
-                {
-                    num3++;
-                }
-            }
+        case 3:
+            qDebug() << "Case 3: CheckDangCheckpoint";
+            checkRows([this](int row) { CheckDangCheckpoint(row); });
             break;
-        }
-        case 5:{
-            int num=0;
-            while (num < ui->tableWidget->rowCount() && !isStop)
-            {
-                if (ui->tableWidget->item(num,0)->checkState() == Qt::Checked)
-                {
-                    if (iThread < maxThread)
-                    {
-                        iThread.fetchAndAddOrdered(1);
-                        int row6 = num++;
-                        QThread::create([&row6, this, &iThread, &useProxy]() {
-                            SetStatusAccount(row6, Language::GetValue("Đang kiểm tra..."));
-                            CheckInfoUid(row6, useProxy);
-                            iThread.fetchAndSubOrdered(1);
-                        })->start();
-                    }
-                    else
-                    {
-                        QCoreApplication::processEvents();
-                        QThread::msleep(200);
-                    }
-                }
-                else
-                {
-                    num++;
-                }
-            }
+        case 4:
+            qDebug() << "Case 4: CheckAccountMail";
+            checkRows([this](int row) { CheckAccountMail(row); });
             break;
-        }
-        case 6:{
-            int num3 = 0;
-            while (num3 < ui->tableWidget->rowCount() && !isStop)
-            {
-                if (ui->tableWidget->item(num3,0)->checkState() == Qt::Checked)
-                {
-                    if (iThread < maxThread)
-                    {
-                        iThread.fetchAndAddOrdered(1);
-                        int row4 = num3++;
-                        QThread::create([&row4, this, &iThread]() {
-                            SetStatusAccount(row4, Language::GetValue("Đang kiểm tra..."));
-                            CheckNameVN(row4);
-                            iThread.fetchAndSubOrdered(1);
-                        })->start();
-                    }
-                    else
-                    {
-                        QCoreApplication::processEvents();
-                        QThread::msleep(200);
-                    }
-                }
-                else
-                {
-                    num3++;
-                }
-            }
+        case 5:
+            qDebug() << "Case 5: CheckInfoUid";
+            checkRows([this, useProxy](int row) { CheckInfoUid(row, useProxy); });
             break;
-        }
+        case 6:
+            qDebug() << "Case 6: CheckNameVN";
+            checkRows([this](int row) { CheckNameVN(row); });
+            break;
         default:
+            qDebug() << "Default case reached with type:" << type;
             break;
         }
-        // int tickCount = GetTickCount();
-        // while (iThread > 0 && GetTickCount() - tickCount <= 60000)
-        // {
-        //     Common::DelayTime(1.0);
-        // }
-        cControl("stop");
-    })->start();
+
+        // Control stop
+        QMetaObject::invokeMethod(this, [this]() {
+                cControl("stop");
+                qDebug() << "Control stop invoked";
+            }, Qt::QueuedConnection);
+    });
+
+    checkingThread.join();
+
+    // Wait for all threads to finish
+    for (auto& thread : threads) {
+        thread.join();
+    }
 }
+
 
 void MainWindow::CheckNameVN(int row){
     try
@@ -696,9 +602,9 @@ void MainWindow::CheckInfoUid(int row, bool useProxy){
             QString value2 = array[2];
             QString value3 = array[3];
             CommonSQL::UpdateMultiFieldToAccount(cellAccount, "name|friends|dateCreateAcc", value+"|"+value2+"|"+value3);
-            SetCellAccount(row, "cName", value);
-            SetCellAccount(row, "cFriend", value2);
-            SetCellAccount(row, "cdateCreateAcc", value3);
+            SetCellAccount(row, "Tên", value);
+            SetCellAccount(row, "Bạn Bè", value2);
+            SetCellAccount(row, "Ngày tạo tài khoản", value3);
             SetInfoAccount(row, "Live");
             text2 = Language::GetValue("Câ\u0323p nhâ\u0323t thông tin tha\u0300nh công!");
             SetStatusAccount(row, text2);
@@ -924,7 +830,9 @@ void MainWindow::CheckMyWall(int row, QString tokenTg){
         QString cellAccount = GetCellAccount(row,"Uid");
         if (!CheckIsUidFacebook(cellAccount))
         {
-            SetStatusAccount(row, Language::GetValue("Uid không hợp lệ!"));
+            QMetaObject::invokeMethod(this, [=]() {
+                    SetStatusAccount(row, Language::GetValue("Uid không hợp lệ!"));
+                }, Qt::QueuedConnection);
             return;
         }
         QString text = "";
@@ -947,16 +855,22 @@ void MainWindow::CheckMyWall(int row, QString tokenTg){
         SetStatusAccount(row, text2);
         if (text != "")
         {
-            SetInfoAccount(row, text);
+            QMetaObject::invokeMethod(this, [=]() {
+                    SetInfoAccount(row, text);
+                }, Qt::QueuedConnection);
+
         }
     } catch (...) {
-        SetStatusAccount(row, Language::GetValue("Không check đươ\u0323c!"));
+        QMetaObject::invokeMethod(this, [=]() {
+                SetStatusAccount(row, Language::GetValue("Không check đươ\u0323c!"));
+            }, Qt::QueuedConnection);
+
     }
 }
 void MainWindow::SetInfoAccount(int indexRow, QString value){
-    DatagridviewHelper::SetStatusDataGridView(ui->tableWidget, indexRow, "cInfo", value);
+    DatagridviewHelper::SetStatusDataGridView(ui->tableWidget, indexRow, "Tình Trạng", value);
     SetRowColor(indexRow);
-    Common::UpdateFieldToAccount(GetCellAccount(indexRow, "cId"), "info", value);
+    Common::UpdateFieldToAccount(GetCellAccount(indexRow, "Id"), "info", value);
 }
 bool MainWindow::CheckIsUidFacebook(QString uid){
     if (Common::IsNumber(uid))
@@ -973,10 +887,10 @@ void MainWindow::SetStatusAccount(int indexRow, QString value, int timeWait){
     switch (timeWait)
     {
     case -1:
-        DatagridviewHelper::SetStatusDataGridView(ui->tableWidget, indexRow, "cStatus", value);
+        DatagridviewHelper::SetStatusDataGridView(ui->tableWidget, indexRow, "Trạng thái", value);
         break;
     default:
-        DatagridviewHelper::SetStatusDataGridViewWithWait(ui->tableWidget, indexRow, "cStatus", timeWait, value);
+        DatagridviewHelper::SetStatusDataGridViewWithWait(ui->tableWidget, indexRow, "Trạng thái", timeWait, value);
         break;
     case 0:
         break;

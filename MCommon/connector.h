@@ -3,6 +3,7 @@
 #include <QString>
 #include <QtSql/QSqlDatabase>
 #include "../maxcare/Base.h"
+#include "qmutex.h"
 #include <QSqlTableModel>
 class Connector
 {
@@ -15,6 +16,7 @@ private:
     QSqlDatabase connection =  QSqlDatabase::addDatabase("QSQLITE");
     Connector(){};
     void CheckConnectServer();
+    QMutex mutex;
 public:
     Connector(Connector const&) = delete;
     void operator=(Connector const&) = delete;

@@ -1,0 +1,392 @@
+MAX CARE v23.03.16 - Phần Mềm Quản Lý Và Chăm Sóc Tài Khoản Facebook - MIN SOFTWARE
+[Tất cả tình trạng]
+Thư mục:
+Nhập tài khoản
+Lọc:
+Trạng thái:
+Đã kích hoạt
+Mã thiết bị:
+Đăng xuất
+Ngày hết hạn:
+Bôi đen:
+Đã chọn:
+Tất cả:
+Chạy Tương Tác
+Chọn
+Tên
+Theo dõi
+Bạn bè
+Nhóm
+Ngày sinh
+Giới Tính
+Mật khẩu
+Email khôi phục
+Mật khẩu mail
+Mã 2FA
+Ngày tạo
+Thư mục
+Lần tương tác cuối
+Tình Trạng
+Ghi Chú
+Trạng Thái
+Cấu hình chung
+Cấu hình tương tác
+Cấu hình hiển thị
+Tài khoản đã xóa
+Tiện ích
+Check Connect email bằng Imap
+Lọc trùng dữ liệu
+Xử lý chuỗi cơ bản
+Liên hệ
+Chọn
+Tất cả
+Bôi đen
+Tình trạng
+Trạng thái
+Chọn danh sách theo UID
+Ghi chú
+Bỏ chọn tất cả
+Ẩn khỏi danh sách
+Nhập Proxy
+Nhập Useragent
+Mã bảo mật 6 số từ 2FA
+Mở trình duyệt
+Tiến hành mở
+Cài đặt cấu hình mở
+Xóa tài khoản
+Kiểm tra tài khoản
+Không đổi IP
+Sử dụng proxy đã gán
+Cập nhật thông tin
+Sử dụng Token trung gian
+Sử dụng Cookie trung gian
+Cập nhật dữ liệu
+Cập nhật hàng loạt
+Mã 2FA
+Ghi chú
+Ngày sinh
+Mail khôi phục
+Chuyển thư mục
+Chức năng
+Lọc tài khoản theo UID/Email
+Lọc tài khoản trùng nhau
+Xóa tài khoản trùng nhau
+Tạo Shortcut Chrome
+Tải xuống avatar
+Khôi phục mật khẩu
+Mở form quản lý tin nhắn
+Giải phóng dung lượng
+Giải phóng dung lượng + Shutdown
+Chức năng ẩn
+Đổi mật khẩu hotmail
+Thêm mail khôi phục
+Xóa profile
+Dọn dẹp profile
+Xóa Cache Profile
+Backup dữ liệu
+Tạo File HTML
+Mở dữ liêu Backup
+Copy dữ liệu Backup
+Xóa dữ liệu Backup
+Dọn dẹp Backup
+Giải Checkpoint
+Checkpoint 956 MFb (ẩn)
+Tải lại danh sách
+Phần Mềm Quản Lý Và Chăm Sóc Tài Khoản Facebook
+MAX CARE v23.03.16 - Phần Mềm Quản Lý Và Chăm Sóc Tài Khoản Facebook - MIN SOFTWARE
+[Tất cả tình trạng]
+Thư mục:
+Nhập tài khoản
+Lọc:
+Trạng thái:
+Đã kích hoạt
+Mã thiết bị:
+Đăng xuất
+Ngày hết hạn:
+Bôi đen:
+Đã chọn:
+Tất cả:
+Chạy Tương Tác
+Chọn
+Tên
+Theo dõi
+Bạn bè
+Nhóm
+Ngày sinh
+Giới Tính
+Mật khẩu
+Email khôi phục
+Mật khẩu mail
+Mã 2FA
+Ngày tạo
+Thư mục
+Lần tương tác cuối
+Tình Trạng
+Ghi Chú
+Trạng Thái
+Cấu hình chung
+Cấu hình tương tác
+Cấu hình hiển thị
+Tài khoản đã xóa
+Tiện ích
+Check Connect email bằng Imap
+Lọc trùng dữ liệu
+Xử lý chuỗi cơ bản
+Liên hệ
+Chọn
+Tất cả
+Bôi đen
+Tình trạng
+Trạng thái
+Chọn danh sách theo UID
+Ghi chú
+Bỏ chọn tất cả
+Ẩn khỏi danh sách
+Nhập Proxy
+Nhập Useragent
+Mã bảo mật 6 số từ 2FA
+Mở trình duyệt
+Tiến hành mở
+Cài đặt cấu hình mở
+Xóa tài khoản
+Kiểm tra tài khoản
+Không đổi IP
+Sử dụng proxy đã gán
+Cập nhật thông tin
+Sử dụng Token trung gian
+Sử dụng Cookie trung gian
+Cập nhật dữ liệu
+Cập nhật hàng loạt
+Mã 2FA
+Ghi chú
+Ngày sinh
+Mail khôi phục
+Chuyển thư mục
+Chức năng
+Lọc tài khoản theo UID/Email
+Lọc tài khoản trùng nhau
+Xóa tài khoản trùng nhau
+Tạo Shortcut Chrome
+Tải xuống avatar
+Khôi phục mật khẩu
+Mở form quản lý tin nhắn
+Giải phóng dung lượng
+Giải phóng dung lượng + Shutdown
+Chức năng ẩn
+Đổi mật khẩu hotmail
+Thêm mail khôi phục
+Xóa profile
+Dọn dẹp profile
+Xóa Cache Profile
+Backup dữ liệu
+Tạo File HTML
+Mở dữ liêu Backup
+Copy dữ liệu Backup
+Xóa dữ liệu Backup
+Dọn dẹp Backup
+Giải Checkpoint
+Checkpoint 956 MFb (ẩn)
+Tải lại danh sách
+Phần Mềm Quản Lý Và Chăm Sóc Tài Khoản Facebook
+MAX CARE v23.03.16 - Phần Mềm Quản Lý Và Chăm Sóc Tài Khoản Facebook - MIN SOFTWARE
+Thư mục:
+Nhập tài khoản
+Lọc:
+Trạng thái:
+Đang kiểm tra...
+Mã thiết bị:
+Đăng xuất
+Ngày hết hạn:
+Bôi đen:
+Đã chọn:
+Tất cả:
+Chạy Tương Tác
+Chọn
+Tên
+Theo dõi
+Bạn bè
+Nhóm
+Ngày sinh
+Giới Tính
+Mật khẩu
+Email khôi phục
+Mật khẩu mail
+Mã 2FA
+Ngày tạo
+Thư mục
+Lần tương tác cuối
+Tình Trạng
+Ghi Chú
+Trạng Thái
+Cấu hình chung
+Cấu hình tương tác
+Cấu hình hiển thị
+Tài khoản đã xóa
+Tiện ích
+Check Connect email bằng Imap
+Lọc trùng dữ liệu
+Xử lý chuỗi cơ bản
+Liên hệ
+Chọn
+Tất cả
+Bôi đen
+Tình trạng
+Trạng thái
+Chọn danh sách theo UID
+Ghi chú
+Bỏ chọn tất cả
+Ẩn khỏi danh sách
+Nhập Proxy
+Nhập Useragent
+Mã bảo mật 6 số từ 2FA
+Mở trình duyệt
+Tiến hành mở
+Cài đặt cấu hình mở
+Xóa tài khoản
+Kiểm tra tài khoản
+Không đổi IP
+Sử dụng proxy đã gán
+Cập nhật thông tin
+Sử dụng Token trung gian
+Sử dụng Cookie trung gian
+Cập nhật dữ liệu
+Cập nhật hàng loạt
+Tự động lấy (ẩn)
+Nhập dữ liệu (ẩn)
+Mã 2FA
+Ghi chú
+Ngày sinh
+Mail khôi phục
+Chuyển thư mục
+Chức năng
+Lọc tài khoản theo UID/Email
+Lọc tài khoản trùng nhau
+Xóa tài khoản trùng nhau
+Tạo Shortcut Chrome
+Tải xuống avatar
+Khôi phục mật khẩu
+Mở form quản lý tin nhắn
+Giải phóng dung lượng
+Giải phóng dung lượng + Shutdown
+Chức năng ẩn
+Đổi mật khẩu hotmail
+Thêm mail khôi phục
+Xóa profile
+Dọn dẹp profile
+Xóa Cache Profile
+Backup dữ liệu
+Tạo File HTML
+Mở dữ liêu Backup
+Copy dữ liệu Backup
+Xóa dữ liệu Backup
+Dọn dẹp Backup
+Giải Checkpoint
+Checkpoint 956 MFb (ẩn)
+Tải lại danh sách
+Phần Mềm Quản Lý Và Chăm Sóc Tài Khoản Facebook
+Đã kích hoạt
+Mật khẩu
+Tên
+Ngày sinh
+Giới tính
+Ghi chú
+Tương tác cuối
+[Tất cả thư mục]
+[Chọn nhiều thư mục]
+[Tất cả tình trạng]
+Vui lòng mở lại phần mềm để cập nhật ngôn ngữ!
+MAX CARE v23.03.16 - Phần Mềm Quản Lý Và Chăm Sóc Tài Khoản Facebook - MIN SOFTWARE
+[Tất cả tình trạng]
+Thư mục:
+Nhập tài khoản
+Lọc:
+Trạng thái:
+Đã kích hoạt
+Mã thiết bị:
+Đăng xuất
+Ngày hết hạn:
+Bôi đen:
+Đã chọn:
+Tất cả:
+Chạy Tương Tác
+Chọn
+Tên
+Theo dõi
+Bạn bè
+Nhóm
+Ngày sinh
+Giới Tính
+Mật khẩu
+Email khôi phục
+Mật khẩu mail
+Mã 2FA
+Ngày tạo
+Thư mục
+Lần tương tác cuối
+Tình Trạng
+Ghi Chú
+Trạng Thái
+Cấu hình chung
+Cấu hình tương tác
+Cấu hình hiển thị
+Tài khoản đã xóa
+Tiện ích
+Check Connect email bằng Imap
+Lọc trùng dữ liệu
+Xử lý chuỗi cơ bản
+Liên hệ
+Chọn
+Tất cả
+Bôi đen
+Tình trạng
+Trạng thái
+Chọn danh sách theo UID
+Ghi chú
+Bỏ chọn tất cả
+Ẩn khỏi danh sách
+Nhập Proxy
+Nhập Useragent
+Mã bảo mật 6 số từ 2FA
+Mở trình duyệt
+Tiến hành mở
+Cài đặt cấu hình mở
+Xóa tài khoản
+Kiểm tra tài khoản
+Không đổi IP
+Sử dụng proxy đã gán
+Cập nhật thông tin
+Sử dụng Token trung gian
+Sử dụng Cookie trung gian
+Cập nhật dữ liệu
+Cập nhật hàng loạt
+Mã 2FA
+Ghi chú
+Ngày sinh
+Mail khôi phục
+Chuyển thư mục
+Chức năng
+Lọc tài khoản theo UID/Email
+Lọc tài khoản trùng nhau
+Xóa tài khoản trùng nhau
+Tạo Shortcut Chrome
+Tải xuống avatar
+Khôi phục mật khẩu
+Mở form quản lý tin nhắn
+Giải phóng dung lượng
+Giải phóng dung lượng + Shutdown
+Chức năng ẩn
+Đổi mật khẩu hotmail
+Thêm mail khôi phục
+Xóa profile
+Dọn dẹp profile
+Xóa Cache Profile
+Backup dữ liệu
+Tạo File HTML
+Mở dữ liêu Backup
+Copy dữ liệu Backup
+Xóa dữ liệu Backup
+Dọn dẹp Backup
+Giải Checkpoint
+Checkpoint 956 MFb (ẩn)
+Tải lại danh sách
+Phần Mềm Quản Lý Và Chăm Sóc Tài Khoản Facebook

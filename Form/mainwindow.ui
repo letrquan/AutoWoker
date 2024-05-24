@@ -1375,6 +1375,16 @@ color: white;</string>
     </column>
     <column>
      <property name="text">
+      <string>Useragent</string>
+     </property>
+     <property name="font">
+      <font>
+       <bold>true</bold>
+      </font>
+     </property>
+    </column>
+    <column>
+     <property name="text">
       <string>Proxy</string>
      </property>
      <property name="font">

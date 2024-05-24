@@ -759,8 +759,8 @@ public:
         horizontalLayout_3->addWidget(frame_6);
 
         tableWidget = new QTableWidget(centralwidget);
-        if (tableWidget->columnCount() < 38)
-            tableWidget->setColumnCount(38);
+        if (tableWidget->columnCount() < 39)
+            tableWidget->setColumnCount(39);
         QFont font3;
         font3.setBold(true);
         QTableWidgetItem *__qtablewidgetitem = new QTableWidgetItem();
@@ -876,6 +876,9 @@ public:
         QTableWidgetItem *__qtablewidgetitem37 = new QTableWidgetItem();
         __qtablewidgetitem37->setFont(font3);
         tableWidget->setHorizontalHeaderItem(37, __qtablewidgetitem37);
+        QTableWidgetItem *__qtablewidgetitem38 = new QTableWidgetItem();
+        __qtablewidgetitem38->setFont(font3);
+        tableWidget->setHorizontalHeaderItem(38, __qtablewidgetitem38);
         tableWidget->setObjectName("tableWidget");
         tableWidget->setGeometry(QRect(292, 139, 1081, 571));
         tableWidget->setMinimumSize(QSize(1081, 571));
@@ -962,41 +965,43 @@ public:
         QTableWidgetItem *___qtablewidgetitem19 = tableWidget->horizontalHeaderItem(19);
         ___qtablewidgetitem19->setText(QCoreApplication::translate("MainWindow", "M\303\243 2FA", nullptr));
         QTableWidgetItem *___qtablewidgetitem20 = tableWidget->horizontalHeaderItem(20);
-        ___qtablewidgetitem20->setText(QCoreApplication::translate("MainWindow", "Proxy", nullptr));
+        ___qtablewidgetitem20->setText(QCoreApplication::translate("MainWindow", "Useragent", nullptr));
         QTableWidgetItem *___qtablewidgetitem21 = tableWidget->horizontalHeaderItem(21);
-        ___qtablewidgetitem21->setText(QCoreApplication::translate("MainWindow", "Ng\303\240y t\341\272\241o t\303\240i kho\341\272\243n", nullptr));
+        ___qtablewidgetitem21->setText(QCoreApplication::translate("MainWindow", "Proxy", nullptr));
         QTableWidgetItem *___qtablewidgetitem22 = tableWidget->horizontalHeaderItem(22);
-        ___qtablewidgetitem22->setText(QCoreApplication::translate("MainWindow", "Avatar", nullptr));
+        ___qtablewidgetitem22->setText(QCoreApplication::translate("MainWindow", "Ng\303\240y t\341\272\241o t\303\240i kho\341\272\243n", nullptr));
         QTableWidgetItem *___qtablewidgetitem23 = tableWidget->horizontalHeaderItem(23);
-        ___qtablewidgetitem23->setText(QCoreApplication::translate("MainWindow", "Profile", nullptr));
+        ___qtablewidgetitem23->setText(QCoreApplication::translate("MainWindow", "Avatar", nullptr));
         QTableWidgetItem *___qtablewidgetitem24 = tableWidget->horizontalHeaderItem(24);
-        ___qtablewidgetitem24->setText(QCoreApplication::translate("MainWindow", "Th\306\260 M\341\273\245c", nullptr));
+        ___qtablewidgetitem24->setText(QCoreApplication::translate("MainWindow", "Profile", nullptr));
         QTableWidgetItem *___qtablewidgetitem25 = tableWidget->horizontalHeaderItem(25);
-        ___qtablewidgetitem25->setText(QCoreApplication::translate("MainWindow", "L\341\272\247n T\306\260\306\241ng T\303\241c Cu\341\273\221i", nullptr));
+        ___qtablewidgetitem25->setText(QCoreApplication::translate("MainWindow", "Th\306\260 M\341\273\245c", nullptr));
         QTableWidgetItem *___qtablewidgetitem26 = tableWidget->horizontalHeaderItem(26);
-        ___qtablewidgetitem26->setText(QCoreApplication::translate("MainWindow", "T\303\254nh Tr\341\272\241ng", nullptr));
+        ___qtablewidgetitem26->setText(QCoreApplication::translate("MainWindow", "L\341\272\247n T\306\260\306\241ng T\303\241c Cu\341\273\221i", nullptr));
         QTableWidgetItem *___qtablewidgetitem27 = tableWidget->horizontalHeaderItem(27);
-        ___qtablewidgetitem27->setText(QCoreApplication::translate("MainWindow", "Ghi Ch\303\272", nullptr));
+        ___qtablewidgetitem27->setText(QCoreApplication::translate("MainWindow", "T\303\254nh Tr\341\272\241ng", nullptr));
         QTableWidgetItem *___qtablewidgetitem28 = tableWidget->horizontalHeaderItem(28);
-        ___qtablewidgetitem28->setText(QCoreApplication::translate("MainWindow", "Status282", nullptr));
+        ___qtablewidgetitem28->setText(QCoreApplication::translate("MainWindow", "Ghi Ch\303\272", nullptr));
         QTableWidgetItem *___qtablewidgetitem29 = tableWidget->horizontalHeaderItem(29);
-        ___qtablewidgetitem29->setText(QCoreApplication::translate("MainWindow", "Location", nullptr));
+        ___qtablewidgetitem29->setText(QCoreApplication::translate("MainWindow", "Status282", nullptr));
         QTableWidgetItem *___qtablewidgetitem30 = tableWidget->horizontalHeaderItem(30);
-        ___qtablewidgetitem30->setText(QCoreApplication::translate("MainWindow", "Home Town", nullptr));
+        ___qtablewidgetitem30->setText(QCoreApplication::translate("MainWindow", "Location", nullptr));
         QTableWidgetItem *___qtablewidgetitem31 = tableWidget->horizontalHeaderItem(31);
-        ___qtablewidgetitem31->setText(QCoreApplication::translate("MainWindow", "Current City", nullptr));
+        ___qtablewidgetitem31->setText(QCoreApplication::translate("MainWindow", "Home Town", nullptr));
         QTableWidgetItem *___qtablewidgetitem32 = tableWidget->horizontalHeaderItem(32);
-        ___qtablewidgetitem32->setText(QCoreApplication::translate("MainWindow", "Dating", nullptr));
+        ___qtablewidgetitem32->setText(QCoreApplication::translate("MainWindow", "Current City", nullptr));
         QTableWidgetItem *___qtablewidgetitem33 = tableWidget->horizontalHeaderItem(33);
-        ___qtablewidgetitem33->setText(QCoreApplication::translate("MainWindow", "Ads", nullptr));
+        ___qtablewidgetitem33->setText(QCoreApplication::translate("MainWindow", "Dating", nullptr));
         QTableWidgetItem *___qtablewidgetitem34 = tableWidget->horizontalHeaderItem(34);
-        ___qtablewidgetitem34->setText(QCoreApplication::translate("MainWindow", "BM", nullptr));
+        ___qtablewidgetitem34->setText(QCoreApplication::translate("MainWindow", "Ads", nullptr));
         QTableWidgetItem *___qtablewidgetitem35 = tableWidget->horizontalHeaderItem(35);
-        ___qtablewidgetitem35->setText(QCoreApplication::translate("MainWindow", "FbBlock", nullptr));
+        ___qtablewidgetitem35->setText(QCoreApplication::translate("MainWindow", "BM", nullptr));
         QTableWidgetItem *___qtablewidgetitem36 = tableWidget->horizontalHeaderItem(36);
-        ___qtablewidgetitem36->setText(QCoreApplication::translate("MainWindow", "Job", nullptr));
+        ___qtablewidgetitem36->setText(QCoreApplication::translate("MainWindow", "FbBlock", nullptr));
         QTableWidgetItem *___qtablewidgetitem37 = tableWidget->horizontalHeaderItem(37);
-        ___qtablewidgetitem37->setText(QCoreApplication::translate("MainWindow", "Tr\341\272\241ng th\303\241i", nullptr));
+        ___qtablewidgetitem37->setText(QCoreApplication::translate("MainWindow", "Job", nullptr));
+        QTableWidgetItem *___qtablewidgetitem38 = tableWidget->horizontalHeaderItem(38);
+        ___qtablewidgetitem38->setText(QCoreApplication::translate("MainWindow", "Tr\341\272\241ng th\303\241i", nullptr));
     } // retranslateUi
 
 };

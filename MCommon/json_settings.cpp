@@ -155,8 +155,10 @@ bool JSON_Settings::stringToBool(const QString& str) {
 int JSON_Settings::GetValueInt(QString key, int valueDefault){
     int result = valueDefault;
     try {
-        result = ((JSON[key].isNull())) ? valueDefault : JSON[key].toInt();
-
+        int i = JSON[key].toString().toInt();
+        if(i!=0){
+            result =i;
+        }
     } catch (...) {
     }
     return result;

@@ -75,6 +75,7 @@ D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/AutoWo
   C:/Qt/6.7.1/mingw_64/include/QtCore/qmetacontainer.h \
   C:/Qt/6.7.1/mingw_64/include/QtCore/qmetatype.h \
   C:/Qt/6.7.1/mingw_64/include/QtCore/qminmax.h \
+  C:/Qt/6.7.1/mingw_64/include/QtCore/qmutex.h \
   C:/Qt/6.7.1/mingw_64/include/QtCore/qnamespace.h \
   C:/Qt/6.7.1/mingw_64/include/QtCore/qnativeinterface.h \
   C:/Qt/6.7.1/mingw_64/include/QtCore/qnumeric.h \
@@ -124,6 +125,7 @@ D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/AutoWo
   C:/Qt/6.7.1/mingw_64/include/QtCore/qtnoop.h \
   C:/Qt/6.7.1/mingw_64/include/QtCore/qtpreprocessorsupport.h \
   C:/Qt/6.7.1/mingw_64/include/QtCore/qtresource.h \
+  C:/Qt/6.7.1/mingw_64/include/QtCore/qtsan_impl.h \
   C:/Qt/6.7.1/mingw_64/include/QtCore/qttranslation.h \
   C:/Qt/6.7.1/mingw_64/include/QtCore/qttypetraits.h \
   C:/Qt/6.7.1/mingw_64/include/QtCore/qtversion.h \

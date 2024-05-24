@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QCheckBox>
+#include "qmutex.h"
 #include "ui_mainwindow.h"
 #include <QMainWindow>
 #include <QSettings>
@@ -43,6 +44,7 @@ private:
     QList<QThread*> lstThread;
     QList<QString> lstMailDomainAw;
     QMenu menu;
+    QMutex mutex;
     void ChangeLanguage();
     void DisableSort();
     void CheckDangCheckPoint(int indexRow, QString statusProxy, QString cookie, QString proxy, int typeProxy,  bool &isCheckpoint282);

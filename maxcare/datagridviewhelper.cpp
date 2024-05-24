@@ -1,5 +1,6 @@
 #include "datagridviewhelper.h"
 #include <QHeaderView>
+#include <mutex>
 #include "../maxcare/updatestatus.h"
 #include "../Utils/Utils.h"
 #include "../MCommon/Common.h"
@@ -40,7 +41,7 @@ void DatagridviewHelper::LoadDtgvAccFromDatatable(QTableWidget* dgv, QVariantLis
                 }else if(col==1){
                     item->setData(Qt::DisplayRole,row+1);
                     item->setFlags(item->flags() & ~Qt::ItemIsEditable);
-                }else if(col == 29){
+                }else if(col == 37){
                     item->setData(Qt::DisplayRole,UpdateStatus::GetStatusById(rowMap["id"].toString()));
                     item->setFlags(item->flags() & ~Qt::ItemIsEditable);
                 }else{
@@ -62,7 +63,7 @@ QMap<int,QString> DatagridviewHelper::numToHeaderMap = {
     {6,"email"},
     {7,"phone"},
     {8,"name"},
-    {9,"follow"},
+    {9,"page"},
     {10,"friends"},
     {11,"groups"},
     {12,"pagePro5"},
@@ -131,7 +132,7 @@ QString DatagridviewHelper::GetStatusDataGridView(QTableWidget* dgv, int row, QS
             if (!dgv->item(row,col)->text().isNull()) {
                 // Check if the item has a checkbox
                 QVariant checkState = dgv->item(row,col)->checkState();
-                if (checkState.isValid()) {
+                if (col==0) {
                     // Return "true" or "false" based on the checkbox state
                     output = (checkState.toInt() == Qt::Checked) ? "true" : "false";
                 } else {
@@ -175,6 +176,8 @@ void DatagridviewHelper::SetStatusDataGridView(QTableWidget* dgv, int row, int c
     }
 }
 void DatagridviewHelper::SetStatusDataGridView(QTableWidget* dgv, int row, QString colName, QVariant status){
+    static std::mutex mutex;
+    std::lock_guard<std::mutex> lock(mutex);
     try {
         if(UpdateStatus::isSaveSettings && colName == "Trạng thái"){
             UpdateStatus::SetStatusById(GetStatusDataGridView(dgv,row,"Id"), status.toString());

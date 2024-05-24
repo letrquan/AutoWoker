@@ -307,6 +307,15 @@
 		"C:/Qt/6.7.1/mingw_64/lib/cmake/Qt6Sql/Qt6QSQLiteDriverPluginTargets.cmake",
 		"C:/Qt/6.7.1/mingw_64/lib/cmake/Qt6Sql/Qt6QSQLiteDriverPluginTargets-relwithdebinfo.cmake",
 		"C:/Qt/6.7.1/mingw_64/lib/cmake/Qt6Sql/Qt6QSQLiteDriverPluginAdditionalTargetInfo.cmake",
+		"C:/Qt/6.7.1/mingw_64/lib/cmake/Qt6Concurrent/Qt6ConcurrentConfigVersion.cmake",
+		"C:/Qt/6.7.1/mingw_64/lib/cmake/Qt6Concurrent/Qt6ConcurrentConfigVersionImpl.cmake",
+		"C:/Qt/6.7.1/mingw_64/lib/cmake/Qt6Concurrent/Qt6ConcurrentConfig.cmake",
+		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CMakeFindDependencyMacro.cmake",
+		"C:/Qt/6.7.1/mingw_64/lib/cmake/Qt6Concurrent/Qt6ConcurrentDependencies.cmake",
+		"C:/Qt/6.7.1/mingw_64/lib/cmake/Qt6Concurrent/Qt6ConcurrentTargets.cmake",
+		"C:/Qt/6.7.1/mingw_64/lib/cmake/Qt6Concurrent/Qt6ConcurrentTargets-relwithdebinfo.cmake",
+		"C:/Qt/6.7.1/mingw_64/lib/cmake/Qt6Concurrent/Qt6ConcurrentAdditionalTargetInfo.cmake",
+		"C:/Qt/6.7.1/mingw_64/lib/cmake/Qt6Concurrent/Qt6ConcurrentVersionlessTargets.cmake",
 		"C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/GNUInstallDirs.cmake",
 		"D:/AutoWorker/XWorker/AutoWoker/resource.qrc"
 	],
@@ -538,6 +547,7 @@
 	"MOC_DEFINITIONS" : 
 	[
 		"MINGW_HAS_SECURE_API=1",
+		"QT_CONCURRENT_LIB",
 		"QT_CORE_LIB",
 		"QT_GUI_LIB",
 		"QT_NEEDS_QMAIN",
@@ -567,6 +577,7 @@
 		"C:/Qt/6.7.1/mingw_64/include/QtGui",
 		"C:/Qt/6.7.1/mingw_64/include/QtNetwork",
 		"C:/Qt/6.7.1/mingw_64/include/QtSql",
+		"C:/Qt/6.7.1/mingw_64/include/QtConcurrent",
 		"C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++",
 		"C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32",
 		"C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/backward",

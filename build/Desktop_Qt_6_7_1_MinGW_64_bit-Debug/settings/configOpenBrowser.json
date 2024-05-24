@@ -1,0 +1,17 @@
+{
+  "isUseProfile": "False",
+  "typeLogin": "3",
+  "typeBrowserLogin": "0",
+  "ckbAddChromeIntoForm": "False",
+  "nudWidthChrome": "520",
+  "nudHeighChrome": "480",
+  "cbbColumnChrome": "5",
+  "cbbRowChrome": "2",
+  "isGetCookie": "True",
+  "ckbGetToken": "False",
+  "ckbKhongLuuTrinhDuyet": "True",
+  "isAutoCloseChromeLoginFail": "False",
+  "ckbAutoOpenLink": "False",
+  "txtLink": "https://browserleaks.com/webrtc",
+  "ckbLoginHotmail": "False"
+}
