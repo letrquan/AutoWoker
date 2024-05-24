@@ -33,6 +33,8 @@ D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/AutoWo
   C:/Qt/6.7.1/mingw_64/include/QtCore/qbytearraylist.h \
   C:/Qt/6.7.1/mingw_64/include/QtCore/qbytearrayview.h \
   C:/Qt/6.7.1/mingw_64/include/QtCore/qcalendar.h \
+  C:/Qt/6.7.1/mingw_64/include/QtCore/qcborcommon.h \
+  C:/Qt/6.7.1/mingw_64/include/QtCore/qcborvalue.h \
   C:/Qt/6.7.1/mingw_64/include/QtCore/qchar.h \
   C:/Qt/6.7.1/mingw_64/include/QtCore/qcompare.h \
   C:/Qt/6.7.1/mingw_64/include/QtCore/qcompare_impl.h \
@@ -72,6 +74,9 @@ D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/AutoWo
   C:/Qt/6.7.1/mingw_64/include/QtCore/qitemselectionmodel.h \
   C:/Qt/6.7.1/mingw_64/include/QtCore/qiterable.h \
   C:/Qt/6.7.1/mingw_64/include/QtCore/qiterator.h \
+  C:/Qt/6.7.1/mingw_64/include/QtCore/qjsondocument.h \
+  C:/Qt/6.7.1/mingw_64/include/QtCore/qjsonobject.h \
+  C:/Qt/6.7.1/mingw_64/include/QtCore/qjsonvalue.h \
   C:/Qt/6.7.1/mingw_64/include/QtCore/qlatin1stringview.h \
   C:/Qt/6.7.1/mingw_64/include/QtCore/qline.h \
   C:/Qt/6.7.1/mingw_64/include/QtCore/qlist.h \
@@ -142,6 +147,7 @@ D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/AutoWo
   C:/Qt/6.7.1/mingw_64/include/QtCore/qtypes.h \
   C:/Qt/6.7.1/mingw_64/include/QtCore/qurl.h \
   C:/Qt/6.7.1/mingw_64/include/QtCore/qutf8stringview.h \
+  C:/Qt/6.7.1/mingw_64/include/QtCore/quuid.h \
   C:/Qt/6.7.1/mingw_64/include/QtCore/qvariant.h \
   C:/Qt/6.7.1/mingw_64/include/QtCore/qvarlengtharray.h \
   C:/Qt/6.7.1/mingw_64/include/QtCore/qversiontagging.h \

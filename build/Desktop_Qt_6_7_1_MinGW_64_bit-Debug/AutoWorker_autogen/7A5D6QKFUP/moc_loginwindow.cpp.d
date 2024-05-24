@@ -201,9 +201,12 @@ D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/AutoWo
   C:/Qt/6.7.1/mingw_64/include/QtSql/qtsql-config.h \
   C:/Qt/6.7.1/mingw_64/include/QtSql/qtsqlexports.h \
   C:/Qt/6.7.1/mingw_64/include/QtSql/qtsqlglobal.h \
+  C:/Qt/6.7.1/mingw_64/include/QtWidgets/QCheckBox \
   C:/Qt/6.7.1/mingw_64/include/QtWidgets/QMainWindow \
   C:/Qt/6.7.1/mingw_64/include/QtWidgets/QMenu \
   C:/Qt/6.7.1/mingw_64/include/QtWidgets/QWidgetAction \
+  C:/Qt/6.7.1/mingw_64/include/QtWidgets/qabstractbutton.h \
+  C:/Qt/6.7.1/mingw_64/include/QtWidgets/qcheckbox.h \
   C:/Qt/6.7.1/mingw_64/include/QtWidgets/qmainwindow.h \
   C:/Qt/6.7.1/mingw_64/include/QtWidgets/qmenu.h \
   C:/Qt/6.7.1/mingw_64/include/QtWidgets/qsizepolicy.h \

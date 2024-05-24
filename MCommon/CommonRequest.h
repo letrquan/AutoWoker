@@ -5,8 +5,44 @@
 #include "../maxcare/setupfolder.h"
 #include "qregularexpression.h"
 #include "../MCommon/CommonChrome.h"
+#include <QJsonDocument>
+#include <QJsonObject>
+#include "../Utils/Utils.h"
 class CommonRequest{
 public:
+    static QString CheckInfoUsingUid(QString uid, QString proxy = "", int typeProxy = 0){
+        RequestHandle gclass("", "Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_2 like Mac OS X) AppleWebKit/603.2.4 (KHTML, like Gecko) Mobile/14F89", proxy, typeProxy);
+        try {
+            auto json =  Utils::parseJsonString(gclass.RequestPost("https://www.facebook.com/api/graphql", "q=node(" + uid + "){name}"));
+            if(!json.contains(uid) && json[uid].toString().isEmpty()){
+                return "0|";
+            }
+            auto text = json[uid].toObject()["name"].toString();
+            json = Utils::parseJsonString(gclass.RequestPost("https://www.facebook.com/api/graphql", "q=node(" + uid + "){friends{count}}"));
+            if(!json.contains(uid) && json[uid].toString().isEmpty()){
+                return "0|";
+            }
+            auto text2 = json[uid].toObject()["friends"].toObject()["count"].toString();
+            json = Utils::parseJsonString(gclass.RequestPost("https://www.facebook.com/api/graphql", "q=node(" + uid + "){created_time}"));
+            if(!json.contains(uid) && json[uid].toString().isEmpty()){
+                return "0|";
+            }
+            auto text3 = tut8(json[uid].toObject()["created_time"].toDouble()).toString();
+            QString result = "1|" + text + "|" + text2 + "|" + text3;
+            return result;
+        } catch (...) {
+        }
+        return "2|";
+    }
+    static QDateTime tut8(double timestamp) {
+        // Create a QDateTime object set to the epoch time (1970-01-01T00:00:00 UTC)
+        QDateTime dateTime = QDateTime::fromSecsSinceEpoch(static_cast<qint64>(timestamp), Qt::UTC);
+
+        // Convert the time to the local time zone
+        dateTime = dateTime.toLocalTime();
+
+        return dateTime;
+    }
     static QString CheckLiveWall(QString uid){
         RequestHandle* gclass = new RequestHandle("datr=WZJvYiyKfkXCQUnre2uko636; fr=0oqi8uvi6J1Ke1hP4.AWWnEdQcAIbqvuADKlxidQffUOA.BiXNNR._x.AAA.0.0.Bi14Bb.AWWzPrNJL6o; sb=UNNcYqIKRmV0qebQb9n77CHo",SetupFolder::smethod_88(),"",0);
         try {

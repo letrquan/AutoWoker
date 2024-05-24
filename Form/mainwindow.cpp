@@ -21,6 +21,7 @@
 #include "../maxcare/datagridviewhelper.h"
 #include "../Utils/Utils.h"
 #include "../MCommon/CommonRequest.h"
+#include "../maxcare/ImapHelper.h"
 MainWindow::MainWindow(QString tokemem, QString namemem, QString phoneMem, QString maxDeviceMem,QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -39,6 +40,12 @@ MainWindow::MainWindow(QString tokemem, QString namemem, QString phoneMem, QStri
     ui->tableWidget->horizontalHeader()->setStretchLastSection(true);
     connect(ui->tableWidget, &QTableWidget::customContextMenuRequested, this, &MainWindow::showContextMenu);
     ui->tableWidget->setContextMenuPolicy(Qt::CustomContextMenu);
+    QHeaderView* header = ui->tableWidget->horizontalHeader();
+    header->setStyleSheet("QHeaderView::section { background-color: #222831; color: white; }");
+    QHeaderView* vHeader = ui->tableWidget->verticalHeader();
+    vHeader->setStyleSheet("QHeaderView::section { background-color: #222831; color: white; }");
+    ui->tableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui->tableWidget->installEventFilter(this);
     OnLoaded();
 
 }
@@ -381,7 +388,7 @@ void MainWindow::CountCheckedAccount(int count){
         count = 0;
         for (int i = 0; i < ui->tableWidget->rowCount(); i++)
         {
-            if (ui->tableWidget->item(i,Utils::findColumnByHeader(ui->tableWidget,"Chọn"))->text().toInt() == 1)
+            if (ui->tableWidget->item(i,Utils::GetIndexByColumnHeader(ui->tableWidget,"Chọn"))->text().toInt() == 1)
             {
                 count++;
             }
@@ -424,7 +431,7 @@ void MainWindow::KiemTraTaiKhoan(int type, bool useProxy){
     int maxThread=SettingsTool::GetSettings("configGeneral").GetValueInt("nudHideThread", 10);
     QString tokenTrungGian = SettingsTool::GetSettings("configGeneral").GetValue("token");
     isStop = false;
-    QThread::create([this, &tokenTrungGian, &iThread, &maxThread, &type](){
+    QThread::create([this, &tokenTrungGian, &iThread, &maxThread, &type, &useProxy](){
         cControl("start");
         switch (type) {
         case 0:
@@ -555,11 +562,163 @@ void MainWindow::KiemTraTaiKhoan(int type, bool useProxy){
             }
             break;
         }
+        case 5:{
+            int num=0;
+            while (num < ui->tableWidget->rowCount() && !isStop)
+            {
+                if (ui->tableWidget->item(num,0)->checkState() == Qt::Checked)
+                {
+                    if (iThread < maxThread)
+                    {
+                        iThread.fetchAndAddOrdered(1);
+                        int row6 = num++;
+                        QThread::create([&row6, this, &iThread, &useProxy]() {
+                            SetStatusAccount(row6, Language::GetValue("Đang kiểm tra..."));
+                            CheckInfoUid(row6, useProxy);
+                            iThread.fetchAndSubOrdered(1);
+                        })->start();
+                    }
+                    else
+                    {
+                        QCoreApplication::processEvents();
+                        QThread::msleep(200);
+                    }
+                }
+                else
+                {
+                    num++;
+                }
+            }
+            break;
+        }
+        case 6:{
+            int num3 = 0;
+            while (num3 < ui->tableWidget->rowCount() && !isStop)
+            {
+                if (ui->tableWidget->item(num3,0)->checkState() == Qt::Checked)
+                {
+                    if (iThread < maxThread)
+                    {
+                        iThread.fetchAndAddOrdered(1);
+                        int row4 = num3++;
+                        QThread::create([&row4, this, &iThread]() {
+                            SetStatusAccount(row4, Language::GetValue("Đang kiểm tra..."));
+                            CheckNameVN(row4);
+                            iThread.fetchAndSubOrdered(1);
+                        })->start();
+                    }
+                    else
+                    {
+                        QCoreApplication::processEvents();
+                        QThread::msleep(200);
+                    }
+                }
+                else
+                {
+                    num3++;
+                }
+            }
+            break;
+        }
         default:
             break;
         }
+        // int tickCount = GetTickCount();
+        // while (iThread > 0 && GetTickCount() - tickCount <= 60000)
+        // {
+        //     Common::DelayTime(1.0);
+        // }
+        cControl("stop");
     })->start();
 }
+
+void MainWindow::CheckNameVN(int row){
+    try
+    {
+        QString text = GetCellAccount(row, "cName");
+        QString text2;
+        if (text.trimmed() == "")
+        {
+            text2 = Language::GetValue("Không tìm thấy tên!");
+        }
+        else if (Common::IsVNName(text))
+        {
+            text2 = Language::GetValue("Yes");
+        }
+        else
+        {
+            text2 = Language::GetValue("No");
+        }
+        SetStatusAccount(row, text2, -1);
+    }
+    catch(...)
+    {
+        SetStatusAccount(row, Language::GetValue("Không check đươ\u0323c!"), -1);
+    }
+}
+
+void MainWindow::CheckInfoUid(int row, bool useProxy){
+    try {
+        QString cellAccount = GetCellAccount(row, "Id");
+        QString cellAccount2 = GetCellAccount(row, "Uid");
+        QString text = "";
+        int typeProxy = 0;
+        if(useProxy){
+            text = GetCellAccount(row, "cProxy");
+            typeProxy = (text.endsWith("*1") ? 1 : 0);
+            if (text.endsWith("*0") || text.endsWith("*1"))
+            {
+                text = text.left(text.length() - 2);
+            }
+        }
+        if(!CheckIsUidFacebook(cellAccount2)){
+            SetStatusAccount(row, Language::GetValue("Uid không hợp lệ!"));
+            return;
+        }
+        QString text2 = "";
+        QString text3 = CommonRequest::CheckInfoUsingUid(cellAccount2, text, typeProxy);
+        if (text3.startsWith("0|"))
+        {
+            if (CommonRequest::CheckLiveWall(cellAccount2).startsWith("0|"))
+            {
+                SetStatusAccount(row, Language::GetValue("Tài khoản Die!"));
+                SetInfoAccount(row, "Die");
+            }
+            else
+            {
+                SetStatusAccount(row, Language::GetValue("Không check đươ\u0323c!"));
+            }
+        }
+        else if (text3.startsWith("1|"))
+        {
+            QStringList array = text3.split('|');
+            QString value = array[1];
+            QString value2 = array[2];
+            QString value3 = array[3];
+            CommonSQL::UpdateMultiFieldToAccount(cellAccount, "name|friends|dateCreateAcc", value+"|"+value2+"|"+value3);
+            SetCellAccount(row, "cName", value);
+            SetCellAccount(row, "cFriend", value2);
+            SetCellAccount(row, "cdateCreateAcc", value3);
+            SetInfoAccount(row, "Live");
+            text2 = Language::GetValue("Câ\u0323p nhâ\u0323t thông tin tha\u0300nh công!");
+            SetStatusAccount(row, text2);
+        }
+        else
+        {
+            SetStatusAccount(row, Language::GetValue("Không check đươ\u0323c!"));
+        }
+    } catch (...) {
+        SetStatusAccount(row, Language::GetValue("Không check đươ\u0323c!"));
+    }
+
+}
+void MainWindow::SetCellAccount(int indexRow, QString column, QVariant value, bool isAllowEmptyValue){
+    if ((!(column == "Uid") || !(value.toString().trimmed() == "")) && (isAllowEmptyValue || !(value.toString().trimmed() == "")))
+    {
+        DatagridviewHelper::SetStatusDataGridView(ui->tableWidget, indexRow, column, value);
+    }
+}
+
 
 void MainWindow::CheckAccountMail(int row){
     try {
@@ -567,7 +726,20 @@ void MainWindow::CheckAccountMail(int row){
         QString text2 = "";
         text = ui->tableWidget->item(row, Utils::GetIndexByColumnHeader(ui->tableWidget,"Email"))->text();
         text2 = ui->tableWidget->item(row, Utils::GetIndexByColumnHeader(ui->tableWidget,"Mật khẩu Mail"))->text();
+        if (text == "" || text2 == "")
+        {
+            SetStatusAccount(row, Language::GetValue("Không tìm thấy mail!"));
+        }
+        else if (ImapHelper::CheckConnectImap(text, text2))
+        {
+            SetStatusAccount(row, Language::GetValue("Tài khoản mail: live!"));
+        }
+        else
+        {
+            SetStatusAccount(row, Language::GetValue("Tài khoản mail: die!"));
+        }
     } catch (...) {
+        SetStatusAccount(row, Language::GetValue("Lỗi!"));
     }
 }
 
@@ -928,3 +1100,112 @@ void MainWindow::on_cbbTinhTrang_currentIndexChanged(int index)
     indexCbbTinhTrangOld = ui->cbbTinhTrang->currentIndex();
 }
 
+void MainWindow::showContextMenu(const QPoint &pos) {
+    // Create the context menu
+    QMenu contextMenu(this);
+    contextMenu.setStyleSheet("background-color: #424769; color: white;");
+    // Create main actions with icons
+    QAction *actionSelect = new QAction(QIcon(":/img/img/select-all.png"), "Chọn", this);
+    QAction *actionDeselect = new QAction(QIcon(":/img/img/check.png"),"Bỏ chọn tất cả", this);
+    QAction *actionHideList = new QAction(QIcon(":/img/img/hide.png"),"Ẩn khỏi danh sách", this);
+    QAction *actionInputProxy = new QAction(QIcon(":/img/img/up-arrow.png"),"Nhập Proxy", this);
+    QAction *actionInputUserAgent = new QAction(QIcon(""),"Nhập Useragent", this);
+    QAction *actionCopy = new QAction(QIcon(""),"Copy", this);
+    QAction *actionOpenProgram = new QAction(QIcon(""),"Mở trình duyệt", this);
+    QAction *actionDeleteAccount = new QAction(QIcon(""),"Xóa tài khoản", this);
+    QAction *actionCheckAccount = new QAction("Kiểm tra tài khoản", this);
+
+    // connect(actionSelect, &QAction::triggered, this, &MainWindow::onActionSelect);
+    connect(actionDeselect, &QAction::triggered, this, &MainWindow::onActionDeselect);
+    // connect(actionHideList, &QAction::triggered, this, &MainWindow::onActionHideList);
+    // connect(actionInputProxy, &QAction::triggered, this, &MainWindow::onActionInputProxy);
+    // connect(actionInputUserAgent, &QAction::triggered, this, &MainWindow::onActionInputUserAgent);
+    // connect(actionCopy, &QAction::triggered, this, &MainWindow::onActionCopy);
+    // connect(actionOpenProgram, &QAction::triggered, this, &MainWindow::onActionOpenProgram);
+    // connect(actionDeleteAccount, &QAction::triggered, this, &MainWindow::onActionDeleteAccount);
+
+    // Create a submenu for "Chọn"
+    QMenu *subMenuSelect = new QMenu("Chọn", this);
+    subMenuSelect->setStyleSheet("background-color: #424769; color: white;");
+    QAction *subActionAll = new QAction("Tất cả", this);
+    QAction *subActionBlackList = new QAction("Bôi đen", this);
+    QAction *subActionCondition = new QAction("Tình trạng", this);
+    QAction *subActionStatus = new QAction("Trạng thái", this);
+    QAction *subActionSelectByUID = new QAction("Chọn danh sách theo UID", this);
+
+
+    //sub menu for Kiểm tra tài khoản
+    QMenu *subMenuCheckAccount = new QMenu("Kiểm tra tài khoản", this);
+    subMenuCheckAccount->setStyleSheet("background-color: #424769; color: white;");
+    QAction *checkWall = new QAction("Check Wall", this);
+    QAction *checkInfoUid = new QAction("Check Info Uid", this);
+    QAction *checkToken = new QAction("Check Token", this);
+    QAction *checkAvatar = new QAction("Check Avatar", this);
+    QAction *checkProfile = new QAction("Check Profile", this);
+    QAction *checkBackup = new QAction("Check Back Up", this);
+
+
+    connect(subActionAll, &QAction::triggered, this, &MainWindow::onSubActionAll);
+    // connect(subActionBlackList, &QAction::triggered, this, &MainWindow::onSubActionBlackList);
+    // connect(subActionCondition, &QAction::triggered, this, &MainWindow::onSubActionCondition);
+    // connect(subActionStatus, &QAction::triggered, this, &MainWindow::onSubActionStatus);
+    // connect(subActionSelectByUID, &QAction::triggered, this, &MainWindow::onSubActionSelectByUID);
+    // Add actions to the submenu
+    subMenuSelect->addAction(subActionAll);
+    subMenuSelect->addAction(subActionBlackList);
+    subMenuSelect->addAction(subActionCondition);
+    subMenuSelect->addAction(subActionStatus);
+    subMenuSelect->addAction(subActionSelectByUID);
+
+
+
+    subMenuCheckAccount->addAction(checkWall);
+    subMenuCheckAccount->addAction(checkInfoUid);
+    subMenuCheckAccount->addAction(checkToken);
+    subMenuCheckAccount->addAction(checkAvatar);
+    subMenuCheckAccount->addAction(checkProfile);
+    subMenuCheckAccount->addAction(checkBackup);
+
+
+    connect(checkWall, &QAction::triggered, this, &MainWindow::checkWall);
+
+
+    // Add the submenu to the main action
+    actionSelect->setMenu(subMenuSelect);
+    actionCheckAccount->setMenu(subMenuCheckAccount);
+    // Create a QWidgetAction with a QLineEdit for "Ghi chú"
+    QWidgetAction *widgetActionNote = new QWidgetAction(this);
+    QLineEdit *lineEditNote = new QLineEdit(this);
+    widgetActionNote->setDefaultWidget(lineEditNote);
+
+    // Add actions and submenus to the context menu
+    contextMenu.addAction(actionSelect);
+    contextMenu.addAction(actionDeselect);
+    contextMenu.addAction(actionHideList);
+    contextMenu.addAction(actionInputProxy);
+    contextMenu.addAction(actionInputUserAgent);
+    contextMenu.addAction(actionCopy);
+    contextMenu.addAction(actionOpenProgram);
+    contextMenu.addAction(actionDeleteAccount);
+    contextMenu.addAction(actionCheckAccount);
+    contextMenu.addSeparator();
+    contextMenu.addAction(widgetActionNote);
+    contextMenu.addAction(widgetActionNote);
+
+
+    // Show the context menu at the cursor position
+    contextMenu.exec(ui->tableWidget->viewport()->mapToGlobal(pos));
+}
+void MainWindow::onSubActionAll(){
+    for(int i =0; i<ui->tableWidget->rowCount();i++){
+        ui->tableWidget->item(i,0)->setCheckState(Qt::Checked);
+    }
+}
+void MainWindow::onActionDeselect(){
+    for(int i =0; i<ui->tableWidget->rowCount();i++){
+        ui->tableWidget->item(i,0)->setCheckState(Qt::Unchecked);
+    }
+}
+void MainWindow::checkWall(){
+    KiemTraTaiKhoan(0);
+}

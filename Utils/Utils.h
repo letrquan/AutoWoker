@@ -1,5 +1,7 @@
 #ifndef UTILS_H
 #define UTILS_H
+#include "qjsondocument.h"
+#include "qjsonobject.h"
 #include <QNetworkAccessManager>
 #include <QEventLoop>
 #include <QNetworkReply>
@@ -236,6 +238,15 @@ public:
                 item->setBackground(QBrush(color));
                 tableWidget->setItem(row, column, item);
             }
+        }
+    }
+    static QJsonObject parseJsonString(const QString& jsonString) {
+        QJsonDocument jsonResponse = QJsonDocument::fromJson(jsonString.toUtf8());
+        if (!jsonResponse.isNull() && jsonResponse.isObject()) {
+            return jsonResponse.object();
+        } else {
+            qDebug() << "Failed to parse JSON string.";
+            return QJsonObject();
         }
     }
 };

@@ -95,7 +95,7 @@ public:
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName("MainWindow");
         MainWindow->resize(1382, 723);
-        MainWindow->setStyleSheet(QString::fromUtf8("background-color: #FFFBDA;\n"
+        MainWindow->setStyleSheet(QString::fromUtf8("background-color: black;\n"
 "border-radius:15px;"));
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName("centralwidget");
@@ -879,9 +879,10 @@ public:
         tableWidget->setObjectName("tableWidget");
         tableWidget->setGeometry(QRect(292, 139, 1081, 571));
         tableWidget->setMinimumSize(QSize(1081, 571));
-        tableWidget->setStyleSheet(QString::fromUtf8("color:black;\n"
-"border-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(0, 0, 0, 255), stop:1 rgba(255, 255, 255, 255));"));
-        tableWidget->setSortingEnabled(true);
+        tableWidget->setStyleSheet(QString::fromUtf8("background-color: #222831;\n"
+"color: white;"));
+        tableWidget->setShowGrid(true);
+        tableWidget->setSortingEnabled(false);
         MainWindow->setCentralWidget(centralwidget);
 
         retranslateUi(MainWindow);

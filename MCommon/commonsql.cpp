@@ -2,6 +2,7 @@
 #include "../maxcare/Language.h"
 #include "connector.h"
 #include <QSqlRecord>
+#include "../Utils/Utils.h"
 CommonSQL::CommonSQL() {}
 
 QVariantList* CommonSQL::GetAllFilesFromDatabase(bool isShowAll, bool notAW){
@@ -50,6 +51,7 @@ QVariantList* CommonSQL::GetAllInfoFromAccount(QList<QString> lstIdFile, bool is
     }
     return result;
 }
+
 bool CommonSQL::CheckColumnIsExistInTable(QString table, QString column){
     bool result =Connector::getInstance().ExecuteScalar("SELECT COUNT(*) AS count FROM pragma_table_info('"+table+"') WHERE name='"+column+"'") > 0;
     return result;
@@ -199,6 +201,35 @@ bool CommonSQL::UpdateThuTuThuMuc(const QString& id1, const QString& id2) {
         }
         return result;
     } catch (...) {
+        return result;
+    }
+}
+
+
+bool CommonSQL::UpdateMultiFieldToAccount(QString id, QString lstFieldName, QString lstFieldValue, bool isAllowEmptyValue){
+    bool result = false;
+    try
+    {
+        if (lstFieldName.split('|').length() == lstFieldValue.split('|').length())
+        {
+            int num = lstFieldName.split('|').length();
+            QString text = "";
+            for (int i = 0; i < num; i++)
+            {
+                if (isAllowEmptyValue || !(lstFieldValue.split('|')[i].trimmed() == ""))
+                {
+                    text = text + lstFieldName.split('|')[i] + "='" + lstFieldValue.split('|')[i].replace("'", "''") + "',";
+                }
+            }
+            text = Utils::trimEnd(text,',');
+            QString query = "update accounts set " + text + " where id=" + id;
+            result = Connector::getInstance().ExecuteNonQuery(query) > 0;
+            return result;
+        }
+        return result;
+    }
+    catch(...)
+    {
         return result;
     }
 }
