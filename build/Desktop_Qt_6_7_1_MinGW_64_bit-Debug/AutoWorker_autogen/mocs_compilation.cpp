@@ -8,4 +8,7 @@
 #include "7A5D6QKFUP/moc_loginwindow.cpp"
 #include "7A5D6QKFUP/moc_mainwindow.cpp"
 #include "JLRR734WY4/moc_requesthandle.cpp"
+#include "TR2VG4GPLP/moc_autoworkertablemodel.cpp"
+#include "R6VCRS2DF2/moc_baseworker.cpp"
+#include "R6VCRS2DF2/moc_checkwallworker.cpp"
 #include "QZ3AYSXNKH/moc_StatusChromeAccount.cpp"

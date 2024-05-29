@@ -883,7 +883,8 @@ public:
         tableWidget->setGeometry(QRect(292, 139, 1081, 571));
         tableWidget->setMinimumSize(QSize(1081, 571));
         tableWidget->setStyleSheet(QString::fromUtf8("background-color: #222831;\n"
-"color: white;"));
+"color: black;\n"
+""));
         tableWidget->setShowGrid(true);
         tableWidget->setSortingEnabled(false);
         MainWindow->setCentralWidget(centralwidget);

@@ -1170,7 +1170,8 @@ font-weight:bold;</string>
     </property>
     <property name="styleSheet">
      <string notr="true">background-color: #222831;
-color: white;</string>
+color: black;
+</string>
     </property>
     <property name="showGrid">
      <bool>true</bool>

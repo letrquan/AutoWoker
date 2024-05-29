@@ -4,9 +4,11 @@ D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/AutoWo
   C:/Qt/6.7.1/mingw_64/include/QtCore/QList \
   C:/Qt/6.7.1/mingw_64/include/QtCore/QObject \
   C:/Qt/6.7.1/mingw_64/include/QtCore/QRect \
+  C:/Qt/6.7.1/mingw_64/include/QtCore/QRunnable \
   C:/Qt/6.7.1/mingw_64/include/QtCore/QSettings \
   C:/Qt/6.7.1/mingw_64/include/QtCore/QSize \
   C:/Qt/6.7.1/mingw_64/include/QtCore/QSizeF \
+  C:/Qt/6.7.1/mingw_64/include/QtCore/QThreadPool \
   C:/Qt/6.7.1/mingw_64/include/QtCore/q20functional.h \
   C:/Qt/6.7.1/mingw_64/include/QtCore/q20memory.h \
   C:/Qt/6.7.1/mingw_64/include/QtCore/q20type_traits.h \
@@ -61,6 +63,7 @@ D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/AutoWo
   C:/Qt/6.7.1/mingw_64/include/QtCore/qhashfunctions.h \
   C:/Qt/6.7.1/mingw_64/include/QtCore/qiodevice.h \
   C:/Qt/6.7.1/mingw_64/include/QtCore/qiodevicebase.h \
+  C:/Qt/6.7.1/mingw_64/include/QtCore/qitemselectionmodel.h \
   C:/Qt/6.7.1/mingw_64/include/QtCore/qiterable.h \
   C:/Qt/6.7.1/mingw_64/include/QtCore/qiterator.h \
   C:/Qt/6.7.1/mingw_64/include/QtCore/qlatin1stringview.h \
@@ -89,6 +92,8 @@ D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/AutoWo
   C:/Qt/6.7.1/mingw_64/include/QtCore/qprocessordetection.h \
   C:/Qt/6.7.1/mingw_64/include/QtCore/qrect.h \
   C:/Qt/6.7.1/mingw_64/include/QtCore/qrefcount.h \
+  C:/Qt/6.7.1/mingw_64/include/QtCore/qregularexpression.h \
+  C:/Qt/6.7.1/mingw_64/include/QtCore/qrunnable.h \
   C:/Qt/6.7.1/mingw_64/include/QtCore/qscopedpointer.h \
   C:/Qt/6.7.1/mingw_64/include/QtCore/qscopeguard.h \
   C:/Qt/6.7.1/mingw_64/include/QtCore/qset.h \
@@ -121,6 +126,8 @@ D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/AutoWo
   C:/Qt/6.7.1/mingw_64/include/QtCore/qtdeprecationmarkers.h \
   C:/Qt/6.7.1/mingw_64/include/QtCore/qtenvironmentvariables.h \
   C:/Qt/6.7.1/mingw_64/include/QtCore/qtextstream.h \
+  C:/Qt/6.7.1/mingw_64/include/QtCore/qthread.h \
+  C:/Qt/6.7.1/mingw_64/include/QtCore/qthreadpool.h \
   C:/Qt/6.7.1/mingw_64/include/QtCore/qtmetamacros.h \
   C:/Qt/6.7.1/mingw_64/include/QtCore/qtnoop.h \
   C:/Qt/6.7.1/mingw_64/include/QtCore/qtpreprocessorsupport.h \
@@ -175,6 +182,7 @@ D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/AutoWo
   C:/Qt/6.7.1/mingw_64/include/QtGui/qtguiexports.h \
   C:/Qt/6.7.1/mingw_64/include/QtGui/qtguiglobal.h \
   C:/Qt/6.7.1/mingw_64/include/QtGui/qtransform.h \
+  C:/Qt/6.7.1/mingw_64/include/QtGui/qvalidator.h \
   C:/Qt/6.7.1/mingw_64/include/QtGui/qvector2d.h \
   C:/Qt/6.7.1/mingw_64/include/QtGui/qvectornd.h \
   C:/Qt/6.7.1/mingw_64/include/QtGui/qwindowdefs.h \
@@ -195,12 +203,26 @@ D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/AutoWo
   C:/Qt/6.7.1/mingw_64/include/QtWidgets/QCheckBox \
   C:/Qt/6.7.1/mingw_64/include/QtWidgets/QMainWindow \
   C:/Qt/6.7.1/mingw_64/include/QtWidgets/QMenu \
+  C:/Qt/6.7.1/mingw_64/include/QtWidgets/QTableWidget \
   C:/Qt/6.7.1/mingw_64/include/QtWidgets/QWidgetAction \
   C:/Qt/6.7.1/mingw_64/include/QtWidgets/qabstractbutton.h \
+  C:/Qt/6.7.1/mingw_64/include/QtWidgets/qabstractitemdelegate.h \
+  C:/Qt/6.7.1/mingw_64/include/QtWidgets/qabstractitemview.h \
+  C:/Qt/6.7.1/mingw_64/include/QtWidgets/qabstractscrollarea.h \
+  C:/Qt/6.7.1/mingw_64/include/QtWidgets/qabstractslider.h \
+  C:/Qt/6.7.1/mingw_64/include/QtWidgets/qabstractspinbox.h \
   C:/Qt/6.7.1/mingw_64/include/QtWidgets/qcheckbox.h \
+  C:/Qt/6.7.1/mingw_64/include/QtWidgets/qframe.h \
   C:/Qt/6.7.1/mingw_64/include/QtWidgets/qmainwindow.h \
   C:/Qt/6.7.1/mingw_64/include/QtWidgets/qmenu.h \
+  C:/Qt/6.7.1/mingw_64/include/QtWidgets/qrubberband.h \
   C:/Qt/6.7.1/mingw_64/include/QtWidgets/qsizepolicy.h \
+  C:/Qt/6.7.1/mingw_64/include/QtWidgets/qslider.h \
+  C:/Qt/6.7.1/mingw_64/include/QtWidgets/qstyle.h \
+  C:/Qt/6.7.1/mingw_64/include/QtWidgets/qstyleoption.h \
+  C:/Qt/6.7.1/mingw_64/include/QtWidgets/qtabbar.h \
+  C:/Qt/6.7.1/mingw_64/include/QtWidgets/qtableview.h \
+  C:/Qt/6.7.1/mingw_64/include/QtWidgets/qtablewidget.h \
   C:/Qt/6.7.1/mingw_64/include/QtWidgets/qtabwidget.h \
   C:/Qt/6.7.1/mingw_64/include/QtWidgets/qtwidgets-config.h \
   C:/Qt/6.7.1/mingw_64/include/QtWidgets/qtwidgetsexports.h \
@@ -221,6 +243,7 @@ D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/AutoWo
   C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/allocated_ptr.h \
   C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/allocator.h \
   C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/atomic_base.h \
+  C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/atomic_futex.h \
   C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/atomic_lockfree_defines.h \
   C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/basic_string.h \
   C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/basic_string.tcc \
@@ -263,6 +286,8 @@ D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/AutoWo
   C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/specfun.h \
   C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/std_abs.h \
   C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/std_function.h \
+  C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/std_mutex.h \
+  C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/std_thread.h \
   C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/stl_algo.h \
   C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/stl_algobase.h \
   C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/stl_bvector.h \
@@ -289,6 +314,7 @@ D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/AutoWo
   C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/string_view.tcc \
   C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/stringfwd.h \
   C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/uniform_int_dist.h \
+  C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/unique_lock.h \
   C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/unique_ptr.h \
   C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/unordered_map.h \
   C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/uses_allocator.h \
@@ -299,6 +325,7 @@ D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/AutoWo
   C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/climits \
   C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/clocale \
   C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/cmath \
+  C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/condition_variable \
   C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/cstddef \
   C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/cstdint \
   C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/cstdio \
@@ -318,6 +345,7 @@ D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/AutoWo
   C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/ext/string_conversions.h \
   C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/ext/type_traits.h \
   C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/functional \
+  C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/future \
   C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/initializer_list \
   C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/iosfwd \
   C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/iterator \
@@ -325,6 +353,7 @@ D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/AutoWo
   C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/list \
   C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/map \
   C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/memory \
+  C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/mutex \
   C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/new \
   C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/numeric \
   C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/optional \
@@ -405,4 +434,5 @@ D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/AutoWo
   C:/Qt/Tools/mingw1120_64/x86_64-w64-mingw32/include/sys/types.h \
   C:/Qt/Tools/mingw1120_64/x86_64-w64-mingw32/include/time.h \
   C:/Qt/Tools/mingw1120_64/x86_64-w64-mingw32/include/vadefs.h \
-  C:/Qt/Tools/mingw1120_64/x86_64-w64-mingw32/include/wchar.h
+  C:/Qt/Tools/mingw1120_64/x86_64-w64-mingw32/include/wchar.h \
+  D:/AutoWorker/XWorker/AutoWoker/Worker/baseworker.h

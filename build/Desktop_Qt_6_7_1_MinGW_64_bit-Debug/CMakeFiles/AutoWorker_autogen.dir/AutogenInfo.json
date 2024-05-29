@@ -445,9 +445,33 @@
 			null
 		],
 		[
+			"D:/AutoWorker/XWorker/AutoWoker/Table/autoworkertablemodel.h",
+			"MU",
+			"TR2VG4GPLP/moc_autoworkertablemodel.cpp",
+			null
+		],
+		[
 			"D:/AutoWorker/XWorker/AutoWoker/Utils/Utils.h",
 			"MU",
 			"3AKZUBQRRA/moc_Utils.cpp",
+			null
+		],
+		[
+			"D:/AutoWorker/XWorker/AutoWoker/Worker/baseworker.h",
+			"MU",
+			"R6VCRS2DF2/moc_baseworker.cpp",
+			null
+		],
+		[
+			"D:/AutoWorker/XWorker/AutoWoker/Worker/checkcookieworker.h",
+			"MU",
+			"R6VCRS2DF2/moc_checkcookieworker.cpp",
+			null
+		],
+		[
+			"D:/AutoWorker/XWorker/AutoWoker/Worker/checkwallworker.h",
+			"MU",
+			"R6VCRS2DF2/moc_checkwallworker.cpp",
 			null
 		],
 		[
@@ -656,6 +680,22 @@
 		],
 		[
 			"D:/AutoWorker/XWorker/AutoWoker/MCommon/requesthandle.cpp",
+			"MU",
+			null
+		],
+		[
+			"D:/AutoWorker/XWorker/AutoWoker/Table/autoworkertablemodel.cpp",
+			"MU",
+			null
+		],
+		[ "D:/AutoWorker/XWorker/AutoWoker/Worker/baseworker.cpp", "MU", null ],
+		[
+			"D:/AutoWorker/XWorker/AutoWoker/Worker/checkcookieworker.cpp",
+			"MU",
+			null
+		],
+		[
+			"D:/AutoWorker/XWorker/AutoWoker/Worker/checkwallworker.cpp",
 			"MU",
 			null
 		],

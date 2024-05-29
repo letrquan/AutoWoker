@@ -90,6 +90,7 @@ public:
         dtgvAcc->setGeometry(QRect(10, 30, 341, 231));
         dtgvAcc->setStyleSheet(QString::fromUtf8("background-color: rgb(85, 0, 0);\n"
 "color: rgb(255, 255, 255);"));
+        dtgvAcc->setSortingEnabled(false);
         label = new QLabel(fChonThuMuc);
         label->setObjectName("label");
         label->setGeometry(QRect(10, 270, 341, 16));

@@ -23,6 +23,11 @@ public:
 
         return true;
     }
+    static bool isNumber(const QString &str) {
+        bool isNumeric;
+        str.toDouble(&isNumeric);
+        return isNumeric;
+    }
     static bool isConnectedToInternet() {
         QNetworkAccessManager nam;
         QNetworkRequest req(QUrl("http://www.google.com"));
@@ -45,53 +50,6 @@ public:
             }
         }
         return col;
-    }
-    static int findColumnByHeader(QTableView *tableView, const QString &headerText) {
-        QAbstractItemModel *model = tableView->model();
-        if (!model) {
-            return -1; // Model not set
-        }
-
-        int columnCount = model->columnCount();
-        for (int col = 0; col < columnCount; ++col) {
-            QString header = model->headerData(col, Qt::Horizontal).toString();
-            if (header == headerText) {
-                return col; // Found the column
-            }
-        }
-
-        return -1; // Column not found
-    }
-    static QStandardItemModel* transferData(QSqlQueryModel *sqlModel, QString string) {
-        int rowCount = sqlModel->rowCount();
-        int columnCount = sqlModel->columnCount();
-
-        // Create a new QStandardItemModel
-        QStandardItemModel *standardModel = new QStandardItemModel(rowCount, columnCount + 1);
-
-        // Set the header names
-        standardModel->setHorizontalHeaderItem(0, new QStandardItem(string));
-        for (int col = 0; col < columnCount; ++col) {
-            QString header = sqlModel->headerData(col, Qt::Horizontal).toString();
-            standardModel->setHorizontalHeaderItem(col + 1, new QStandardItem(header));
-        }
-
-        for (int row = 0; row < rowCount; ++row) {
-            // Add checkbox to the first cell of each row
-            QStandardItem *checkbox = new QStandardItem();
-            checkbox->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
-            checkbox->setData(Qt::Unchecked, Qt::CheckStateRole);
-            standardModel->setItem(row, 0, checkbox);
-
-            // Copy data from sqlModel to standardModel starting from the second column
-            for (int col = 0; col < columnCount; ++col) {
-                QVariant data = sqlModel->data(sqlModel->index(row, col));
-                QStandardItem *item = new QStandardItem(data.toString());
-                standardModel->setItem(row, col + 1, item);
-            }
-        }
-
-        return standardModel;
     }
 
     static bool isRunningAsAdmin() {

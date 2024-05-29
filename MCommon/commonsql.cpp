@@ -99,7 +99,7 @@ QVariantList* CommonSQL::GetAccFromFile(QList<QString>* lstIdFile, QString info,
     QVariantList* result;
     try {
         QString text = "WHERE ";
-        QString text2 =  ((lstIdFile->isEmpty() && lstIdFile->count() > 0) ? ("t1.idFile IN (" + lstIdFile->join(",") + ")") : "");
+        QString text2 =  ((!lstIdFile->isEmpty() && lstIdFile->count() > 0) ? ("t1.idFile IN (" + lstIdFile->join(",") + ")") : "");
         if(text2 != ""){
             text = text+text2+" AND ";
         }

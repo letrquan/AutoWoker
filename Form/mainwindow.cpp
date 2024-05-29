@@ -22,7 +22,9 @@
 #include "../Utils/Utils.h"
 #include "../MCommon/CommonRequest.h"
 #include "../maxcare/ImapHelper.h"
-#include <atomic>
+#include <QClipboard>
+#include "../Worker/checkwallworker.h"
+#include "../Worker/checkcookieworker.h"
 MainWindow::MainWindow(QString tokemem, QString namemem, QString phoneMem, QString maxDeviceMem,QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -47,6 +49,7 @@ MainWindow::MainWindow(QString tokemem, QString namemem, QString phoneMem, QStri
     vHeader->setStyleSheet("QHeaderView::section { background-color: #222831; color: white; }");
     ui->tableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->tableWidget->installEventFilter(this);
+    threadPool.setMaxThreadCount(100);
     OnLoaded();
 
 }
@@ -144,12 +147,10 @@ void MainWindow::LoadcbbSearch(){
 }
 void MainWindow::LoadCbbThuMuc(int selectedIndex){
     isExcute_CbbThuMuc_SelectedIndexChanged = false;
-    QVariantList allFilesFromDatabase = *CommonSQL::GetAllFilesFromDatabase(true);
-    ui->cbbThuMuc->clear();
+    QVariantList allFilesFromDatabase = *CommonSQL::GetAllFilesFromDatabase(true,false);
     for (int i = 0; i < allFilesFromDatabase.size(); ++i) {
         auto rowMap = allFilesFromDatabase[i].toMap();
         ui->cbbThuMuc->addItem(rowMap["name"].toString() , rowMap["id"].toString());
-        ui->cbbThuMuc->setCurrentIndex(i);
     }
     if(selectedIndex != -1 && ui->cbbThuMuc->count() >= selectedIndex){
         ui->cbbThuMuc->setCurrentIndex(selectedIndex);
@@ -164,9 +165,9 @@ void MainWindow::LoadCbbTinhTrang(const QList<QString>& lstIdFile){
         for (int i = 0; i < allInfoFromAccount.size(); ++i) {
             auto rowMap = allInfoFromAccount[i].toMap();
             ui->cbbTinhTrang->addItem(rowMap["name"].toString() , rowMap["id"].toString());
-            ui->cbbTinhTrang->setCurrentIndex(i);
-            on_cbbTinhTrang_currentIndexChanged(i);
         }
+        ui->cbbTinhTrang->setCurrentIndex(0);
+        on_cbbTinhTrang_currentIndexChanged(0);
     } catch (...) {
     }
 }
@@ -426,115 +427,138 @@ void MainWindow::on_button9_clicked()
     } catch (...) {
     }
 }
+
+
+void MainWindow::startWorker(BaseWorker *worker) {
+    connect(worker, &BaseWorker::setStatusAccount, this, &::MainWindow::SetStatusAccount);
+    connect(worker, &BaseWorker::setInfoAccount, this, &MainWindow::SetInfoAccount);
+    connect(worker, &BaseWorker::setRowColor, this, static_cast<void (MainWindow::*)(int, int)>(&MainWindow::SetRowColor));
+    threadPool.start(worker);
+}
+
 void MainWindow::KiemTraTaiKhoan(int type, bool useProxy) {
-    qDebug() << "KiemTraTaiKhoan called with type:" << type << "and useProxy:" << useProxy;
+    for (int row = 0; row < ui->tableWidget->rowCount(); ++row) {
+        if (ui->tableWidget->item(row, 0)->checkState() == Qt::Checked) {
+            switch (type) {
+            case 0:{
+                startWorker(new CheckWallWorker(row, SettingsTool::GetSettings("configGeneral").GetValue("token"), ui->tableWidget));
+                break;
+            }
 
-    std::atomic<int> iThread(0);
-    const int maxThread = SettingsTool::GetSettings("configGeneral").GetValueInt("nudHideThread", 10);
-    const QString tokenTrungGian = SettingsTool::GetSettings("configGeneral").GetValue("token");
-    const int sleepDuration = 200;
-    std::atomic_bool isStop(false);
-
-    qDebug() << "Starting KiemTraTaiKhoan with type:" << type << "and useProxy:" << useProxy;
-
-    auto checkAndSleep = [&]() {
-        QCoreApplication::processEvents();
-        QThread::msleep(sleepDuration);
-    };
-
-    std::vector<std::thread> threads;
-
-    auto threadFunction = [this, &iThread, maxThread, &threads, &isStop, &checkAndSleep](int row, auto checkFunction) {
-        int prevCount = iThread.fetch_add(1, std::memory_order_relaxed);
-        qDebug() << "Incrementing iThread, current count:" << prevCount + 1;
-
-        if (prevCount < maxThread) {
-            threads.emplace_back([=, &iThread, &isStop]() mutable {
-                // Perform the check function
-                checkFunction(row);
-
-                // After checking, update the UI in the main thread
-                QMetaObject::invokeMethod(this, [=, &iThread]() {
-                        SetStatusAccount(row, Language::GetValue("Đang kiểm tra..."));
-                        int newCount = iThread.fetch_sub(1, std::memory_order_relaxed) - 1;
-                        qDebug() << "Decrementing iThread, current count:" << newCount;
-                    }, Qt::QueuedConnection);
-            });
-        } else {
-            checkAndSleep();
-        }
-    };
-
-    auto checkRows = [this, &iThread, maxThread, &checkAndSleep, &threadFunction, &isStop](auto checkFunction) {
-        int row = 0;
-        while (row < ui->tableWidget->rowCount() && !isStop.load(std::memory_order_relaxed)) {
-            if (ui->tableWidget->item(row, 0)->checkState() == Qt::Checked) {
-                threadFunction(row++, checkFunction);
-            } else {
-                row++;
+            case 3:{
+                startWorker(new CheckCookieWorker(row,ui->tableWidget));
+                break;
+            }
+            default:
+                break;
             }
         }
-    };
 
-    // Create a new thread to start the checking process
-    std::thread checkingThread([this, type, useProxy, tokenTrungGian, maxThread, &iThread, &checkRows, &isStop]() {
-        qDebug() << "Checking process started with type:" << type;
-
-        // Control start
-        QMetaObject::invokeMethod(this, [this]() {
-                cControl("start");
-                qDebug() << "Control start invoked";
-            }, Qt::QueuedConnection);
-
-        // Perform checks based on type
-
-        switch (type) {
-        case 0:
-            qDebug() << "Case 0: CheckMyWall";
-            checkRows([this, tokenTrungGian](int row) { CheckMyWall(row, tokenTrungGian); });
-            break;
-        case 1:
-            qDebug() << "Case 1: CheckMyToken";
-            checkRows([this](int row) { CheckMyToken(row); });
-            break;
-        case 2:
-            qDebug() << "Case 2: CheckMyCookie";
-            checkRows([this](int row) { CheckMyCookie(row); });
-            break;
-        case 3:
-            qDebug() << "Case 3: CheckDangCheckpoint";
-            checkRows([this](int row) { CheckDangCheckpoint(row); });
-            break;
-        case 4:
-            qDebug() << "Case 4: CheckAccountMail";
-            checkRows([this](int row) { CheckAccountMail(row); });
-            break;
-        case 5:
-            qDebug() << "Case 5: CheckInfoUid";
-            checkRows([this, useProxy](int row) { CheckInfoUid(row, useProxy); });
-            break;
-        case 6:
-            qDebug() << "Case 6: CheckNameVN";
-            checkRows([this](int row) { CheckNameVN(row); });
-            break;
-        default:
-            qDebug() << "Default case reached with type:" << type;
-            break;
-        }
-
-        // Control stop
-        QMetaObject::invokeMethod(this, [this]() {
-                cControl("stop");
-                qDebug() << "Control stop invoked";
-            }, Qt::QueuedConnection);
-    });
-
-    checkingThread.join();
-
-    // Wait for all threads to finish
-    for (auto& thread : threads) {
-        thread.join();
     }
+    // std::atomic<int> iThread(0);
+    // const int maxThread = SettingsTool::GetSettings("configGeneral").GetValueInt("nudHideThread", 10);
+    // const QString tokenTrungGian = SettingsTool::GetSettings("configGeneral").GetValue("token");
+    // const int sleepDuration = 200;
+    // isStop = false;
+
+    // qDebug() << "Starting KiemTraTaiKhoan with type:" << type << "and useProxy:" << useProxy;
+
+    // auto checkAndSleep = [&]() {
+    //     QCoreApplication::processEvents();
+    //     QThread::msleep(sleepDuration);
+    // };
+
+    // std::vector<std::thread> threads;
+
+    // auto threadFunction = [this, &iThread, maxThread, &threads, &checkAndSleep](int row, auto checkFunction) {
+    //     int prevCount = iThread.fetch_add(1, std::memory_order_relaxed);
+    //     qDebug() << "Incrementing iThread, current count:" << prevCount + 1;
+
+    //     if (prevCount < maxThread) {
+    //         threads.emplace_back([=, &iThread]() mutable {
+    //             QMetaObject::invokeMethod(this, [=, &iThread]() {
+    //                     SetStatusAccount(row, Language::GetValue("Đang kiểm tra..."));
+    //                 }, Qt::QueuedConnection);
+    //             // Perform the check function
+    //             checkFunction(row);
+    //             int newCount = iThread.fetch_sub(1, std::memory_order_relaxed) - 1;
+    //             qDebug() << "Decrementing iThread, current count:" << newCount;
+    //         });
+    //     } else {
+    //         checkAndSleep();
+    //     }
+    // };
+
+    // auto checkRows = [this, &iThread, maxThread, &checkAndSleep, &threadFunction](auto checkFunction) {
+    //     int row = 0;
+    //     while (row < ui->tableWidget->rowCount() && !isStop.load(std::memory_order_relaxed)) {
+    //         if (ui->tableWidget->item(row, 0)->checkState() == Qt::Checked) {
+    //             threadFunction(row++, checkFunction);
+    //         } else {
+    //             row++;
+    //         }
+    //     }
+    // };
+
+    // // Create a new thread to start the checking process
+    // std::thread checkingThread([this, type, useProxy, tokenTrungGian, maxThread, &iThread, &checkRows]() {
+    //     qDebug() << "Checking process started with type:" << type;
+
+    //     // Control start
+    //     QMetaObject::invokeMethod(this, [this]() {
+    //             cControl("start");
+    //             qDebug() << "Control start invoked";
+    //         }, Qt::QueuedConnection);
+
+    //     // Perform checks based on type
+
+    //     switch (type) {
+    //     case 0:
+    //         qDebug() << "Case 0: CheckMyWall";
+    //         checkRows([this, tokenTrungGian](int row) { CheckMyWall(row, tokenTrungGian); });
+    //         break;
+    //     case 1:
+    //         qDebug() << "Case 1: CheckMyToken";
+    //         checkRows([this](int row) { CheckMyToken(row); });
+    //         break;
+    //     case 2:
+    //         qDebug() << "Case 2: CheckMyCookie";
+    //         checkRows([this](int row) { CheckMyCookie(row); });
+    //         break;
+    //     case 3:
+    //         qDebug() << "Case 3: CheckDangCheckpoint";
+    //         checkRows([this](int row) { CheckDangCheckpoint(row); });
+    //         break;
+    //     case 4:
+    //         qDebug() << "Case 4: CheckAccountMail";
+    //         checkRows([this](int row) { CheckAccountMail(row); });
+    //         break;
+    //     case 5:
+    //         qDebug() << "Case 5: CheckInfoUid";
+    //         checkRows([this, useProxy](int row) { CheckInfoUid(row, useProxy); });
+    //         break;
+    //     case 6:
+    //         qDebug() << "Case 6: CheckNameVN";
+    //         checkRows([this](int row) { CheckNameVN(row); });
+    //         break;
+    //     default:
+    //         qDebug() << "Default case reached with type:" << type;
+    //         break;
+    //     }
+
+    //     // Control stop
+    //     QMetaObject::invokeMethod(this, [this]() {
+    //             cControl("stop");
+    //             qDebug() << "Control stop invoked";
+    //         }, Qt::QueuedConnection);
+    // });
+
+    // checkingThread.join();
+
+    // // Wait for all threads to finish
+    // for (auto& thread : threads) {
+    //     thread.join();
+    // }
 }
 
 
@@ -852,7 +876,10 @@ void MainWindow::CheckMyWall(int row, QString tokenTg){
         {
             text2 = Language::GetValue("Không check được!");
         }
-        SetStatusAccount(row, text2);
+
+        QMetaObject::invokeMethod(this, [=]() {
+                SetStatusAccount(row, text2);
+            }, Qt::QueuedConnection);
         if (text != "")
         {
             QMetaObject::invokeMethod(this, [=]() {
@@ -947,13 +974,7 @@ void MainWindow::EnableSort(){
 }
 void MainWindow::on_cbbThuMuc_currentIndexChanged(int index)
 {
-    auto data = ui->cbbThuMuc->currentData();
-    auto check= data.toInt();
-    if (!isExcute_CbbThuMuc_SelectedIndexChanged || data.isNull() || !(check != 0) || (data.toString()) != "999999" && indexCbbThuMucOld == ui->cbbThuMuc->currentIndex())
-    {
-        return;
-    }
-    QString text = ui->cbbThuMuc->currentData().toString();
+    QString text = ui->cbbThuMuc->itemData(index).toString();
     if(!(text == "-1")){
         if(text == "999999"){
             Common::ShowDialog(new fChonThuMuc());
@@ -992,26 +1013,20 @@ void MainWindow::on_cbbThuMuc_currentIndexChanged(int index)
 
 void MainWindow::on_cbbTinhTrang_currentIndexChanged(int index)
 {
-    auto data = ui->cbbTinhTrang->currentData();
-    auto check= data.toInt();
-    if (!isExcute_CbbTinhTrang_SelectedIndexChanged || data.isNull() || !!(check != 0) || (data.toString() != "-1" && indexCbbTinhTrangOld == ui->cbbThuMuc->currentIndex()))
-    {
-        return;
-    }
-    QString text = ui->cbbTinhTrang->currentData().toString();
+    QString text = ui->cbbThuMuc->currentData().toString();
     if(!(text == "-1")){
         if (text == "999999")
         {
-            LoadAccountFromFile(fChonThuMuc::lstChooseIdFiles, ui->cbbTinhTrang->currentText());
+            LoadAccountFromFile(fChonThuMuc::lstChooseIdFiles, ui->cbbTinhTrang->itemText(index));
         }
         else
         {
-            LoadAccountFromFile(GetIdFile(), ui->cbbTinhTrang->currentText());
+            LoadAccountFromFile(GetIdFile(), ui->cbbTinhTrang->itemText(index));
         }
     }else{
-        LoadAccountFromFile(QList<QString>(), ui->cbbTinhTrang->currentText());
+        LoadAccountFromFile(QList<QString>(), ui->cbbTinhTrang->itemText(index));
     }
-    indexCbbTinhTrangOld = ui->cbbTinhTrang->currentIndex();
+    indexCbbTinhTrangOld =index;
 }
 
 void MainWindow::showContextMenu(const QPoint &pos) {
@@ -1034,7 +1049,7 @@ void MainWindow::showContextMenu(const QPoint &pos) {
     // connect(actionHideList, &QAction::triggered, this, &MainWindow::onActionHideList);
     // connect(actionInputProxy, &QAction::triggered, this, &MainWindow::onActionInputProxy);
     // connect(actionInputUserAgent, &QAction::triggered, this, &MainWindow::onActionInputUserAgent);
-    // connect(actionCopy, &QAction::triggered, this, &MainWindow::onActionCopy);
+    connect(actionCopy, &QAction::triggered, this, &MainWindow::onActionCopy);
     // connect(actionOpenProgram, &QAction::triggered, this, &MainWindow::onActionOpenProgram);
     // connect(actionDeleteAccount, &QAction::triggered, this, &MainWindow::onActionDeleteAccount);
 
@@ -1046,18 +1061,6 @@ void MainWindow::showContextMenu(const QPoint &pos) {
     QAction *subActionCondition = new QAction("Tình trạng", this);
     QAction *subActionStatus = new QAction("Trạng thái", this);
     QAction *subActionSelectByUID = new QAction("Chọn danh sách theo UID", this);
-
-
-    //sub menu for Kiểm tra tài khoản
-    QMenu *subMenuCheckAccount = new QMenu("Kiểm tra tài khoản", this);
-    subMenuCheckAccount->setStyleSheet("background-color: #424769; color: white;");
-    QAction *checkWall = new QAction("Check Wall", this);
-    QAction *checkInfoUid = new QAction("Check Info Uid", this);
-    QAction *checkToken = new QAction("Check Token", this);
-    QAction *checkAvatar = new QAction("Check Avatar", this);
-    QAction *checkProfile = new QAction("Check Profile", this);
-    QAction *checkBackup = new QAction("Check Back Up", this);
-
 
     connect(subActionAll, &QAction::triggered, this, &MainWindow::onSubActionAll);
     // connect(subActionBlackList, &QAction::triggered, this, &MainWindow::onSubActionBlackList);
@@ -1073,16 +1076,29 @@ void MainWindow::showContextMenu(const QPoint &pos) {
 
 
 
+    //sub menu for Kiểm tra tài khoản
+    QMenu *subMenuCheckAccount = new QMenu("Kiểm tra tài khoản", this);
+    subMenuCheckAccount->setStyleSheet("background-color: #424769; color: white;");
+    QAction *checkWall = new QAction("Check Wall", this);
+    QAction *checkInfoUid = new QAction("Check Info Uid", this);
+    QAction *checkCookie = new QAction("Check Cookies", this);
+    QAction *checkToken = new QAction("Check Token", this);
+    QAction *checkAvatar = new QAction("Check Avatar", this);
+    QAction *checkProfile = new QAction("Check Profile", this);
+    QAction *checkBackup = new QAction("Check Back Up", this);
+
+
     subMenuCheckAccount->addAction(checkWall);
     subMenuCheckAccount->addAction(checkInfoUid);
     subMenuCheckAccount->addAction(checkToken);
+    subMenuCheckAccount->addAction(checkCookie);
     subMenuCheckAccount->addAction(checkAvatar);
     subMenuCheckAccount->addAction(checkProfile);
     subMenuCheckAccount->addAction(checkBackup);
 
 
     connect(checkWall, &QAction::triggered, this, &MainWindow::checkWall);
-
+    connect(checkCookie, &QAction::triggered, this, &MainWindow::checkCookie);
 
     // Add the submenu to the main action
     actionSelect->setMenu(subMenuSelect);
@@ -1122,4 +1138,17 @@ void MainWindow::onActionDeselect(){
 }
 void MainWindow::checkWall(){
     KiemTraTaiKhoan(0);
+}
+void MainWindow::checkCookie(){
+    KiemTraTaiKhoan(3);
+}
+void MainWindow::onActionCopy(){
+    QItemSelectionModel *selection = ui->tableWidget->selectionModel();
+    if (selection->hasSelection()) {
+        QModelIndex index = selection->currentIndex();
+        QString cellValue = ui->tableWidget->item(index.row(), index.column())->text();
+
+        QClipboard *clipboard = QApplication::clipboard();
+        clipboard->setText(cellValue);
+    }
 }

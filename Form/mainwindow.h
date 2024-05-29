@@ -1,6 +1,5 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
-
 #include <QCheckBox>
 #include "qmutex.h"
 #include "ui_mainwindow.h"
@@ -13,6 +12,8 @@
 #include <QSqlQuery>
 #include <QWidgetAction>
 #include <QKeyEvent>
+#include <QThreadPool>
+#include "../Worker/baseworker.h"
 namespace Ui {
 class MainWindow;
 }
@@ -45,8 +46,10 @@ private:
     QList<QString> lstMailDomainAw;
     QMenu menu;
     QMutex mutex;
+    QThreadPool threadPool;
     void ChangeLanguage();
     void DisableSort();
+    void startWorker(BaseWorker *worker);
     void CheckDangCheckPoint(int indexRow, QString statusProxy, QString cookie, QString proxy, int typeProxy,  bool &isCheckpoint282);
     void CheckDangCheckpoint(int row);
     void CheckNameVN(int row);
@@ -109,6 +112,8 @@ private slots:
     void checkWall();
     void on_cbbThuMuc_currentIndexChanged(int index);
     void on_cbbTinhTrang_currentIndexChanged(int index);
+    void onActionCopy();
+    void checkCookie();
 };
 
 #endif // MAINWINDOW_H

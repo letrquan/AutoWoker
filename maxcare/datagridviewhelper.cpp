@@ -54,6 +54,7 @@ void DatagridviewHelper::LoadDtgvAccFromDatatable(QTableWidget* dgv, QVariantLis
         }
     }
     dgv->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+
 }
 QMap<int,QString> DatagridviewHelper::numToHeaderMap = {
     {2,"id"},

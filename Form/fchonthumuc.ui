@@ -110,6 +110,9 @@ font-weight:bold;</string>
     <string notr="true">background-color: rgb(85, 0, 0);
 color: rgb(255, 255, 255);</string>
    </property>
+   <property name="sortingEnabled">
+    <bool>false</bool>
+   </property>
    <column>
     <property name="text">
      <string/>

@@ -125,9 +125,9 @@ void RequestHandle::AddCookie(const QString &cookie, QNetworkRequest& request){
     request.setHeader(QNetworkRequest::CookieHeader,QVariant::fromValue(cookies));
 }
 
-QByteArray RequestHandle::RequestGet(QString url){
+QByteArray RequestHandle::RequestGet(QString getUrl){
     QByteArray responseData = "";
-    if(url.contains("minapi/minapi/api.php")){
+    if(getUrl.contains("minapi/minapi/api.php")){
 
         try {
             // Create a QFile object pointing to the specified file path
@@ -144,7 +144,7 @@ QByteArray RequestHandle::RequestGet(QString url){
         } catch (...) {
         }  
     }
-    QNetworkRequest request((QUrl(url)));
+    QNetworkRequest request((QUrl(getUrl)));
     setRequestHeaders(request);
     IgnoreBadCertificates(request);
     if(cookies!=""){
@@ -154,10 +154,8 @@ QByteArray RequestHandle::RequestGet(QString url){
     QEventLoop loop;
     connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
     loop.exec();
-    if(reply->error() == QNetworkReply::NoError){
-        url = reply->url().toString();
-        responseData = reply->readAll();
-    }
+    url = reply->url().toString();
+    responseData = reply->readAll();
     reply->deleteLater();
     return responseData;
 }
