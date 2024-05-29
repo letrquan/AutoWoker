@@ -445,9 +445,9 @@
 			null
 		],
 		[
-			"D:/AutoWorker/XWorker/AutoWoker/Table/autoworkertablemodel.h",
+			"D:/AutoWorker/XWorker/AutoWoker/Table/autotable.h",
 			"MU",
-			"TR2VG4GPLP/moc_autoworkertablemodel.cpp",
+			"TR2VG4GPLP/moc_autotable.cpp",
 			null
 		],
 		[
@@ -683,11 +683,7 @@
 			"MU",
 			null
 		],
-		[
-			"D:/AutoWorker/XWorker/AutoWoker/Table/autoworkertablemodel.cpp",
-			"MU",
-			null
-		],
+		[ "D:/AutoWorker/XWorker/AutoWoker/Table/autotable.cpp", "MU", null ],
 		[ "D:/AutoWorker/XWorker/AutoWoker/Worker/baseworker.cpp", "MU", null ],
 		[
 			"D:/AutoWorker/XWorker/AutoWoker/Worker/checkcookieworker.cpp",

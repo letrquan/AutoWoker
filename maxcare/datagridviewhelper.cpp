@@ -6,122 +6,128 @@
 #include "../MCommon/Common.h"
 DatagridviewHelper::DatagridviewHelper() {}
 
-void DatagridviewHelper::LoadDtgvAccFromDatatable(QTableWidget* dgv, QVariantList* tableAccount, bool isUseForBin){
-    dgv->setRowCount(tableAccount->size());
+void DatagridviewHelper::LoadDtgvAccFromDatatable(QTableView* dgv, AutoTable* tableAccount, bool isUseForBin){
+    dgv->setModel(tableAccount);
     if(!isUseForBin){
-        auto row =0;
-        for(const QVariant &item:*tableAccount){
-            QVariantMap rowMap = item.toMap();
-            for(int col =0;col<dgv->columnCount();col++){
-                auto item = new QTableWidgetItem();
-                if(col ==0){
-                    item->setCheckState(Qt::Unchecked);
-                }else if(col==1){
-                    item->setData(Qt::DisplayRole,row+1);
-                    item->setFlags(item->flags() & ~Qt::ItemIsEditable);
-                }else if(col == 38){
-                    item->setData(Qt::DisplayRole,UpdateStatus::GetStatusById(rowMap["id"].toString()));
-                    item->setFlags(item->flags() & ~Qt::ItemIsEditable);
-                }else{
-                    item->setData(Qt::DisplayRole,rowMap[numToHeaderMap[col]].toString());
-                    item->setFlags(item->flags() & ~Qt::ItemIsEditable);
-                }
-                dgv->setItem(row,col,item);
-            }
-            row++;
-        }
-    }else{
-        auto row =0;
-        for(const QVariant &item:*tableAccount){
-            QVariantMap rowMap = item.toMap();
-            for(int col =0;col<dgv->columnCount();col++){
-                auto item = new QTableWidgetItem();
-                if(col ==0){
-                    item->setCheckState(Qt::Unchecked);
-                }else if(col==1){
-                    item->setData(Qt::DisplayRole,row+1);
-                    item->setFlags(item->flags() & ~Qt::ItemIsEditable);
-                }else if(col == 37){
-                    item->setData(Qt::DisplayRole,UpdateStatus::GetStatusById(rowMap["id"].toString()));
-                    item->setFlags(item->flags() & ~Qt::ItemIsEditable);
-                }else{
-                    item->setData(Qt::DisplayRole,rowMap[numToHeaderMapBin[col]].toString());
-                    item->setFlags(item->flags() & ~Qt::ItemIsEditable);
-                }
-                dgv->setItem(row,col,item);
-            }
-            row++;
-        }
+
     }
-    dgv->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+
+
+    // dgv->setRowCount(tableAccount->size());
+    // if(!isUseForBin){
+    //     auto row =0;
+    //     for(const QVariant &item:*tableAccount){
+    //         QVariantMap rowMap = item.toMap();
+    //         for(int col =0;col<dgv->columnCount();col++){
+    //             auto item = new QTableWidgetItem();
+    //             if(col ==0){
+    //                 item->setCheckState(Qt::Unchecked);
+    //             }else if(col==1){
+    //                 item->setData(Qt::DisplayRole,row+1);
+    //                 item->setFlags(item->flags() & ~Qt::ItemIsEditable);
+    //             }else if(col == 38){
+    //                 item->setData(Qt::DisplayRole,UpdateStatus::GetStatusById(rowMap["id"].toString()));
+    //                 item->setFlags(item->flags() & ~Qt::ItemIsEditable);
+    //             }else{
+    //                 item->setData(Qt::DisplayRole,rowMap[numToHeaderMap[col]].toString());
+    //                 item->setFlags(item->flags() & ~Qt::ItemIsEditable);
+    //             }
+    //             dgv->setItem(row,col,item);
+    //         }
+    //         row++;
+    //     }
+    // }else{
+    //     auto row =0;
+    //     for(const QVariant &item:*tableAccount){
+    //         QVariantMap rowMap = item.toMap();
+    //         for(int col =0;col<dgv->columnCount();col++){
+    //             auto item = new QTableWidgetItem();
+    //             if(col ==0){
+    //                 item->setCheckState(Qt::Unchecked);
+    //             }else if(col==1){
+    //                 item->setData(Qt::DisplayRole,row+1);
+    //                 item->setFlags(item->flags() & ~Qt::ItemIsEditable);
+    //             }else if(col == 37){
+    //                 item->setData(Qt::DisplayRole,UpdateStatus::GetStatusById(rowMap["id"].toString()));
+    //                 item->setFlags(item->flags() & ~Qt::ItemIsEditable);
+    //             }else{
+    //                 item->setData(Qt::DisplayRole,rowMap[numToHeaderMapBin[col]].toString());
+    //                 item->setFlags(item->flags() & ~Qt::ItemIsEditable);
+    //             }
+    //             dgv->setItem(row,col,item);
+    //         }
+    //         row++;
+    //     }
+    // }
+    // dgv->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 
 }
-QMap<int,QString> DatagridviewHelper::numToHeaderMap = {
-    {2,"id"},
-    {3,"uid"},
-    {4,"token"},
-    {5,"cookie1"},
-    {6,"email"},
-    {7,"phone"},
-    {8,"name"},
-    {9,"page"},
-    {10,"friends"},
-    {11,"groups"},
-    {12,"pagePro5"},
-    {13,"birthday"},
-    {14,"gender"},
-    {15,"pass"},
-    {16,"mailrecovery"},
-    {17,"passmail"},
-    {18,"backup"},
-    {19,"fa2"},
-    {20,"useragent"},
-    {21,"proxy"},
-    {22,"dateCreateAcc"},
-    {23,"avatar"},
-    {24,"profile"},
-    {25,"nameFile"},
-    {26,"interactEnd"},
-    {27,"info"},
-    {28,"ghiChu"},
-    {29,"status282"},
-    {30,"location"},
-    {31,"hometown"},
-    {32,"currentCity"},
-    {33,"dating"},
-    {34,"ads"},
-    {35,"bm"},
-    {36,"fbBlock"},
-    {37,"job"}
+QList<QString> DatagridviewHelper::numToHeaderMap = {
+    {"id"},
+    {"uid"},
+    {"token"},
+    {"cookie1"},
+    {"email"},
+    {"phone"},
+    {"name"},
+    {"page"},
+    {"friends"},
+    {"groups"},
+    {"pagePro5"},
+    {"birthday"},
+    {"gender"},
+    {"pass"},
+    {"mailrecovery"},
+    {"passmail"},
+    {"backup"},
+    {"fa2"},
+    {"useragent"},
+    {"proxy"},
+    {"dateCreateAcc"},
+    {"avatar"},
+    {"profile"},
+    {"nameFile"},
+    {"interactEnd"},
+    {"info"},
+    {"ghiChu"},
+    {"status282"},
+    {"location"},
+    {"hometown"},
+    {"currentCity"},
+    {"dating"},
+    {"ads"},
+    {"bm"},
+    {"fbBlock"},
+    {"job"}
 };
-QMap<int,QString> DatagridviewHelper::numToHeaderMapBin = {
-    {2,"id"},
-    {3,"uid"},
-    {4,"token"},
-    {5,"cookie1"},
-    {6,"email"},
-    {7,"phone"},
-    {8,"name"},
-    {9,"follow"},
-    {10,"friends"},
-    {11,"groups"},
-    {12,"birthday"},
-    {13,"gender"},
-    {14,"pass"},
-    {15,"mailrecovery"},
-    {16,"passmail"},
-    {17,"backup"},
-    {18,"fa2"},
-    {19,"useragent"},
-    {20,"proxy"},
-    {21,"dateCreateAcc"},
-    {22,"avatar"},
-    {23,"profile"},
-    {24,"nameFile"},
-    {25,"interactEnd"},
-    {26,"info"},
-    {27,"ghiChu"},
-    {28,"dateDelete"},
+QList<QString> DatagridviewHelper::numToHeaderMapBin = {
+    {"id"},
+    {"uid"},
+    {"token"},
+    {"cookie1"},
+    {"email"},
+    {"phone"},
+    {"name"},
+    {"follow"},
+    {"friends"},
+    {"groups"},
+    {"birthday"},
+    {"gender"},
+    {"pass"},
+    {"mailrecovery"},
+    {"passmail"},
+    {"backup"},
+    {"fa2"},
+    {"useragent"},
+    {"proxy"},
+    {"dateCreateAcc"},
+    {"avatar"},
+    {"profile"},
+    {"nameFile"},
+    {"interactEnd"},
+    {"info"},
+    {"ghiChu"},
+    {"dateDelete"},
 };
 
 QString DatagridviewHelper::GetStatusDataGridView(QTableWidget* dgv, int row, QString colName)

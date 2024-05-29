@@ -14,6 +14,7 @@
 #include <QKeyEvent>
 #include <QThreadPool>
 #include "../Worker/baseworker.h"
+#include "../Table/autotable.h"
 namespace Ui {
 class MainWindow;
 }
@@ -72,7 +73,7 @@ private:
     int indexCbbThuMucOld = -1;
     QList<QString> GetIdFile();
     void LoadAccountFromFile(QList<QString> lstIdFile =QList<QString>(), QString info = "");
-    void LoadDtgvAccFromDatatable(QVariantList *tableAccount);
+    void LoadDtgvAccFromDatatable(AutoTable *tableAccount);
     void CountCheckedAccount(int count = -1);
     void CountTotalAccount();
     void SetRowColor(int indexRow = -1);

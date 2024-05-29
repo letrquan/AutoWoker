@@ -77,13 +77,13 @@
 			{
 				"command" : 4,
 				"file" : 1,
-				"line" : 110,
+				"line" : 112,
 				"parent" : 0
 			},
 			{
 				"command" : 5,
 				"file" : 1,
-				"line" : 93,
+				"line" : 95,
 				"parent" : 0
 			},
 			{
@@ -449,7 +449,8 @@
 				75,
 				77,
 				79,
-				89
+				81,
+				91
 			]
 		}
 	],
@@ -622,7 +623,8 @@
 				75,
 				77,
 				79,
-				89
+				81,
+				91
 			]
 		},
 		{
@@ -669,13 +671,14 @@
 				76,
 				78,
 				80,
-				81,
 				82,
 				83,
 				84,
 				85,
 				86,
-				87
+				87,
+				88,
+				89
 			]
 		},
 		{
@@ -691,15 +694,15 @@
 				64,
 				68,
 				71,
-				88
+				90
 			]
 		},
 		{
 			"name" : "CMake Rules",
 			"sourceIndexes" : 
 			[
-				90,
-				91
+				92,
+				93
 			]
 		}
 	],
@@ -1136,6 +1139,17 @@
 			"backtrace" : 4,
 			"compileGroupIndex" : 0,
 			"path" : "Worker/baseworker.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 4,
+			"path" : "Table/autotable.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 4,
+			"compileGroupIndex" : 0,
+			"path" : "Table/autotable.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
