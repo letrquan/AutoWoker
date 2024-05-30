@@ -6,10 +6,8 @@
 #include <QMessageBox>
 #include "../MCommon/Common.h"
 #include "../maxcare/MessageBoxHelper.h"
-#include "qstandarditemmodel.h"
 #include <QKeyEvent>
 #include <qsqlrecord.h>
-#include "../Utils/Utils.h"
 fChonThuMuc::fChonThuMuc(bool isFromBin,QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::fChonThuMuc)

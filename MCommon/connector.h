@@ -5,7 +5,6 @@
 #include "../maxcare/Base.h"
 #include "qmutex.h"
 #include <QSqlTableModel>
-#include "../Table/autotable.h"
 class Connector
 {
 public:
@@ -21,7 +20,7 @@ private:
 public:
     Connector(Connector const&) = delete;
     void operator=(Connector const&) = delete;
-    AutoTable *ExecuteQuery(QString query);
+    QVariantList *ExecuteQuery(QString query);
     int ExecuteNonQuery(QString query);
     int ExecuteScalar(QString query);
 };

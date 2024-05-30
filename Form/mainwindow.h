@@ -14,7 +14,7 @@
 #include <QKeyEvent>
 #include <QThreadPool>
 #include "../Worker/baseworker.h"
-#include "../Table/autotable.h"
+#include "../Table/customtablemodel.h"
 namespace Ui {
 class MainWindow;
 }
@@ -47,6 +47,7 @@ private:
     QList<QString> lstMailDomainAw;
     QMenu menu;
     QMutex mutex;
+    CustomTableModel *cusModel;
     QThreadPool threadPool;
     void ChangeLanguage();
     void DisableSort();
@@ -73,7 +74,7 @@ private:
     int indexCbbThuMucOld = -1;
     QList<QString> GetIdFile();
     void LoadAccountFromFile(QList<QString> lstIdFile =QList<QString>(), QString info = "");
-    void LoadDtgvAccFromDatatable(AutoTable *tableAccount);
+    void LoadDtgvAccFromDatatable(QVariantList *tableAccount);
     void CountCheckedAccount(int count = -1);
     void CountTotalAccount();
     void SetRowColor(int indexRow = -1);
@@ -84,18 +85,18 @@ private:
 protected:
     void changeEvent(QEvent *event) override;
     bool eventFilter(QObject *obj, QEvent *event) override {
-        if (obj == ui->tableWidget && event->type() == QEvent::KeyPress) {
+        if (obj == ui->tableView && event->type() == QEvent::KeyPress) {
             QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
             if (keyEvent->key() == Qt::Key_Space) {
-                QItemSelectionModel *selectionModel = ui->tableWidget->selectionModel();
+                QItemSelectionModel *selectionModel = ui->tableView->selectionModel();
                 QModelIndexList selectedRows = selectionModel->selectedRows();
                 for (const QModelIndex &index : selectedRows) {
                     int row = index.row();
-                    auto *item = ui->tableWidget->item(row, 0);
-                    if (item->checkState() == Qt::Checked) {
-                        item->setCheckState(Qt::Unchecked);
+                    auto i =ui->tableView->model()->index(row,0);
+                    if (i.data(Qt::CheckStateRole).toBool()) {
+                        ui->tableView->model()->setData(i,Qt::Unchecked,Qt::CheckStateRole);
                     }else{
-                        item->setCheckState(Qt::Checked);
+                        ui->tableView->model()->setData(i,Qt::Checked,Qt::CheckStateRole);
                     }
                 }
                 return true;

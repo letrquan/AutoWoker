@@ -3,11 +3,11 @@
 #include "../maxcare/Language.h"
 #include "../maxcare/SettingsTool.h"
 #include "../MCommon/requesthandle.h"
-CheckCookieWorker::CheckCookieWorker(int row, QTableWidget *tableWidget)
-    : BaseWorker(row, tableWidget){}
+CheckCookieWorker::CheckCookieWorker(int row, QTableView *tableView)
+    : BaseWorker(row, tableView){}
 
 void CheckCookieWorker::run(){
-    QString cellAccount = tableWidget->item(row, Utils::GetIndexByColumnHeader(tableWidget,"Cookies"))->text();
+    QString cellAccount = tableView->model()->index(row, Utils::GetIndexByColumnHeader(tableView,"Cookies")).data().toString();
     if (cellAccount.trimmed() == "")
     {
         emit setStatusAccount(row, Language::GetValue("Cookie trô\u0301ng!"));
@@ -17,7 +17,7 @@ void CheckCookieWorker::run(){
     int typeProxy = 0;
     if (SettingsTool::GetSettings("configGeneral").GetValueInt("ip_iTypeChangeIp") == 9)
     {
-        text = tableWidget->item(row, Utils::GetIndexByColumnHeader(tableWidget,"Proxy"))->text();
+        text = tableView->model()->index(row, Utils::GetIndexByColumnHeader(tableView,"Proxy")).data().toString();
         typeProxy = (text.endsWith("*1") ? 1 : 0);
         if (text.endsWith("*0") || text.endsWith("*1"))
         {

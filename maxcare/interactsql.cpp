@@ -24,3 +24,18 @@ bool InteractSQL::AddColumnsIntoTable(QString table, QString columnName, int typ
     }
     return result;
 }
+
+QVariantList* InteractSQL::GetAllKichBan()
+{
+    QVariantList* result = new QVariantList();
+    try
+    {
+        QString query = "DROP TABLE IF EXISTS tmp;CREATE TEMPORARY TABLE tmp(Stt INTEGER PRIMARY KEY AUTOINCREMENT, Id_KichBan INTEGER, TenKichBan TEXT);INSERT INTO tmp (Id_KichBan, TenKichBan) SELECT Id_KichBan, TenKichBan FROM Kich_Ban;SELECT Id_KichBan, TenKichBan, (Stt||'. '||TenKichBan) AS Ten FROM tmp;";
+        result = Connector::getInstance().ExecuteQuery(query);
+        return result;
+    }
+    catch(...)
+    {
+        return result;
+    }
+}

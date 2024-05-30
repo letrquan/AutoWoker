@@ -3,12 +3,12 @@
 
 #include <QObject>
 #include <QRunnable>
-#include <QTableWidget>
+#include <QTableView>
 
 class BaseWorker : public QObject, public QRunnable {
     Q_OBJECT
 public:
-    BaseWorker(int row, QTableWidget *tableWidget, QObject *parent = nullptr);
+    BaseWorker(int row, QTableView *tableView, QObject *parent = nullptr);
     virtual void run() override = 0;
 
 signals:
@@ -18,7 +18,7 @@ signals:
 
 protected:
     int row;
-    QTableWidget *tableWidget;
+    QTableView *tableView;
 };
 
 #endif // BASEWORKER_H

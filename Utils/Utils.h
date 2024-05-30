@@ -12,6 +12,7 @@
 #include <windows.h>
 #include <QSqlQueryModel>
 #include <QStandardItemModel>
+#include "../Table/customtablemodel.h"
 class Utils {
 public:
     static bool ValidateTcpPort(int port)
@@ -41,15 +42,29 @@ public:
         reply->deleteLater();
         return isConnected;
     }
-    static int GetIndexByColumnHeader(QTableWidget* dgv, QString colHeader){
-        int col=-1;
-        for (int i = 0; i < dgv->columnCount(); ++i) {
-            QTableWidgetItem *headerItem = dgv->horizontalHeaderItem(i);
-            if (headerItem != nullptr && headerItem->text() == colHeader) {
-                col = i;
+    static int GetIndexByColumnHeader(QTableView* dgv, QString colHeader) {
+        if (!dgv) {
+            return -1;  // Return -1 if the QTableView pointer is null
+        }
+
+        ;
+        if (!dgv->model()) {
+            return -1;  // Return -1 if the model is null
+        }
+
+        QHeaderView* header = dgv->horizontalHeader();
+        if (!header) {
+            return -1;  // Return -1 if the header is null
+        }
+
+        for (int i = 0; i < dgv->model()->columnCount(); ++i) {
+            QString headerData = dgv->model()->headerData(i, Qt::Horizontal).toString();
+            if (headerData == colHeader) {
+                return i;  // Return the index if the header matches
             }
         }
-        return col;
+
+        return -1;  // Return -1 if no matching header is found
     }
 
     static bool isRunningAsAdmin() {
@@ -181,21 +196,15 @@ public:
                            getSystemDriveSerialNumber();
         return deviceId;
     }
-    static void changeRowColor(QTableWidget* tableWidget, int row, QColor color){
-        if (!tableWidget || row < 0 || row >= tableWidget->rowCount()) {
-            return; // Invalid input, do nothing
-        }
-
-        for (int column = 0; column < tableWidget->columnCount(); ++column) {
-            QTableWidgetItem *item = tableWidget->item(row, column);
-            if (item) {
-                item->setBackground(QBrush(color)); // Set background color of each cell in the row
-            } else {
-                // Create a new item if the cell is empty
-                item = new QTableWidgetItem();
-                item->setBackground(QBrush(color));
-                tableWidget->setItem(row, column, item);
-            }
+    static bool isCellCheckBox(QTableView* tableView, int row, int column) {
+        QModelIndex index = tableView->model()->index(row, column);
+        QVariant data = tableView->model()->data(index, Qt::CheckStateRole);
+        return data.isValid();
+    }
+    static void changeRowColor(QTableView* tableView, int row, QColor color) {
+        CustomTableModel* model = qobject_cast<CustomTableModel*>(tableView->model());
+        if (model) {
+            model->setRowColor(row, color);  // Example usage
         }
     }
     static QJsonObject parseJsonString(const QString& jsonString) {

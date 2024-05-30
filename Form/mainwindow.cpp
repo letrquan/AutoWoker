@@ -27,7 +27,8 @@
 #include "../Worker/checkcookieworker.h"
 MainWindow::MainWindow(QString tokemem, QString namemem, QString phoneMem, QString maxDeviceMem,QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    ui(new Ui::MainWindow),
+    cusModel(new CustomTableModel(this))
 {
     ui->setupUi(this);
     name = namemem;
@@ -39,17 +40,15 @@ MainWindow::MainWindow(QString tokemem, QString namemem, QString phoneMem, QStri
     ui->label_7->setText(ui->label_7->text()+phone);
     // ui->label_6->setText(ui->label_7->text()+Utils::buildDeviceId());
     this->setAttribute(Qt::WA_TranslucentBackground);
-    setColumnVisibility("Id",false);
-    ui->tableWidget->horizontalHeader()->setStretchLastSection(true);
-    connect(ui->tableWidget, &QTableWidget::customContextMenuRequested, this, &MainWindow::showContextMenu);
-    ui->tableWidget->setContextMenuPolicy(Qt::CustomContextMenu);
-    QHeaderView* header = ui->tableWidget->horizontalHeader();
+    connect(ui->tableView, &QTableWidget::customContextMenuRequested, this, &MainWindow::showContextMenu);
+    ui->tableView->setContextMenuPolicy(Qt::CustomContextMenu);
+    QHeaderView* header = ui->tableView->horizontalHeader();
     header->setStyleSheet("QHeaderView::section { background-color: #222831; color: white; }");
-    QHeaderView* vHeader = ui->tableWidget->verticalHeader();
+    QHeaderView* vHeader = ui->tableView->verticalHeader();
     vHeader->setStyleSheet("QHeaderView::section { background-color: #222831; color: white; }");
-    ui->tableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
-    ui->tableWidget->installEventFilter(this);
-    threadPool.setMaxThreadCount(100);
+    ui->tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui->tableView->installEventFilter(this);
+    threadPool.setMaxThreadCount(SettingsTool::GetSettings("configGeneral").GetValueInt("nudInteractThread", 3));
     OnLoaded();
 
 }
@@ -272,7 +271,8 @@ void MainWindow::LoadAccountFromFile(QList<QString> lstIdFile, QString info){
     }
 }
 void MainWindow::LoadDtgvAccFromDatatable(QVariantList* tableAccount){
-    DatagridviewHelper::LoadDtgvAccFromDatatable(this->ui->tableWidget,tableAccount);
+    cusModel->loadDataFromDatabase(tableAccount);
+    ui->tableView->setModel(cusModel);
     CountCheckedAccount(0);
     SetRowColor();
     CountTotalAccount();
@@ -290,6 +290,7 @@ void MainWindow::on_pushButton_4_clicked()
 }
 
 void MainWindow::LoadConfigManHinh(){
+    setColumnVisibility("Id",false);
     setColumnVisibility("Token",SettingsTool::GetSettings("configDatagridview").GetValueBool("cToken"));
     setColumnVisibility("Cookies",SettingsTool::GetSettings("configDatagridview").GetValueBool("ckbCookie"));
     setColumnVisibility("Email",SettingsTool::GetSettings("configDatagridview").GetValueBool("ckbEmail"));
@@ -327,70 +328,70 @@ void MainWindow::LoadConfigManHinh(){
     setColumnVisibility("Nhóm",SettingsTool::GetSettings("configDatagridview").GetValueBool("ckbNhom"));
 }
 void MainWindow::setColumnVisibility(const QString& headerLabel, bool isVisible){
-    int columnIndex = Utils::GetIndexByColumnHeader(ui->tableWidget,headerLabel);
+    int columnIndex = Utils::GetIndexByColumnHeader(ui->tableView,headerLabel);
     if(columnIndex != -1){
-        ui->tableWidget->setColumnHidden(columnIndex, !isVisible);
+        ui->tableView->setColumnHidden(columnIndex, !isVisible);
     }
 }
 void MainWindow::SetRowColor(int indexRow){
     if(SettingsTool::GetSettings("configGeneral").GetValueInt("typePhanBietMau") == 0){
         if(indexRow == -1){
-            for (int var = 0; var < ui->tableWidget->model()->rowCount(); var++) {
+            for (int var = 0; var < ui->tableView->model()->rowCount(); var++) {
                 QString infoAccount = GetInfoAccount(var);
                 if(infoAccount =="Live"){
-                    Utils::changeRowColor(ui->tableWidget,var,QColor(184, 233, 148));
+                    Utils::changeRowColor(ui->tableView,var,QColor(184, 233, 148));
                 }else if(infoAccount.contains("Die") || infoAccount.contains("Checkpoint") || infoAccount.contains("Changed pass")){
-                    Utils::changeRowColor(ui->tableWidget,var,QColor(255, 118, 117));
+                    Utils::changeRowColor(ui->tableView,var,QColor(255, 118, 117));
                 }
             }
         }else{
             QString infoAccount2 = GetInfoAccount(indexRow);
             if (infoAccount2 == "Live")
             {
-                Utils::changeRowColor(ui->tableWidget,indexRow,QColor(184, 233, 148));
+                Utils::changeRowColor(ui->tableView,indexRow,QColor(184, 233, 148));
             }
             else if (infoAccount2.contains("Die") || infoAccount2.contains("Checkpoint") || infoAccount2.contains("Changed pass"))
             {
-                Utils::changeRowColor(ui->tableWidget,indexRow,QColor(255, 118, 117));
+                Utils::changeRowColor(ui->tableView,indexRow,QColor(255, 118, 117));
             }
         }
     }else if(indexRow == -1){
-        for (int j = 0; j < ui->tableWidget->rowCount(); j++)
+        for (int j = 0; j < ui->tableView->model()->rowCount(); j++)
         {
             QString infoAccount3 = GetInfoAccount(j);
             if (infoAccount3 == "Live")
             {
-                Utils::changeRowColor(ui->tableWidget,j,QColor("green"));
+                Utils::changeRowColor(ui->tableView,j,QColor("green"));
             }
             else if (infoAccount3.contains("Die") || infoAccount3.contains("Checkpoint") || infoAccount3.contains("Changed pass"))
             {
-                Utils::changeRowColor(ui->tableWidget,j,QColor("red"));
+                Utils::changeRowColor(ui->tableView,j,QColor("red"));
             }
         }
     }else{
         QString infoAccount4 = GetInfoAccount(indexRow);
         if (infoAccount4 == "Live")
         {
-            Utils::changeRowColor(ui->tableWidget,indexRow,QColor("green"));
+            Utils::changeRowColor(ui->tableView,indexRow,QColor("green"));
         }
         else if (infoAccount4.contains("Die") || infoAccount4.contains("Checkpoint") || infoAccount4.contains("Changed pass"))
         {
-            Utils::changeRowColor(ui->tableWidget,indexRow,QColor("red"));
+            Utils::changeRowColor(ui->tableView,indexRow,QColor("red"));
         }
     }
 }
 
 QString MainWindow::GetInfoAccount(int indexRow)
 {
-    return DatagridviewHelper::GetStatusDataGridView(ui->tableWidget, indexRow, "Tình Trạng");
+    return DatagridviewHelper::GetStatusDataGridView(ui->tableView, indexRow, "Tình Trạng");
 }
 
 void MainWindow::CountCheckedAccount(int count){
     if(count ==-1){
         count = 0;
-        for (int i = 0; i < ui->tableWidget->rowCount(); i++)
+        for (int i = 0; i < ui->tableView->model()->rowCount(); i++)
         {
-            if (ui->tableWidget->item(i,Utils::GetIndexByColumnHeader(ui->tableWidget,"Chọn"))->text().toInt() == 1)
+            if (ui->tableView->model()->index(i,Utils::GetIndexByColumnHeader(ui->tableView,"Select")).data().toInt() == 1)
             {
                 count++;
             }
@@ -401,7 +402,7 @@ void MainWindow::CountCheckedAccount(int count){
 
 void MainWindow::CountTotalAccount(){
     try {
-        ui->lblCountTotal->setText(QString::number(ui->tableWidget->rowCount()));
+        ui->lblCountTotal->setText(QString::number(ui->tableView->model()->rowCount()));
     } catch (...) {
     }
 }
@@ -437,16 +438,16 @@ void MainWindow::startWorker(BaseWorker *worker) {
 }
 
 void MainWindow::KiemTraTaiKhoan(int type, bool useProxy) {
-    for (int row = 0; row < ui->tableWidget->rowCount(); ++row) {
-        if (ui->tableWidget->item(row, 0)->checkState() == Qt::Checked) {
+    for (int row = 0; row < ui->tableView->model()->rowCount(); ++row) {
+        if (ui->tableView->model()->index(row, 0).data(Qt::CheckStateRole) == Qt::Checked) {
             switch (type) {
             case 0:{
-                startWorker(new CheckWallWorker(row, SettingsTool::GetSettings("configGeneral").GetValue("token"), ui->tableWidget));
+                startWorker(new CheckWallWorker(row, SettingsTool::GetSettings("configGeneral").GetValue("token"), ui->tableView));
                 break;
             }
 
             case 3:{
-                startWorker(new CheckCookieWorker(row,ui->tableWidget));
+                startWorker(new CheckCookieWorker(row,ui->tableView));
                 break;
             }
             default:
@@ -645,7 +646,7 @@ void MainWindow::CheckInfoUid(int row, bool useProxy){
 void MainWindow::SetCellAccount(int indexRow, QString column, QVariant value, bool isAllowEmptyValue){
     if ((!(column == "Uid") || !(value.toString().trimmed() == "")) && (isAllowEmptyValue || !(value.toString().trimmed() == "")))
     {
-        DatagridviewHelper::SetStatusDataGridView(ui->tableWidget, indexRow, column, value);
+        DatagridviewHelper::SetStatusDataGridView(ui->tableView, indexRow, column, value);
     }
 }
 
@@ -654,8 +655,8 @@ void MainWindow::CheckAccountMail(int row){
     try {
         QString text = "";
         QString text2 = "";
-        text = ui->tableWidget->item(row, Utils::GetIndexByColumnHeader(ui->tableWidget,"Email"))->text();
-        text2 = ui->tableWidget->item(row, Utils::GetIndexByColumnHeader(ui->tableWidget,"Mật khẩu Mail"))->text();
+        text = ui->tableView->model()->index(row, Utils::GetIndexByColumnHeader(ui->tableView,"Email")).data().toString();
+        text2 = ui->tableView->model()->index(row, Utils::GetIndexByColumnHeader(ui->tableView,"Mật khẩu Mail")).data().toString();
         if (text == "" || text2 == "")
         {
             SetStatusAccount(row, Language::GetValue("Không tìm thấy mail!"));
@@ -730,10 +731,10 @@ void MainWindow::CheckDangCheckPoint(int indexRow, QString statusProxy, QString 
 void MainWindow::SetRowColor(int indexRow, int typeColor){
     switch (typeColor) {
     case 1:
-        Utils::changeRowColor(ui->tableWidget,indexRow,QColor(255, 118, 117));
+        Utils::changeRowColor(ui->tableView,indexRow,QColor(255, 118, 117));
         break;
     case 2:
-        Utils::changeRowColor(ui->tableWidget,indexRow,QColor(184, 233, 148));
+        Utils::changeRowColor(ui->tableView,indexRow,QColor(184, 233, 148));
         break;
     default:
         break;
@@ -895,7 +896,7 @@ void MainWindow::CheckMyWall(int row, QString tokenTg){
     }
 }
 void MainWindow::SetInfoAccount(int indexRow, QString value){
-    DatagridviewHelper::SetStatusDataGridView(ui->tableWidget, indexRow, "Tình Trạng", value);
+    DatagridviewHelper::SetStatusDataGridView(ui->tableView, indexRow, "Tình Trạng", value);
     SetRowColor(indexRow);
     Common::UpdateFieldToAccount(GetCellAccount(indexRow, "Id"), "info", value);
 }
@@ -914,10 +915,10 @@ void MainWindow::SetStatusAccount(int indexRow, QString value, int timeWait){
     switch (timeWait)
     {
     case -1:
-        DatagridviewHelper::SetStatusDataGridView(ui->tableWidget, indexRow, "Trạng thái", value);
+        DatagridviewHelper::SetStatusDataGridView(ui->tableView, indexRow, "Trạng thái", value);
         break;
     default:
-        DatagridviewHelper::SetStatusDataGridViewWithWait(ui->tableWidget, indexRow, "Trạng thái", timeWait, value);
+        DatagridviewHelper::SetStatusDataGridViewWithWait(ui->tableView, indexRow, "Trạng thái", timeWait, value);
         break;
     case 0:
         break;
@@ -925,7 +926,7 @@ void MainWindow::SetStatusAccount(int indexRow, QString value, int timeWait){
 }
 
 QString MainWindow::GetCellAccount(int indexRow, QString column){
-    return DatagridviewHelper::GetStatusDataGridView(ui->tableWidget, indexRow, column);
+    return DatagridviewHelper::GetStatusDataGridView(ui->tableView, indexRow, column);
 }
 
 
@@ -955,19 +956,19 @@ void MainWindow::cControl(QString dt){
 }
 void MainWindow::DisableSort(){
     try {
-        for (int column = 0; column < ui->tableWidget->columnCount(); ++column) {
-            ui->tableWidget->horizontalHeader()->setSectionResizeMode(column, QHeaderView::Interactive);
-            ui->tableWidget->horizontalHeader()->setSortIndicatorShown(false);
+        for (int column = 0; column < ui->tableView->model()->columnCount(); ++column) {
+            ui->tableView->horizontalHeader()->setSectionResizeMode(column, QHeaderView::Interactive);
+            ui->tableView->horizontalHeader()->setSortIndicatorShown(false);
         }
-        ui->tableWidget->setSortingEnabled(false);
+        ui->tableView->setSortingEnabled(false);
     } catch (...) {
     }
 }
 void MainWindow::EnableSort(){
     try {
-        ui->tableWidget->setSortingEnabled(true);
-        for (int column = 0; column < ui->tableWidget->columnCount(); ++column) {
-            ui->tableWidget->horizontalHeader()->setSortIndicatorShown(true);
+        ui->tableView->setSortingEnabled(true);
+        for (int column = 0; column < ui->tableView->model()->columnCount(); ++column) {
+            ui->tableView->horizontalHeader()->setSortIndicatorShown(true);
         }
     } catch (...) {
     }
@@ -1027,6 +1028,7 @@ void MainWindow::on_cbbTinhTrang_currentIndexChanged(int index)
         LoadAccountFromFile(QList<QString>(), ui->cbbTinhTrang->itemText(index));
     }
     indexCbbTinhTrangOld =index;
+    LoadConfigManHinh();
 }
 
 void MainWindow::showContextMenu(const QPoint &pos) {
@@ -1124,16 +1126,16 @@ void MainWindow::showContextMenu(const QPoint &pos) {
 
 
     // Show the context menu at the cursor position
-    contextMenu.exec(ui->tableWidget->viewport()->mapToGlobal(pos));
+    contextMenu.exec(ui->tableView->viewport()->mapToGlobal(pos));
 }
 void MainWindow::onSubActionAll(){
-    for(int i =0; i<ui->tableWidget->rowCount();i++){
-        ui->tableWidget->item(i,0)->setCheckState(Qt::Checked);
+    for(int i =0; i<ui->tableView->model()->rowCount();i++){
+        ui->tableView->model()->setData(ui->tableView->model()->index(i,0),Qt::Checked,Qt::CheckStateRole);
     }
 }
 void MainWindow::onActionDeselect(){
-    for(int i =0; i<ui->tableWidget->rowCount();i++){
-        ui->tableWidget->item(i,0)->setCheckState(Qt::Unchecked);
+    for(int i =0; i<ui->tableView->model()->rowCount();i++){
+        ui->tableView->model()->setData(ui->tableView->model()->index(i,0),Qt::Unchecked,Qt::CheckStateRole);
     }
 }
 void MainWindow::checkWall(){
@@ -1143,10 +1145,10 @@ void MainWindow::checkCookie(){
     KiemTraTaiKhoan(3);
 }
 void MainWindow::onActionCopy(){
-    QItemSelectionModel *selection = ui->tableWidget->selectionModel();
+    QItemSelectionModel *selection = ui->tableView->selectionModel();
     if (selection->hasSelection()) {
         QModelIndex index = selection->currentIndex();
-        QString cellValue = ui->tableWidget->item(index.row(), index.column())->text();
+        QString cellValue = index.data().toString();
 
         QClipboard *clipboard = QApplication::clipboard();
         clipboard->setText(cellValue);

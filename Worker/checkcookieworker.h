@@ -5,7 +5,7 @@
 class CheckCookieWorker : public BaseWorker
 {
 public:
-    CheckCookieWorker(int row, QTableWidget *tableWidget);
+    CheckCookieWorker(int row, QTableView *tableView);
     void run() override;
 private:
     void CheckDangCheckPoint(int indexRow, QString statusProxy, QString cookie, QString proxy, int typeProxy,  bool &isCheckpoint282);

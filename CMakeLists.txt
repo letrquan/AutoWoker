@@ -70,8 +70,8 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         Worker/checkwallworker.h Worker/checkwallworker.cpp
         Worker/checkcookieworker.h Worker/checkcookieworker.cpp
         Worker/baseworker.h Worker/baseworker.cpp
-        Table/autotable.h Table/autotable.cpp
-
+        Table/customtablemodel.h Table/customtablemodel.cpp
+        Form/fcauhinhtuongtac.h Form/fcauhinhtuongtac.cpp Form/fcauhinhtuongtac.ui
 
     )
 # Define target properties for Android with Qt 6 as:

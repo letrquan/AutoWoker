@@ -2,12 +2,12 @@
 #include "../maxcare/Language.h"
 #include "../MCommon/CommonRequest.h"
 #include "../MCommon/Common.h"
-CheckWallWorker::CheckWallWorker(int row, const QString &token, QTableWidget *tableWidget)
-    : BaseWorker(row, tableWidget), token(token) {}
+CheckWallWorker::CheckWallWorker(int row, const QString &token, QTableView *tableView)
+    : BaseWorker(row, tableView), token(token) {}
 
 void CheckWallWorker::run() {
     try {
-        QString cellAccount = tableWidget->item(row,Utils::GetIndexByColumnHeader(tableWidget,"Uid"))->text();
+        QString cellAccount = tableView->model()->index(row,Utils::GetIndexByColumnHeader(tableView,"Uid")).data().toString();
         if (!checkIsUidFacebook(cellAccount))
         {
             emit setStatusAccount(row, Language::GetValue("Uid không hợp lệ!"));
