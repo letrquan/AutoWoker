@@ -3,13 +3,12 @@
 
 #include "baseworker.h"
 #include <QObject>
-#include <QTableWidget>
 #include <QRunnable>
 
 class CheckWallWorker : public BaseWorker {
     Q_OBJECT
 public:
-    CheckWallWorker(int row, const QString &token, QTableWidget *tableWidget);
+    CheckWallWorker(int row, const QString &token, QTableView *tableView);
     void run() override;
 private:
     QString token;

@@ -150,7 +150,7 @@ D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/AutoWo
   C:/Qt/6.7.1/mingw_64/include/QtGui/qvalidator.h \
   C:/Qt/6.7.1/mingw_64/include/QtGui/qwindowdefs.h \
   C:/Qt/6.7.1/mingw_64/include/QtGui/qwindowdefs_win.h \
-  C:/Qt/6.7.1/mingw_64/include/QtWidgets/QTableWidget \
+  C:/Qt/6.7.1/mingw_64/include/QtWidgets/QTableView \
   C:/Qt/6.7.1/mingw_64/include/QtWidgets/qabstractitemdelegate.h \
   C:/Qt/6.7.1/mingw_64/include/QtWidgets/qabstractitemview.h \
   C:/Qt/6.7.1/mingw_64/include/QtWidgets/qabstractscrollarea.h \
@@ -164,7 +164,6 @@ D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/AutoWo
   C:/Qt/6.7.1/mingw_64/include/QtWidgets/qstyleoption.h \
   C:/Qt/6.7.1/mingw_64/include/QtWidgets/qtabbar.h \
   C:/Qt/6.7.1/mingw_64/include/QtWidgets/qtableview.h \
-  C:/Qt/6.7.1/mingw_64/include/QtWidgets/qtablewidget.h \
   C:/Qt/6.7.1/mingw_64/include/QtWidgets/qtabwidget.h \
   C:/Qt/6.7.1/mingw_64/include/QtWidgets/qtwidgets-config.h \
   C:/Qt/6.7.1/mingw_64/include/QtWidgets/qtwidgetsexports.h \

@@ -355,6 +355,12 @@
 			null
 		],
 		[
+			"D:/AutoWorker/XWorker/AutoWoker/Form/fcauhinhtuongtac.h",
+			"MU",
+			"7A5D6QKFUP/moc_fcauhinhtuongtac.cpp",
+			null
+		],
+		[
 			"D:/AutoWorker/XWorker/AutoWoker/Form/fchonthumuc.h",
 			"MU",
 			"7A5D6QKFUP/moc_fchonthumuc.cpp",
@@ -445,9 +451,9 @@
 			null
 		],
 		[
-			"D:/AutoWorker/XWorker/AutoWoker/Table/autoworkertablemodel.h",
+			"D:/AutoWorker/XWorker/AutoWoker/Table/customtablemodel.h",
 			"MU",
-			"TR2VG4GPLP/moc_autoworkertablemodel.cpp",
+			"TR2VG4GPLP/moc_customtablemodel.cpp",
 			null
 		],
 		[
@@ -659,6 +665,11 @@
 			"MU",
 			null
 		],
+		[
+			"D:/AutoWorker/XWorker/AutoWoker/Form/fcauhinhtuongtac.cpp",
+			"MU",
+			null
+		],
 		[ "D:/AutoWorker/XWorker/AutoWoker/Form/fchonthumuc.cpp", "MU", null ],
 		[ "D:/AutoWorker/XWorker/AutoWoker/Form/fimportaccount.cpp", "MU", null ],
 		[
@@ -684,7 +695,7 @@
 			null
 		],
 		[
-			"D:/AutoWorker/XWorker/AutoWoker/Table/autoworkertablemodel.cpp",
+			"D:/AutoWorker/XWorker/AutoWoker/Table/customtablemodel.cpp",
 			"MU",
 			null
 		],
