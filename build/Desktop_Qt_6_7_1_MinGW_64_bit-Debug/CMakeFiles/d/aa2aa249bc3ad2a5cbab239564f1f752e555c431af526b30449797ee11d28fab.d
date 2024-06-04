@@ -14,7 +14,6 @@ AutoWorker_autogen/timestamp: \
   C:/Qt/6.7.1/mingw_64/include/QtCore/QProcess \
   C:/Qt/6.7.1/mingw_64/include/QtCore/QRect \
   C:/Qt/6.7.1/mingw_64/include/QtCore/QRegularExpression \
-  C:/Qt/6.7.1/mingw_64/include/QtCore/QRunnable \
   C:/Qt/6.7.1/mingw_64/include/QtCore/QSet \
   C:/Qt/6.7.1/mingw_64/include/QtCore/QSettings \
   C:/Qt/6.7.1/mingw_64/include/QtCore/QSharedDataPointer \
@@ -257,7 +256,6 @@ AutoWorker_autogen/timestamp: \
   C:/Qt/6.7.1/mingw_64/include/QtWidgets/QDialog \
   C:/Qt/6.7.1/mingw_64/include/QtWidgets/QMainWindow \
   C:/Qt/6.7.1/mingw_64/include/QtWidgets/QMenu \
-  C:/Qt/6.7.1/mingw_64/include/QtWidgets/QTableView \
   C:/Qt/6.7.1/mingw_64/include/QtWidgets/QTableWidget \
   C:/Qt/6.7.1/mingw_64/include/QtWidgets/QWidget \
   C:/Qt/6.7.1/mingw_64/include/QtWidgets/QWidgetAction \
@@ -987,6 +985,9 @@ AutoWorker_autogen/timestamp: \
   D:/AutoWorker/XWorker/AutoWoker/Form/fchonthumuc.cpp \
   D:/AutoWorker/XWorker/AutoWoker/Form/fchonthumuc.h \
   D:/AutoWorker/XWorker/AutoWoker/Form/fchonthumuc.ui \
+  D:/AutoWorker/XWorker/AutoWoker/Form/fdanhsachkichban_old.cpp \
+  D:/AutoWorker/XWorker/AutoWoker/Form/fdanhsachkichban_old.h \
+  D:/AutoWorker/XWorker/AutoWoker/Form/fdanhsachkichban_old.ui \
   D:/AutoWorker/XWorker/AutoWoker/Form/fimportaccount.cpp \
   D:/AutoWorker/XWorker/AutoWoker/Form/fimportaccount.h \
   D:/AutoWorker/XWorker/AutoWoker/Form/fimportaccount.ui \
@@ -1019,12 +1020,6 @@ AutoWorker_autogen/timestamp: \
   D:/AutoWorker/XWorker/AutoWoker/Table/customtablemodel.cpp \
   D:/AutoWorker/XWorker/AutoWoker/Table/customtablemodel.h \
   D:/AutoWorker/XWorker/AutoWoker/Utils/Utils.h \
-  D:/AutoWorker/XWorker/AutoWoker/Worker/baseworker.cpp \
-  D:/AutoWorker/XWorker/AutoWoker/Worker/baseworker.h \
-  D:/AutoWorker/XWorker/AutoWoker/Worker/checkcookieworker.cpp \
-  D:/AutoWorker/XWorker/AutoWoker/Worker/checkcookieworker.h \
-  D:/AutoWorker/XWorker/AutoWoker/Worker/checkwallworker.cpp \
-  D:/AutoWorker/XWorker/AutoWoker/Worker/checkwallworker.h \
   .qtc/package-manager/auto-setup.cmake \
   AutoWorker_autogen/moc_predefs.h \
   CMakeFiles/3.27.7/CMakeCXXCompiler.cmake \
@@ -1038,6 +1033,8 @@ AutoWorker_autogen/timestamp: \
   D:/AutoWorker/XWorker/AutoWoker/maxcare/FileHelper.h \
   D:/AutoWorker/XWorker/AutoWoker/maxcare/ImapHelper.cpp \
   D:/AutoWorker/XWorker/AutoWoker/maxcare/ImapHelper.h \
+  D:/AutoWorker/XWorker/AutoWoker/maxcare/KichBan/interactconnector.cpp \
+  D:/AutoWorker/XWorker/AutoWoker/maxcare/KichBan/interactconnector.h \
   D:/AutoWorker/XWorker/AutoWoker/maxcare/Language.cpp \
   D:/AutoWorker/XWorker/AutoWoker/maxcare/Language.h \
   D:/AutoWorker/XWorker/AutoWoker/maxcare/MessageBoxHelper.h \

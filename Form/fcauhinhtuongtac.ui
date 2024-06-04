@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>930</width>
-    <height>554</height>
+    <width>913</width>
+    <height>492</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,219 +16,510 @@
   <widget class="QWidget" name="">
    <property name="geometry">
     <rect>
-     <x>320</x>
-     <y>490</y>
-     <width>291</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <layout class="QHBoxLayout" name="horizontalLayout_13">
-    <item>
-     <widget class="QPushButton" name="btnAdd">
-      <property name="styleSheet">
-       <string notr="true">border-radius:20px;
-background-color: rgb(53, 120, 229);
-color:white;
-font-weight:bold;</string>
-      </property>
-      <property name="text">
-       <string>Lưu</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QPushButton" name="btnCancel">
-      <property name="styleSheet">
-       <string notr="true">background-color: darkred;
-border-radius:20px;
-color:white;
-font-weight:bold;</string>
-      </property>
-      <property name="text">
-       <string>Đóng</string>
-      </property>
-     </widget>
-    </item>
-   </layout>
-  </widget>
-  <widget class="QWidget" name="">
-   <property name="geometry">
-    <rect>
      <x>20</x>
      <y>10</y>
-     <width>878</width>
-     <height>451</height>
+     <width>868</width>
+     <height>459</height>
     </rect>
    </property>
-   <layout class="QHBoxLayout" name="horizontalLayout_12">
-    <item>
-     <layout class="QVBoxLayout" name="verticalLayout_3">
+   <layout class="QGridLayout" name="gridLayout_7">
+    <item row="0" column="0">
+     <layout class="QHBoxLayout" name="horizontalLayout_12">
       <item>
-       <widget class="QGroupBox" name="groupBox">
-        <property name="title">
-         <string>Trước khi chạy</string>
-        </property>
-        <layout class="QVBoxLayout" name="verticalLayout">
-         <item>
-          <layout class="QFormLayout" name="formLayout_2">
-           <item row="0" column="0">
-            <widget class="QCheckBox" name="checkBox">
-             <property name="text">
-              <string>Sử dụng profile chrome</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="1">
-            <widget class="QCheckBox" name="checkBox_3">
-             <property name="text">
-              <string>Xóa cache chrome</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QCheckBox" name="checkBox_2">
-             <property name="text">
-              <string>Check wall account</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="1">
-            <widget class="QCheckBox" name="checkBox_4">
-             <property name="text">
-              <string>Xáo trộn thứ tự tài khoản</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-        </layout>
-       </widget>
-      </item>
-      <item>
-       <widget class="QGroupBox" name="groupBox_2">
-        <property name="title">
-         <string>Đăng nhập</string>
-        </property>
-        <layout class="QGridLayout" name="gridLayout_2">
-         <item row="0" column="0">
-          <layout class="QFormLayout" name="formLayout">
-           <item row="0" column="0">
-            <widget class="QLabel" name="label">
-             <property name="text">
-              <string>Kiểu đăng nhập:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="1">
-            <widget class="QLineEdit" name="lineEdit"/>
-           </item>
-           <item row="1" column="0">
-            <widget class="QLabel" name="label_2">
-             <property name="text">
-              <string>Web đăng nhập:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="1">
-            <widget class="QLineEdit" name="lineEdit_2"/>
-           </item>
-          </layout>
-         </item>
-        </layout>
-       </widget>
-      </item>
-      <item>
-       <widget class="QGroupBox" name="groupBox_3">
-        <property name="title">
-         <string>Tương tác</string>
-        </property>
-        <layout class="QGridLayout" name="gridLayout">
-         <item row="0" column="0">
-          <layout class="QVBoxLayout" name="verticalLayout_2">
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item>
+         <widget class="QGroupBox" name="groupBox">
+          <property name="title">
+           <string>Trước khi chạy</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout">
            <item>
-            <layout class="QHBoxLayout" name="horizontalLayout">
-             <item>
-              <widget class="QLabel" name="label_3">
+            <layout class="QFormLayout" name="formLayout_2">
+             <item row="0" column="0">
+              <widget class="QCheckBox" name="ckbCreateProfile">
                <property name="text">
-                <string>Chọn kịch bản: </string>
+                <string>Sử dụng profile chrome</string>
                </property>
               </widget>
              </item>
-             <item>
-              <widget class="QComboBox" name="cbbKichban"/>
-             </item>
-             <item>
-              <widget class="QPushButton" name="pushButton">
-               <property name="font">
-                <font>
-                 <bold>true</bold>
-                </font>
-               </property>
+             <item row="0" column="1">
+              <widget class="QCheckBox" name="ckbXoaCache">
                <property name="text">
-                <string>Quản lý kịch bản</string>
+                <string>Xóa cache chrome</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QCheckBox" name="ckbCheckLiveUid">
+               <property name="text">
+                <string>Check wall account</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QCheckBox" name="ckbRandonThuTuTaiKhoan">
+               <property name="text">
+                <string>Xáo trộn thứ tự tài khoản</string>
                </property>
               </widget>
              </item>
             </layout>
            </item>
-           <item>
-            <widget class="QCheckBox" name="checkBox_5">
-             <property name="text">
-              <string>Xáo trộn thứ tự hành động</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_3">
-             <item>
-              <widget class="QCheckBox" name="checkBox_6">
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QGroupBox" name="groupBox_2">
+          <property name="title">
+           <string>Đăng nhập</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_2">
+           <item row="0" column="0">
+            <layout class="QFormLayout" name="formLayout">
+             <item row="0" column="0">
+              <widget class="QLabel" name="label">
                <property name="text">
-                <string>Giới hạn thời gian chạy/tài khoản (giây)</string>
+                <string>Kiểu đăng nhập:</string>
                </property>
               </widget>
              </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="label_2">
+               <property name="text">
+                <string>Web đăng nhập:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QComboBox" name="cbbTypeLogin"/>
+             </item>
+             <item row="1" column="1">
+              <widget class="QComboBox" name="cbbFaceBookWeb"/>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QGroupBox" name="groupBox_3">
+          <property name="title">
+           <string>Tương tác</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout">
+           <item row="0" column="0">
+            <layout class="QVBoxLayout" name="verticalLayout_2">
              <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_2">
+              <layout class="QHBoxLayout" name="horizontalLayout">
                <item>
-                <widget class="QSpinBox" name="spinBox"/>
-               </item>
-               <item>
-                <widget class="QLabel" name="label_4">
+                <widget class="QLabel" name="label_3">
                  <property name="text">
-                  <string>&gt;</string>
+                  <string>Chọn kịch bản: </string>
                  </property>
                 </widget>
                </item>
                <item>
-                <widget class="QSpinBox" name="spinBox_2"/>
+                <widget class="QComboBox" name="cbbKichban"/>
+               </item>
+               <item>
+                <widget class="QPushButton" name="btnQuanlyKichBan">
+                 <property name="font">
+                  <font>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>Quản lý kịch bản</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <widget class="QCheckBox" name="ckbRandomHanhDong">
+               <property name="text">
+                <string>Xáo trộn thứ tự hành động</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_3">
+               <item>
+                <widget class="QCheckBox" name="ckbGioiHanThoiGianChayTaiKhoan">
+                 <property name="text">
+                  <string>Giới hạn thời gian chạy/tài khoản (giây)</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QFrame" name="plGioiHanThoiGianChayTaiKhoan">
+                 <property name="frameShape">
+                  <enum>QFrame::StyledPanel</enum>
+                 </property>
+                 <property name="frameShadow">
+                  <enum>QFrame::Raised</enum>
+                 </property>
+                 <layout class="QGridLayout" name="gridLayout_5">
+                  <item row="0" column="0">
+                   <layout class="QHBoxLayout" name="horizontalLayout_15">
+                    <item>
+                     <widget class="QSpinBox" name="nudThoiGianChayTaiKhoanFrom"/>
+                    </item>
+                    <item>
+                     <widget class="QLabel" name="label_4">
+                      <property name="text">
+                       <string>&gt;</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QSpinBox" name="nudThoiGianChayTaiKhoanTo"/>
+                    </item>
+                   </layout>
+                  </item>
+                 </layout>
+                </widget>
+               </item>
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_2"/>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_5">
+               <item>
+                <widget class="QCheckBox" name="ckbGioiHanThoiGianChayKichBan">
+                 <property name="text">
+                  <string>Giới hạn thời gian chạy/kịch bản (phút)</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QFrame" name="plGioiHanThoiGianChayKichBan">
+                 <property name="frameShape">
+                  <enum>QFrame::StyledPanel</enum>
+                 </property>
+                 <property name="frameShadow">
+                  <enum>QFrame::Raised</enum>
+                 </property>
+                 <layout class="QGridLayout" name="gridLayout_6">
+                  <item row="0" column="0">
+                   <layout class="QHBoxLayout" name="horizontalLayout_16">
+                    <item>
+                     <widget class="QSpinBox" name="nudThoiGianChayKichBanFrom"/>
+                    </item>
+                    <item>
+                     <widget class="QLabel" name="label_5">
+                      <property name="text">
+                       <string>&gt;</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QSpinBox" name="nudThoiGianChayKichBanTo"/>
+                    </item>
+                   </layout>
+                  </item>
+                 </layout>
+                </widget>
+               </item>
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_4"/>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QGroupBox" name="groupBox_4">
+        <property name="minimumSize">
+         <size>
+          <width>460</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="title">
+         <string>Sau khi tương tác</string>
+        </property>
+        <layout class="QGridLayout" name="gridLayout_3">
+         <item row="0" column="0">
+          <layout class="QVBoxLayout" name="verticalLayout_6">
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_4">
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_6">
+               <item>
+                <widget class="QCheckBox" name="ckbGetCookie">
+                 <property name="text">
+                  <string>Tự động lấy cookie</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QCheckBox" name="ckbGetToken">
+                 <property name="text">
+                  <string>Tự động lấy token</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QComboBox" name="cbbGetToken"/>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_14">
+               <item>
+                <widget class="QCheckBox" name="ckbCapNhatThongTin">
+                 <property name="text">
+                  <string>Tự động lấy cập nhật thông tin</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QCheckBox" name="ckbCapNhatThongTinTruocKhiTuongTac">
+                 <property name="text">
+                  <string>Trước khi tương tác</string>
+                 </property>
+                </widget>
                </item>
               </layout>
              </item>
             </layout>
            </item>
            <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_5">
+            <widget class="QFrame" name="plCapNhatThongTin">
+             <property name="frameShape">
+              <enum>QFrame::StyledPanel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Raised</enum>
+             </property>
+             <layout class="QGridLayout" name="gridLayout_4">
+              <item row="0" column="0">
+               <layout class="QVBoxLayout" name="verticalLayout_5">
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_7">
+                  <item>
+                   <widget class="QCheckBox" name="ckbName">
+                    <property name="text">
+                     <string>Name</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="ckbGioiTinh">
+                    <property name="text">
+                     <string>Giới tính</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="ckbBirthday">
+                    <property name="text">
+                     <string>Birthday</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="ckbEmail">
+                    <property name="text">
+                     <string>Email</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="ckbNgayTao">
+                    <property name="text">
+                     <string>Ngày tạo</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_8">
+                  <item>
+                   <widget class="QCheckBox" name="ckbFriend">
+                    <property name="text">
+                     <string>Friend</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="ckbGroup">
+                    <property name="text">
+                     <string>Group</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="ckbFollow">
+                    <property name="text">
+                     <string>Follow</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="ckbPhone">
+                    <property name="text">
+                     <string>Phone</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="ckbAvatar">
+                    <property name="text">
+                     <string>Avatar</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_9">
+                  <item>
+                   <widget class="QCheckBox" name="ckbPage">
+                    <property name="text">
+                     <string>Page</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="ckbPagePro5">
+                    <property name="text">
+                     <string>Page pro5</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="ckbBM">
+                    <property name="text">
+                     <string>BM</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="ckbDating">
+                    <property name="text">
+                     <string>Dating</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="ckbAds">
+                    <property name="text">
+                     <string>Ads</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_10">
+                  <item>
+                   <widget class="QCheckBox" name="ckbLocation">
+                    <property name="text">
+                     <string>Location</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="ckbHomeTown">
+                    <property name="text">
+                     <string>Hometown, CurrentCity</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="ckbFb_Block">
+                    <property name="text">
+                     <string>Fb Block</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_11">
              <item>
-              <widget class="QCheckBox" name="checkBox_7">
-               <property name="text">
-                <string>Giới hạn thời gian chạy/kịch bản (phút)</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_4">
+              <layout class="QVBoxLayout" name="verticalLayout_7">
                <item>
-                <widget class="QSpinBox" name="spinBox_3"/>
-               </item>
-               <item>
-                <widget class="QLabel" name="label_5">
+                <widget class="QCheckBox" name="ckbCongKhaiBanBe">
                  <property name="text">
-                  <string>&gt;</string>
+                  <string>Công khai danh sách bạn bè</string>
                  </property>
                 </widget>
                </item>
                <item>
-                <widget class="QSpinBox" name="spinBox_4"/>
+                <widget class="QCheckBox" name="ckbReviewTag">
+                 <property name="text">
+                  <string>Bật duyệt bài viết trên tường</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QCheckBox" name="ckbAllowFollow">
+                 <property name="text">
+                  <string>Cho phép người khác Follow</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QCheckBox" name="ckbCauHinhTaiKhoan">
+                 <property name="text">
+                  <string>Cấu hình tài khoản</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QCheckBox" name="ckbLogOut">
+                 <property name="text">
+                  <string>Đăng xuất tài khoản</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QVBoxLayout" name="verticalLayout_8">
+               <item>
+                <widget class="QCheckBox" name="ckbCheckSpam">
+                 <property name="text">
+                  <string>Check spam</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QCheckBox" name="ckbBackupDB">
+                 <property name="text">
+                  <string>Backup Database</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QCheckBox" name="ckbWallPost">
+                 <property name="text">
+                  <string>Wall Post</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QCheckBox" name="ckbBackupDataBase_3">
+                 <property name="text">
+                  <string>Tắt Popup Chat</string>
+                 </property>
+                </widget>
                </item>
               </layout>
              </item>
@@ -241,263 +532,59 @@ font-weight:bold;</string>
       </item>
      </layout>
     </item>
-    <item>
-     <widget class="QGroupBox" name="groupBox_4">
-      <property name="minimumSize">
-       <size>
-        <width>460</width>
-        <height>0</height>
-       </size>
-      </property>
-      <property name="title">
-       <string>Sau khi tương tác</string>
-      </property>
-      <layout class="QGridLayout" name="gridLayout_3">
-       <item row="0" column="0">
-        <layout class="QVBoxLayout" name="verticalLayout_6">
-         <item>
-          <layout class="QVBoxLayout" name="verticalLayout_4">
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_6">
-             <item>
-              <widget class="QCheckBox" name="checkBox_8">
-               <property name="text">
-                <string>Tự động lấy cookie</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QCheckBox" name="checkBox_9">
-               <property name="text">
-                <string>Tự động lấy token</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QComboBox" name="comboBox"/>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <widget class="QCheckBox" name="checkBox_10">
-             <property name="text">
-              <string>Tự động lấy cập nhật thông tin</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <layout class="QVBoxLayout" name="verticalLayout_5">
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_7">
-             <item>
-              <widget class="QCheckBox" name="checkBox_11">
-               <property name="text">
-                <string>Name</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QCheckBox" name="checkBox_12">
-               <property name="text">
-                <string>Giới tính</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QCheckBox" name="checkBox_13">
-               <property name="text">
-                <string>Birthday</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QCheckBox" name="checkBox_14">
-               <property name="text">
-                <string>Email</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QCheckBox" name="checkBox_15">
-               <property name="text">
-                <string>Ngày tạo</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_8">
-             <item>
-              <widget class="QCheckBox" name="checkBox_16">
-               <property name="text">
-                <string>Friend</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QCheckBox" name="checkBox_17">
-               <property name="text">
-                <string>Group</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QCheckBox" name="checkBox_18">
-               <property name="text">
-                <string>Follow</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QCheckBox" name="checkBox_19">
-               <property name="text">
-                <string>Phone</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QCheckBox" name="checkBox_20">
-               <property name="text">
-                <string>Avatar</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_9">
-             <item>
-              <widget class="QCheckBox" name="checkBox_21">
-               <property name="text">
-                <string>Page</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QCheckBox" name="checkBox_22">
-               <property name="text">
-                <string>Page pro5</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QCheckBox" name="checkBox_23">
-               <property name="text">
-                <string>BM</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QCheckBox" name="checkBox_24">
-               <property name="text">
-                <string>Dating</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QCheckBox" name="checkBox_25">
-               <property name="text">
-                <string>Ads</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_10">
-             <item>
-              <widget class="QCheckBox" name="checkBox_26">
-               <property name="text">
-                <string>Location</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QCheckBox" name="checkBox_27">
-               <property name="text">
-                <string>Hometown, CurrentCity</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QCheckBox" name="checkBox_28">
-               <property name="text">
-                <string>Fb Block</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_11">
-           <item>
-            <layout class="QVBoxLayout" name="verticalLayout_7">
-             <item>
-              <widget class="QCheckBox" name="checkBox_29">
-               <property name="text">
-                <string>Công khai danh sách bạn bè</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QCheckBox" name="checkBox_30">
-               <property name="text">
-                <string>Bật duyệt bài viết trên tường</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QCheckBox" name="checkBox_31">
-               <property name="text">
-                <string>Cho phép người khác Follow</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QCheckBox" name="checkBox_32">
-               <property name="text">
-                <string>Cấu hình tài khoản</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QCheckBox" name="checkBox_33">
-               <property name="text">
-                <string>Đăng xuất tài khoản</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <layout class="QVBoxLayout" name="verticalLayout_8">
-             <item>
-              <widget class="QCheckBox" name="checkBox_34">
-               <property name="text">
-                <string>Check spam</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QCheckBox" name="checkBox_35">
-               <property name="text">
-                <string>Backup Database</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-          </layout>
-         </item>
-        </layout>
-       </item>
-      </layout>
-     </widget>
+    <item row="1" column="0">
+     <layout class="QHBoxLayout" name="horizontalLayout_13">
+      <item>
+       <widget class="QPushButton" name="btnAdd">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>150</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">border-radius:20px;
+background-color: rgb(53, 120, 229);
+color:white;
+font-weight:bold;</string>
+        </property>
+        <property name="text">
+         <string>Lưu</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btnCancel">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>150</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: darkred;
+border-radius:20px;
+color:white;
+font-weight:bold;</string>
+        </property>
+        <property name="text">
+         <string>Đóng</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </item>
    </layout>
   </widget>

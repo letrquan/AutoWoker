@@ -13,5 +13,11 @@
         <file>img/select-all.png</file>
         <file>img/up-arrow.png</file>
         <file>img/stop-button.png</file>
+        <file>img/copy.png</file>
+        <file>img/delete-file.png</file>
+        <file>img/pen.png</file>
+        <file>img/add-button.png</file>
+        <file>img/copy-yellow.png</file>
+        <file>img/delete-file-yellow.png</file>
     </qresource>
 </RCC>

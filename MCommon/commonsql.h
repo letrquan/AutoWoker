@@ -20,5 +20,6 @@ public:
     static bool InsertFileToDatabase(QString namefile,bool aw=false);
     static bool UpdateThuTuThuMuc(const QString& id1, const QString& id2);
     static bool UpdateMultiFieldToAccount(QString id, QString lstFieldName, QString lstFieldValue, bool isAllowEmptyValue = true);
+    static bool UpdateMultiStatusOrInfoToAccount(QMap<QString, QString> list, bool isStatus );
 };
 #endif // COMMONSQL_H

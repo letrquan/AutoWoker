@@ -67,12 +67,10 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         resource.qrc
         maxcare/ImapHelper.h
         maxcare/ImapHelper.cpp
-        Worker/checkwallworker.h Worker/checkwallworker.cpp
-        Worker/checkcookieworker.h Worker/checkcookieworker.cpp
-        Worker/baseworker.h Worker/baseworker.cpp
         Table/customtablemodel.h Table/customtablemodel.cpp
         Form/fcauhinhtuongtac.h Form/fcauhinhtuongtac.cpp Form/fcauhinhtuongtac.ui
-
+        Form/fdanhsachkichban_old.h Form/fdanhsachkichban_old.cpp Form/fdanhsachkichban_old.ui
+        maxcare/KichBan/interactconnector.h maxcare/KichBan/interactconnector.cpp
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET AutoWorker APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR

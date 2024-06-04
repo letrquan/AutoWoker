@@ -62,8 +62,6 @@ QVariantList* Connector::ExecuteQuery(QString query){
 }
 
 int Connector::ExecuteNonQuery(QString query){
-    static std::mutex mutex;
-    std::lock_guard<std::mutex> lock(mutex);
     int result = 0;
     try {
         CheckConnectServer();

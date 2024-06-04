@@ -204,7 +204,30 @@ bool CommonSQL::UpdateThuTuThuMuc(const QString& id1, const QString& id2) {
         return result;
     }
 }
+bool CommonSQL::UpdateMultiStatusOrInfoToAccount(QMap<QString,QString> list, bool isStatus ){
+    bool result = false;
+    QString updateField = isStatus ? "status" : "info";
+    QString queryStr = QString("UPDATE accounts SET %1 = CASE ").arg(updateField);
 
+    for (auto it = list.constBegin(); it != list.constEnd(); ++it) {
+        queryStr += QString("WHEN id = '%1' THEN '%2' ").arg(it.key(), it.value());
+    }
+
+    queryStr += QString("END WHERE id IN (");
+
+    QStringList keys = list.keys();
+    for (const QString& key : keys) {
+        queryStr += QString("'%1',").arg(key);
+    }
+    queryStr.chop(1);  // Remove the last comma
+    queryStr += ")";
+    qDebug() << queryStr;
+    if (Connector::getInstance().ExecuteNonQuery(queryStr) > 0)
+    {
+        result = true;
+    }
+    return result;
+}
 
 bool CommonSQL::UpdateMultiFieldToAccount(QString id, QString lstFieldName, QString lstFieldValue, bool isAllowEmptyValue){
     bool result = false;
