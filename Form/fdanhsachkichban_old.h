@@ -17,6 +17,12 @@ public:
 private slots:
     void showContextMenuHanhDong(const QPoint &pos);
     void showContextMenuKichBan(const QPoint &pos);
+    void on_dtgvKichBan_cellClicked(int row, int column);
+
+    void on_button5_clicked();
+
+    void on_button4_clicked();
+
 private:
     Ui::fDanhSachKichBan_Old *ui;
     QString kichBan ="";

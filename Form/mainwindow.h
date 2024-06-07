@@ -117,6 +117,8 @@ private slots:
     void SetRowColor(int indexRow, int typeColor);
     void on_pushButton_3_clicked();
 
+    void on_pushButton_clicked();
+
 signals:
     void updateStatusAccount(int row, QString status, int timeWait = -1);
     void updateInfoAccount(int row, QString info);

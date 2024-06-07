@@ -33,6 +33,8 @@ private slots:
 
     void on_btnQuanlyKichBan_clicked();
 
+    void on_btnCancel_clicked();
+
 private:
     QString string_0 ="";
     Ui::fCauhinhtuongtac *ui;

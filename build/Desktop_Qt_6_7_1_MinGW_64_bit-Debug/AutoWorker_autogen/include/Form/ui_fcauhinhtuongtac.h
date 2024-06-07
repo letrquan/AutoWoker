@@ -30,7 +30,7 @@ QT_BEGIN_NAMESPACE
 class Ui_fCauhinhtuongtac
 {
 public:
-    QWidget *widget;
+    QWidget *layoutWidget;
     QGridLayout *gridLayout_7;
     QHBoxLayout *horizontalLayout_12;
     QVBoxLayout *verticalLayout_3;
@@ -131,17 +131,17 @@ public:
         if (fCauhinhtuongtac->objectName().isEmpty())
             fCauhinhtuongtac->setObjectName("fCauhinhtuongtac");
         fCauhinhtuongtac->resize(913, 492);
-        widget = new QWidget(fCauhinhtuongtac);
-        widget->setObjectName("widget");
-        widget->setGeometry(QRect(20, 10, 868, 459));
-        gridLayout_7 = new QGridLayout(widget);
+        layoutWidget = new QWidget(fCauhinhtuongtac);
+        layoutWidget->setObjectName("layoutWidget");
+        layoutWidget->setGeometry(QRect(20, 10, 868, 459));
+        gridLayout_7 = new QGridLayout(layoutWidget);
         gridLayout_7->setObjectName("gridLayout_7");
         gridLayout_7->setContentsMargins(0, 0, 0, 0);
         horizontalLayout_12 = new QHBoxLayout();
         horizontalLayout_12->setObjectName("horizontalLayout_12");
         verticalLayout_3 = new QVBoxLayout();
         verticalLayout_3->setObjectName("verticalLayout_3");
-        groupBox = new QGroupBox(widget);
+        groupBox = new QGroupBox(layoutWidget);
         groupBox->setObjectName("groupBox");
         verticalLayout = new QVBoxLayout(groupBox);
         verticalLayout->setObjectName("verticalLayout");
@@ -173,7 +173,7 @@ public:
 
         verticalLayout_3->addWidget(groupBox);
 
-        groupBox_2 = new QGroupBox(widget);
+        groupBox_2 = new QGroupBox(layoutWidget);
         groupBox_2->setObjectName("groupBox_2");
         gridLayout_2 = new QGridLayout(groupBox_2);
         gridLayout_2->setObjectName("gridLayout_2");
@@ -190,11 +190,19 @@ public:
         formLayout->setWidget(1, QFormLayout::LabelRole, label_2);
 
         cbbTypeLogin = new QComboBox(groupBox_2);
+        cbbTypeLogin->addItem(QString());
+        cbbTypeLogin->addItem(QString());
+        cbbTypeLogin->addItem(QString());
+        cbbTypeLogin->addItem(QString());
         cbbTypeLogin->setObjectName("cbbTypeLogin");
 
         formLayout->setWidget(0, QFormLayout::FieldRole, cbbTypeLogin);
 
         cbbFaceBookWeb = new QComboBox(groupBox_2);
+        cbbFaceBookWeb->addItem(QString());
+        cbbFaceBookWeb->addItem(QString());
+        cbbFaceBookWeb->addItem(QString());
+        cbbFaceBookWeb->addItem(QString());
         cbbFaceBookWeb->setObjectName("cbbFaceBookWeb");
 
         formLayout->setWidget(1, QFormLayout::FieldRole, cbbFaceBookWeb);
@@ -205,7 +213,7 @@ public:
 
         verticalLayout_3->addWidget(groupBox_2);
 
-        groupBox_3 = new QGroupBox(widget);
+        groupBox_3 = new QGroupBox(layoutWidget);
         groupBox_3->setObjectName("groupBox_3");
         gridLayout = new QGridLayout(groupBox_3);
         gridLayout->setObjectName("gridLayout");
@@ -336,7 +344,7 @@ public:
 
         horizontalLayout_12->addLayout(verticalLayout_3);
 
-        groupBox_4 = new QGroupBox(widget);
+        groupBox_4 = new QGroupBox(layoutWidget);
         groupBox_4->setObjectName("groupBox_4");
         groupBox_4->setMinimumSize(QSize(460, 0));
         gridLayout_3 = new QGridLayout(groupBox_4);
@@ -578,7 +586,7 @@ public:
 
         horizontalLayout_13 = new QHBoxLayout();
         horizontalLayout_13->setObjectName("horizontalLayout_13");
-        btnAdd = new QPushButton(widget);
+        btnAdd = new QPushButton(layoutWidget);
         btnAdd->setObjectName("btnAdd");
         btnAdd->setMinimumSize(QSize(0, 30));
         btnAdd->setMaximumSize(QSize(150, 16777215));
@@ -589,7 +597,7 @@ public:
 
         horizontalLayout_13->addWidget(btnAdd);
 
-        btnCancel = new QPushButton(widget);
+        btnCancel = new QPushButton(layoutWidget);
         btnCancel->setObjectName("btnCancel");
         btnCancel->setMinimumSize(QSize(0, 30));
         btnCancel->setMaximumSize(QSize(150, 16777215));
@@ -620,6 +628,16 @@ public:
         groupBox_2->setTitle(QCoreApplication::translate("fCauhinhtuongtac", "\304\220\304\203ng nh\341\272\255p", nullptr));
         label->setText(QCoreApplication::translate("fCauhinhtuongtac", "Ki\341\273\203u \304\221\304\203ng nh\341\272\255p:", nullptr));
         label_2->setText(QCoreApplication::translate("fCauhinhtuongtac", "Web \304\221\304\203ng nh\341\272\255p:", nullptr));
+        cbbTypeLogin->setItemText(0, QCoreApplication::translate("fCauhinhtuongtac", "Uid|Pass", nullptr));
+        cbbTypeLogin->setItemText(1, QCoreApplication::translate("fCauhinhtuongtac", "Email|Pass", nullptr));
+        cbbTypeLogin->setItemText(2, QCoreApplication::translate("fCauhinhtuongtac", "Cookie", nullptr));
+        cbbTypeLogin->setItemText(3, QCoreApplication::translate("fCauhinhtuongtac", "Cookie>Pass", nullptr));
+
+        cbbFaceBookWeb->setItemText(0, QCoreApplication::translate("fCauhinhtuongtac", "m.fb", nullptr));
+        cbbFaceBookWeb->setItemText(1, QCoreApplication::translate("fCauhinhtuongtac", "www", nullptr));
+        cbbFaceBookWeb->setItemText(2, QCoreApplication::translate("fCauhinhtuongtac", "mbasic", nullptr));
+        cbbFaceBookWeb->setItemText(3, QCoreApplication::translate("fCauhinhtuongtac", "www->m.fb", nullptr));
+
         groupBox_3->setTitle(QCoreApplication::translate("fCauhinhtuongtac", "T\306\260\306\241ng t\303\241c", nullptr));
         label_3->setText(QCoreApplication::translate("fCauhinhtuongtac", "Ch\341\273\215n k\341\273\213ch b\341\272\243n: ", nullptr));
         btnQuanlyKichBan->setText(QCoreApplication::translate("fCauhinhtuongtac", "Qu\341\272\243n l\303\275 k\341\273\213ch b\341\272\243n", nullptr));

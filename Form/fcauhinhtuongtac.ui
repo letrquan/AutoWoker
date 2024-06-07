@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>20</x>
@@ -91,10 +91,52 @@
               </widget>
              </item>
              <item row="0" column="1">
-              <widget class="QComboBox" name="cbbTypeLogin"/>
+              <widget class="QComboBox" name="cbbTypeLogin">
+               <item>
+                <property name="text">
+                 <string>Uid|Pass</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Email|Pass</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Cookie</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Cookie&gt;Pass</string>
+                </property>
+               </item>
+              </widget>
              </item>
              <item row="1" column="1">
-              <widget class="QComboBox" name="cbbFaceBookWeb"/>
+              <widget class="QComboBox" name="cbbFaceBookWeb">
+               <item>
+                <property name="text">
+                 <string>m.fb</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>www</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>mbasic</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>www-&gt;m.fb</string>
+                </property>
+               </item>
+              </widget>
              </item>
             </layout>
            </item>

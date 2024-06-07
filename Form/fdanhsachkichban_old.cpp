@@ -12,8 +12,14 @@ fDanhSachKichBan_Old::fDanhSachKichBan_Old(QString kichBan,QWidget *parent)
     ui->dtgvhanhDong->hideColumn(1);
     connect(ui->dtgvhanhDong, &QTableWidget::customContextMenuRequested, this, &fDanhSachKichBan_Old::showContextMenuHanhDong);
     connect(ui->dtgvKichBan, &QTableWidget::customContextMenuRequested, this, &fDanhSachKichBan_Old::showContextMenuKichBan);
+    ui->dtgvhanhDong->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->dtgvKichBan->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui->dtgvhanhDong->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui->dtgvhanhDong->setSelectionMode(QTableWidget::SingleSelection);
+    ui->dtgvKichBan->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     ui->dtgvhanhDong->setContextMenuPolicy(Qt::CustomContextMenu);
     ui->dtgvKichBan->setContextMenuPolicy(Qt::CustomContextMenu);
+    LoadKichBan(kichBan);
 }
 
 fDanhSachKichBan_Old::~fDanhSachKichBan_Old()
@@ -21,7 +27,7 @@ fDanhSachKichBan_Old::~fDanhSachKichBan_Old()
     delete ui;
 }
 void fDanhSachKichBan_Old::LoadKichBan(QString kichban){
-    ui->dtgvKichBan->clear();
+    ui->dtgvKichBan->clearContents();
     QVariantList allKichBan = *InteractSQL::GetAllKichBan();
     ui->dtgvKichBan->setRowCount(allKichBan.size());
     if(allKichBan.size() >0){
@@ -35,16 +41,18 @@ void fDanhSachKichBan_Old::LoadKichBan(QString kichban){
     }
     if(kichban != ""){
         for(int j =0; j<ui->dtgvKichBan->rowCount();j++){
-            if(ui->dtgvKichBan->item(j,Utils::GetIndexByColumnHeader(ui->dtgvKichBan,"Id_KichBan"))->text() == kichban){
+            auto check = ui->dtgvKichBan->item(j,2)->text();
+            if(ui->dtgvKichBan->item(j,2)->text() == kichban){
                 ui->dtgvKichBan->selectRow(j);
                 break;
             }
         }
     }
+    LoadHanhDong();
 }
 void fDanhSachKichBan_Old::LoadHanhDong(){
     try {
-        ui->dtgvhanhDong->clear();
+        ui->dtgvhanhDong->clearContents();
         if(ui->dtgvKichBan->rowCount()!=0){
             int row = ui->dtgvKichBan->selectedItems().first()->row();
             QVariantList allHanhDongByKichBan = *InteractSQL::GetAllHanhDongByKichBan(ui->dtgvKichBan->item(row,1)->text());
@@ -87,3 +95,47 @@ void fDanhSachKichBan_Old::showContextMenuKichBan(const QPoint &pos){
     contextMenu.addAction(nhanBanKichBan);
     contextMenu.exec(ui->dtgvKichBan->viewport()->mapToGlobal(pos));
 }
+
+void fDanhSachKichBan_Old::on_dtgvKichBan_cellClicked(int row, int column)
+{
+    LoadHanhDong();
+}
+
+
+void fDanhSachKichBan_Old::on_button5_clicked()
+{
+    auto selectedItems = ui->dtgvhanhDong->selectedItems();
+    if (!selectedItems.isEmpty()) {
+        int selectedRow = selectedItems.first()->row();
+        if (selectedRow > 0) { // Ensure the selected row is not the first row
+            for (int col = 0; col < ui->dtgvhanhDong->columnCount(); ++col) {
+                QTableWidgetItem* currentItem = ui->dtgvhanhDong->takeItem(selectedRow, col);
+                QTableWidgetItem* aboveItem = ui->dtgvhanhDong->takeItem(selectedRow - 1, col);
+
+                ui->dtgvhanhDong->setItem(selectedRow - 1, col, currentItem);
+                ui->dtgvhanhDong->setItem(selectedRow, col, aboveItem);
+            }
+            ui->dtgvhanhDong->selectRow(selectedRow - 1);
+        }
+    }
+}
+
+
+void fDanhSachKichBan_Old::on_button4_clicked()
+{
+    auto selectedItems = ui->dtgvhanhDong->selectedItems();
+    if (!selectedItems.isEmpty()) {
+        int selectedRow = selectedItems.first()->row();
+        if (selectedRow < ui->dtgvhanhDong->rowCount()-1) { // Ensure the selected row is not the first row
+            for (int col = 0; col < ui->dtgvhanhDong->columnCount(); ++col) {
+                QTableWidgetItem* currentItem = ui->dtgvhanhDong->takeItem(selectedRow, col);
+                QTableWidgetItem* belowItem = ui->dtgvhanhDong->takeItem(selectedRow + 1, col);
+
+                ui->dtgvhanhDong->setItem(selectedRow + 1, col, currentItem);
+                ui->dtgvhanhDong->setItem(selectedRow, col, belowItem);
+            }
+            ui->dtgvhanhDong->selectRow(selectedRow + 1);
+        }
+    }
+}
+

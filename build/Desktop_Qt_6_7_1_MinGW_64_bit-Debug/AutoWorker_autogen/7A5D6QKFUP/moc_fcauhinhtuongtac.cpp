@@ -45,7 +45,8 @@ constexpr auto qt_meta_stringdata_CLASSfCauhinhtuongtacENDCLASS = QtMocHelpers::
     "on_ckbGetToken_stateChanged",
     "on_ckbGroup_clicked",
     "on_btnAdd_clicked",
-    "on_btnQuanlyKichBan_clicked"
+    "on_btnQuanlyKichBan_clicked",
+    "on_btnCancel_clicked"
 );
 #else  // !QT_MOC_HAS_STRINGDATA
 #error "qtmochelpers.h not found or too old."
@@ -58,7 +59,7 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSfCauhinhtuongtacENDCLASS[] = {
       12,       // revision
        0,       // classname
        0,    0, // classinfo
-       8,   14, // methods
+       9,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -66,14 +67,15 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSfCauhinhtuongtacENDCLASS[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    1,   62,    2, 0x08,    1 /* Private */,
-       4,    0,   65,    2, 0x08,    3 /* Private */,
-       5,    1,   66,    2, 0x08,    4 /* Private */,
-       6,    1,   69,    2, 0x08,    6 /* Private */,
-       7,    1,   72,    2, 0x08,    8 /* Private */,
-       8,    0,   75,    2, 0x08,   10 /* Private */,
-       9,    0,   76,    2, 0x08,   11 /* Private */,
-      10,    0,   77,    2, 0x08,   12 /* Private */,
+       1,    1,   68,    2, 0x08,    1 /* Private */,
+       4,    0,   71,    2, 0x08,    3 /* Private */,
+       5,    1,   72,    2, 0x08,    4 /* Private */,
+       6,    1,   75,    2, 0x08,    6 /* Private */,
+       7,    1,   78,    2, 0x08,    8 /* Private */,
+       8,    0,   81,    2, 0x08,   10 /* Private */,
+       9,    0,   82,    2, 0x08,   11 /* Private */,
+      10,    0,   83,    2, 0x08,   12 /* Private */,
+      11,    0,   84,    2, 0x08,   13 /* Private */,
 
  // slots: parameters
     QMetaType::Void, QMetaType::Int,    3,
@@ -81,6 +83,7 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSfCauhinhtuongtacENDCLASS[] = {
     QMetaType::Void, QMetaType::Int,    3,
     QMetaType::Void, QMetaType::Int,    3,
     QMetaType::Void, QMetaType::Int,    3,
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -116,6 +119,8 @@ Q_CONSTINIT const QMetaObject fCauhinhtuongtac::staticMetaObject = { {
         // method 'on_btnAdd_clicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'on_btnQuanlyKichBan_clicked'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'on_btnCancel_clicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>
     >,
     nullptr
@@ -135,6 +140,7 @@ void fCauhinhtuongtac::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int
         case 5: _t->on_ckbGroup_clicked(); break;
         case 6: _t->on_btnAdd_clicked(); break;
         case 7: _t->on_btnQuanlyKichBan_clicked(); break;
+        case 8: _t->on_btnCancel_clicked(); break;
         default: ;
         }
     }
@@ -159,13 +165,13 @@ int fCauhinhtuongtac::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 8)
+        if (_id < 9)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 8;
+        _id -= 9;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 8)
+        if (_id < 9)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 8;
+        _id -= 9;
     }
     return _id;
 }

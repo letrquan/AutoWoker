@@ -12,6 +12,7 @@ fCauhinhtuongtac::fCauhinhtuongtac(QWidget *parent)
 {
     ui->setupUi(this);
     fCauhinhtuongtac_Load();
+    this->setWindowTitle("Cấu hình tương tác");
 }
 
 fCauhinhtuongtac::~fCauhinhtuongtac()
@@ -47,8 +48,8 @@ void fCauhinhtuongtac::LoadcbbKichBan(){
 
 void fCauhinhtuongtac::on_ckbCapNhatThongTin_stateChanged(int arg1)
 {
-    ui->plCapNhatThongTin->setVisible(ui->ckbCapNhatThongTinTruocKhiTuongTac->checkState());
-    ui->ckbCapNhatThongTinTruocKhiTuongTac->setEnabled(ui->ckbCapNhatThongTin->checkState());
+    ui->plCapNhatThongTin->setEnabled(ui->ckbCapNhatThongTinTruocKhiTuongTac->checkState());
+    ui->ckbCapNhatThongTinTruocKhiTuongTac->setVisible(ui->ckbCapNhatThongTin->checkState());
     if (!(ui->ckbCapNhatThongTinTruocKhiTuongTac->checkState() == Qt::Checked))
     {
         ui->ckbCapNhatThongTinTruocKhiTuongTac->setCheckState(Qt::Unchecked);
@@ -251,7 +252,7 @@ void fCauhinhtuongtac::on_btnQuanlyKichBan_clicked()
     {
         if (ui->cbbKichban->count() > 0)
         {
-            kickBan = ui->cbbKichban->currentText();
+            kickBan = ui->cbbKichban->currentText().mid(ui->cbbKichban->currentText().indexOf('.') + 1).trimmed();
         }
     }
     catch(...)
@@ -259,5 +260,11 @@ void fCauhinhtuongtac::on_btnQuanlyKichBan_clicked()
     }
     Common::ShowForm(new fDanhSachKichBan_Old(kickBan));
     LoadcbbKichBan();
+}
+
+
+void fCauhinhtuongtac::on_btnCancel_clicked()
+{
+    this->close();
 }
 

@@ -39,7 +39,12 @@ constexpr auto qt_meta_stringdata_CLASSfDanhSachKichBan_OldENDCLASS = QtMocHelpe
     "showContextMenuHanhDong",
     "",
     "pos",
-    "showContextMenuKichBan"
+    "showContextMenuKichBan",
+    "on_dtgvKichBan_cellClicked",
+    "row",
+    "column",
+    "on_button5_clicked",
+    "on_button4_clicked"
 );
 #else  // !QT_MOC_HAS_STRINGDATA
 #error "qtmochelpers.h not found or too old."
@@ -52,7 +57,7 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSfDanhSachKichBan_OldENDCLASS[] =
       12,       // revision
        0,       // classname
        0,    0, // classinfo
-       2,   14, // methods
+       5,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -60,12 +65,18 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSfDanhSachKichBan_OldENDCLASS[] =
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    1,   26,    2, 0x08,    1 /* Private */,
-       4,    1,   29,    2, 0x08,    3 /* Private */,
+       1,    1,   44,    2, 0x08,    1 /* Private */,
+       4,    1,   47,    2, 0x08,    3 /* Private */,
+       5,    2,   50,    2, 0x08,    5 /* Private */,
+       8,    0,   55,    2, 0x08,    8 /* Private */,
+       9,    0,   56,    2, 0x08,    9 /* Private */,
 
  // slots: parameters
     QMetaType::Void, QMetaType::QPoint,    3,
     QMetaType::Void, QMetaType::QPoint,    3,
+    QMetaType::Void, QMetaType::Int, QMetaType::Int,    6,    7,
+    QMetaType::Void,
+    QMetaType::Void,
 
        0        // eod
 };
@@ -84,7 +95,15 @@ Q_CONSTINIT const QMetaObject fDanhSachKichBan_Old::staticMetaObject = { {
         QtPrivate::TypeAndForceComplete<const QPoint &, std::false_type>,
         // method 'showContextMenuKichBan'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<const QPoint &, std::false_type>
+        QtPrivate::TypeAndForceComplete<const QPoint &, std::false_type>,
+        // method 'on_dtgvKichBan_cellClicked'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<int, std::false_type>,
+        QtPrivate::TypeAndForceComplete<int, std::false_type>,
+        // method 'on_button5_clicked'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'on_button4_clicked'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>
     >,
     nullptr
 } };
@@ -97,6 +116,9 @@ void fDanhSachKichBan_Old::qt_static_metacall(QObject *_o, QMetaObject::Call _c,
         switch (_id) {
         case 0: _t->showContextMenuHanhDong((*reinterpret_cast< std::add_pointer_t<QPoint>>(_a[1]))); break;
         case 1: _t->showContextMenuKichBan((*reinterpret_cast< std::add_pointer_t<QPoint>>(_a[1]))); break;
+        case 2: _t->on_dtgvKichBan_cellClicked((*reinterpret_cast< std::add_pointer_t<int>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[2]))); break;
+        case 3: _t->on_button5_clicked(); break;
+        case 4: _t->on_button4_clicked(); break;
         default: ;
         }
     }
@@ -121,13 +143,13 @@ int fDanhSachKichBan_Old::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 2)
+        if (_id < 5)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 2;
+        _id -= 5;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 2)
+        if (_id < 5)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 2;
+        _id -= 5;
     }
     return _id;
 }

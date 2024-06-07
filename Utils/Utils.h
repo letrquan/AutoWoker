@@ -66,24 +66,16 @@ public:
 
         return -1;  // Return -1 if no matching header is found
     }
-    static int GetIndexByColumnHeader(QTableWidget* dgv, QString colHeader)
-    {
-        if (dgv == nullptr)
-            return -1;
-
-        QTableWidgetItem* headerItem = nullptr;
-        for (int col = 0; col < dgv->columnCount(); ++col)
-        {
-            headerItem = dgv->horizontalHeaderItem(col);
-            if (headerItem && headerItem->text() == colHeader)
-            {
-                return col;
+    static int GetIndexByColumnHeader(QTableWidget dgv, QString colHeader){
+        int col=-1;
+        for (int i = 0; i < dgv.columnCount(); ++i) {
+            QTableWidgetItem *headerItem = dgv.horizontalHeaderItem(i);
+            if (headerItem != nullptr && headerItem->text() == colHeader) {
+                col = i;
             }
         }
-
-        return -1; // Column header not found
+        return col;
     }
-
     static bool isRunningAsAdmin() {
         BOOL fIsRunAsAdmin = FALSE;
         PSID pAdministratorsGroup = NULL;

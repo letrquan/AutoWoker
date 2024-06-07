@@ -37,6 +37,7 @@ LoginWindow::~LoginWindow()
 void LoginWindow::loadSettings(){
     getLogin();
     Loadx();
+    this->hide();
 }
 
 

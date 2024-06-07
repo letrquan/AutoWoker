@@ -16,7 +16,10 @@
 #include <QtWidgets/QGroupBox>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
+#include <QtWidgets/QPushButton>
+#include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QTableWidget>
+#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -25,6 +28,7 @@ class Ui_fDanhSachKichBan_Old
 {
 public:
     QWidget *widget;
+    QHBoxLayout *horizontalLayout_2;
     QHBoxLayout *horizontalLayout;
     QGroupBox *groupBox;
     QGridLayout *gridLayout;
@@ -32,18 +36,25 @@ public:
     QGroupBox *groupBox_3;
     QGridLayout *gridLayout_2;
     QTableWidget *dtgvhanhDong;
+    QVBoxLayout *verticalLayout;
+    QSpacerItem *verticalSpacer_2;
+    QPushButton *button5;
+    QPushButton *button4;
+    QSpacerItem *verticalSpacer;
 
     void setupUi(QDialog *fDanhSachKichBan_Old)
     {
         if (fDanhSachKichBan_Old->objectName().isEmpty())
             fDanhSachKichBan_Old->setObjectName("fDanhSachKichBan_Old");
-        fDanhSachKichBan_Old->resize(935, 515);
+        fDanhSachKichBan_Old->resize(1041, 433);
         widget = new QWidget(fDanhSachKichBan_Old);
         widget->setObjectName("widget");
-        widget->setGeometry(QRect(20, 10, 901, 491));
-        horizontalLayout = new QHBoxLayout(widget);
+        widget->setGeometry(QRect(21, 10, 1001, 401));
+        horizontalLayout_2 = new QHBoxLayout(widget);
+        horizontalLayout_2->setObjectName("horizontalLayout_2");
+        horizontalLayout_2->setContentsMargins(0, 0, 0, 0);
+        horizontalLayout = new QHBoxLayout();
         horizontalLayout->setObjectName("horizontalLayout");
-        horizontalLayout->setContentsMargins(0, 0, 0, 0);
         groupBox = new QGroupBox(widget);
         groupBox->setObjectName("groupBox");
         gridLayout = new QGridLayout(groupBox);
@@ -88,6 +99,38 @@ public:
         horizontalLayout->addWidget(groupBox_3);
 
 
+        horizontalLayout_2->addLayout(horizontalLayout);
+
+        verticalLayout = new QVBoxLayout();
+        verticalLayout->setObjectName("verticalLayout");
+        verticalSpacer_2 = new QSpacerItem(20, 28, QSizePolicy::Policy::Minimum, QSizePolicy::Policy::Expanding);
+
+        verticalLayout->addItem(verticalSpacer_2);
+
+        button5 = new QPushButton(widget);
+        button5->setObjectName("button5");
+        button5->setMinimumSize(QSize(0, 30));
+        button5->setMaximumSize(QSize(30, 16777215));
+        button5->setStyleSheet(QString::fromUtf8("image: url(:/img/img/up-arrow-blue.png);"));
+
+        verticalLayout->addWidget(button5);
+
+        button4 = new QPushButton(widget);
+        button4->setObjectName("button4");
+        button4->setMinimumSize(QSize(0, 30));
+        button4->setMaximumSize(QSize(30, 16777215));
+        button4->setStyleSheet(QString::fromUtf8("image: url(:/img/img/down-arrow.png);"));
+
+        verticalLayout->addWidget(button4);
+
+        verticalSpacer = new QSpacerItem(20, 288, QSizePolicy::Policy::Minimum, QSizePolicy::Policy::Expanding);
+
+        verticalLayout->addItem(verticalSpacer);
+
+
+        horizontalLayout_2->addLayout(verticalLayout);
+
+
         retranslateUi(fDanhSachKichBan_Old);
 
         QMetaObject::connectSlotsByName(fDanhSachKichBan_Old);
@@ -112,6 +155,8 @@ public:
         ___qtablewidgetitem5->setText(QCoreApplication::translate("fDanhSachKichBan_Old", "T\303\252n H\303\240nh \304\220\341\273\231ng", nullptr));
         QTableWidgetItem *___qtablewidgetitem6 = dtgvhanhDong->horizontalHeaderItem(3);
         ___qtablewidgetitem6->setText(QCoreApplication::translate("fDanhSachKichBan_Old", "Lo\341\272\241i T\306\260\306\241ng T\303\241c", nullptr));
+        button5->setText(QString());
+        button4->setText(QString());
     } // retranslateUi
 
 };

@@ -6,6 +6,7 @@
 #include <QMessageBox>
 #include "../MCommon/Common.h"
 #include "../maxcare/MessageBoxHelper.h"
+#include "qboxlayout.h"
 #include <QKeyEvent>
 #include <qsqlrecord.h>
 fChonThuMuc::fChonThuMuc(bool isFromBin,QWidget *parent)
@@ -16,6 +17,12 @@ fChonThuMuc::fChonThuMuc(bool isFromBin,QWidget *parent)
     isAdd = false;
     this->isFromBin = isFromBin;
     Language::SetLanguage(this);
+    ui->dtgvAcc->hideColumn(3);
+    QHeaderView* header = ui->dtgvAcc->horizontalHeader();
+    header->setStyleSheet("QHeaderView::section { background-color: #222831; color: white; }");
+    ui->dtgvAcc->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->dtgvAcc->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui->dtgvAcc->verticalHeader()->setVisible(false);
     fChonThuMuc_Load();
 }
 
@@ -75,44 +82,51 @@ void fChonThuMuc::on_btnAdd_clicked()
 void fChonThuMuc::LoadListFiles(const QList<QString> &lstIdFile){
     try {
         QVariantList* dataTable =  ((!isFromBin) ? CommonSQL::GetAllFilesFromDatabase() : CommonSQL::GetAllFilesFromDatabaseForBin());
-        ui->dtgvAcc->insertRow(dataTable->size());
+        ui->dtgvAcc->setRowCount(dataTable->size());
         int row = 0;
-        if(!lstIdFile.isEmpty()){
-            for(const QVariant &item : *dataTable){
-                QVariantMap rowMap = item.toMap();
-                if(lstIdFile.contains(rowMap["id"].toString())){
-                    QTableWidgetItem *checkboxItem = new QTableWidgetItem();
-                    checkboxItem->setFlags(checkboxItem->flags() | Qt::ItemIsUserCheckable);
-                    checkboxItem->setCheckState(Qt::Checked);
-                    ui->dtgvAcc->setItem(row,0, checkboxItem);
-                    QTableWidgetItem *id = new QTableWidgetItem(rowMap["id"].toString());
-                    id->setFlags(id->flags() & ~Qt::ItemIsEditable);
-                    QTableWidgetItem *name = new QTableWidgetItem(rowMap["name"].toString());
-                    QTableWidgetItem *stt = new QTableWidgetItem(row+1);
-                    name->setFlags(name->flags() & ~Qt::ItemIsEditable);
-                    stt->setFlags(stt->flags() & ~Qt::ItemIsEditable);
-                    ui->dtgvAcc->setItem(row,3, id);
-                    ui->dtgvAcc->setItem(row,2, name);
-                    ui->dtgvAcc->setItem(row,1,stt);
-                }else{
-                    QTableWidgetItem *checkboxItem = new QTableWidgetItem();
-                    checkboxItem->setFlags(checkboxItem->flags() | Qt::ItemIsUserCheckable);
-                    checkboxItem->setCheckState(Qt::Unchecked);
-                    ui->dtgvAcc->setItem(row,0, checkboxItem);
-                    QTableWidgetItem *id = new QTableWidgetItem(rowMap["id"].toString());
-                    id->setFlags(id->flags() & ~Qt::ItemIsEditable);
-                    QTableWidgetItem *name = new QTableWidgetItem(rowMap["name"].toString());
-                    QTableWidgetItem *stt = new QTableWidgetItem(row+1);
-                    name->setFlags(name->flags() & ~Qt::ItemIsEditable);
-                    stt->setFlags(stt->flags() & ~Qt::ItemIsEditable);
-                    ui->dtgvAcc->setItem(row,3, id);
-                    ui->dtgvAcc->setItem(row,2, name);
-                    ui->dtgvAcc->setItem(row,1,stt);
-                }
-                row++;
-            }
-        }else{
+        for(const QVariant &item : *dataTable){
+            QVariantMap rowMap = item.toMap();
+            if(lstIdFile.contains(rowMap["id"].toString())){
+                QWidget* checkBoxWidget = new QWidget();
+                QCheckBox* checkBox = new QCheckBox();
+                checkBox->setChecked(true); // Set the state of the checkbox
+                QHBoxLayout* layout = new QHBoxLayout(checkBoxWidget);
+                layout->addWidget(checkBox);
+                layout->setAlignment(Qt::AlignCenter);
+                layout->setContentsMargins(0, 0, 0, 0); // Remove margins
+                ui->dtgvAcc->setCellWidget(row, 0, checkBox);
+                QTableWidgetItem *id = new QTableWidgetItem(rowMap["id"].toString());
+                id->setFlags(id->flags() & ~Qt::ItemIsEditable);
 
+                QTableWidgetItem *name = new QTableWidgetItem(rowMap["name"].toString());
+                name->setFlags(name->flags() & ~Qt::ItemIsEditable);
+
+                QTableWidgetItem *stt = new QTableWidgetItem(QString::number(row + 1));
+                stt->setFlags(stt->flags() & ~Qt::ItemIsEditable);
+
+                ui->dtgvAcc->setItem(row, 3, id);
+                ui->dtgvAcc->setItem(row, 2, name);
+                ui->dtgvAcc->setItem(row, 1, stt);
+            }else{
+                QWidget* checkBoxWidget = new QWidget();
+                QCheckBox* checkBox = new QCheckBox();
+                checkBox->setChecked(false); // Set the state of the checkbox
+                QHBoxLayout* layout = new QHBoxLayout(checkBoxWidget);
+                layout->addWidget(checkBox);
+                layout->setAlignment(Qt::AlignCenter);
+                layout->setContentsMargins(0, 0, 0, 0); // Remove margins
+                ui->dtgvAcc->setCellWidget(row, 0, checkBox);
+                QTableWidgetItem *id = new QTableWidgetItem(rowMap["id"].toString());
+                id->setFlags(id->flags() & ~Qt::ItemIsEditable);
+                QTableWidgetItem *name = new QTableWidgetItem(rowMap["name"].toString());
+                QTableWidgetItem *stt = new QTableWidgetItem(QString::number(row+1));
+                name->setFlags(name->flags() & ~Qt::ItemIsEditable);
+                stt->setFlags(stt->flags() & ~Qt::ItemIsEditable);
+                ui->dtgvAcc->setItem(row,3, id);
+                ui->dtgvAcc->setItem(row,2, name);
+                ui->dtgvAcc->setItem(row,1,stt);
+            }
+            row++;
         }
         UpdateSelectCountRecord();
         UpdateTotalCountRecord();
@@ -131,15 +145,14 @@ void fChonThuMuc::UpdateSelectCountRecord(){
     }
 }
 int fChonThuMuc::CountSelectRow(){
-    int num = 0;
-    for (int i = 0; i < ui->dtgvAcc->rowCount(); i++)
-    {
-        QTableWidgetItem *item = ui->dtgvAcc->item(i, 0);
-        if (item->checkState() == Qt::Checked) {
-            num++;
+    int count = 0;
+    for (int row = 0; row < ui->dtgvAcc->rowCount(); ++row) {
+        QCheckBox *checkbox = qobject_cast<QCheckBox *>(ui->dtgvAcc->cellWidget(row, 0));
+        if (checkbox && checkbox->isChecked()) {
+            count++;
         }
     }
-    return num;
+    return count;
 }
 void fChonThuMuc::fChonThuMuc_Load(){
     if(isFromBin){
@@ -218,12 +231,14 @@ void fChonThuMuc::on_checkBox1_clicked(bool checked)
     if(checked == true){
         for (int i = 0; i < ui->dtgvAcc->rowCount(); i++)
         {
-            DatagridviewHelper::SetStatusDataGridView(ui->dtgvAcc, i, 0, true);
+            QCheckBox *checkbox = qobject_cast<QCheckBox *>(ui->dtgvAcc->cellWidget(i, 0));
+            checkbox->setChecked(true);
         }
     }else{
         for (int i = 0; i < ui->dtgvAcc->rowCount(); i++)
         {
-            DatagridviewHelper::SetStatusDataGridView(ui->dtgvAcc, i, 0, false);
+            QCheckBox *checkbox = qobject_cast<QCheckBox *>(ui->dtgvAcc->cellWidget(i, 0));
+            checkbox->setChecked(false);
         }
     }
 }
@@ -262,8 +277,7 @@ void fChonThuMuc::keyPressEvent(QKeyEvent *event)
         {
             for (int row = range.topRow(); row <= range.bottomRow(); ++row)
             {
-                QString currentStatus = DatagridviewHelper::GetStatusDataGridView(ui->dtgvAcc, row, "Id");
-                DatagridviewHelper::SetStatusDataGridView(ui->dtgvAcc,row,"",(currentStatus.toLower() == "true" || currentStatus == "1"));
+
             }
         }
         CountSelectRow();

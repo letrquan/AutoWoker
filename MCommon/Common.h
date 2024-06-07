@@ -1,5 +1,6 @@
 #ifndef COMMON_H
 #define COMMON_H
+#include "qcombobox.h"
 #include <QString>
 #include <QException>
 #include <QFile>
@@ -7,6 +8,7 @@
 #include <QSqlTableModel>
 #include <QDialog>
 #include <QFileInfo>
+#include "../maxcare/Language.h"
 #include <QTableWidget>
 class Common{
 public:
@@ -73,6 +75,7 @@ public:
         }
         return true;
     }
+
     static void CreateFile(QString pathFile){
         try
         {

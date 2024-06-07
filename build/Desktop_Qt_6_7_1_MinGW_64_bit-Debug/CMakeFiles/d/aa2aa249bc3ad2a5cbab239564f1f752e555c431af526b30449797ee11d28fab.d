@@ -7,6 +7,7 @@ AutoWorker_autogen/timestamp: \
   C:/Qt/6.7.1/mingw_64/include/QtCore/QFileInfo \
   C:/Qt/6.7.1/mingw_64/include/QtCore/QFlags \
   C:/Qt/6.7.1/mingw_64/include/QtCore/QIODevice \
+  C:/Qt/6.7.1/mingw_64/include/QtCore/QJsonObject \
   C:/Qt/6.7.1/mingw_64/include/QtCore/QList \
   C:/Qt/6.7.1/mingw_64/include/QtCore/QMap \
   C:/Qt/6.7.1/mingw_64/include/QtCore/QMetaType \
@@ -976,6 +977,9 @@ AutoWorker_autogen/timestamp: \
   D:/AutoWorker/XWorker/AutoWoker/Form/faddfile.cpp \
   D:/AutoWorker/XWorker/AutoWoker/Form/faddfile.h \
   D:/AutoWorker/XWorker/AutoWoker/Form/faddfile.ui \
+  D:/AutoWorker/XWorker/AutoWoker/Form/fcauhinhchung.cpp \
+  D:/AutoWorker/XWorker/AutoWoker/Form/fcauhinhchung.h \
+  D:/AutoWorker/XWorker/AutoWoker/Form/fcauhinhchung.ui \
   D:/AutoWorker/XWorker/AutoWoker/Form/fcauhinhhienthi.cpp \
   D:/AutoWorker/XWorker/AutoWoker/Form/fcauhinhhienthi.h \
   D:/AutoWorker/XWorker/AutoWoker/Form/fcauhinhhienthi.ui \

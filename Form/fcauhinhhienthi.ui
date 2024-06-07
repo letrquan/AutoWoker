@@ -14,709 +14,519 @@
    <string>Dialog</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: #503C3C;
-border-radius:20px;</string>
+   <string notr="true">background-color: rgb(255, 255, 255);
+color:black;</string>
   </property>
-  <widget class="QCheckBox" name="ckbUserAgent">
-   <property name="geometry">
-    <rect>
-     <x>299</x>
-     <y>170</y>
-     <width>74</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="text">
-    <string>Useragent</string>
-   </property>
-  </widget>
-  <widget class="QCheckBox" name="ckbNgayTao">
-   <property name="geometry">
-    <rect>
-     <x>299</x>
-     <y>262</y>
-     <width>72</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="text">
-    <string>Ngày tạo </string>
-   </property>
-  </widget>
-  <widget class="QCheckBox" name="ckbPage">
-   <property name="geometry">
-    <rect>
-     <x>154</x>
-     <y>32</y>
-     <width>47</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="text">
-    <string>Page</string>
-   </property>
-  </widget>
-  <widget class="QCheckBox" name="ckbMailKhoiPhuc">
-   <property name="geometry">
-    <rect>
-     <x>154</x>
-     <y>308</y>
-     <width>100</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="text">
-    <string>Mail khôi phục</string>
-   </property>
-  </widget>
-  <widget class="QCheckBox" name="ckbNgaySinh">
-   <property name="geometry">
-    <rect>
-     <x>154</x>
-     <y>124</y>
-     <width>74</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="text">
-    <string>Ngày sinh</string>
-   </property>
-  </widget>
-  <widget class="QCheckBox" name="ckbTinhTrang">
-   <property name="geometry">
-    <rect>
-     <x>445</x>
-     <y>124</y>
-     <width>76</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="text">
-    <string>Tình trạng</string>
-   </property>
-  </widget>
-  <widget class="QCheckBox" name="ckbMatKhauMail">
-   <property name="geometry">
-    <rect>
-     <x>299</x>
-     <y>32</y>
-     <width>97</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="text">
-    <string>Mật khẩu mail</string>
-   </property>
-  </widget>
-  <widget class="QCheckBox" name="ckbThuMuc">
-   <property name="geometry">
-    <rect>
-     <x>445</x>
-     <y>170</y>
-     <width>69</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="text">
-    <string>Thư mục</string>
-   </property>
-  </widget>
-  <widget class="QCheckBox" name="ckbLuongSo">
+  <widget class="QWidget" name="">
    <property name="geometry">
     <rect>
      <x>9</x>
-     <y>354</y>
-     <width>70</width>
-     <height>17</height>
+     <y>12</y>
+     <width>721</width>
+     <height>371</height>
     </rect>
    </property>
-   <property name="font">
-    <font>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="text">
-    <string>Luồng số</string>
-   </property>
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <widget class="QCheckBox" name="ckbToken">
+      <property name="font">
+       <font>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Token</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QCheckBox" name="ckbPage">
+      <property name="font">
+       <font>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Page</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="2">
+     <widget class="QCheckBox" name="ckbMatKhauMail">
+      <property name="font">
+       <font>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Mật khẩu mail</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="3">
+     <widget class="QCheckBox" name="ckbProfile">
+      <property name="font">
+       <font>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Profile</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="4">
+     <widget class="QCheckBox" name="ckbAds">
+      <property name="font">
+       <font>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="text">
+       <string>Ads</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QCheckBox" name="ckbCookie">
+      <property name="font">
+       <font>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Cookie</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QCheckBox" name="ckbPagePro5">
+      <property name="font">
+       <font>
+        <italic>false</italic>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Page pro5</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="2">
+     <widget class="QCheckBox" name="ckbBackup">
+      <property name="font">
+       <font>
+        <italic>false</italic>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Backup</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="3">
+     <widget class="QCheckBox" name="ckbTuongTacCuoi">
+      <property name="font">
+       <font>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Tương tác cuối</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="4">
+     <widget class="QCheckBox" name="ckbBM">
+      <property name="font">
+       <font>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>BM</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QCheckBox" name="ckmEmail">
+      <property name="font">
+       <font>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Email</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1">
+     <widget class="QCheckBox" name="ckbNgaySinh">
+      <property name="font">
+       <font>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Ngày sinh</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="2">
+     <widget class="QCheckBox" name="ckbMa2FA">
+      <property name="font">
+       <font>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Mã 2FA</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="3">
+     <widget class="QCheckBox" name="ckbTinhTrang">
+      <property name="font">
+       <font>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Tình trạng</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="4">
+     <widget class="QCheckBox" name="ckbLocation">
+      <property name="font">
+       <font>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Location</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="0">
+     <widget class="QCheckBox" name="ckbTen">
+      <property name="font">
+       <font>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Tên </string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="1">
+     <widget class="QCheckBox" name="ckbPhone">
+      <property name="font">
+       <font>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Phone</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="2">
+     <widget class="QCheckBox" name="ckbUserAgent">
+      <property name="font">
+       <font>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Useragent</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="3">
+     <widget class="QCheckBox" name="ckbThuMuc">
+      <property name="font">
+       <font>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Thư mục</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="4">
+     <widget class="QCheckBox" name="ckbHomeTown">
+      <property name="font">
+       <font>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Hometown</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="0">
+     <widget class="QCheckBox" name="ckbTheodoi">
+      <property name="font">
+       <font>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Theo dõi</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="1">
+     <widget class="QCheckBox" name="ckbGioiTinh">
+      <property name="font">
+       <font>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Giới tính</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="2">
+     <widget class="QCheckBox" name="ckbProxy">
+      <property name="font">
+       <font>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Proxy</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="3">
+     <widget class="QCheckBox" name="ckbStatus282">
+      <property name="font">
+       <font>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Status 282</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="4">
+     <widget class="QCheckBox" name="ckbCurrentCity">
+      <property name="font">
+       <font>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Current City</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="0">
+     <widget class="QCheckBox" name="ckbBanBe">
+      <property name="font">
+       <font>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Bạn bè</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="1">
+     <widget class="QCheckBox" name="ckbMatKhau">
+      <property name="font">
+       <font>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Mật khẩu</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="2">
+     <widget class="QCheckBox" name="ckbNgayTao">
+      <property name="font">
+       <font>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Ngày tạo </string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="3">
+     <widget class="QCheckBox" name="ckbGhiChu">
+      <property name="font">
+       <font>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Ghi chú</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="4">
+     <widget class="QCheckBox" name="ckbJob">
+      <property name="font">
+       <font>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Job</string>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="0">
+     <widget class="QCheckBox" name="ckbNhom">
+      <property name="font">
+       <font>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Nhóm</string>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="1">
+     <widget class="QCheckBox" name="ckbMailKhoiPhuc">
+      <property name="font">
+       <font>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Mail khôi phục</string>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="2">
+     <widget class="QCheckBox" name="ckbAvatar">
+      <property name="font">
+       <font>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="text">
+       <string>Avatar</string>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="3">
+     <widget class="QCheckBox" name="ckbDating">
+      <property name="font">
+       <font>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Dating</string>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="4">
+     <widget class="QCheckBox" name="ckbFbBlock">
+      <property name="font">
+       <font>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Fb Block</string>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="0">
+     <widget class="QCheckBox" name="ckbLuongSo">
+      <property name="font">
+       <font>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Luồng số</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
   </widget>
-  <widget class="QCheckBox" name="ckbGioiTinh">
+  <widget class="QWidget" name="">
    <property name="geometry">
     <rect>
-     <x>154</x>
-     <y>216</y>
-     <width>81</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="text">
-    <string>Giới tính</string>
-   </property>
-  </widget>
-  <widget class="QCheckBox" name="ckbLocation">
-   <property name="geometry">
-    <rect>
-     <x>590</x>
-     <y>124</y>
-     <width>67</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="text">
-    <string>Location</string>
-   </property>
-  </widget>
-  <widget class="QCheckBox" name="ckbCurrentCity">
-   <property name="geometry">
-    <rect>
-     <x>590</x>
-     <y>216</y>
-     <width>101</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="text">
-    <string>Current City</string>
-   </property>
-  </widget>
-  <widget class="QCheckBox" name="ckbTen">
-   <property name="geometry">
-    <rect>
-     <x>9</x>
-     <y>170</y>
-     <width>43</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="text">
-    <string>Tên </string>
-   </property>
-  </widget>
-  <widget class="QCheckBox" name="ckbNhom">
-   <property name="geometry">
-    <rect>
-     <x>9</x>
-     <y>308</y>
-     <width>55</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="text">
-    <string>Nhóm</string>
-   </property>
-  </widget>
-  <widget class="QCheckBox" name="ckmEmail">
-   <property name="geometry">
-    <rect>
-     <x>9</x>
-     <y>124</y>
-     <width>50</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="text">
-    <string>Email</string>
-   </property>
-  </widget>
-  <widget class="QCheckBox" name="ckbFbBlock">
-   <property name="geometry">
-    <rect>
-     <x>590</x>
-     <y>308</y>
-     <width>66</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="text">
-    <string>Fb Block</string>
-   </property>
-  </widget>
-  <widget class="QCheckBox" name="ckbToken">
-   <property name="geometry">
-    <rect>
-     <x>9</x>
-     <y>32</y>
-     <width>53</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="text">
-    <string>Token</string>
-   </property>
-  </widget>
-  <widget class="QCheckBox" name="ckbBackup">
-   <property name="geometry">
-    <rect>
-     <x>299</x>
-     <y>78</y>
-     <width>60</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <italic>false</italic>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="text">
-    <string>Backup</string>
-   </property>
-  </widget>
-  <widget class="QCheckBox" name="ckbAvatar">
-   <property name="geometry">
-    <rect>
-     <x>299</x>
-     <y>308</y>
-     <width>55</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="styleSheet">
-    <string notr="true"/>
-   </property>
-   <property name="text">
-    <string>Avatar</string>
-   </property>
-  </widget>
-  <widget class="QCheckBox" name="ckbGhiChu">
-   <property name="geometry">
-    <rect>
-     <x>445</x>
-     <y>262</y>
-     <width>62</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="text">
-    <string>Ghi chú</string>
-   </property>
-  </widget>
-  <widget class="QCheckBox" name="ckbJob">
-   <property name="geometry">
-    <rect>
-     <x>590</x>
-     <y>262</y>
-     <width>39</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="text">
-    <string>Job</string>
-   </property>
-  </widget>
-  <widget class="QCheckBox" name="ckbTheodoi">
-   <property name="geometry">
-    <rect>
-     <x>9</x>
-     <y>216</y>
-     <width>68</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="text">
-    <string>Theo dõi</string>
-   </property>
-  </widget>
-  <widget class="QCheckBox" name="ckbTuongTacCuoi">
-   <property name="geometry">
-    <rect>
-     <x>445</x>
-     <y>78</y>
-     <width>111</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="text">
-    <string>Tương tác cuối</string>
-   </property>
-  </widget>
-  <widget class="QCheckBox" name="ckbDating">
-   <property name="geometry">
-    <rect>
-     <x>445</x>
-     <y>308</y>
-     <width>56</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="text">
-    <string>Dating</string>
-   </property>
-  </widget>
-  <widget class="QCheckBox" name="ckbProxy">
-   <property name="geometry">
-    <rect>
-     <x>299</x>
-     <y>216</y>
-     <width>50</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="text">
-    <string>Proxy</string>
-   </property>
-  </widget>
-  <widget class="QCheckBox" name="ckbPagePro5">
-   <property name="geometry">
-    <rect>
-     <x>154</x>
-     <y>78</y>
-     <width>74</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <italic>false</italic>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="text">
-    <string>Page pro5</string>
-   </property>
-  </widget>
-  <widget class="QCheckBox" name="ckbMatKhau">
-   <property name="geometry">
-    <rect>
-     <x>154</x>
-     <y>262</y>
-     <width>71</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="text">
-    <string>Mật khẩu</string>
-   </property>
-  </widget>
-  <widget class="QCheckBox" name="ckbAds">
-   <property name="geometry">
-    <rect>
-     <x>590</x>
-     <y>32</y>
-     <width>41</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="styleSheet">
-    <string notr="true"/>
-   </property>
-   <property name="text">
-    <string>Ads</string>
-   </property>
-  </widget>
-  <widget class="QCheckBox" name="ckbProfile">
-   <property name="geometry">
-    <rect>
-     <x>445</x>
-     <y>32</y>
-     <width>71</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="text">
-    <string>Profile</string>
-   </property>
-  </widget>
-  <widget class="QCheckBox" name="ckbStatus282">
-   <property name="geometry">
-    <rect>
-     <x>445</x>
-     <y>216</y>
-     <width>74</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="text">
-    <string>Status 282</string>
-   </property>
-  </widget>
-  <widget class="QCheckBox" name="ckbBM">
-   <property name="geometry">
-    <rect>
-     <x>590</x>
-     <y>78</y>
-     <width>39</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="text">
-    <string>BM</string>
-   </property>
-  </widget>
-  <widget class="QCheckBox" name="ckbBanBe">
-   <property name="geometry">
-    <rect>
-     <x>9</x>
-     <y>262</y>
-     <width>61</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="text">
-    <string>Bạn bè</string>
-   </property>
-  </widget>
-  <widget class="QCheckBox" name="ckbPhone">
-   <property name="geometry">
-    <rect>
-     <x>154</x>
-     <y>170</y>
-     <width>55</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="text">
-    <string>Phone</string>
-   </property>
-  </widget>
-  <widget class="QCheckBox" name="ckbMa2FA">
-   <property name="geometry">
-    <rect>
-     <x>299</x>
-     <y>124</y>
-     <width>60</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="text">
-    <string>Mã 2FA</string>
-   </property>
-  </widget>
-  <widget class="QCheckBox" name="ckbCookie">
-   <property name="geometry">
-    <rect>
-     <x>9</x>
-     <y>78</y>
-     <width>58</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="text">
-    <string>Cookie</string>
-   </property>
-  </widget>
-  <widget class="QCheckBox" name="ckbHomeTown">
-   <property name="geometry">
-    <rect>
-     <x>590</x>
-     <y>170</y>
-     <width>101</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="text">
-    <string>Hometown</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="btnDong">
-   <property name="geometry">
-    <rect>
-     <x>445</x>
+     <x>240</x>
      <y>400</y>
-     <width>131</width>
-     <height>31</height>
+     <width>251</width>
+     <height>41</height>
     </rect>
    </property>
-   <property name="font">
-    <font>
-     <pointsize>9</pointsize>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: darkred;
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <widget class="QPushButton" name="btnLuu">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>30</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color:darkblue;
+color:white;
 border-radius:20px;</string>
-   </property>
-   <property name="text">
-    <string>Đóng</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="btnLuu">
-   <property name="geometry">
-    <rect>
-     <x>154</x>
-     <y>400</y>
-     <width>131</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-color:darkblue;
-border-radius:20px;</string>
-   </property>
-   <property name="text">
-    <string>Lưu</string>
-   </property>
+      </property>
+      <property name="text">
+       <string>Lưu</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="btnDong">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>30</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>9</pointsize>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: darkred;
+border-radius:20px;
+color:white;</string>
+      </property>
+      <property name="text">
+       <string>Đóng</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
   </widget>
  </widget>
  <resources/>

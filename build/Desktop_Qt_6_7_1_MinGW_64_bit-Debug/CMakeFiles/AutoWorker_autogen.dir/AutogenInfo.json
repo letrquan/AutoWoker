@@ -349,6 +349,12 @@
 			null
 		],
 		[
+			"D:/AutoWorker/XWorker/AutoWoker/Form/fcauhinhchung.h",
+			"MU",
+			"7A5D6QKFUP/moc_fcauhinhchung.cpp",
+			null
+		],
+		[
 			"D:/AutoWorker/XWorker/AutoWoker/Form/fcauhinhhienthi.h",
 			"MU",
 			"7A5D6QKFUP/moc_fcauhinhhienthi.cpp",
@@ -654,6 +660,7 @@
 		],
 		[ "D:/AutoWorker/XWorker/AutoWoker/Form/downloaddialog.cpp", "MU", null ],
 		[ "D:/AutoWorker/XWorker/AutoWoker/Form/faddfile.cpp", "MU", null ],
+		[ "D:/AutoWorker/XWorker/AutoWoker/Form/fcauhinhchung.cpp", "MU", null ],
 		[
 			"D:/AutoWorker/XWorker/AutoWoker/Form/fcauhinhhienthi.cpp",
 			"MU",

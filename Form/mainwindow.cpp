@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include "fcauhinhchung.h"
 #include "fcauhinhtuongtac.h"
 #include "fimportaccount.h"
 #include "qnetworkreply.h"
@@ -439,55 +440,106 @@ void MainWindow::on_button9_clicked()
 void MainWindow::KiemTraTaiKhoan(int type, bool useProxy) {
     QThreadPool::globalInstance()->setMaxThreadCount(SettingsTool::GetSettings("configGeneral").GetValueInt("nudHideThread", 10));
     auto tokenTrunggian = SettingsTool::GetSettings("configGeneral").GetValue("token");
-    // for (int row = 0; row < ui->tableView->model()->rowCount(); ++row) {
-    //     if (ui->tableView->model()->index(row, 0).data(Qt::CheckStateRole) == Qt::Checked) {
-    //         switch (type) {
-    //         case 0:{
-    //             QtConcurrent::run(&MainWindow::CheckMyWall, this, row,tokenTrunggian);
-    //             break;
-    //         }
+    // QFutureWatcher<void> watcher;
+    // QFuture<void> future;
 
-    //         case 3:{
-    //             QtConcurrent::run(&MainWindow::CheckDangCheckpoint, this, row);
-    //             break;
-    //         }
-    //         default:
-    //             break;
-    //         }
+    // connect(&watcher, &QFutureWatcher<void>::finished, this, [this]() {
+    //     cControl("stop");
+    // });
+
+    // future = QtConcurrent::run([this, tokenTrunggian, &future, type]() {
+    //     cControl("start");
+
+    //     switch (type) {
+    //     case 0:
+    //         future = QtConcurrent::run([this, tokenTrunggian]() {
+    //             int num = 0;
+    //             while (num < ui->tableView->model()->rowCount() && !isStop) {
+    //                 if (ui->tableView->model()->index(num, 0).data(Qt::CheckStateRole) == Qt::Checked) {
+    //                     QtConcurrent::run(&MainWindow::CheckMyWall, this, num, tokenTrunggian);
+    //                 }
+    //                 num++;
+    //             }
+    //         });
+    //         break;
+
+    //     case 3:
+    //         future = QtConcurrent::run([this]() {
+    //             int num1 = 0;
+    //             while (num1 < ui->tableView->model()->rowCount() && !isStop) {
+    //                 if (ui->tableView->model()->index(num1, 0).data(Qt::CheckStateRole) == Qt::Checked) {
+    //                     QtConcurrent::run(&MainWindow::CheckDangCheckpoint, this, num1);
+    //                 }
+    //                 num1++;
+    //             }
+    //         });
+    //         break;
+
+    //     default:
+    //         break;
     //     }
-    // }
-    QFuture<void> future;
-    switch (type) {
-    case 0:{
-        future = QtConcurrent::run([this,tokenTrunggian]() {
-            for (int row = 0; row < ui->tableView->model()->rowCount(); ++row) {
-                if (ui->tableView->model()->index(row, 0).data(Qt::CheckStateRole) == Qt::Checked) {
-                    QtConcurrent::run(&MainWindow::CheckMyWall,this,row,tokenTrunggian);
-                }
-            }
-        });
-        break;
-    }
 
-    case 3:{
-        future = QtConcurrent::run([this]() {
-            for (int row = 0; row < ui->tableView->model()->rowCount(); ++row) {
-                if (ui->tableView->model()->index(row, 0).data(Qt::CheckStateRole) == Qt::Checked) {
-                    QtConcurrent::run(&MainWindow::CheckDangCheckpoint,this,row);
-                }
-            }
-        });
-        break;
-    }
-    default:
-        break;
-    }
-    auto watcher = new QFutureWatcher<void>(this);
-    QObject::connect(watcher, &QFutureWatcher<void>::finished, this, [this, watcher]() {
-        qDebug() << "All tasks completed.";
+    //     int tickCount = GetTickCount();
+    //     while (QThreadPool::globalInstance()->activeThreadCount() > 0 && GetTickCount() - tickCount <= 60000) {
+    //         QMetaObject::invokeMethod(QApplication::instance(), []() {
+    //                 QApplication::processEvents();
+    //             }, Qt::AutoConnection);
+    //         QThread::sleep(1);
+    //     }
+    // });
 
-        watcher->deleteLater(); // Clean up the watcher when done
+    // watcher.setFuture(future);
+    QFutureWatcher<void> *watcher = new QFutureWatcher<void>(this);
+
+    connect(watcher, &QFutureWatcher<void>::started, this, ([this](){
+                cControl("start");
+            }));
+    connect(watcher, &QFutureWatcher<void>::finished, this, ([this](){
+                cControl("database");
+                CommonSQL::UpdateStatuses(*statusSQL,"status");
+                CommonSQL::UpdateStatuses(*infoSQL,"info");
+                cControl("stop");
+            }));
+
+    QFuture<void> future = QtConcurrent::run([this, tokenTrunggian, type]() {
+        switch (type) {
+        case 0:
+            QtConcurrent::run([this, tokenTrunggian]() {
+                int num = 0;
+                while (num < ui->tableView->model()->rowCount() && !isStop) {
+                    if (ui->tableView->model()->index(num, 0).data(Qt::CheckStateRole) == Qt::Checked) {
+                        QtConcurrent::run(&MainWindow::CheckMyWall, this, num, tokenTrunggian);
+                    }
+                    num++;
+                }
+            });
+            break;
+
+        case 3:
+            QtConcurrent::run([this]() {
+                int num1 = 0;
+                while (num1 < ui->tableView->model()->rowCount() && !isStop) {
+                    if (ui->tableView->model()->index(num1, 0).data(Qt::CheckStateRole) == Qt::Checked) {
+                        QtConcurrent::run(&MainWindow::CheckDangCheckpoint, this, num1);
+                    }
+                    num1++;
+                }
+            });
+            break;
+
+        default:
+            break;
+        }
+
+        // int tickCount = GetTickCount();
+        // while (QThreadPool::globalInstance()->activeThreadCount() > 0 && GetTickCount() - tickCount <= 60000) {
+        //     QMetaObject::invokeMethod(QCoreApplication::instance(), []() {
+        //             QCoreApplication::processEvents();
+        //         }, Qt::BlockingQueuedConnection);
+        //     QThread::sleep(1);
+        // }
     });
+
     watcher->setFuture(future);
 }
 
@@ -1075,5 +1127,18 @@ void MainWindow::onActionCopy(){
 void MainWindow::on_pushButton_3_clicked()
 {
     Common::ShowForm(new fCauhinhtuongtac());
+}
+
+
+void MainWindow::on_pushButton_clicked()
+{
+    JSON_Settings data = *new JSON_Settings();
+    Common::ShowForm(new fCauHinhChung(data));
+    if(data.GetValueBool("isChangePathDatabase")){
+        LoadCbbThuMuc();
+        indexCbbThuMucOld = -1;
+        ui->cbbThuMuc->setCurrentIndex(-1);
+        ui->cbbThuMuc->setCurrentIndex(0);
+    }
 }
 

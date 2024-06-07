@@ -2,6 +2,7 @@
 #include <QTextStream>
 #include <QDateTime>
 #include "../Form/downloaddialog.h"
+#include "qapplication.h"
 #include "qtablewidget.h"
 #include <QDir>
 #include <QEventLoop>
@@ -139,6 +140,7 @@ bool Common::deleteFile(QString pathFile){
 }
 
 void Common::DelayTime(double second){
+    QApplication::processEvents();
     sleep(second);
 }
 void Common::CreateFolder(QString pathFolder){

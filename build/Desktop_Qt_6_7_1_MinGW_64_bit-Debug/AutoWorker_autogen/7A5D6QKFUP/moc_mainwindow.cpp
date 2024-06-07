@@ -67,7 +67,8 @@ constexpr auto qt_meta_stringdata_CLASSMainWindowENDCLASS = QtMocHelpers::string
     "isAllowEmptyValue",
     "SetStatusAccount",
     "SetRowColor",
-    "on_pushButton_3_clicked"
+    "on_pushButton_3_clicked",
+    "on_pushButton_clicked"
 );
 #else  // !QT_MOC_HAS_STRINGDATA
 #error "qtmochelpers.h not found or too old."
@@ -80,7 +81,7 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSMainWindowENDCLASS[] = {
       12,       // revision
        0,       // classname
        0,    0, // classinfo
-      26,   14, // methods
+      27,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -88,34 +89,35 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSMainWindowENDCLASS[] = {
        6,       // signalCount
 
  // signals: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    3,  170,    2, 0x06,    1 /* Public */,
-       1,    2,  177,    2, 0x26,    5 /* Public | MethodCloned */,
-       6,    2,  182,    2, 0x06,    8 /* Public */,
-       8,    2,  187,    2, 0x06,   11 /* Public */,
-      11,    1,  192,    2, 0x06,   14 /* Public */,
-      11,    0,  195,    2, 0x26,   16 /* Public | MethodCloned */,
+       1,    3,  176,    2, 0x06,    1 /* Public */,
+       1,    2,  183,    2, 0x26,    5 /* Public | MethodCloned */,
+       6,    2,  188,    2, 0x06,    8 /* Public */,
+       8,    2,  193,    2, 0x06,   11 /* Public */,
+      11,    1,  198,    2, 0x06,   14 /* Public */,
+      11,    0,  201,    2, 0x26,   16 /* Public | MethodCloned */,
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-      12,    1,  196,    2, 0x08,   17 /* Private */,
-      14,    0,  199,    2, 0x08,   19 /* Private */,
-      15,    0,  200,    2, 0x08,   20 /* Private */,
-      16,    0,  201,    2, 0x08,   21 /* Private */,
-      17,    0,  202,    2, 0x08,   22 /* Private */,
-      18,    0,  203,    2, 0x08,   23 /* Private */,
-      19,    0,  204,    2, 0x08,   24 /* Private */,
-      20,    1,  205,    2, 0x08,   25 /* Private */,
-      22,    1,  208,    2, 0x08,   27 /* Private */,
-      23,    0,  211,    2, 0x08,   29 /* Private */,
-      24,    0,  212,    2, 0x08,   30 /* Private */,
-      25,    2,  213,    2, 0x08,   31 /* Private */,
-      27,    4,  218,    2, 0x08,   34 /* Private */,
-      27,    3,  227,    2, 0x28,   39 /* Private | MethodCloned */,
-      30,    3,  234,    2, 0x08,   43 /* Private */,
-      30,    2,  241,    2, 0x28,   47 /* Private | MethodCloned */,
-      31,    1,  246,    2, 0x08,   50 /* Private */,
-      31,    0,  249,    2, 0x28,   52 /* Private | MethodCloned */,
-      31,    2,  250,    2, 0x08,   53 /* Private */,
-      32,    0,  255,    2, 0x08,   56 /* Private */,
+      12,    1,  202,    2, 0x08,   17 /* Private */,
+      14,    0,  205,    2, 0x08,   19 /* Private */,
+      15,    0,  206,    2, 0x08,   20 /* Private */,
+      16,    0,  207,    2, 0x08,   21 /* Private */,
+      17,    0,  208,    2, 0x08,   22 /* Private */,
+      18,    0,  209,    2, 0x08,   23 /* Private */,
+      19,    0,  210,    2, 0x08,   24 /* Private */,
+      20,    1,  211,    2, 0x08,   25 /* Private */,
+      22,    1,  214,    2, 0x08,   27 /* Private */,
+      23,    0,  217,    2, 0x08,   29 /* Private */,
+      24,    0,  218,    2, 0x08,   30 /* Private */,
+      25,    2,  219,    2, 0x08,   31 /* Private */,
+      27,    4,  224,    2, 0x08,   34 /* Private */,
+      27,    3,  233,    2, 0x28,   39 /* Private | MethodCloned */,
+      30,    3,  240,    2, 0x08,   43 /* Private */,
+      30,    2,  247,    2, 0x28,   47 /* Private | MethodCloned */,
+      31,    1,  252,    2, 0x08,   50 /* Private */,
+      31,    0,  255,    2, 0x28,   52 /* Private | MethodCloned */,
+      31,    2,  256,    2, 0x08,   53 /* Private */,
+      32,    0,  261,    2, 0x08,   56 /* Private */,
+      33,    0,  262,    2, 0x08,   57 /* Private */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::Int, QMetaType::QString, QMetaType::Int,    3,    4,    5,
@@ -145,6 +147,7 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSMainWindowENDCLASS[] = {
     QMetaType::Void, QMetaType::Int,    9,
     QMetaType::Void,
     QMetaType::Void, QMetaType::Int, QMetaType::Int,    9,   10,
+    QMetaType::Void,
     QMetaType::Void,
 
        0        // eod
@@ -240,6 +243,8 @@ Q_CONSTINIT const QMetaObject MainWindow::staticMetaObject = { {
         QtPrivate::TypeAndForceComplete<int, std::false_type>,
         QtPrivate::TypeAndForceComplete<int, std::false_type>,
         // method 'on_pushButton_3_clicked'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'on_pushButton_clicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>
     >,
     nullptr
@@ -277,6 +282,7 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 23: _t->SetRowColor(); break;
         case 24: _t->SetRowColor((*reinterpret_cast< std::add_pointer_t<int>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[2]))); break;
         case 25: _t->on_pushButton_3_clicked(); break;
+        case 26: _t->on_pushButton_clicked(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -331,13 +337,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 26)
+        if (_id < 27)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 26;
+        _id -= 27;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 26)
+        if (_id < 27)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 26;
+        _id -= 27;
     }
     return _id;
 }
