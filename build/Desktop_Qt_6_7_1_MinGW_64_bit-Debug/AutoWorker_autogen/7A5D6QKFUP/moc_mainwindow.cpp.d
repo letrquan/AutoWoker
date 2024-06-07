@@ -6,7 +6,6 @@ D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/AutoWo
   C:/Qt/6.7.1/mingw_64/include/QtCore/QMap \
   C:/Qt/6.7.1/mingw_64/include/QtCore/QObject \
   C:/Qt/6.7.1/mingw_64/include/QtCore/QRect \
-  C:/Qt/6.7.1/mingw_64/include/QtCore/QRunnable \
   C:/Qt/6.7.1/mingw_64/include/QtCore/QSet \
   C:/Qt/6.7.1/mingw_64/include/QtCore/QSettings \
   C:/Qt/6.7.1/mingw_64/include/QtCore/QSize \
@@ -71,7 +70,6 @@ D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/AutoWo
   C:/Qt/6.7.1/mingw_64/include/QtCore/qhashfunctions.h \
   C:/Qt/6.7.1/mingw_64/include/QtCore/qiodevice.h \
   C:/Qt/6.7.1/mingw_64/include/QtCore/qiodevicebase.h \
-  C:/Qt/6.7.1/mingw_64/include/QtCore/qitemselectionmodel.h \
   C:/Qt/6.7.1/mingw_64/include/QtCore/qiterable.h \
   C:/Qt/6.7.1/mingw_64/include/QtCore/qiterator.h \
   C:/Qt/6.7.1/mingw_64/include/QtCore/qlatin1stringview.h \
@@ -100,7 +98,6 @@ D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/AutoWo
   C:/Qt/6.7.1/mingw_64/include/QtCore/qprocessordetection.h \
   C:/Qt/6.7.1/mingw_64/include/QtCore/qrect.h \
   C:/Qt/6.7.1/mingw_64/include/QtCore/qrefcount.h \
-  C:/Qt/6.7.1/mingw_64/include/QtCore/qregularexpression.h \
   C:/Qt/6.7.1/mingw_64/include/QtCore/qrunnable.h \
   C:/Qt/6.7.1/mingw_64/include/QtCore/qscopedpointer.h \
   C:/Qt/6.7.1/mingw_64/include/QtCore/qscopeguard.h \
@@ -193,7 +190,6 @@ D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/AutoWo
   C:/Qt/6.7.1/mingw_64/include/QtGui/qtguiexports.h \
   C:/Qt/6.7.1/mingw_64/include/QtGui/qtguiglobal.h \
   C:/Qt/6.7.1/mingw_64/include/QtGui/qtransform.h \
-  C:/Qt/6.7.1/mingw_64/include/QtGui/qvalidator.h \
   C:/Qt/6.7.1/mingw_64/include/QtGui/qvector2d.h \
   C:/Qt/6.7.1/mingw_64/include/QtGui/qvectornd.h \
   C:/Qt/6.7.1/mingw_64/include/QtGui/qwindowdefs.h \
@@ -214,25 +210,12 @@ D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/AutoWo
   C:/Qt/6.7.1/mingw_64/include/QtWidgets/QCheckBox \
   C:/Qt/6.7.1/mingw_64/include/QtWidgets/QMainWindow \
   C:/Qt/6.7.1/mingw_64/include/QtWidgets/QMenu \
-  C:/Qt/6.7.1/mingw_64/include/QtWidgets/QTableView \
   C:/Qt/6.7.1/mingw_64/include/QtWidgets/QWidgetAction \
   C:/Qt/6.7.1/mingw_64/include/QtWidgets/qabstractbutton.h \
-  C:/Qt/6.7.1/mingw_64/include/QtWidgets/qabstractitemdelegate.h \
-  C:/Qt/6.7.1/mingw_64/include/QtWidgets/qabstractitemview.h \
-  C:/Qt/6.7.1/mingw_64/include/QtWidgets/qabstractscrollarea.h \
-  C:/Qt/6.7.1/mingw_64/include/QtWidgets/qabstractslider.h \
-  C:/Qt/6.7.1/mingw_64/include/QtWidgets/qabstractspinbox.h \
   C:/Qt/6.7.1/mingw_64/include/QtWidgets/qcheckbox.h \
-  C:/Qt/6.7.1/mingw_64/include/QtWidgets/qframe.h \
   C:/Qt/6.7.1/mingw_64/include/QtWidgets/qmainwindow.h \
   C:/Qt/6.7.1/mingw_64/include/QtWidgets/qmenu.h \
-  C:/Qt/6.7.1/mingw_64/include/QtWidgets/qrubberband.h \
   C:/Qt/6.7.1/mingw_64/include/QtWidgets/qsizepolicy.h \
-  C:/Qt/6.7.1/mingw_64/include/QtWidgets/qslider.h \
-  C:/Qt/6.7.1/mingw_64/include/QtWidgets/qstyle.h \
-  C:/Qt/6.7.1/mingw_64/include/QtWidgets/qstyleoption.h \
-  C:/Qt/6.7.1/mingw_64/include/QtWidgets/qtabbar.h \
-  C:/Qt/6.7.1/mingw_64/include/QtWidgets/qtableview.h \
   C:/Qt/6.7.1/mingw_64/include/QtWidgets/qtabwidget.h \
   C:/Qt/6.7.1/mingw_64/include/QtWidgets/qtwidgets-config.h \
   C:/Qt/6.7.1/mingw_64/include/QtWidgets/qtwidgetsexports.h \
@@ -445,5 +428,4 @@ D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/AutoWo
   C:/Qt/Tools/mingw1120_64/x86_64-w64-mingw32/include/time.h \
   C:/Qt/Tools/mingw1120_64/x86_64-w64-mingw32/include/vadefs.h \
   C:/Qt/Tools/mingw1120_64/x86_64-w64-mingw32/include/wchar.h \
-  D:/AutoWorker/XWorker/AutoWoker/Table/customtablemodel.h \
-  D:/AutoWorker/XWorker/AutoWoker/Worker/baseworker.h
+  D:/AutoWorker/XWorker/AutoWoker/Table/customtablemodel.h

@@ -1,0 +1,9 @@
+D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-MinSizeRel/CMakeFiles/AutoWorker.dir
+D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-MinSizeRel/CMakeFiles/edit_cache.dir
+D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-MinSizeRel/CMakeFiles/rebuild_cache.dir
+D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-MinSizeRel/CMakeFiles/list_install_components.dir
+D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-MinSizeRel/CMakeFiles/install.dir
+D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-MinSizeRel/CMakeFiles/install/local.dir
+D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-MinSizeRel/CMakeFiles/install/strip.dir
+D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-MinSizeRel/CMakeFiles/AutoWorker_autogen_timestamp_deps.dir
+D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-MinSizeRel/CMakeFiles/AutoWorker_autogen.dir

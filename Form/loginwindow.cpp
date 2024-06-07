@@ -10,7 +10,6 @@
 #include <QFile>
 #include "mainwindow.h"
 #include <QGraphicsDropShadowEffect>
-#include "../MCommon/Common.h"
 
 LoginWindow::LoginWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -38,6 +37,7 @@ LoginWindow::~LoginWindow()
 void LoginWindow::loadSettings(){
     getLogin();
     Loadx();
+    this->hide();
 }
 
 
@@ -75,7 +75,7 @@ void LoginWindow::on_LoginButton_clicked()
                 QMessageBox::information(this, "Đăng nhập", boxchao);
                 if(status_u==1){
                     auto  mainWindow = new MainWindow(token,name,phone,max_devices,this);
-                    this->close();
+                    this->hide();
                     mainWindow->show();
                 }else{
                     QMessageBox::critical(this,
@@ -186,7 +186,7 @@ void LoginWindow::Loadx(){
                             // QMessageBox::information(this, "Đăng nhập", boxchao);
                             if(status_u==1){
                                 auto  mainWindow = new MainWindow(token,name,phone,max_devices,this);
-                                this->close();
+                                this->hide();
                                 mainWindow->show();
                             }else{
                                 QMessageBox::critical(this,

@@ -67,11 +67,11 @@ public:
         button5 = new QPushButton(fChonThuMuc);
         button5->setObjectName("button5");
         button5->setGeometry(QRect(360, 60, 41, 41));
-        button5->setStyleSheet(QString::fromUtf8("image: url(:/img/C:/Users/quan2/Downloads/up-arrow.png);"));
+        button5->setStyleSheet(QString::fromUtf8("image: url(:/img/img/up-arrow-blue.png);"));
         button4 = new QPushButton(fChonThuMuc);
         button4->setObjectName("button4");
         button4->setGeometry(QRect(360, 120, 41, 41));
-        button4->setStyleSheet(QString::fromUtf8("image: url(:/img/C:/Users/quan2/Downloads/down-arrow.png);"));
+        button4->setStyleSheet(QString::fromUtf8("image: url(:/img/img/down-arrow.png);"));
         dtgvAcc = new QTableWidget(fChonThuMuc);
         if (dtgvAcc->columnCount() < 4)
             dtgvAcc->setColumnCount(4);

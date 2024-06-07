@@ -205,7 +205,6 @@ bool CommonSQL::UpdateThuTuThuMuc(const QString& id1, const QString& id2) {
     }
 }
 
-
 bool CommonSQL::UpdateMultiFieldToAccount(QString id, QString lstFieldName, QString lstFieldValue, bool isAllowEmptyValue){
     bool result = false;
     try
@@ -232,4 +231,29 @@ bool CommonSQL::UpdateMultiFieldToAccount(QString id, QString lstFieldName, QStr
     {
         return result;
     }
+}
+bool CommonSQL::UpdateStatuses(const QMap<QString, QString> statusMap, QString fieldName) {
+    bool result = false;
+    if (statusMap.isEmpty()) {
+        qDebug() << "Status map is empty. No updates to perform.";
+        return false;
+    }
+
+    QString sqlQuery = "UPDATE accounts SET "+fieldName+" = CASE ";
+
+    for (auto it = statusMap.begin(); it != statusMap.end(); ++it) {
+        sqlQuery += QString("WHEN id = %1 THEN '%2' ").arg(it.key().toInt()).arg(it.value());
+    }
+
+    sqlQuery += "ELSE "+fieldName+" END WHERE id IN (";
+
+    QStringList ids;
+    for (auto it = statusMap.begin(); it != statusMap.end(); ++it) {
+        ids << it.key();
+    }
+
+    sqlQuery += ids.join(", ");
+    sqlQuery += ");";
+    result = Connector::getInstance().ExecuteNonQuery(sqlQuery);
+    return result;
 }
