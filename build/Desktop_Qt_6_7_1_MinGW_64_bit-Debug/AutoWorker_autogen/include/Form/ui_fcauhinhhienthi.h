@@ -13,225 +13,324 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QCheckBox>
 #include <QtWidgets/QDialog>
+#include <QtWidgets/QGridLayout>
+#include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
 
 class Ui_fCauHinhHienThi
 {
 public:
-    QCheckBox *ckbUserAgent;
-    QCheckBox *ckbNgayTao;
-    QCheckBox *ckbPage;
-    QCheckBox *ckbMailKhoiPhuc;
-    QCheckBox *ckbNgaySinh;
-    QCheckBox *ckbTinhTrang;
-    QCheckBox *ckbMatKhauMail;
-    QCheckBox *ckbThuMuc;
-    QCheckBox *ckbLuongSo;
-    QCheckBox *ckbGioiTinh;
-    QCheckBox *ckbLocation;
-    QCheckBox *ckbCurrentCity;
-    QCheckBox *ckbTen;
-    QCheckBox *ckbNhom;
-    QCheckBox *ckmEmail;
-    QCheckBox *ckbFbBlock;
+    QWidget *widget;
+    QGridLayout *gridLayout;
     QCheckBox *ckbToken;
+    QCheckBox *ckbPage;
+    QCheckBox *ckbMatKhauMail;
+    QCheckBox *ckbProfile;
+    QCheckBox *ckbAds;
+    QCheckBox *ckbCookie;
+    QCheckBox *ckbPagePro5;
     QCheckBox *ckbBackup;
-    QCheckBox *ckbAvatar;
+    QCheckBox *ckbTuongTacCuoi;
+    QCheckBox *ckbBM;
+    QCheckBox *ckmEmail;
+    QCheckBox *ckbNgaySinh;
+    QCheckBox *ckbMa2FA;
+    QCheckBox *ckbTinhTrang;
+    QCheckBox *ckbLocation;
+    QCheckBox *ckbTen;
+    QCheckBox *ckbPhone;
+    QCheckBox *ckbUserAgent;
+    QCheckBox *ckbThuMuc;
+    QCheckBox *ckbHomeTown;
+    QCheckBox *ckbTheodoi;
+    QCheckBox *ckbGioiTinh;
+    QCheckBox *ckbProxy;
+    QCheckBox *ckbStatus282;
+    QCheckBox *ckbCurrentCity;
+    QCheckBox *ckbBanBe;
+    QCheckBox *ckbMatKhau;
+    QCheckBox *ckbNgayTao;
     QCheckBox *ckbGhiChu;
     QCheckBox *ckbJob;
-    QCheckBox *ckbTheodoi;
-    QCheckBox *ckbTuongTacCuoi;
+    QCheckBox *ckbNhom;
+    QCheckBox *ckbMailKhoiPhuc;
+    QCheckBox *ckbAvatar;
     QCheckBox *ckbDating;
-    QCheckBox *ckbProxy;
-    QCheckBox *ckbPagePro5;
-    QCheckBox *ckbMatKhau;
-    QCheckBox *ckbAds;
-    QCheckBox *ckbProfile;
-    QCheckBox *ckbStatus282;
-    QCheckBox *ckbBM;
-    QCheckBox *ckbBanBe;
-    QCheckBox *ckbPhone;
-    QCheckBox *ckbMa2FA;
-    QCheckBox *ckbCookie;
-    QCheckBox *ckbHomeTown;
-    QPushButton *btnDong;
+    QCheckBox *ckbFbBlock;
+    QCheckBox *ckbLuongSo;
+    QWidget *widget1;
+    QHBoxLayout *horizontalLayout;
     QPushButton *btnLuu;
+    QPushButton *btnDong;
 
     void setupUi(QDialog *fCauHinhHienThi)
     {
         if (fCauHinhHienThi->objectName().isEmpty())
             fCauHinhHienThi->setObjectName("fCauHinhHienThi");
         fCauHinhHienThi->resize(738, 456);
-        fCauHinhHienThi->setStyleSheet(QString::fromUtf8("background-color: #503C3C;\n"
-"border-radius:20px;"));
-        ckbUserAgent = new QCheckBox(fCauHinhHienThi);
-        ckbUserAgent->setObjectName("ckbUserAgent");
-        ckbUserAgent->setGeometry(QRect(299, 170, 74, 17));
+        fCauHinhHienThi->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255);\n"
+"color:black;"));
+        widget = new QWidget(fCauHinhHienThi);
+        widget->setObjectName("widget");
+        widget->setGeometry(QRect(9, 12, 721, 371));
+        gridLayout = new QGridLayout(widget);
+        gridLayout->setObjectName("gridLayout");
+        gridLayout->setContentsMargins(0, 0, 0, 0);
+        ckbToken = new QCheckBox(widget);
+        ckbToken->setObjectName("ckbToken");
         QFont font;
         font.setBold(true);
-        ckbUserAgent->setFont(font);
-        ckbNgayTao = new QCheckBox(fCauHinhHienThi);
-        ckbNgayTao->setObjectName("ckbNgayTao");
-        ckbNgayTao->setGeometry(QRect(299, 262, 72, 17));
-        ckbNgayTao->setFont(font);
-        ckbPage = new QCheckBox(fCauHinhHienThi);
-        ckbPage->setObjectName("ckbPage");
-        ckbPage->setGeometry(QRect(154, 32, 47, 17));
-        ckbPage->setFont(font);
-        ckbMailKhoiPhuc = new QCheckBox(fCauHinhHienThi);
-        ckbMailKhoiPhuc->setObjectName("ckbMailKhoiPhuc");
-        ckbMailKhoiPhuc->setGeometry(QRect(154, 308, 100, 17));
-        ckbMailKhoiPhuc->setFont(font);
-        ckbNgaySinh = new QCheckBox(fCauHinhHienThi);
-        ckbNgaySinh->setObjectName("ckbNgaySinh");
-        ckbNgaySinh->setGeometry(QRect(154, 124, 74, 17));
-        ckbNgaySinh->setFont(font);
-        ckbTinhTrang = new QCheckBox(fCauHinhHienThi);
-        ckbTinhTrang->setObjectName("ckbTinhTrang");
-        ckbTinhTrang->setGeometry(QRect(445, 124, 76, 17));
-        ckbTinhTrang->setFont(font);
-        ckbMatKhauMail = new QCheckBox(fCauHinhHienThi);
-        ckbMatKhauMail->setObjectName("ckbMatKhauMail");
-        ckbMatKhauMail->setGeometry(QRect(299, 32, 97, 17));
-        ckbMatKhauMail->setFont(font);
-        ckbThuMuc = new QCheckBox(fCauHinhHienThi);
-        ckbThuMuc->setObjectName("ckbThuMuc");
-        ckbThuMuc->setGeometry(QRect(445, 170, 69, 17));
-        ckbThuMuc->setFont(font);
-        ckbLuongSo = new QCheckBox(fCauHinhHienThi);
-        ckbLuongSo->setObjectName("ckbLuongSo");
-        ckbLuongSo->setGeometry(QRect(9, 354, 70, 17));
-        ckbLuongSo->setFont(font);
-        ckbGioiTinh = new QCheckBox(fCauHinhHienThi);
-        ckbGioiTinh->setObjectName("ckbGioiTinh");
-        ckbGioiTinh->setGeometry(QRect(154, 216, 81, 17));
-        ckbGioiTinh->setFont(font);
-        ckbLocation = new QCheckBox(fCauHinhHienThi);
-        ckbLocation->setObjectName("ckbLocation");
-        ckbLocation->setGeometry(QRect(590, 124, 67, 17));
-        ckbLocation->setFont(font);
-        ckbCurrentCity = new QCheckBox(fCauHinhHienThi);
-        ckbCurrentCity->setObjectName("ckbCurrentCity");
-        ckbCurrentCity->setGeometry(QRect(590, 216, 101, 17));
-        ckbCurrentCity->setFont(font);
-        ckbTen = new QCheckBox(fCauHinhHienThi);
-        ckbTen->setObjectName("ckbTen");
-        ckbTen->setGeometry(QRect(9, 170, 43, 17));
-        ckbTen->setFont(font);
-        ckbNhom = new QCheckBox(fCauHinhHienThi);
-        ckbNhom->setObjectName("ckbNhom");
-        ckbNhom->setGeometry(QRect(9, 308, 55, 17));
-        ckbNhom->setFont(font);
-        ckmEmail = new QCheckBox(fCauHinhHienThi);
-        ckmEmail->setObjectName("ckmEmail");
-        ckmEmail->setGeometry(QRect(9, 124, 50, 17));
-        ckmEmail->setFont(font);
-        ckbFbBlock = new QCheckBox(fCauHinhHienThi);
-        ckbFbBlock->setObjectName("ckbFbBlock");
-        ckbFbBlock->setGeometry(QRect(590, 308, 66, 17));
-        ckbFbBlock->setFont(font);
-        ckbToken = new QCheckBox(fCauHinhHienThi);
-        ckbToken->setObjectName("ckbToken");
-        ckbToken->setGeometry(QRect(9, 32, 53, 17));
         ckbToken->setFont(font);
-        ckbBackup = new QCheckBox(fCauHinhHienThi);
-        ckbBackup->setObjectName("ckbBackup");
-        ckbBackup->setGeometry(QRect(299, 78, 60, 17));
+
+        gridLayout->addWidget(ckbToken, 0, 0, 1, 1);
+
+        ckbPage = new QCheckBox(widget);
+        ckbPage->setObjectName("ckbPage");
+        ckbPage->setFont(font);
+
+        gridLayout->addWidget(ckbPage, 0, 1, 1, 1);
+
+        ckbMatKhauMail = new QCheckBox(widget);
+        ckbMatKhauMail->setObjectName("ckbMatKhauMail");
+        ckbMatKhauMail->setFont(font);
+
+        gridLayout->addWidget(ckbMatKhauMail, 0, 2, 1, 1);
+
+        ckbProfile = new QCheckBox(widget);
+        ckbProfile->setObjectName("ckbProfile");
+        ckbProfile->setFont(font);
+
+        gridLayout->addWidget(ckbProfile, 0, 3, 1, 1);
+
+        ckbAds = new QCheckBox(widget);
+        ckbAds->setObjectName("ckbAds");
+        ckbAds->setFont(font);
+        ckbAds->setStyleSheet(QString::fromUtf8(""));
+
+        gridLayout->addWidget(ckbAds, 0, 4, 1, 1);
+
+        ckbCookie = new QCheckBox(widget);
+        ckbCookie->setObjectName("ckbCookie");
+        ckbCookie->setFont(font);
+
+        gridLayout->addWidget(ckbCookie, 1, 0, 1, 1);
+
+        ckbPagePro5 = new QCheckBox(widget);
+        ckbPagePro5->setObjectName("ckbPagePro5");
         QFont font1;
         font1.setBold(true);
         font1.setItalic(false);
+        ckbPagePro5->setFont(font1);
+
+        gridLayout->addWidget(ckbPagePro5, 1, 1, 1, 1);
+
+        ckbBackup = new QCheckBox(widget);
+        ckbBackup->setObjectName("ckbBackup");
         ckbBackup->setFont(font1);
-        ckbAvatar = new QCheckBox(fCauHinhHienThi);
+
+        gridLayout->addWidget(ckbBackup, 1, 2, 1, 1);
+
+        ckbTuongTacCuoi = new QCheckBox(widget);
+        ckbTuongTacCuoi->setObjectName("ckbTuongTacCuoi");
+        ckbTuongTacCuoi->setFont(font);
+
+        gridLayout->addWidget(ckbTuongTacCuoi, 1, 3, 1, 1);
+
+        ckbBM = new QCheckBox(widget);
+        ckbBM->setObjectName("ckbBM");
+        ckbBM->setFont(font);
+
+        gridLayout->addWidget(ckbBM, 1, 4, 1, 1);
+
+        ckmEmail = new QCheckBox(widget);
+        ckmEmail->setObjectName("ckmEmail");
+        ckmEmail->setFont(font);
+
+        gridLayout->addWidget(ckmEmail, 2, 0, 1, 1);
+
+        ckbNgaySinh = new QCheckBox(widget);
+        ckbNgaySinh->setObjectName("ckbNgaySinh");
+        ckbNgaySinh->setFont(font);
+
+        gridLayout->addWidget(ckbNgaySinh, 2, 1, 1, 1);
+
+        ckbMa2FA = new QCheckBox(widget);
+        ckbMa2FA->setObjectName("ckbMa2FA");
+        ckbMa2FA->setFont(font);
+
+        gridLayout->addWidget(ckbMa2FA, 2, 2, 1, 1);
+
+        ckbTinhTrang = new QCheckBox(widget);
+        ckbTinhTrang->setObjectName("ckbTinhTrang");
+        ckbTinhTrang->setFont(font);
+
+        gridLayout->addWidget(ckbTinhTrang, 2, 3, 1, 1);
+
+        ckbLocation = new QCheckBox(widget);
+        ckbLocation->setObjectName("ckbLocation");
+        ckbLocation->setFont(font);
+
+        gridLayout->addWidget(ckbLocation, 2, 4, 1, 1);
+
+        ckbTen = new QCheckBox(widget);
+        ckbTen->setObjectName("ckbTen");
+        ckbTen->setFont(font);
+
+        gridLayout->addWidget(ckbTen, 3, 0, 1, 1);
+
+        ckbPhone = new QCheckBox(widget);
+        ckbPhone->setObjectName("ckbPhone");
+        ckbPhone->setFont(font);
+
+        gridLayout->addWidget(ckbPhone, 3, 1, 1, 1);
+
+        ckbUserAgent = new QCheckBox(widget);
+        ckbUserAgent->setObjectName("ckbUserAgent");
+        ckbUserAgent->setFont(font);
+
+        gridLayout->addWidget(ckbUserAgent, 3, 2, 1, 1);
+
+        ckbThuMuc = new QCheckBox(widget);
+        ckbThuMuc->setObjectName("ckbThuMuc");
+        ckbThuMuc->setFont(font);
+
+        gridLayout->addWidget(ckbThuMuc, 3, 3, 1, 1);
+
+        ckbHomeTown = new QCheckBox(widget);
+        ckbHomeTown->setObjectName("ckbHomeTown");
+        ckbHomeTown->setFont(font);
+
+        gridLayout->addWidget(ckbHomeTown, 3, 4, 1, 1);
+
+        ckbTheodoi = new QCheckBox(widget);
+        ckbTheodoi->setObjectName("ckbTheodoi");
+        ckbTheodoi->setFont(font);
+
+        gridLayout->addWidget(ckbTheodoi, 4, 0, 1, 1);
+
+        ckbGioiTinh = new QCheckBox(widget);
+        ckbGioiTinh->setObjectName("ckbGioiTinh");
+        ckbGioiTinh->setFont(font);
+
+        gridLayout->addWidget(ckbGioiTinh, 4, 1, 1, 1);
+
+        ckbProxy = new QCheckBox(widget);
+        ckbProxy->setObjectName("ckbProxy");
+        ckbProxy->setFont(font);
+
+        gridLayout->addWidget(ckbProxy, 4, 2, 1, 1);
+
+        ckbStatus282 = new QCheckBox(widget);
+        ckbStatus282->setObjectName("ckbStatus282");
+        ckbStatus282->setFont(font);
+
+        gridLayout->addWidget(ckbStatus282, 4, 3, 1, 1);
+
+        ckbCurrentCity = new QCheckBox(widget);
+        ckbCurrentCity->setObjectName("ckbCurrentCity");
+        ckbCurrentCity->setFont(font);
+
+        gridLayout->addWidget(ckbCurrentCity, 4, 4, 1, 1);
+
+        ckbBanBe = new QCheckBox(widget);
+        ckbBanBe->setObjectName("ckbBanBe");
+        ckbBanBe->setFont(font);
+
+        gridLayout->addWidget(ckbBanBe, 5, 0, 1, 1);
+
+        ckbMatKhau = new QCheckBox(widget);
+        ckbMatKhau->setObjectName("ckbMatKhau");
+        ckbMatKhau->setFont(font);
+
+        gridLayout->addWidget(ckbMatKhau, 5, 1, 1, 1);
+
+        ckbNgayTao = new QCheckBox(widget);
+        ckbNgayTao->setObjectName("ckbNgayTao");
+        ckbNgayTao->setFont(font);
+
+        gridLayout->addWidget(ckbNgayTao, 5, 2, 1, 1);
+
+        ckbGhiChu = new QCheckBox(widget);
+        ckbGhiChu->setObjectName("ckbGhiChu");
+        ckbGhiChu->setFont(font);
+
+        gridLayout->addWidget(ckbGhiChu, 5, 3, 1, 1);
+
+        ckbJob = new QCheckBox(widget);
+        ckbJob->setObjectName("ckbJob");
+        ckbJob->setFont(font);
+
+        gridLayout->addWidget(ckbJob, 5, 4, 1, 1);
+
+        ckbNhom = new QCheckBox(widget);
+        ckbNhom->setObjectName("ckbNhom");
+        ckbNhom->setFont(font);
+
+        gridLayout->addWidget(ckbNhom, 6, 0, 1, 1);
+
+        ckbMailKhoiPhuc = new QCheckBox(widget);
+        ckbMailKhoiPhuc->setObjectName("ckbMailKhoiPhuc");
+        ckbMailKhoiPhuc->setFont(font);
+
+        gridLayout->addWidget(ckbMailKhoiPhuc, 6, 1, 1, 1);
+
+        ckbAvatar = new QCheckBox(widget);
         ckbAvatar->setObjectName("ckbAvatar");
-        ckbAvatar->setGeometry(QRect(299, 308, 55, 17));
         ckbAvatar->setFont(font);
         ckbAvatar->setStyleSheet(QString::fromUtf8(""));
-        ckbGhiChu = new QCheckBox(fCauHinhHienThi);
-        ckbGhiChu->setObjectName("ckbGhiChu");
-        ckbGhiChu->setGeometry(QRect(445, 262, 62, 17));
-        ckbGhiChu->setFont(font);
-        ckbJob = new QCheckBox(fCauHinhHienThi);
-        ckbJob->setObjectName("ckbJob");
-        ckbJob->setGeometry(QRect(590, 262, 39, 17));
-        ckbJob->setFont(font);
-        ckbTheodoi = new QCheckBox(fCauHinhHienThi);
-        ckbTheodoi->setObjectName("ckbTheodoi");
-        ckbTheodoi->setGeometry(QRect(9, 216, 68, 17));
-        ckbTheodoi->setFont(font);
-        ckbTuongTacCuoi = new QCheckBox(fCauHinhHienThi);
-        ckbTuongTacCuoi->setObjectName("ckbTuongTacCuoi");
-        ckbTuongTacCuoi->setGeometry(QRect(445, 78, 111, 17));
-        ckbTuongTacCuoi->setFont(font);
-        ckbDating = new QCheckBox(fCauHinhHienThi);
+
+        gridLayout->addWidget(ckbAvatar, 6, 2, 1, 1);
+
+        ckbDating = new QCheckBox(widget);
         ckbDating->setObjectName("ckbDating");
-        ckbDating->setGeometry(QRect(445, 308, 56, 17));
         ckbDating->setFont(font);
-        ckbProxy = new QCheckBox(fCauHinhHienThi);
-        ckbProxy->setObjectName("ckbProxy");
-        ckbProxy->setGeometry(QRect(299, 216, 50, 17));
-        ckbProxy->setFont(font);
-        ckbPagePro5 = new QCheckBox(fCauHinhHienThi);
-        ckbPagePro5->setObjectName("ckbPagePro5");
-        ckbPagePro5->setGeometry(QRect(154, 78, 74, 17));
-        ckbPagePro5->setFont(font1);
-        ckbMatKhau = new QCheckBox(fCauHinhHienThi);
-        ckbMatKhau->setObjectName("ckbMatKhau");
-        ckbMatKhau->setGeometry(QRect(154, 262, 71, 17));
-        ckbMatKhau->setFont(font);
-        ckbAds = new QCheckBox(fCauHinhHienThi);
-        ckbAds->setObjectName("ckbAds");
-        ckbAds->setGeometry(QRect(590, 32, 41, 17));
-        ckbAds->setFont(font);
-        ckbAds->setStyleSheet(QString::fromUtf8(""));
-        ckbProfile = new QCheckBox(fCauHinhHienThi);
-        ckbProfile->setObjectName("ckbProfile");
-        ckbProfile->setGeometry(QRect(445, 32, 71, 17));
-        ckbProfile->setFont(font);
-        ckbStatus282 = new QCheckBox(fCauHinhHienThi);
-        ckbStatus282->setObjectName("ckbStatus282");
-        ckbStatus282->setGeometry(QRect(445, 216, 74, 17));
-        ckbStatus282->setFont(font);
-        ckbBM = new QCheckBox(fCauHinhHienThi);
-        ckbBM->setObjectName("ckbBM");
-        ckbBM->setGeometry(QRect(590, 78, 39, 17));
-        ckbBM->setFont(font);
-        ckbBanBe = new QCheckBox(fCauHinhHienThi);
-        ckbBanBe->setObjectName("ckbBanBe");
-        ckbBanBe->setGeometry(QRect(9, 262, 61, 17));
-        ckbBanBe->setFont(font);
-        ckbPhone = new QCheckBox(fCauHinhHienThi);
-        ckbPhone->setObjectName("ckbPhone");
-        ckbPhone->setGeometry(QRect(154, 170, 55, 17));
-        ckbPhone->setFont(font);
-        ckbMa2FA = new QCheckBox(fCauHinhHienThi);
-        ckbMa2FA->setObjectName("ckbMa2FA");
-        ckbMa2FA->setGeometry(QRect(299, 124, 60, 17));
-        ckbMa2FA->setFont(font);
-        ckbCookie = new QCheckBox(fCauHinhHienThi);
-        ckbCookie->setObjectName("ckbCookie");
-        ckbCookie->setGeometry(QRect(9, 78, 58, 17));
-        ckbCookie->setFont(font);
-        ckbHomeTown = new QCheckBox(fCauHinhHienThi);
-        ckbHomeTown->setObjectName("ckbHomeTown");
-        ckbHomeTown->setGeometry(QRect(590, 170, 101, 17));
-        ckbHomeTown->setFont(font);
-        btnDong = new QPushButton(fCauHinhHienThi);
+
+        gridLayout->addWidget(ckbDating, 6, 3, 1, 1);
+
+        ckbFbBlock = new QCheckBox(widget);
+        ckbFbBlock->setObjectName("ckbFbBlock");
+        ckbFbBlock->setFont(font);
+
+        gridLayout->addWidget(ckbFbBlock, 6, 4, 1, 1);
+
+        ckbLuongSo = new QCheckBox(widget);
+        ckbLuongSo->setObjectName("ckbLuongSo");
+        ckbLuongSo->setFont(font);
+
+        gridLayout->addWidget(ckbLuongSo, 7, 0, 1, 1);
+
+        widget1 = new QWidget(fCauHinhHienThi);
+        widget1->setObjectName("widget1");
+        widget1->setGeometry(QRect(240, 400, 251, 41));
+        horizontalLayout = new QHBoxLayout(widget1);
+        horizontalLayout->setObjectName("horizontalLayout");
+        horizontalLayout->setContentsMargins(0, 0, 0, 0);
+        btnLuu = new QPushButton(widget1);
+        btnLuu->setObjectName("btnLuu");
+        btnLuu->setMinimumSize(QSize(0, 30));
+        btnLuu->setFont(font);
+        btnLuu->setStyleSheet(QString::fromUtf8("background-color:darkblue;\n"
+"color:white;\n"
+"border-radius:20px;"));
+
+        horizontalLayout->addWidget(btnLuu);
+
+        btnDong = new QPushButton(widget1);
         btnDong->setObjectName("btnDong");
-        btnDong->setGeometry(QRect(445, 400, 131, 31));
+        btnDong->setMinimumSize(QSize(0, 30));
         QFont font2;
         font2.setPointSize(9);
         font2.setBold(true);
         btnDong->setFont(font2);
         btnDong->setStyleSheet(QString::fromUtf8("background-color: darkred;\n"
-"border-radius:20px;"));
-        btnLuu = new QPushButton(fCauHinhHienThi);
-        btnLuu->setObjectName("btnLuu");
-        btnLuu->setGeometry(QRect(154, 400, 131, 31));
-        btnLuu->setFont(font);
-        btnLuu->setStyleSheet(QString::fromUtf8("background-color:darkblue;\n"
-"border-radius:20px;"));
+"border-radius:20px;\n"
+"color:white;"));
+
+        horizontalLayout->addWidget(btnDong);
+
 
         retranslateUi(fCauHinhHienThi);
 
@@ -241,44 +340,44 @@ public:
     void retranslateUi(QDialog *fCauHinhHienThi)
     {
         fCauHinhHienThi->setWindowTitle(QCoreApplication::translate("fCauHinhHienThi", "Dialog", nullptr));
-        ckbUserAgent->setText(QCoreApplication::translate("fCauHinhHienThi", "Useragent", nullptr));
-        ckbNgayTao->setText(QCoreApplication::translate("fCauHinhHienThi", "Ng\303\240y t\341\272\241o ", nullptr));
-        ckbPage->setText(QCoreApplication::translate("fCauHinhHienThi", "Page", nullptr));
-        ckbMailKhoiPhuc->setText(QCoreApplication::translate("fCauHinhHienThi", "Mail kh\303\264i ph\341\273\245c", nullptr));
-        ckbNgaySinh->setText(QCoreApplication::translate("fCauHinhHienThi", "Ng\303\240y sinh", nullptr));
-        ckbTinhTrang->setText(QCoreApplication::translate("fCauHinhHienThi", "T\303\254nh tr\341\272\241ng", nullptr));
-        ckbMatKhauMail->setText(QCoreApplication::translate("fCauHinhHienThi", "M\341\272\255t kh\341\272\251u mail", nullptr));
-        ckbThuMuc->setText(QCoreApplication::translate("fCauHinhHienThi", "Th\306\260 m\341\273\245c", nullptr));
-        ckbLuongSo->setText(QCoreApplication::translate("fCauHinhHienThi", "Lu\341\273\223ng s\341\273\221", nullptr));
-        ckbGioiTinh->setText(QCoreApplication::translate("fCauHinhHienThi", "Gi\341\273\233i t\303\255nh", nullptr));
-        ckbLocation->setText(QCoreApplication::translate("fCauHinhHienThi", "Location", nullptr));
-        ckbCurrentCity->setText(QCoreApplication::translate("fCauHinhHienThi", "Current City", nullptr));
-        ckbTen->setText(QCoreApplication::translate("fCauHinhHienThi", "T\303\252n ", nullptr));
-        ckbNhom->setText(QCoreApplication::translate("fCauHinhHienThi", "Nh\303\263m", nullptr));
-        ckmEmail->setText(QCoreApplication::translate("fCauHinhHienThi", "Email", nullptr));
-        ckbFbBlock->setText(QCoreApplication::translate("fCauHinhHienThi", "Fb Block", nullptr));
         ckbToken->setText(QCoreApplication::translate("fCauHinhHienThi", "Token", nullptr));
+        ckbPage->setText(QCoreApplication::translate("fCauHinhHienThi", "Page", nullptr));
+        ckbMatKhauMail->setText(QCoreApplication::translate("fCauHinhHienThi", "M\341\272\255t kh\341\272\251u mail", nullptr));
+        ckbProfile->setText(QCoreApplication::translate("fCauHinhHienThi", "Profile", nullptr));
+        ckbAds->setText(QCoreApplication::translate("fCauHinhHienThi", "Ads", nullptr));
+        ckbCookie->setText(QCoreApplication::translate("fCauHinhHienThi", "Cookie", nullptr));
+        ckbPagePro5->setText(QCoreApplication::translate("fCauHinhHienThi", "Page pro5", nullptr));
         ckbBackup->setText(QCoreApplication::translate("fCauHinhHienThi", "Backup", nullptr));
-        ckbAvatar->setText(QCoreApplication::translate("fCauHinhHienThi", "Avatar", nullptr));
+        ckbTuongTacCuoi->setText(QCoreApplication::translate("fCauHinhHienThi", "T\306\260\306\241ng t\303\241c cu\341\273\221i", nullptr));
+        ckbBM->setText(QCoreApplication::translate("fCauHinhHienThi", "BM", nullptr));
+        ckmEmail->setText(QCoreApplication::translate("fCauHinhHienThi", "Email", nullptr));
+        ckbNgaySinh->setText(QCoreApplication::translate("fCauHinhHienThi", "Ng\303\240y sinh", nullptr));
+        ckbMa2FA->setText(QCoreApplication::translate("fCauHinhHienThi", "M\303\243 2FA", nullptr));
+        ckbTinhTrang->setText(QCoreApplication::translate("fCauHinhHienThi", "T\303\254nh tr\341\272\241ng", nullptr));
+        ckbLocation->setText(QCoreApplication::translate("fCauHinhHienThi", "Location", nullptr));
+        ckbTen->setText(QCoreApplication::translate("fCauHinhHienThi", "T\303\252n ", nullptr));
+        ckbPhone->setText(QCoreApplication::translate("fCauHinhHienThi", "Phone", nullptr));
+        ckbUserAgent->setText(QCoreApplication::translate("fCauHinhHienThi", "Useragent", nullptr));
+        ckbThuMuc->setText(QCoreApplication::translate("fCauHinhHienThi", "Th\306\260 m\341\273\245c", nullptr));
+        ckbHomeTown->setText(QCoreApplication::translate("fCauHinhHienThi", "Hometown", nullptr));
+        ckbTheodoi->setText(QCoreApplication::translate("fCauHinhHienThi", "Theo d\303\265i", nullptr));
+        ckbGioiTinh->setText(QCoreApplication::translate("fCauHinhHienThi", "Gi\341\273\233i t\303\255nh", nullptr));
+        ckbProxy->setText(QCoreApplication::translate("fCauHinhHienThi", "Proxy", nullptr));
+        ckbStatus282->setText(QCoreApplication::translate("fCauHinhHienThi", "Status 282", nullptr));
+        ckbCurrentCity->setText(QCoreApplication::translate("fCauHinhHienThi", "Current City", nullptr));
+        ckbBanBe->setText(QCoreApplication::translate("fCauHinhHienThi", "B\341\272\241n b\303\250", nullptr));
+        ckbMatKhau->setText(QCoreApplication::translate("fCauHinhHienThi", "M\341\272\255t kh\341\272\251u", nullptr));
+        ckbNgayTao->setText(QCoreApplication::translate("fCauHinhHienThi", "Ng\303\240y t\341\272\241o ", nullptr));
         ckbGhiChu->setText(QCoreApplication::translate("fCauHinhHienThi", "Ghi ch\303\272", nullptr));
         ckbJob->setText(QCoreApplication::translate("fCauHinhHienThi", "Job", nullptr));
-        ckbTheodoi->setText(QCoreApplication::translate("fCauHinhHienThi", "Theo d\303\265i", nullptr));
-        ckbTuongTacCuoi->setText(QCoreApplication::translate("fCauHinhHienThi", "T\306\260\306\241ng t\303\241c cu\341\273\221i", nullptr));
+        ckbNhom->setText(QCoreApplication::translate("fCauHinhHienThi", "Nh\303\263m", nullptr));
+        ckbMailKhoiPhuc->setText(QCoreApplication::translate("fCauHinhHienThi", "Mail kh\303\264i ph\341\273\245c", nullptr));
+        ckbAvatar->setText(QCoreApplication::translate("fCauHinhHienThi", "Avatar", nullptr));
         ckbDating->setText(QCoreApplication::translate("fCauHinhHienThi", "Dating", nullptr));
-        ckbProxy->setText(QCoreApplication::translate("fCauHinhHienThi", "Proxy", nullptr));
-        ckbPagePro5->setText(QCoreApplication::translate("fCauHinhHienThi", "Page pro5", nullptr));
-        ckbMatKhau->setText(QCoreApplication::translate("fCauHinhHienThi", "M\341\272\255t kh\341\272\251u", nullptr));
-        ckbAds->setText(QCoreApplication::translate("fCauHinhHienThi", "Ads", nullptr));
-        ckbProfile->setText(QCoreApplication::translate("fCauHinhHienThi", "Profile", nullptr));
-        ckbStatus282->setText(QCoreApplication::translate("fCauHinhHienThi", "Status 282", nullptr));
-        ckbBM->setText(QCoreApplication::translate("fCauHinhHienThi", "BM", nullptr));
-        ckbBanBe->setText(QCoreApplication::translate("fCauHinhHienThi", "B\341\272\241n b\303\250", nullptr));
-        ckbPhone->setText(QCoreApplication::translate("fCauHinhHienThi", "Phone", nullptr));
-        ckbMa2FA->setText(QCoreApplication::translate("fCauHinhHienThi", "M\303\243 2FA", nullptr));
-        ckbCookie->setText(QCoreApplication::translate("fCauHinhHienThi", "Cookie", nullptr));
-        ckbHomeTown->setText(QCoreApplication::translate("fCauHinhHienThi", "Hometown", nullptr));
-        btnDong->setText(QCoreApplication::translate("fCauHinhHienThi", "\304\220\303\263ng", nullptr));
+        ckbFbBlock->setText(QCoreApplication::translate("fCauHinhHienThi", "Fb Block", nullptr));
+        ckbLuongSo->setText(QCoreApplication::translate("fCauHinhHienThi", "Lu\341\273\223ng s\341\273\221", nullptr));
         btnLuu->setText(QCoreApplication::translate("fCauHinhHienThi", "L\306\260u", nullptr));
+        btnDong->setText(QCoreApplication::translate("fCauHinhHienThi", "\304\220\303\263ng", nullptr));
     } // retranslateUi
 
 };

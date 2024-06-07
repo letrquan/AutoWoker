@@ -1,4 +1,6 @@
 #include "mainwindow.h"
+#include "fcauhinhchung.h"
+#include "fcauhinhtuongtac.h"
 #include "fimportaccount.h"
 #include "qnetworkreply.h"
 #include "ui_mainwindow.h"
@@ -23,12 +25,13 @@
 #include "../MCommon/CommonRequest.h"
 #include "../maxcare/ImapHelper.h"
 #include <QClipboard>
-#include "../Worker/checkwallworker.h"
-#include "../Worker/checkcookieworker.h"
+#include <QtConcurrent/QtConcurrentRun>
+#include <QFuture>
+#include <QFutureWatcher>
 MainWindow::MainWindow(QString tokemem, QString namemem, QString phoneMem, QString maxDeviceMem,QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
-    cusModel(new CustomTableModel(this))
+    cusModel(new CustomTableModel(this)), statusSQL(new QMap<QString,QString>()),infoSQL(new QMap<QString,QString>())
 {
     ui->setupUi(this);
     name = namemem;
@@ -47,8 +50,12 @@ MainWindow::MainWindow(QString tokemem, QString namemem, QString phoneMem, QStri
     QHeaderView* vHeader = ui->tableView->verticalHeader();
     vHeader->setStyleSheet("QHeaderView::section { background-color: #222831; color: white; }");
     ui->tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui->tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     ui->tableView->installEventFilter(this);
-    threadPool.setMaxThreadCount(SettingsTool::GetSettings("configGeneral").GetValueInt("nudInteractThread", 3));
+    connect(this, &MainWindow::updateStatusAccount, this, &MainWindow::SetStatusAccount, Qt::QueuedConnection);
+    connect(this, &MainWindow::updateInfoAccount, this, &MainWindow::SetInfoAccount, Qt::QueuedConnection);
+    connect(this, &MainWindow::updateRowColor2, this, static_cast<void (MainWindow::*)(int, int)>(&MainWindow::SetRowColor), Qt::QueuedConnection);
+    connect(this, &MainWindow::updateRowColor, this, static_cast<void (MainWindow::*)(int)>(&MainWindow::SetRowColor), Qt::QueuedConnection);
     OnLoaded();
 
 }
@@ -273,6 +280,7 @@ void MainWindow::LoadAccountFromFile(QList<QString> lstIdFile, QString info){
 void MainWindow::LoadDtgvAccFromDatatable(QVariantList* tableAccount){
     cusModel->loadDataFromDatabase(tableAccount);
     ui->tableView->setModel(cusModel);
+    QCoreApplication::processEvents();
     CountCheckedAccount(0);
     SetRowColor();
     CountTotalAccount();
@@ -429,137 +437,110 @@ void MainWindow::on_button9_clicked()
     }
 }
 
-
-void MainWindow::startWorker(BaseWorker *worker) {
-    connect(worker, &BaseWorker::setStatusAccount, this, &::MainWindow::SetStatusAccount);
-    connect(worker, &BaseWorker::setInfoAccount, this, &MainWindow::SetInfoAccount);
-    connect(worker, &BaseWorker::setRowColor, this, static_cast<void (MainWindow::*)(int, int)>(&MainWindow::SetRowColor));
-    threadPool.start(worker);
-}
-
 void MainWindow::KiemTraTaiKhoan(int type, bool useProxy) {
-    for (int row = 0; row < ui->tableView->model()->rowCount(); ++row) {
-        if (ui->tableView->model()->index(row, 0).data(Qt::CheckStateRole) == Qt::Checked) {
-            switch (type) {
-            case 0:{
-                startWorker(new CheckWallWorker(row, SettingsTool::GetSettings("configGeneral").GetValue("token"), ui->tableView));
-                break;
-            }
+    QThreadPool::globalInstance()->setMaxThreadCount(SettingsTool::GetSettings("configGeneral").GetValueInt("nudHideThread", 10));
+    auto tokenTrunggian = SettingsTool::GetSettings("configGeneral").GetValue("token");
+    // QFutureWatcher<void> watcher;
+    // QFuture<void> future;
 
-            case 3:{
-                startWorker(new CheckCookieWorker(row,ui->tableView));
-                break;
-            }
-            default:
-                break;
-            }
-        }
+    // connect(&watcher, &QFutureWatcher<void>::finished, this, [this]() {
+    //     cControl("stop");
+    // });
 
-    }
-    // std::atomic<int> iThread(0);
-    // const int maxThread = SettingsTool::GetSettings("configGeneral").GetValueInt("nudHideThread", 10);
-    // const QString tokenTrungGian = SettingsTool::GetSettings("configGeneral").GetValue("token");
-    // const int sleepDuration = 200;
-    // isStop = false;
-
-    // qDebug() << "Starting KiemTraTaiKhoan with type:" << type << "and useProxy:" << useProxy;
-
-    // auto checkAndSleep = [&]() {
-    //     QCoreApplication::processEvents();
-    //     QThread::msleep(sleepDuration);
-    // };
-
-    // std::vector<std::thread> threads;
-
-    // auto threadFunction = [this, &iThread, maxThread, &threads, &checkAndSleep](int row, auto checkFunction) {
-    //     int prevCount = iThread.fetch_add(1, std::memory_order_relaxed);
-    //     qDebug() << "Incrementing iThread, current count:" << prevCount + 1;
-
-    //     if (prevCount < maxThread) {
-    //         threads.emplace_back([=, &iThread]() mutable {
-    //             QMetaObject::invokeMethod(this, [=, &iThread]() {
-    //                     SetStatusAccount(row, Language::GetValue("Đang kiểm tra..."));
-    //                 }, Qt::QueuedConnection);
-    //             // Perform the check function
-    //             checkFunction(row);
-    //             int newCount = iThread.fetch_sub(1, std::memory_order_relaxed) - 1;
-    //             qDebug() << "Decrementing iThread, current count:" << newCount;
-    //         });
-    //     } else {
-    //         checkAndSleep();
-    //     }
-    // };
-
-    // auto checkRows = [this, &iThread, maxThread, &checkAndSleep, &threadFunction](auto checkFunction) {
-    //     int row = 0;
-    //     while (row < ui->tableWidget->rowCount() && !isStop.load(std::memory_order_relaxed)) {
-    //         if (ui->tableWidget->item(row, 0)->checkState() == Qt::Checked) {
-    //             threadFunction(row++, checkFunction);
-    //         } else {
-    //             row++;
-    //         }
-    //     }
-    // };
-
-    // // Create a new thread to start the checking process
-    // std::thread checkingThread([this, type, useProxy, tokenTrungGian, maxThread, &iThread, &checkRows]() {
-    //     qDebug() << "Checking process started with type:" << type;
-
-    //     // Control start
-    //     QMetaObject::invokeMethod(this, [this]() {
-    //             cControl("start");
-    //             qDebug() << "Control start invoked";
-    //         }, Qt::QueuedConnection);
-
-    //     // Perform checks based on type
+    // future = QtConcurrent::run([this, tokenTrunggian, &future, type]() {
+    //     cControl("start");
 
     //     switch (type) {
     //     case 0:
-    //         qDebug() << "Case 0: CheckMyWall";
-    //         checkRows([this, tokenTrungGian](int row) { CheckMyWall(row, tokenTrungGian); });
+    //         future = QtConcurrent::run([this, tokenTrunggian]() {
+    //             int num = 0;
+    //             while (num < ui->tableView->model()->rowCount() && !isStop) {
+    //                 if (ui->tableView->model()->index(num, 0).data(Qt::CheckStateRole) == Qt::Checked) {
+    //                     QtConcurrent::run(&MainWindow::CheckMyWall, this, num, tokenTrunggian);
+    //                 }
+    //                 num++;
+    //             }
+    //         });
     //         break;
-    //     case 1:
-    //         qDebug() << "Case 1: CheckMyToken";
-    //         checkRows([this](int row) { CheckMyToken(row); });
-    //         break;
-    //     case 2:
-    //         qDebug() << "Case 2: CheckMyCookie";
-    //         checkRows([this](int row) { CheckMyCookie(row); });
-    //         break;
+
     //     case 3:
-    //         qDebug() << "Case 3: CheckDangCheckpoint";
-    //         checkRows([this](int row) { CheckDangCheckpoint(row); });
+    //         future = QtConcurrent::run([this]() {
+    //             int num1 = 0;
+    //             while (num1 < ui->tableView->model()->rowCount() && !isStop) {
+    //                 if (ui->tableView->model()->index(num1, 0).data(Qt::CheckStateRole) == Qt::Checked) {
+    //                     QtConcurrent::run(&MainWindow::CheckDangCheckpoint, this, num1);
+    //                 }
+    //                 num1++;
+    //             }
+    //         });
     //         break;
-    //     case 4:
-    //         qDebug() << "Case 4: CheckAccountMail";
-    //         checkRows([this](int row) { CheckAccountMail(row); });
-    //         break;
-    //     case 5:
-    //         qDebug() << "Case 5: CheckInfoUid";
-    //         checkRows([this, useProxy](int row) { CheckInfoUid(row, useProxy); });
-    //         break;
-    //     case 6:
-    //         qDebug() << "Case 6: CheckNameVN";
-    //         checkRows([this](int row) { CheckNameVN(row); });
-    //         break;
+
     //     default:
-    //         qDebug() << "Default case reached with type:" << type;
     //         break;
     //     }
 
-    //     // Control stop
-    //     QMetaObject::invokeMethod(this, [this]() {
-    //             cControl("stop");
-    //             qDebug() << "Control stop invoked";
-    //         }, Qt::QueuedConnection);
+    //     int tickCount = GetTickCount();
+    //     while (QThreadPool::globalInstance()->activeThreadCount() > 0 && GetTickCount() - tickCount <= 60000) {
+    //         QMetaObject::invokeMethod(QApplication::instance(), []() {
+    //                 QApplication::processEvents();
+    //             }, Qt::AutoConnection);
+    //         QThread::sleep(1);
+    //     }
     // });
 
-    // checkingThread.join();
+    // watcher.setFuture(future);
+    QFutureWatcher<void> *watcher = new QFutureWatcher<void>(this);
 
-    // // Wait for all threads to finish
-    // for (auto& thread : threads) {
-    //     thread.join();
-    // }
+    connect(watcher, &QFutureWatcher<void>::started, this, ([this](){
+                cControl("start");
+            }));
+    connect(watcher, &QFutureWatcher<void>::finished, this, ([this](){
+                cControl("database");
+                CommonSQL::UpdateStatuses(*statusSQL,"status");
+                CommonSQL::UpdateStatuses(*infoSQL,"info");
+                cControl("stop");
+            }));
+
+    QFuture<void> future = QtConcurrent::run([this, tokenTrunggian, type]() {
+        switch (type) {
+        case 0:
+            QtConcurrent::run([this, tokenTrunggian]() {
+                int num = 0;
+                while (num < ui->tableView->model()->rowCount() && !isStop) {
+                    if (ui->tableView->model()->index(num, 0).data(Qt::CheckStateRole) == Qt::Checked) {
+                        QtConcurrent::run(&MainWindow::CheckMyWall, this, num, tokenTrunggian);
+                    }
+                    num++;
+                }
+            });
+            break;
+
+        case 3:
+            QtConcurrent::run([this]() {
+                int num1 = 0;
+                while (num1 < ui->tableView->model()->rowCount() && !isStop) {
+                    if (ui->tableView->model()->index(num1, 0).data(Qt::CheckStateRole) == Qt::Checked) {
+                        QtConcurrent::run(&MainWindow::CheckDangCheckpoint, this, num1);
+                    }
+                    num1++;
+                }
+            });
+            break;
+
+        default:
+            break;
+        }
+
+        // int tickCount = GetTickCount();
+        // while (QThreadPool::globalInstance()->activeThreadCount() > 0 && GetTickCount() - tickCount <= 60000) {
+        //     QMetaObject::invokeMethod(QCoreApplication::instance(), []() {
+        //             QCoreApplication::processEvents();
+        //         }, Qt::BlockingQueuedConnection);
+        //     QThread::sleep(1);
+        // }
+    });
+
+    watcher->setFuture(future);
 }
 
 
@@ -681,49 +662,49 @@ void MainWindow::CheckDangCheckPoint(int indexRow, QString statusProxy, QString 
         QString text = requestXNet.RequestGet("https://mbasic.facebook.com/");
         QString url = requestXNet.GetUrl();
         if(url.contains("checkpoint/disabled")){
-            SetStatusAccount(indexRow, statusProxy + "Vô hiệu hóa!");
-            SetInfoAccount(indexRow, "Checkpoint: vhh");
-            SetRowColor(indexRow, 1);
+            emit updateStatusAccount(indexRow, statusProxy + "Vô hiệu hóa!");
+            emit updateInfoAccount(indexRow, "Checkpoint: vhh");
+            emit updateRowColor2(indexRow, 1);
         }else if (url.contains("828281030927956"))
         {
             QString text2 = "956";
             text2 = ((!text.contains("/stepper/")) ? (text2 + "-Tìm hiểu thêm") : (text2 + "-Bắt đầu"));
-            SetStatusAccount(indexRow, statusProxy + "Checkpoint " + text2 + "!");
-            SetInfoAccount(indexRow, "Checkpoint: " + text2);
-            SetRowColor(indexRow, 1);
+            emit updateStatusAccount(indexRow, statusProxy + "Checkpoint " + text2 + "!");
+            emit updateInfoAccount(indexRow, "Checkpoint: " + text2);
+            emit updateRowColor2(indexRow, 1);
         }else if (url.contains("1501092823525282"))
         {
-            SetInfoAccount(indexRow, "Checkpoint: 282");
-            SetStatusAccount(indexRow, statusProxy + "Checkpoint 282!");
+            emit updateInfoAccount(indexRow, "Checkpoint: 282");
+            emit updateStatusAccount(indexRow, statusProxy + "Checkpoint 282!");
             isCheckpoint282 = true;
         }
         else if (url.contains("facebook.com/gettingstarted") || (text.contains("href=\"/menu/bookmarks/") && text.contains("id=\"mbasic_logout_button\"")))
         {
-            SetInfoAccount(indexRow, "Live");
-            SetStatusAccount(indexRow, "Tài khoản live!");
-            SetRowColor(indexRow, 2);
+            emit updateInfoAccount(indexRow, "Live");
+            emit updateStatusAccount(indexRow, "Tài khoản live!");
+            emit updateRowColor2(indexRow, 2);
         }
         else if (text.contains("https://mbasic.facebook.com/login.php") || text.contains("name=\"login\""))
         {
-            SetStatusAccount(indexRow, statusProxy + "No login!");
+            emit updateStatusAccount(indexRow, statusProxy + "No login!");
         }
         else if (text.contains("confirmation"))
         {
-            SetStatusAccount(indexRow, statusProxy + "Novery Live!");
-            SetRowColor(indexRow, 2);
+            emit updateStatusAccount(indexRow, statusProxy + "Novery Live!");
+            emit updateRowColor2(indexRow, 2);
         }
         else if (text.contains("/login/device-based/validate-pin/"))
         {
-            SetStatusAccount(indexRow, statusProxy + "Cookie bị đăng xuất!");
-            SetRowColor(indexRow, 2);
+            emit updateStatusAccount(indexRow, statusProxy + "Cookie bị đăng xuất!");
+            emit updateRowColor2(indexRow, 2);
         }
         else
         {
-            SetStatusAccount(indexRow, statusProxy + "Dạng Checkpoint khác!");
-            SetRowColor(indexRow, 1);
+            emit updateStatusAccount(indexRow, statusProxy + "Dạng Checkpoint khác!");
+            emit updateRowColor2(indexRow, 1);
         }
     } catch (...) {
-        SetStatusAccount(indexRow, statusProxy + "Không check được!");
+        emit updateStatusAccount(indexRow, statusProxy + "Không check được!");
     }
 }
 
@@ -742,7 +723,7 @@ void MainWindow::SetRowColor(int indexRow, int typeColor){
 }
 
 void MainWindow::CheckDangCheckpoint(int row){
-    QString cellAccount = GetCellAccount(row, "cCookies");
+    QString cellAccount = GetCellAccount(row, "Cookies");
     if (cellAccount.trimmed() == "")
     {
         SetStatusAccount(row, Language::GetValue("Cookie trô\u0301ng!"));
@@ -851,54 +832,40 @@ void MainWindow::CheckMyToken(int row){
 
 void MainWindow::CheckMyWall(int row, QString tokenTg){
     try {
-        GetCellAccount(row,"Id");
-        QString cellAccount = GetCellAccount(row,"Uid");
-        if (!CheckIsUidFacebook(cellAccount))
-        {
-            QMetaObject::invokeMethod(this, [=]() {
-                    SetStatusAccount(row, Language::GetValue("Uid không hợp lệ!"));
-                }, Qt::QueuedConnection);
+        GetCellAccount(row, "Id");
+        QString cellAccount = GetCellAccount(row, "Uid");
+        if (!CheckIsUidFacebook(cellAccount)) {
+            emit updateStatusAccount(row, Language::GetValue("Uid không hợp lệ!"));
             return;
         }
+        emit updateStatusAccount(row, Language::GetValue("Checking.."));
+        QString text3 = CommonRequest::CheckLiveWall(cellAccount);
         QString text = "";
         QString text2 = "";
-        QString text3 = CommonRequest::CheckLiveWall(cellAccount);
-        if (text3.startsWith("0|"))
-        {
+        if (text3.startsWith("0|")) {
             text = "Die";
             text2 = "Wall die";
-        }
-        else if (text3.startsWith("1|"))
-        {
+        } else if (text3.startsWith("1|")) {
             text = "Live";
             text2 = "Wall live";
-        }
-        else
-        {
+        } else {
             text2 = Language::GetValue("Không check được!");
         }
-
-        QMetaObject::invokeMethod(this, [=]() {
-                SetStatusAccount(row, text2);
-            }, Qt::QueuedConnection);
-        if (text != "")
-        {
-            QMetaObject::invokeMethod(this, [=]() {
-                    SetInfoAccount(row, text);
-                }, Qt::QueuedConnection);
-
+        emit updateStatusAccount(row, text2);
+        if (text != "") {
+            emit updateInfoAccount(row, text);
         }
+    }catch (const std::exception& e) {
+        qDebug() << "Exception in CheckMyWall:" << e.what();
     } catch (...) {
-        QMetaObject::invokeMethod(this, [=]() {
-                SetStatusAccount(row, Language::GetValue("Không check đươ\u0323c!"));
-            }, Qt::QueuedConnection);
-
+        emit updateStatusAccount(row, Language::GetValue("Không check đươ\u0323c!"));
     }
 }
 void MainWindow::SetInfoAccount(int indexRow, QString value){
     DatagridviewHelper::SetStatusDataGridView(ui->tableView, indexRow, "Tình Trạng", value);
-    SetRowColor(indexRow);
-    Common::UpdateFieldToAccount(GetCellAccount(indexRow, "Id"), "info", value);
+    emit updateRowColor(indexRow);
+    // QtConcurrent::run(&Common::UpdateFieldToAccount, GetCellAccount(indexRow, "Id"), "info", value);
+    infoSQL->insert(GetCellAccount(indexRow, "Id"),value);
 }
 bool MainWindow::CheckIsUidFacebook(QString uid){
     if (Common::IsNumber(uid))
@@ -911,11 +878,13 @@ bool MainWindow::CheckIsUidFacebook(QString uid){
     return false;
 }
 void MainWindow::SetStatusAccount(int indexRow, QString value, int timeWait){
-    Common::UpdateFieldToAccount(GetCellAccount(indexRow, "Id"), "status", value);
+    // QtConcurrent::run(&Common::UpdateFieldToAccount, GetCellAccount(indexRow, "Id"), "status", value);
+    statusSQL->insert(GetCellAccount(indexRow, "Id"),value);
     switch (timeWait)
     {
     case -1:
         DatagridviewHelper::SetStatusDataGridView(ui->tableView, indexRow, "Trạng thái", value);
+        // cusModel->setData(cusModel->index(indexRow,Utils::GetIndexByColumnHeader(ui->tableView,"Trạng thái")),value,Qt::EditRole);
         break;
     default:
         DatagridviewHelper::SetStatusDataGridViewWithWait(ui->tableView, indexRow, "Trạng thái", timeWait, value);
@@ -1154,3 +1123,22 @@ void MainWindow::onActionCopy(){
         clipboard->setText(cellValue);
     }
 }
+
+void MainWindow::on_pushButton_3_clicked()
+{
+    Common::ShowForm(new fCauhinhtuongtac());
+}
+
+
+void MainWindow::on_pushButton_clicked()
+{
+    JSON_Settings data = *new JSON_Settings();
+    Common::ShowForm(new fCauHinhChung(data));
+    if(data.GetValueBool("isChangePathDatabase")){
+        LoadCbbThuMuc();
+        indexCbbThuMucOld = -1;
+        ui->cbbThuMuc->setCurrentIndex(-1);
+        ui->cbbThuMuc->setCurrentIndex(0);
+    }
+}
+

@@ -36,8 +36,18 @@ namespace {
 struct qt_meta_stringdata_CLASSMainWindowENDCLASS_t {};
 constexpr auto qt_meta_stringdata_CLASSMainWindowENDCLASS = QtMocHelpers::stringData(
     "MainWindow",
-    "showContextMenu",
+    "updateStatusAccount",
     "",
+    "row",
+    "status",
+    "timeWait",
+    "updateInfoAccount",
+    "info",
+    "updateRowColor2",
+    "indexRow",
+    "typeColor",
+    "updateRowColor",
+    "showContextMenu",
     "pos",
     "on_btnLoadAcc_clicked",
     "on_pushButton_4_clicked",
@@ -49,7 +59,16 @@ constexpr auto qt_meta_stringdata_CLASSMainWindowENDCLASS = QtMocHelpers::string
     "index",
     "on_cbbTinhTrang_currentIndexChanged",
     "onActionCopy",
-    "checkCookie"
+    "checkCookie",
+    "SetInfoAccount",
+    "value",
+    "SetCellAccount",
+    "column",
+    "isAllowEmptyValue",
+    "SetStatusAccount",
+    "SetRowColor",
+    "on_pushButton_3_clicked",
+    "on_pushButton_clicked"
 );
 #else  // !QT_MOC_HAS_STRINGDATA
 #error "qtmochelpers.h not found or too old."
@@ -62,36 +81,72 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSMainWindowENDCLASS[] = {
       12,       // revision
        0,       // classname
        0,    0, // classinfo
-      11,   14, // methods
+      27,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       0,       // signalCount
+       6,       // signalCount
+
+ // signals: name, argc, parameters, tag, flags, initial metatype offsets
+       1,    3,  176,    2, 0x06,    1 /* Public */,
+       1,    2,  183,    2, 0x26,    5 /* Public | MethodCloned */,
+       6,    2,  188,    2, 0x06,    8 /* Public */,
+       8,    2,  193,    2, 0x06,   11 /* Public */,
+      11,    1,  198,    2, 0x06,   14 /* Public */,
+      11,    0,  201,    2, 0x26,   16 /* Public | MethodCloned */,
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    1,   80,    2, 0x08,    1 /* Private */,
-       4,    0,   83,    2, 0x08,    3 /* Private */,
-       5,    0,   84,    2, 0x08,    4 /* Private */,
-       6,    0,   85,    2, 0x08,    5 /* Private */,
-       7,    0,   86,    2, 0x08,    6 /* Private */,
-       8,    0,   87,    2, 0x08,    7 /* Private */,
-       9,    0,   88,    2, 0x08,    8 /* Private */,
-      10,    1,   89,    2, 0x08,    9 /* Private */,
-      12,    1,   92,    2, 0x08,   11 /* Private */,
-      13,    0,   95,    2, 0x08,   13 /* Private */,
-      14,    0,   96,    2, 0x08,   14 /* Private */,
+      12,    1,  202,    2, 0x08,   17 /* Private */,
+      14,    0,  205,    2, 0x08,   19 /* Private */,
+      15,    0,  206,    2, 0x08,   20 /* Private */,
+      16,    0,  207,    2, 0x08,   21 /* Private */,
+      17,    0,  208,    2, 0x08,   22 /* Private */,
+      18,    0,  209,    2, 0x08,   23 /* Private */,
+      19,    0,  210,    2, 0x08,   24 /* Private */,
+      20,    1,  211,    2, 0x08,   25 /* Private */,
+      22,    1,  214,    2, 0x08,   27 /* Private */,
+      23,    0,  217,    2, 0x08,   29 /* Private */,
+      24,    0,  218,    2, 0x08,   30 /* Private */,
+      25,    2,  219,    2, 0x08,   31 /* Private */,
+      27,    4,  224,    2, 0x08,   34 /* Private */,
+      27,    3,  233,    2, 0x28,   39 /* Private | MethodCloned */,
+      30,    3,  240,    2, 0x08,   43 /* Private */,
+      30,    2,  247,    2, 0x28,   47 /* Private | MethodCloned */,
+      31,    1,  252,    2, 0x08,   50 /* Private */,
+      31,    0,  255,    2, 0x28,   52 /* Private | MethodCloned */,
+      31,    2,  256,    2, 0x08,   53 /* Private */,
+      32,    0,  261,    2, 0x08,   56 /* Private */,
+      33,    0,  262,    2, 0x08,   57 /* Private */,
+
+ // signals: parameters
+    QMetaType::Void, QMetaType::Int, QMetaType::QString, QMetaType::Int,    3,    4,    5,
+    QMetaType::Void, QMetaType::Int, QMetaType::QString,    3,    4,
+    QMetaType::Void, QMetaType::Int, QMetaType::QString,    3,    7,
+    QMetaType::Void, QMetaType::Int, QMetaType::Int,    9,   10,
+    QMetaType::Void, QMetaType::Int,    9,
+    QMetaType::Void,
 
  // slots: parameters
-    QMetaType::Void, QMetaType::QPoint,    3,
+    QMetaType::Void, QMetaType::QPoint,   13,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::Int,   11,
-    QMetaType::Void, QMetaType::Int,   11,
+    QMetaType::Void, QMetaType::Int,   21,
+    QMetaType::Void, QMetaType::Int,   21,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void, QMetaType::Int, QMetaType::QString,    9,   26,
+    QMetaType::Void, QMetaType::Int, QMetaType::QString, QMetaType::QVariant, QMetaType::Bool,    9,   28,   26,   29,
+    QMetaType::Void, QMetaType::Int, QMetaType::QString, QMetaType::QVariant,    9,   28,   26,
+    QMetaType::Void, QMetaType::Int, QMetaType::QString, QMetaType::Int,    9,   26,    5,
+    QMetaType::Void, QMetaType::Int, QMetaType::QString,    9,   26,
+    QMetaType::Void, QMetaType::Int,    9,
+    QMetaType::Void,
+    QMetaType::Void, QMetaType::Int, QMetaType::Int,    9,   10,
     QMetaType::Void,
     QMetaType::Void,
 
@@ -107,6 +162,28 @@ Q_CONSTINIT const QMetaObject MainWindow::staticMetaObject = { {
     qt_incomplete_metaTypeArray<qt_meta_stringdata_CLASSMainWindowENDCLASS_t,
         // Q_OBJECT / Q_GADGET
         QtPrivate::TypeAndForceComplete<MainWindow, std::true_type>,
+        // method 'updateStatusAccount'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<int, std::false_type>,
+        QtPrivate::TypeAndForceComplete<QString, std::false_type>,
+        QtPrivate::TypeAndForceComplete<int, std::false_type>,
+        // method 'updateStatusAccount'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<int, std::false_type>,
+        QtPrivate::TypeAndForceComplete<QString, std::false_type>,
+        // method 'updateInfoAccount'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<int, std::false_type>,
+        QtPrivate::TypeAndForceComplete<QString, std::false_type>,
+        // method 'updateRowColor2'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<int, std::false_type>,
+        QtPrivate::TypeAndForceComplete<int, std::false_type>,
+        // method 'updateRowColor'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<int, std::false_type>,
+        // method 'updateRowColor'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'showContextMenu'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         QtPrivate::TypeAndForceComplete<const QPoint &, std::false_type>,
@@ -131,6 +208,43 @@ Q_CONSTINIT const QMetaObject MainWindow::staticMetaObject = { {
         // method 'onActionCopy'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'checkCookie'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'SetInfoAccount'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<int, std::false_type>,
+        QtPrivate::TypeAndForceComplete<QString, std::false_type>,
+        // method 'SetCellAccount'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<int, std::false_type>,
+        QtPrivate::TypeAndForceComplete<QString, std::false_type>,
+        QtPrivate::TypeAndForceComplete<QVariant, std::false_type>,
+        QtPrivate::TypeAndForceComplete<bool, std::false_type>,
+        // method 'SetCellAccount'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<int, std::false_type>,
+        QtPrivate::TypeAndForceComplete<QString, std::false_type>,
+        QtPrivate::TypeAndForceComplete<QVariant, std::false_type>,
+        // method 'SetStatusAccount'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<int, std::false_type>,
+        QtPrivate::TypeAndForceComplete<QString, std::false_type>,
+        QtPrivate::TypeAndForceComplete<int, std::false_type>,
+        // method 'SetStatusAccount'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<int, std::false_type>,
+        QtPrivate::TypeAndForceComplete<QString, std::false_type>,
+        // method 'SetRowColor'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<int, std::false_type>,
+        // method 'SetRowColor'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'SetRowColor'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<int, std::false_type>,
+        QtPrivate::TypeAndForceComplete<int, std::false_type>,
+        // method 'on_pushButton_3_clicked'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'on_pushButton_clicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>
     >,
     nullptr
@@ -142,18 +256,64 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         auto *_t = static_cast<MainWindow *>(_o);
         (void)_t;
         switch (_id) {
-        case 0: _t->showContextMenu((*reinterpret_cast< std::add_pointer_t<QPoint>>(_a[1]))); break;
-        case 1: _t->on_btnLoadAcc_clicked(); break;
-        case 2: _t->on_pushButton_4_clicked(); break;
-        case 3: _t->on_button9_clicked(); break;
-        case 4: _t->onSubActionAll(); break;
-        case 5: _t->onActionDeselect(); break;
-        case 6: _t->checkWall(); break;
-        case 7: _t->on_cbbThuMuc_currentIndexChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
-        case 8: _t->on_cbbTinhTrang_currentIndexChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
-        case 9: _t->onActionCopy(); break;
-        case 10: _t->checkCookie(); break;
+        case 0: _t->updateStatusAccount((*reinterpret_cast< std::add_pointer_t<int>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[3]))); break;
+        case 1: _t->updateStatusAccount((*reinterpret_cast< std::add_pointer_t<int>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[2]))); break;
+        case 2: _t->updateInfoAccount((*reinterpret_cast< std::add_pointer_t<int>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[2]))); break;
+        case 3: _t->updateRowColor2((*reinterpret_cast< std::add_pointer_t<int>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[2]))); break;
+        case 4: _t->updateRowColor((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
+        case 5: _t->updateRowColor(); break;
+        case 6: _t->showContextMenu((*reinterpret_cast< std::add_pointer_t<QPoint>>(_a[1]))); break;
+        case 7: _t->on_btnLoadAcc_clicked(); break;
+        case 8: _t->on_pushButton_4_clicked(); break;
+        case 9: _t->on_button9_clicked(); break;
+        case 10: _t->onSubActionAll(); break;
+        case 11: _t->onActionDeselect(); break;
+        case 12: _t->checkWall(); break;
+        case 13: _t->on_cbbThuMuc_currentIndexChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
+        case 14: _t->on_cbbTinhTrang_currentIndexChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
+        case 15: _t->onActionCopy(); break;
+        case 16: _t->checkCookie(); break;
+        case 17: _t->SetInfoAccount((*reinterpret_cast< std::add_pointer_t<int>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[2]))); break;
+        case 18: _t->SetCellAccount((*reinterpret_cast< std::add_pointer_t<int>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<QVariant>>(_a[3])),(*reinterpret_cast< std::add_pointer_t<bool>>(_a[4]))); break;
+        case 19: _t->SetCellAccount((*reinterpret_cast< std::add_pointer_t<int>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<QVariant>>(_a[3]))); break;
+        case 20: _t->SetStatusAccount((*reinterpret_cast< std::add_pointer_t<int>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[3]))); break;
+        case 21: _t->SetStatusAccount((*reinterpret_cast< std::add_pointer_t<int>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[2]))); break;
+        case 22: _t->SetRowColor((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
+        case 23: _t->SetRowColor(); break;
+        case 24: _t->SetRowColor((*reinterpret_cast< std::add_pointer_t<int>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[2]))); break;
+        case 25: _t->on_pushButton_3_clicked(); break;
+        case 26: _t->on_pushButton_clicked(); break;
         default: ;
+        }
+    } else if (_c == QMetaObject::IndexOfMethod) {
+        int *result = reinterpret_cast<int *>(_a[0]);
+        {
+            using _t = void (MainWindow::*)(int , QString , int );
+            if (_t _q_method = &MainWindow::updateStatusAccount; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
+                *result = 0;
+                return;
+            }
+        }
+        {
+            using _t = void (MainWindow::*)(int , QString );
+            if (_t _q_method = &MainWindow::updateInfoAccount; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
+                *result = 2;
+                return;
+            }
+        }
+        {
+            using _t = void (MainWindow::*)(int , int );
+            if (_t _q_method = &MainWindow::updateRowColor2; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
+                *result = 3;
+                return;
+            }
+        }
+        {
+            using _t = void (MainWindow::*)(int );
+            if (_t _q_method = &MainWindow::updateRowColor; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
+                *result = 4;
+                return;
+            }
         }
     }
 }
@@ -177,14 +337,42 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 11)
+        if (_id < 27)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 11;
+        _id -= 27;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 11)
+        if (_id < 27)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 11;
+        _id -= 27;
     }
     return _id;
+}
+
+// SIGNAL 0
+void MainWindow::updateStatusAccount(int _t1, QString _t2, int _t3)
+{
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))), const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t2))), const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t3))) };
+    QMetaObject::activate(this, &staticMetaObject, 0, _a);
+}
+
+// SIGNAL 2
+void MainWindow::updateInfoAccount(int _t1, QString _t2)
+{
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))), const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t2))) };
+    QMetaObject::activate(this, &staticMetaObject, 2, _a);
+}
+
+// SIGNAL 3
+void MainWindow::updateRowColor2(int _t1, int _t2)
+{
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))), const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t2))) };
+    QMetaObject::activate(this, &staticMetaObject, 3, _a);
+}
+
+// SIGNAL 4
+void MainWindow::updateRowColor(int _t1)
+{
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))) };
+    QMetaObject::activate(this, &staticMetaObject, 4, _a);
 }
 QT_WARNING_POP

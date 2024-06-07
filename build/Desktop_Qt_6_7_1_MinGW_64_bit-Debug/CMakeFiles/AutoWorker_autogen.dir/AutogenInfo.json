@@ -349,6 +349,12 @@
 			null
 		],
 		[
+			"D:/AutoWorker/XWorker/AutoWoker/Form/fcauhinhchung.h",
+			"MU",
+			"7A5D6QKFUP/moc_fcauhinhchung.cpp",
+			null
+		],
+		[
 			"D:/AutoWorker/XWorker/AutoWoker/Form/fcauhinhhienthi.h",
 			"MU",
 			"7A5D6QKFUP/moc_fcauhinhhienthi.cpp",
@@ -364,6 +370,12 @@
 			"D:/AutoWorker/XWorker/AutoWoker/Form/fchonthumuc.h",
 			"MU",
 			"7A5D6QKFUP/moc_fchonthumuc.cpp",
+			null
+		],
+		[
+			"D:/AutoWorker/XWorker/AutoWoker/Form/fdanhsachkichban_old.h",
+			"MU",
+			"7A5D6QKFUP/moc_fdanhsachkichban_old.cpp",
 			null
 		],
 		[
@@ -463,24 +475,6 @@
 			null
 		],
 		[
-			"D:/AutoWorker/XWorker/AutoWoker/Worker/baseworker.h",
-			"MU",
-			"R6VCRS2DF2/moc_baseworker.cpp",
-			null
-		],
-		[
-			"D:/AutoWorker/XWorker/AutoWoker/Worker/checkcookieworker.h",
-			"MU",
-			"R6VCRS2DF2/moc_checkcookieworker.cpp",
-			null
-		],
-		[
-			"D:/AutoWorker/XWorker/AutoWoker/Worker/checkwallworker.h",
-			"MU",
-			"R6VCRS2DF2/moc_checkwallworker.cpp",
-			null
-		],
-		[
 			"D:/AutoWorker/XWorker/AutoWoker/maxcare/Base.h",
 			"MU",
 			"JDXPVWFE7V/moc_Base.cpp",
@@ -508,6 +502,12 @@
 			"D:/AutoWorker/XWorker/AutoWoker/maxcare/ImapHelper.h",
 			"MU",
 			"JDXPVWFE7V/moc_ImapHelper.cpp",
+			null
+		],
+		[
+			"D:/AutoWorker/XWorker/AutoWoker/maxcare/KichBan/interactconnector.h",
+			"MU",
+			"24UG7RFEBB/moc_interactconnector.cpp",
 			null
 		],
 		[
@@ -660,6 +660,7 @@
 		],
 		[ "D:/AutoWorker/XWorker/AutoWoker/Form/downloaddialog.cpp", "MU", null ],
 		[ "D:/AutoWorker/XWorker/AutoWoker/Form/faddfile.cpp", "MU", null ],
+		[ "D:/AutoWorker/XWorker/AutoWoker/Form/fcauhinhchung.cpp", "MU", null ],
 		[
 			"D:/AutoWorker/XWorker/AutoWoker/Form/fcauhinhhienthi.cpp",
 			"MU",
@@ -671,6 +672,11 @@
 			null
 		],
 		[ "D:/AutoWorker/XWorker/AutoWoker/Form/fchonthumuc.cpp", "MU", null ],
+		[
+			"D:/AutoWorker/XWorker/AutoWoker/Form/fdanhsachkichban_old.cpp",
+			"MU",
+			null
+		],
 		[ "D:/AutoWorker/XWorker/AutoWoker/Form/fimportaccount.cpp", "MU", null ],
 		[
 			"D:/AutoWorker/XWorker/AutoWoker/Form/fimportaccountformatinput.cpp",
@@ -699,20 +705,14 @@
 			"MU",
 			null
 		],
-		[ "D:/AutoWorker/XWorker/AutoWoker/Worker/baseworker.cpp", "MU", null ],
-		[
-			"D:/AutoWorker/XWorker/AutoWoker/Worker/checkcookieworker.cpp",
-			"MU",
-			null
-		],
-		[
-			"D:/AutoWorker/XWorker/AutoWoker/Worker/checkwallworker.cpp",
-			"MU",
-			null
-		],
 		[ "D:/AutoWorker/XWorker/AutoWoker/main.cpp", "MU", null ],
 		[ "D:/AutoWorker/XWorker/AutoWoker/maxcare/Base.cpp", "MU", null ],
 		[ "D:/AutoWorker/XWorker/AutoWoker/maxcare/ImapHelper.cpp", "MU", null ],
+		[
+			"D:/AutoWorker/XWorker/AutoWoker/maxcare/KichBan/interactconnector.cpp",
+			"MU",
+			null
+		],
 		[ "D:/AutoWorker/XWorker/AutoWoker/maxcare/Language.cpp", "MU", null ],
 		[
 			"D:/AutoWorker/XWorker/AutoWoker/maxcare/SettingsTool.cpp",

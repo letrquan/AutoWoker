@@ -13,7 +13,6 @@
 #include <QWidgetAction>
 #include <QKeyEvent>
 #include <QThreadPool>
-#include "../Worker/baseworker.h"
 #include "../Table/customtablemodel.h"
 namespace Ui {
 class MainWindow;
@@ -36,10 +35,7 @@ public:
     static QString Getdocs(QString uri);
     static QString checkUpdate(QString namesoft);
     QString GetInfoAccount(int indexRow);
-    void SetStatusAccount(int indexRow, QString value, int timeWait = -1);
     QString GetCellAccount(int indexRow, QString column);
-    void SetInfoAccount(int indexRow, QString value);
-    void SetCellAccount(int indexRow, QString column, QVariant value, bool isAllowEmptyValue = true);
 private:
     bool isStop;
     Ui::MainWindow *ui;
@@ -48,10 +44,10 @@ private:
     QMenu menu;
     QMutex mutex;
     CustomTableModel *cusModel;
-    QThreadPool threadPool;
+    QMap<QString,QString> *statusSQL;
+    QMap<QString,QString> *infoSQL;
     void ChangeLanguage();
     void DisableSort();
-    void startWorker(BaseWorker *worker);
     void CheckDangCheckPoint(int indexRow, QString statusProxy, QString cookie, QString proxy, int typeProxy,  bool &isCheckpoint282);
     void CheckDangCheckpoint(int row);
     void CheckNameVN(int row);
@@ -77,8 +73,6 @@ private:
     void LoadDtgvAccFromDatatable(QVariantList *tableAccount);
     void CountCheckedAccount(int count = -1);
     void CountTotalAccount();
-    void SetRowColor(int indexRow = -1);
-    void SetRowColor(int indexRow, int typeColor);
     void LoadConfigManHinh();
     void setColumnVisibility(const QString& headerLabel, bool isVisible);
     void AddUI();
@@ -116,6 +110,20 @@ private slots:
     void on_cbbTinhTrang_currentIndexChanged(int index);
     void onActionCopy();
     void checkCookie();
+    void SetInfoAccount(int indexRow, QString value);
+    void SetCellAccount(int indexRow, QString column, QVariant value, bool isAllowEmptyValue = true);
+    void SetStatusAccount(int indexRow, QString value, int timeWait = -1);
+    void SetRowColor(int indexRow = -1);
+    void SetRowColor(int indexRow, int typeColor);
+    void on_pushButton_3_clicked();
+
+    void on_pushButton_clicked();
+
+signals:
+    void updateStatusAccount(int row, QString status, int timeWait = -1);
+    void updateInfoAccount(int row, QString info);
+    void updateRowColor2(int indexRow, int typeColor);
+    void updateRowColor(int indexRow = -1);
 };
 
 #endif // MAINWINDOW_H

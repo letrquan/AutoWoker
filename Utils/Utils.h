@@ -66,7 +66,16 @@ public:
 
         return -1;  // Return -1 if no matching header is found
     }
-
+    static int GetIndexByColumnHeader(QTableWidget dgv, QString colHeader){
+        int col=-1;
+        for (int i = 0; i < dgv.columnCount(); ++i) {
+            QTableWidgetItem *headerItem = dgv.horizontalHeaderItem(i);
+            if (headerItem != nullptr && headerItem->text() == colHeader) {
+                col = i;
+            }
+        }
+        return col;
+    }
     static bool isRunningAsAdmin() {
         BOOL fIsRunAsAdmin = FALSE;
         PSID pAdministratorsGroup = NULL;
@@ -84,6 +93,7 @@ public:
 
         return fIsRunAsAdmin;
     }
+
     static QVariant getDataAt(QTableView *tableView, int row, int col) {
         // Get the model associated with the QTableView
         QAbstractItemModel *model = tableView->model();

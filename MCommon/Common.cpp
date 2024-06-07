@@ -2,6 +2,7 @@
 #include <QTextStream>
 #include <QDateTime>
 #include "../Form/downloaddialog.h"
+#include "qapplication.h"
 #include "qtablewidget.h"
 #include <QDir>
 #include <QEventLoop>
@@ -139,6 +140,7 @@ bool Common::deleteFile(QString pathFile){
 }
 
 void Common::DelayTime(double second){
+    QApplication::processEvents();
     sleep(second);
 }
 void Common::CreateFolder(QString pathFolder){
@@ -192,6 +194,8 @@ void Common::SwapTableWidgetRows(QTableWidget* tableWidget, int oldRow, int newR
     }
 }
 bool Common::UpdateFieldToAccount(QString id, QString fieldName, QString fieldValue){
+    static QMutex mutex;
+    mutex.lock();
     bool result = false;
     try {
         QString text = "";
@@ -215,5 +219,6 @@ bool Common::UpdateFieldToAccount(QString id, QString fieldName, QString fieldVa
         result = false;
     } catch (...) {
     }
+    mutex.unlock();
     return result;
 }
