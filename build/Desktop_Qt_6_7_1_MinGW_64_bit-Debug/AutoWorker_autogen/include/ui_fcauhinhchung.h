@@ -20,9 +20,9 @@
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QPushButton>
-#include <QtWidgets/QScrollArea>
 #include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QSpinBox>
+#include <QtWidgets/QTabWidget>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
@@ -122,8 +122,9 @@ public:
     QLabel *label_19;
     QComboBox *cbbChangeIP;
     QCheckBox *checkBox_5;
-    QScrollArea *scrollArea;
-    QWidget *scrollAreaWidgetContents;
+    QTabWidget *tabWidget;
+    QWidget *tab;
+    QWidget *tab_2;
 
     void setupUi(QDialog *fCauHinhChung)
     {
@@ -594,21 +595,25 @@ public:
 
         gridLayout_5->addLayout(gridLayout_4, 0, 0, 1, 1);
 
-        scrollArea = new QScrollArea(groupBox_2);
-        scrollArea->setObjectName("scrollArea");
-        scrollArea->setWidgetResizable(true);
-        scrollAreaWidgetContents = new QWidget();
-        scrollAreaWidgetContents->setObjectName("scrollAreaWidgetContents");
-        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 418, 305));
-        scrollArea->setWidget(scrollAreaWidgetContents);
+        tabWidget = new QTabWidget(groupBox_2);
+        tabWidget->setObjectName("tabWidget");
+        tab = new QWidget();
+        tab->setObjectName("tab");
+        tabWidget->addTab(tab, QString());
+        tab_2 = new QWidget();
+        tab_2->setObjectName("tab_2");
+        tabWidget->addTab(tab_2, QString());
 
-        gridLayout_5->addWidget(scrollArea, 1, 0, 1, 1);
+        gridLayout_5->addWidget(tabWidget, 1, 0, 1, 1);
 
 
         horizontalLayout_22->addWidget(groupBox_2);
 
 
         retranslateUi(fCauHinhChung);
+
+        tabWidget->setCurrentIndex(0);
+
 
         QMetaObject::connectSlotsByName(fCauHinhChung);
     } // setupUi
@@ -649,6 +654,8 @@ public:
         pushButton_3->setText(QCoreApplication::translate("fCauHinhChung", "Test", nullptr));
         label_19->setText(QCoreApplication::translate("fCauHinhChung", "T\303\271y ch\341\273\215n change IP: ", nullptr));
         checkBox_5->setText(QCoreApplication::translate("fCauHinhChung", "Kh\303\264ng Check IP Tr\306\260\341\273\233c khi ch\341\272\241y", nullptr));
+        tabWidget->setTabText(tabWidget->indexOf(tab), QCoreApplication::translate("fCauHinhChung", "Tab 1", nullptr));
+        tabWidget->setTabText(tabWidget->indexOf(tab_2), QCoreApplication::translate("fCauHinhChung", "Tab 2", nullptr));
     } // retranslateUi
 
 };

@@ -54,3 +54,27 @@ QVariantList* InteractSQL::GetAllHanhDongByKichBan(QString idKichBan)
         return result;
     }
 }
+QStringList InteractSQL::GetIdHanhDongByIdKichBanAndTenTuongTac(QString Id_KichBan, QString tenTuongTac){
+    QStringList list;
+    try {
+        QString query = "SELECT t1.Id_HanhDong FROM Hanh_Dong t1 JOIN Tuong_Tac t2 ON t1.Id_TuongTac = t2.Id_TuongTac WHERE t1.Id_KichBan = "+Id_KichBan+" AND t2.TenTuongTac = '"+tenTuongTac.replace("'", "''")+"'";
+        QVariantList dataTable = *InteractConnector::getInstance().ExecuteQuery(query);
+        for (int i = 0; i < dataTable.count(); i++){
+            auto rowMap = dataTable[i].toMap();
+            list.append(rowMap["Id_HanhDong"].toString());
+        }
+    } catch (...) {
+    }
+    return list;
+}
+
+QString InteractSQL::GetCauHinhFromHanhDong(QString Id_HanhDong){
+    QString result = "";
+    try {
+        QString query ="SELECT CauHinh FROM Hanh_Dong WHERE Id_HanhDong = " + Id_HanhDong;
+        QVariantList dataTable = *InteractConnector::getInstance().ExecuteQuery(query);
+        result = dataTable[0].toMap()["CauHinh"].toString();
+    } catch (...) {
+    }
+    return result;
+}

@@ -391,6 +391,12 @@
 			null
 		],
 		[
+			"D:/AutoWorker/XWorker/AutoWoker/Form/fviewchrome.h",
+			"MU",
+			"7A5D6QKFUP/moc_fviewchrome.cpp",
+			null
+		],
+		[
 			"D:/AutoWorker/XWorker/AutoWoker/Form/loginwindow.h",
 			"MU",
 			"7A5D6QKFUP/moc_loginwindow.cpp",
@@ -427,9 +433,27 @@
 			null
 		],
 		[
+			"D:/AutoWorker/XWorker/AutoWoker/MCommon/ProxyTool.h",
+			"MU",
+			"JLRR734WY4/moc_ProxyTool.cpp",
+			null
+		],
+		[
 			"D:/AutoWorker/XWorker/AutoWoker/MCommon/RequestParams.h",
 			"MU",
 			"JLRR734WY4/moc_RequestParams.cpp",
+			null
+		],
+		[
+			"D:/AutoWorker/XWorker/AutoWoker/MCommon/account.h",
+			"MU",
+			"JLRR734WY4/moc_account.cpp",
+			null
+		],
+		[
+			"D:/AutoWorker/XWorker/AutoWoker/MCommon/autocontrol.h",
+			"MU",
+			"JLRR734WY4/moc_autocontrol.cpp",
 			null
 		],
 		[
@@ -457,9 +481,57 @@
 			null
 		],
 		[
+			"D:/AutoWorker/XWorker/AutoWoker/MCommon/minproxy.h",
+			"MU",
+			"JLRR734WY4/moc_minproxy.cpp",
+			null
+		],
+		[
+			"D:/AutoWorker/XWorker/AutoWoker/MCommon/obcdcom.h",
+			"MU",
+			"JLRR734WY4/moc_obcdcom.cpp",
+			null
+		],
+		[
+			"D:/AutoWorker/XWorker/AutoWoker/MCommon/obcproxy.h",
+			"MU",
+			"JLRR734WY4/moc_obcproxy.cpp",
+			null
+		],
+		[
+			"D:/AutoWorker/XWorker/AutoWoker/MCommon/proxyv6net.h",
+			"MU",
+			"JLRR734WY4/moc_proxyv6net.cpp",
+			null
+		],
+		[
 			"D:/AutoWorker/XWorker/AutoWoker/MCommon/requesthandle.h",
 			"MU",
 			"JLRR734WY4/moc_requesthandle.cpp",
+			null
+		],
+		[
+			"D:/AutoWorker/XWorker/AutoWoker/MCommon/shoplike.h",
+			"MU",
+			"JLRR734WY4/moc_shoplike.cpp",
+			null
+		],
+		[
+			"D:/AutoWorker/XWorker/AutoWoker/MCommon/tinsoftproxy.h",
+			"MU",
+			"JLRR734WY4/moc_tinsoftproxy.cpp",
+			null
+		],
+		[
+			"D:/AutoWorker/XWorker/AutoWoker/MCommon/tmproxy.h",
+			"MU",
+			"JLRR734WY4/moc_tmproxy.cpp",
+			null
+		],
+		[
+			"D:/AutoWorker/XWorker/AutoWoker/MCommon/xproxyproxy.h",
+			"MU",
+			"JLRR734WY4/moc_xproxyproxy.cpp",
 			null
 		],
 		[
@@ -683,10 +755,13 @@
 			"MU",
 			null
 		],
+		[ "D:/AutoWorker/XWorker/AutoWoker/Form/fviewchrome.cpp", "MU", null ],
 		[ "D:/AutoWorker/XWorker/AutoWoker/Form/loginwindow.cpp", "MU", null ],
 		[ "D:/AutoWorker/XWorker/AutoWoker/Form/mainwindow.cpp", "MU", null ],
 		[ "D:/AutoWorker/XWorker/AutoWoker/MCommon/AwApi.cpp", "MU", null ],
 		[ "D:/AutoWorker/XWorker/AutoWoker/MCommon/Common.cpp", "MU", null ],
+		[ "D:/AutoWorker/XWorker/AutoWoker/MCommon/account.cpp", "MU", null ],
+		[ "D:/AutoWorker/XWorker/AutoWoker/MCommon/autocontrol.cpp", "MU", null ],
 		[ "D:/AutoWorker/XWorker/AutoWoker/MCommon/chrome.cpp", "MU", null ],
 		[ "D:/AutoWorker/XWorker/AutoWoker/MCommon/commonsql.cpp", "MU", null ],
 		[ "D:/AutoWorker/XWorker/AutoWoker/MCommon/connector.cpp", "MU", null ],
@@ -695,11 +770,23 @@
 			"MU",
 			null
 		],
+		[ "D:/AutoWorker/XWorker/AutoWoker/MCommon/minproxy.cpp", "MU", null ],
+		[ "D:/AutoWorker/XWorker/AutoWoker/MCommon/obcdcom.cpp", "MU", null ],
+		[ "D:/AutoWorker/XWorker/AutoWoker/MCommon/obcproxy.cpp", "MU", null ],
+		[ "D:/AutoWorker/XWorker/AutoWoker/MCommon/proxyv6net.cpp", "MU", null ],
 		[
 			"D:/AutoWorker/XWorker/AutoWoker/MCommon/requesthandle.cpp",
 			"MU",
 			null
 		],
+		[ "D:/AutoWorker/XWorker/AutoWoker/MCommon/shoplike.cpp", "MU", null ],
+		[
+			"D:/AutoWorker/XWorker/AutoWoker/MCommon/tinsoftproxy.cpp",
+			"MU",
+			null
+		],
+		[ "D:/AutoWorker/XWorker/AutoWoker/MCommon/tmproxy.cpp", "MU", null ],
+		[ "D:/AutoWorker/XWorker/AutoWoker/MCommon/xproxyproxy.cpp", "MU", null ],
 		[
 			"D:/AutoWorker/XWorker/AutoWoker/Table/customtablemodel.cpp",
 			"MU",

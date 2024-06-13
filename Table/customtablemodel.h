@@ -26,6 +26,8 @@ public:
 
     void addColumn(const QString &name, int columnNumber, const QVector<QVariant> &data = QVector<QVariant>());
     void setRowColor(int row, const QColor &color);
+    void clearRows();
+    void addRow(const QVector<QVariant> &rowData);
 private:
     QVector<QVector<QVariant>> dataStorage;
     QVector<QString> headerLabels;

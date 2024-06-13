@@ -101,10 +101,10 @@ QString DatagridviewHelper::GetStatusDataGridView(QTableView* dgv, int row, QStr
 void DatagridviewHelper::SetStatusDataGridViewWithWait(QTableView* dgv, int row, QString colName, int timeWait, QString status){
     try
     {
-        int time_start = GetTickCount();
-        while ((GetTickCount() - time_start) / 1000 - timeWait < 0)
+        int time_start = QDateTime::currentSecsSinceEpoch();
+        while ((QDateTime::currentSecsSinceEpoch() - time_start) / 1 - timeWait < 0)
         {
-            dgv->model()->setData(dgv->model()->index(row,Utils::GetIndexByColumnHeader(dgv,colName)),status.replace("{time}", QString::number((timeWait - (GetTickCount() - time_start) / 1000))),Qt::DisplayRole);
+            dgv->model()->setData(dgv->model()->index(row,Utils::GetIndexByColumnHeader(dgv,colName)),status.replace("{time}", QString::number((timeWait - (GetTickCount() - time_start) / 1))),Qt::DisplayRole);
             Common::DelayTime(0.5);
         }
     }
@@ -136,8 +136,11 @@ void DatagridviewHelper::SetStatusDataGridView(QTableView* dgv, int row, QString
             UpdateStatus::SetStatusById(GetStatusDataGridView(dgv,row,"Id"), status.toString());
         }
         try {
-            auto check= dgv->model()->setData(dgv->model()->index(row,Utils::GetIndexByColumnHeader(dgv,colName)),status,Qt::EditRole);
-            int checkpoint = check;
+            if(colName == "Select"){
+                dgv->model()->setData(dgv->model()->index(row,Utils::GetIndexByColumnHeader(dgv,colName)),status,Qt::CheckStateRole);
+            }else{
+                dgv->model()->setData(dgv->model()->index(row,Utils::GetIndexByColumnHeader(dgv,colName)),status,Qt::EditRole);
+            }
         } catch (...) {
         }
     } catch (...) {

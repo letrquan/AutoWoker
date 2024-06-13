@@ -226,6 +226,14 @@ public:
             return QJsonObject();
         }
     }
+    static QString findKeyWithPort(const QMap<QString, QList<QString>> &listDcomPort, const QString &port) {
+        for (auto it = listDcomPort.constBegin(); it != listDcomPort.constEnd(); ++it) {
+            if (it.value().contains(port)) {
+                return it.key();
+            }
+        }
+        return QString();  // Return an empty string if no match is found
+    }
 };
 
 #endif // UTILS_H

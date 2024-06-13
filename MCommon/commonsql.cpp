@@ -235,7 +235,7 @@ bool CommonSQL::UpdateMultiFieldToAccount(QString id, QString lstFieldName, QStr
 bool CommonSQL::UpdateStatuses(const QMap<QString, QString> statusMap, QString fieldName) {
     bool result = false;
     if (statusMap.isEmpty()) {
-        qDebug() << "Status map is empty. No updates to perform.";
+        qDebug() << fieldName << " map is empty. No updates to perform.";
         return false;
     }
 

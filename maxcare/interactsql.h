@@ -9,6 +9,8 @@ public:
     static bool AddColumnsIntoTable(QString table, QString columnName, int typeColumnData);
     static QVariantList* GetAllKichBan();
     static QVariantList* GetAllHanhDongByKichBan(QString idKichBan);
+    static QStringList GetIdHanhDongByIdKichBanAndTenTuongTac(QString Id_KichBan, QString tenTuongTac);
+    static QString GetCauHinhFromHanhDong(QString Id_HanhDong);
 };
 
 #endif // INTERACTSQL_H

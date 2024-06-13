@@ -72,6 +72,18 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         Form/fdanhsachkichban_old.h Form/fdanhsachkichban_old.cpp Form/fdanhsachkichban_old.ui
         maxcare/KichBan/interactconnector.h maxcare/KichBan/interactconnector.cpp
         Form/fcauhinhchung.h Form/fcauhinhchung.cpp Form/fcauhinhchung.ui
+        MCommon/ProxyTool.h
+        MCommon/tinsoftproxy.h MCommon/tinsoftproxy.cpp
+        MCommon/xproxyproxy.h MCommon/xproxyproxy.cpp
+        MCommon/tmproxy.h MCommon/tmproxy.cpp
+        MCommon/proxyv6net.h MCommon/proxyv6net.cpp
+        MCommon/shoplike.h MCommon/shoplike.cpp
+        MCommon/minproxy.h MCommon/minproxy.cpp
+        MCommon/obcdcom.h MCommon/obcdcom.cpp
+        MCommon/obcproxy.h MCommon/obcproxy.cpp
+        Form/fviewchrome.h Form/fviewchrome.cpp Form/fviewchrome.ui
+        MCommon/account.h MCommon/account.cpp
+        MCommon/autocontrol.h MCommon/autocontrol.cpp
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET AutoWorker APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR

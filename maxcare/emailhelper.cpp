@@ -9,7 +9,7 @@ EmailHelper::EmailHelper() {}
 QString EmailHelper::getOtpFromDomain(int type, QString& url, const QString& mail, const QString& uidFb, int timeOut){
     RequestHandle request("","","",0);
     url = url.left(url.lastIndexOf("=")+1) + mail;
-    int tickCount = GetTickCount();
+    // int tickCount = QDateTime::currentSecsSinceEpoch();
     // do {
         QByteArray text = request.RequestGet(url);
         try {
@@ -28,7 +28,7 @@ QString EmailHelper::getOtpFromDomain(int type, QString& url, const QString& mai
         } catch (...) {
         }
         Common::DelayTime(3.0);
-    // } while (GetTickCount() -tickCount < timeOut *1000);
+    // } while (QDateTime::currentSecsSinceEpoch() -tickCount < timeOut);
     return "";
 }
 
@@ -125,7 +125,7 @@ QList<QString>* EmailHelper::getListMailDomain(){
     QList<QString>* listRange = new QList<QString>();
     QString url = "https://cdn.autoworker.me/maildomain/get_domains";
     RequestHandle request("","","",0);
-    long int tickCount = GetTickCount();
+    long int tickCount = QDateTime::currentSecsSinceEpoch();
     // do {
         QByteArray text = request.RequestGet(url);
         try {
@@ -149,6 +149,6 @@ QList<QString>* EmailHelper::getListMailDomain(){
         } catch (...) {
         }
         Common::DelayTime(3.0);
-    // } while (GetTickCount() - tickCount < 60*1000);
+    // } while (QDateTime::currentSecsSinceEpoch() - tickCount < 60);
     return listRange;
 }

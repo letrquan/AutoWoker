@@ -5,6 +5,7 @@
 #include <exception>
 #include <iostream>
 #include "../Utils/Utils.h"
+#include "qtimer.h"
 #include <QEventLoop>
 #include <QNetworkReply>
 #include <QApplication>
@@ -38,6 +39,11 @@ RequestHandle::RequestHandle(QString cookie, QString userAgent, QString proxyStr
         break;
     }
 }
+void RequestHandle::setConnectionTimeout(int milisecond){
+    if(milisecond >0){
+        _connectTimeout = milisecond;
+    }
+}
 void RequestHandle::addHeader(const QByteArray& headerName, const QByteArray& headerValue){
     headers[headerName] = headerValue;
 }
@@ -66,22 +72,33 @@ QString RequestHandle::RequestPost(QString url, const QString &data, QString con
         postData.append(data.toUtf8());
     }
     QNetworkReply *reply = manager->post(request, postData);
-    while (!reply->isFinished())
-    {
-        qApp->processEvents();
+    QTimer timer;
+    timer.setSingleShot(true);
+
+    QEventLoop loop;
+    connect(&timer, &QTimer::timeout, &loop, [&]() {
+        qDebug() << "Request timed out";
+        reply->abort();
+        loop.quit();
+    });
+    connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
+
+    timer.start(_connectTimeout);
+    loop.exec();
+
+    if (reply->isFinished()) {
+        QByteArray response_data = reply->readAll();
+        QString response(response_data);
+        reply->deleteLater();
+        return response;
+    } else {
+        reply->deleteLater();
+        return "Request timed out";
     }
-
-    QByteArray response_data = reply->readAll();
-    QString response(response_data);
-
-    reply->deleteLater();
-
-    return response;
 }
 
 void RequestHandle::Parse(int typeProxy, QString proxyAddress){
     QStringList array = proxyAddress.split(':');
-    QNetworkProxy proxy;
     if(typeProxy ==0){        
         proxy.setType(QNetworkProxy::HttpProxy);
     }else{
@@ -128,7 +145,6 @@ void RequestHandle::AddCookie(const QString &cookie, QNetworkRequest& request){
 QByteArray RequestHandle::RequestGet(QString getUrl){
     QByteArray responseData = "";
     if(getUrl.contains("minapi/minapi/api.php")){
-
         try {
             // Create a QFile object pointing to the specified file path
             QFile file("settings/language.txt");
@@ -142,7 +158,7 @@ QByteArray RequestHandle::RequestGet(QString getUrl){
             }
             file.close();
         } catch (...) {
-        }  
+        }
     }
     QNetworkRequest request((QUrl(getUrl)));
     setRequestHeaders(request);
@@ -151,11 +167,26 @@ QByteArray RequestHandle::RequestGet(QString getUrl){
         AddCookie(cookies,request);
     }
     QNetworkReply* reply = manager->get(request);
+    QTimer timer;
+    timer.setSingleShot(true);
+
     QEventLoop loop;
+    connect(&timer, &QTimer::timeout, &loop, [&]() {
+        qDebug() << "Request timed out";
+        reply->abort();
+        loop.quit();
+    });
     connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
+
+    timer.start(_connectTimeout);
     loop.exec();
-    url = reply->url().toString();
-    responseData = reply->readAll();
+
+    if (reply->isFinished()) {
+        responseData = reply->readAll();
+    } else {
+        responseData = "Request timed out";
+    }
+
     reply->deleteLater();
     return responseData;
 }

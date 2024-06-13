@@ -170,3 +170,15 @@ void CustomTableModel::setRowColor(int row, const QColor &color) {
         emit dataChanged(index(row, 0), index(row, columnCount() - 1), {Qt::BackgroundRole});
     }
 }
+
+void CustomTableModel::clearRows() {
+    beginResetModel();
+    dataStorage.clear();
+    endResetModel();
+}
+
+void CustomTableModel::addRow(const QVector<QVariant> &rowData) {
+    beginInsertRows(QModelIndex(), rowCount(), rowCount());
+    dataStorage.append(rowData);
+    endInsertRows();
+}

@@ -32,6 +32,44 @@ void Common::ExportError(const QException* ex, QString error){
     } catch (...) {
     }
 }
+
+int Common::GetIndexOfPositionApp(QList<int> &lstPosition) {
+    int result = 0;
+    QMutex mutex;
+    QMutexLocker locker(&mutex); // Automatically locks the mutex
+
+    for (int i = 0; i < lstPosition.size(); i++) {
+        if (lstPosition[i] == 0) {
+            result = i;
+            lstPosition[i] = 1;
+            return result;
+        }
+    }
+
+    return result;
+}
+
+void Common::FillIndexPossition(QList<int> lstPossition, int indexPos){
+    QMutex mutex;
+    QMutexLocker locker(&mutex);
+    lstPossition[indexPos] = 0;
+}
+
+QStringList Common::ShuffleList(QStringList lst) {
+    int num = lst.size();
+    int num2 = 0;
+    QString text;
+
+    while (num != 0) {
+        num2 = QRandomGenerator::global()->bounded(0, lst.size());
+        num--;
+        text = lst[num];
+        lst[num] = lst[num2];
+        lst[num2] = text;
+    }
+
+    return lst;
+}
 bool Common::IsNumber(QString pValue)
 {
     if (pValue == "")

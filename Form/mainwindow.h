@@ -1,6 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 #include <QCheckBox>
+#include "qfuturewatcher.h"
 #include "qmutex.h"
 #include "ui_mainwindow.h"
 #include <QMainWindow>
@@ -14,6 +15,15 @@
 #include <QKeyEvent>
 #include <QThreadPool>
 #include "../Table/customtablemodel.h"
+#include "../MCommon/json_settings.h"
+#include "../MCommon/ProxyTool.h"
+#include "../MCommon/tinsoftproxy.h"
+#include "../MCommon/xproxyproxy.h"
+#include "../MCommon/tmproxy.h"
+#include "../MCommon/proxyv6net.h"
+#include "../MCommon/shoplike.h"
+#include "../MCommon/minproxy.h"
+#include "../MCommon/obcdcom.h"
 namespace Ui {
 class MainWindow;
 }
@@ -36,10 +46,90 @@ public:
     static QString checkUpdate(QString namesoft);
     QString GetInfoAccount(int indexRow);
     QString GetCellAccount(int indexRow, QString column);
+    int CountChooseRowInDatagridview();
+    QList<QString> GetListKeyTinsoft();
+    QString GetStatusAccount(int indexRow);
 private:
+    void GetProxy(int indexRow, bool isStop, QString proxy, int typeProxy, QString statusProxy, QString ip, TinsoftProxy* tinsoft, XproxyProxy* xproxy, TMProxy* tmproxy, ProxyV6Net* proxyWeb, ShopLike* shopLike, MinProxy* minProxy, ObcProxy* obcProxy);
+    void ExcuteOneThread(int indexRow, int indexPos, QString idKichBan, JSON_Settings settings);
+    void ReadResultSpam();
+    QMap<QString,QStringList> dicUidNhom;
+    QMap<QString,QStringList> dicUidNhom2;
+    QMap<QString,QStringList> dicUidCaNhan;
+    QMap<QString,QStringList> dicUidCaNhan2;
+    QMap<QString,QStringList> dicUidBaivietProfile;
+
+    QMap<QString,QStringList> dicUidSpamBaiViet;
+    QMap<QString,QStringList> dicUidSpamBaiVietv2;
+    QMap<QString,QStringList> dicSpamBaiVietIdPostOld;
+    QMap<QString,QStringList> dicCommentSpamBaiViet;
+    QMap<QString,QStringList> dicCommentSpamBaiVietv2;
+    QMap<QString,QStringList> dicUidTinNhanProfile;
+    QMap<QString,QStringList> dicKetBanUidNew;
+    QMap<QString,QStringList> dicBuffLikeComment_Comment;
+    QMap<QString,QStringList> dicBuffLikeComment_CommentGoc;
+    QMap<QString,QStringList> dicDangStatus_NoiDung;
+    QMap<QString,QStringList> dicDangStatus_NoiDungGoc;
+    QMap<QString,QStringList> dicDangStatusV2_NoiDung;
+    QMap<QString,QStringList> dicDangStatusV2_NoiDungGoc;
+    QMap<QString,QStringList> dicDangBai_NoiDung;
+    QMap<QString,QStringList> dicDangBai_NoiDungGoc;
+
+    QMap<QString,QStringList> dicUidPhanHoiComment;
+
+    QMap<QString,QStringList> dicIdBaiViet;
+
+    QMap<QString,QStringList> dicIdBaiVietClone;
+
+    QMap<QString,QStringList> dicIdPageBuff;
+
+    QMap<QString,QStringList> dicHDShareBaiTut_txtLinkChiaSe;
+
+    QMap<QString,QStringList> dicHDLinkToInstagram_txtBio;
+
+    QMap<QString,QStringList> dicHDLinkToInstagram_txtBioGoc;
+
+    QMap<QString,QStringList> dicHDReviewPage_txtUid;
+
+    QMap<QString,QStringList> dic_HDNhanTinBanBe_txtTinNhan;
+
+    QMap<QString,QStringList> dic_HDNhanTinBanBe_txtTinNhan_Goc;
+
+    QMap<QString,QStringList> dic_HDDangBai_lstNhomTuNhap;
+
+    QMap<QString,QStringList> dic_HDDangBai_txtIdPost;
+
+    QMap<QString,QStringList> dic_HDTuongTacLivestream_txtComment;
+
+    QMap<QString,QStringList> dic_HDAddMail_lstHotmail;
+
+    QMap<QString,QStringList> dic_HDUpAvatar_lstImage;
+
+    QMap<QString,QStringList> dic_HDUpCover_lstImage;
+
+    QMap<QString,QStringList> dicImagePathOld;
+
+    QMap<QString,QStringList> dicImagePathToRun;
+
+    QMap<QString,QStringList> dicCommentPathOld;
+
+    QMap<QString,QStringList> dicCommentPathToRun;
+    QMap<QString,QMap<QString,int>> dic_BuffLikeComment_LimitPerLink;
+    QMap<QString,QStringList> dic_HDPhanHoiBinhLuan_Comment;
+
+    QMap<QString,QStringList> GetDictionaryIntoHanhDong(QString idKichBan, QString tenTuongTac, QString field = "txtUid");
+    void RandomThuTuTaiKhoan(int soLuot = 1);
+    void DeleteCacheProfile(int row);
+    int checkDelayChrome;
+    bool isCountCheckAccountWhenChayTuongTac;
+    QMap<QString,QStringList> dic_GroupPosted;
+    QMap<QString,QStringList> dic_GroupShared;
+    void OpenFormViewChrome();
+    QList<ObcDcom*> listObcDcom;
+    QList<ProxyTool*> lstProxyTool;
     bool isStop;
     Ui::MainWindow *ui;
-    QList<QThread*> lstThread;
+    QList<QFuture<void>*> lstThread;
     QList<QString> lstMailDomainAw;
     QMenu menu;
     QMutex mutex;
@@ -47,18 +137,22 @@ private:
     QMap<QString,QString> *statusSQL;
     QMap<QString,QString> *infoSQL;
     void ChangeLanguage();
+    bool IsChooseRow();
     void DisableSort();
+    void Execute(const JSON_Settings &settings = JSON_Settings());
     void CheckDangCheckPoint(int indexRow, QString statusProxy, QString cookie, QString proxy, int typeProxy,  bool &isCheckpoint282);
     void CheckDangCheckpoint(int row);
     void CheckNameVN(int row);
     void CheckMyWall(int row, QString tokenTg);
     void CheckMyToken(int row);
+    QList<ProxyTool *> GetListProxy(int maxThread);
     void CheckInfoUid(int row, bool useProxy);
     bool CheckIsUidFacebook(QString uid);
     void CheckAccountMail(int row);
     void CheckMyCookie(int row);
     void cControl(QString dt);
     void EnableSort();
+    void checkAccounts(const std::function<void(int)>& task);
     void KiemTraTaiKhoan(int type, bool useProxy = false);
     bool isExcute_CbbThuMuc_SelectedIndexChanged = true;
     bool isExcute_CbbTinhTrang_SelectedIndexChanged = true;
@@ -119,11 +213,14 @@ private slots:
 
     void on_pushButton_clicked();
 
+    void on_btnInteract_clicked();
+
 signals:
     void updateStatusAccount(int row, QString status, int timeWait = -1);
     void updateInfoAccount(int row, QString info);
     void updateRowColor2(int indexRow, int typeColor);
     void updateRowColor(int indexRow = -1);
+    void updateCellAccount(int indexRow, QString column, QVariant value, bool isAllowEmptyValue = true);
 };
 
 #endif // MAINWINDOW_H
