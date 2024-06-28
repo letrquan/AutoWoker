@@ -4,6 +4,8 @@
 	"CMAKE_CURRENT_BINARY_DIR" : "D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug",
 	"CMAKE_CURRENT_SOURCE_DIR" : "D:/AutoWorker/XWorker/AutoWoker",
 	"CMAKE_SOURCE_DIR" : "D:/AutoWorker/XWorker/AutoWoker",
+	"CROSS_CONFIG" : false,
+	"GENERATOR" : "Ninja",
 	"INCLUDE_DIR" : "D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/AutoWorker_autogen/include",
 	"INPUTS" : 
 	[
@@ -38,5 +40,6 @@
 	"RCC_LIST_OPTIONS" : [ "--list" ],
 	"SETTINGS_FILE" : "D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/CMakeFiles/AutoWorker_autogen.dir/AutoRcc_resource_EWIEGA46WW_Used.txt",
 	"SOURCE" : "D:/AutoWorker/XWorker/AutoWoker/resource.qrc",
+	"USE_BETTER_GRAPH" : false,
 	"VERBOSITY" : 0
 }

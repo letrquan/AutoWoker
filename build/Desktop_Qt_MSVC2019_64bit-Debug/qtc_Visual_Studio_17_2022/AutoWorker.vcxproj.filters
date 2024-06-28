@@ -1,0 +1,499 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="D:\AutoWorker\XWorker\AutoWoker\build\Desktop_Qt_MSVC2019_64bit-Debug\qtc_Visual_Studio_17_2022\AutoWorker_autogen\mocs_compilation_Debug.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\AutoWorker\XWorker\AutoWoker\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\AutoWorker\XWorker\AutoWoker\MCommon\json_settings.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\AutoWorker\XWorker\AutoWoker\Form\loginwindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\AutoWorker\XWorker\AutoWoker\MCommon\requesthandle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\AutoWorker\XWorker\AutoWoker\Form\mainwindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\AutoWorker\XWorker\AutoWoker\Form\downloaddialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\AutoWorker\XWorker\AutoWoker\maxcare\emailhelper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\AutoWorker\XWorker\AutoWoker\maxcare\SettingsTool.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\AutoWorker\XWorker\AutoWoker\maxcare\setupfolder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\AutoWorker\XWorker\AutoWoker\MCommon\connector.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\AutoWorker\XWorker\AutoWoker\maxcare\Language.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\AutoWorker\XWorker\AutoWoker\maxcare\Base.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\AutoWorker\XWorker\AutoWoker\MCommon\Common.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\AutoWorker\XWorker\AutoWoker\MCommon\AwApi.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\AutoWorker\XWorker\AutoWoker\MCommon\commonsql.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\AutoWorker\XWorker\AutoWoker\MCommon\chrome.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\AutoWorker\XWorker\AutoWoker\maxcare\interactsql.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\AutoWorker\XWorker\AutoWoker\maxcare\updatestatus.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\AutoWorker\XWorker\AutoWoker\CloneDatabase\clonedatabase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\AutoWorker\XWorker\AutoWoker\CloneDatabase\connectsqlite.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\AutoWorker\XWorker\AutoWoker\maxcare\collectionhelper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\AutoWorker\XWorker\AutoWoker\maxcare\datagridviewhelper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\AutoWorker\XWorker\AutoWoker\Form\fcauhinhhienthi.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\AutoWorker\XWorker\AutoWoker\Form\fimportaccount.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\AutoWorker\XWorker\AutoWoker\Form\faddfile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\AutoWorker\XWorker\AutoWoker\Form\fimportaccountformatinput.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\AutoWorker\XWorker\AutoWoker\Form\fchonthumuc.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\AutoWorker\XWorker\AutoWoker\maxcare\ImapHelper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\AutoWorker\XWorker\AutoWoker\Table\customtablemodel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\AutoWorker\XWorker\AutoWoker\Form\fcauhinhtuongtac.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\AutoWorker\XWorker\AutoWoker\Form\fdanhsachkichban_old.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\AutoWorker\XWorker\AutoWoker\maxcare\KichBan\interactconnector.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\AutoWorker\XWorker\AutoWoker\Form\fcauhinhchung.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\AutoWorker\XWorker\AutoWoker\MCommon\tinsoftproxy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\AutoWorker\XWorker\AutoWoker\MCommon\xproxyproxy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\AutoWorker\XWorker\AutoWoker\MCommon\tmproxy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\AutoWorker\XWorker\AutoWoker\MCommon\proxyv6net.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\AutoWorker\XWorker\AutoWoker\MCommon\shoplike.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\AutoWorker\XWorker\AutoWoker\MCommon\minproxy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\AutoWorker\XWorker\AutoWoker\MCommon\obcdcom.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\AutoWorker\XWorker\AutoWoker\MCommon\obcproxy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\AutoWorker\XWorker\AutoWoker\Form\fviewchrome.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\AutoWorker\XWorker\AutoWoker\MCommon\account.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\AutoWorker\XWorker\AutoWoker\MCommon\autocontrol.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\AutoWorker\XWorker\AutoWoker\build\Desktop_Qt_MSVC2019_64bit-Debug\qtc_Visual_Studio_17_2022\AutoWorker_autogen\EWIEGA46WW\qrc_resource.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\AutoWorker\XWorker\AutoWoker\build\Desktop_Qt_MSVC2019_64bit-Debug\qtc_Visual_Studio_17_2022\AutoWorker_autogen\mocs_compilation_Release.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\AutoWorker\XWorker\AutoWoker\build\Desktop_Qt_MSVC2019_64bit-Debug\qtc_Visual_Studio_17_2022\AutoWorker_autogen\mocs_compilation_MinSizeRel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\AutoWorker\XWorker\AutoWoker\build\Desktop_Qt_MSVC2019_64bit-Debug\qtc_Visual_Studio_17_2022\AutoWorker_autogen\mocs_compilation_RelWithDebInfo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\MCommon\json_settings.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\maxcare\SettingsTool.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\Form\loginwindow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\MCommon\AwApi.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\MCommon\RequestParams.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\MCommon\RequestHandle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\Utils\Utils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\Form\mainwindow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\MCommon\Common.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\maxcare\Language.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\maxcare\Base.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\maxcare\FileHelper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\Form\downloaddialog.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\maxcare\Enum\StatusChromeAccount.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\maxcare\Enum\GetContentStatusChrome.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\maxcare\emailhelper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\maxcare\setupfolder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\MCommon\connector.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\MCommon\commonsql.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\MCommon\chrome.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\maxcare\interactsql.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\maxcare\updatestatus.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\CloneDatabase\clonedatabase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\CloneDatabase\connectsqlite.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\maxcare\collectionhelper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\maxcare\datagridviewhelper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\Form\fcauhinhhienthi.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\Form\fimportaccount.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\maxcare\MessageBoxHelper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\Form\faddfile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\Form\fimportaccountformatinput.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\maxcare\StringHelper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\Form\fchonthumuc.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\MCommon\CommonRequest.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\MCommon\CommonChrome.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\maxcare\ImapHelper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\Table\customtablemodel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\Form\fcauhinhtuongtac.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\Form\fdanhsachkichban_old.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\maxcare\KichBan\interactconnector.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\Form\fcauhinhchung.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\MCommon\ProxyTool.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\MCommon\tinsoftproxy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\MCommon\xproxyproxy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\MCommon\tmproxy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\MCommon\proxyv6net.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\MCommon\shoplike.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\MCommon\minproxy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\MCommon\obcdcom.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\MCommon\obcproxy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\Form\fviewchrome.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\MCommon\account.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\MCommon\autocontrol.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\maxcare\Trash1.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\build\Desktop_Qt_MSVC2019_64bit-Debug\qtc_Visual_Studio_17_2022\AutoWorker_autogen\include_Debug\Form\ui_loginwindow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\build\Desktop_Qt_MSVC2019_64bit-Debug\qtc_Visual_Studio_17_2022\AutoWorker_autogen\include_Debug\Form\ui_mainwindow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\build\Desktop_Qt_MSVC2019_64bit-Debug\qtc_Visual_Studio_17_2022\AutoWorker_autogen\include_Debug\Form\ui_downloaddialog.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\build\Desktop_Qt_MSVC2019_64bit-Debug\qtc_Visual_Studio_17_2022\AutoWorker_autogen\include_Debug\Form\ui_fcauhinhhienthi.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\build\Desktop_Qt_MSVC2019_64bit-Debug\qtc_Visual_Studio_17_2022\AutoWorker_autogen\include_Debug\Form\ui_fimportaccount.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\build\Desktop_Qt_MSVC2019_64bit-Debug\qtc_Visual_Studio_17_2022\AutoWorker_autogen\include_Debug\Form\ui_faddfile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\build\Desktop_Qt_MSVC2019_64bit-Debug\qtc_Visual_Studio_17_2022\AutoWorker_autogen\include_Debug\Form\ui_fimportaccountformatinput.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\build\Desktop_Qt_MSVC2019_64bit-Debug\qtc_Visual_Studio_17_2022\AutoWorker_autogen\include_Debug\Form\ui_fchonthumuc.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\build\Desktop_Qt_MSVC2019_64bit-Debug\qtc_Visual_Studio_17_2022\AutoWorker_autogen\include_Debug\Form\ui_fcauhinhtuongtac.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\build\Desktop_Qt_MSVC2019_64bit-Debug\qtc_Visual_Studio_17_2022\AutoWorker_autogen\include_Debug\Form\ui_fdanhsachkichban_old.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\build\Desktop_Qt_MSVC2019_64bit-Debug\qtc_Visual_Studio_17_2022\AutoWorker_autogen\include_Debug\Form\ui_fcauhinhchung.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\build\Desktop_Qt_MSVC2019_64bit-Debug\qtc_Visual_Studio_17_2022\AutoWorker_autogen\include_Debug\Form\ui_fviewchrome.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\build\Desktop_Qt_MSVC2019_64bit-Debug\qtc_Visual_Studio_17_2022\AutoWorker_autogen\include_Release\Form\ui_loginwindow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\build\Desktop_Qt_MSVC2019_64bit-Debug\qtc_Visual_Studio_17_2022\AutoWorker_autogen\include_Release\Form\ui_mainwindow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\build\Desktop_Qt_MSVC2019_64bit-Debug\qtc_Visual_Studio_17_2022\AutoWorker_autogen\include_Release\Form\ui_downloaddialog.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\build\Desktop_Qt_MSVC2019_64bit-Debug\qtc_Visual_Studio_17_2022\AutoWorker_autogen\include_Release\Form\ui_fcauhinhhienthi.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\build\Desktop_Qt_MSVC2019_64bit-Debug\qtc_Visual_Studio_17_2022\AutoWorker_autogen\include_Release\Form\ui_fimportaccount.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\build\Desktop_Qt_MSVC2019_64bit-Debug\qtc_Visual_Studio_17_2022\AutoWorker_autogen\include_Release\Form\ui_faddfile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\build\Desktop_Qt_MSVC2019_64bit-Debug\qtc_Visual_Studio_17_2022\AutoWorker_autogen\include_Release\Form\ui_fimportaccountformatinput.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\build\Desktop_Qt_MSVC2019_64bit-Debug\qtc_Visual_Studio_17_2022\AutoWorker_autogen\include_Release\Form\ui_fchonthumuc.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\build\Desktop_Qt_MSVC2019_64bit-Debug\qtc_Visual_Studio_17_2022\AutoWorker_autogen\include_Release\Form\ui_fcauhinhtuongtac.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\build\Desktop_Qt_MSVC2019_64bit-Debug\qtc_Visual_Studio_17_2022\AutoWorker_autogen\include_Release\Form\ui_fdanhsachkichban_old.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\build\Desktop_Qt_MSVC2019_64bit-Debug\qtc_Visual_Studio_17_2022\AutoWorker_autogen\include_Release\Form\ui_fcauhinhchung.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\build\Desktop_Qt_MSVC2019_64bit-Debug\qtc_Visual_Studio_17_2022\AutoWorker_autogen\include_Release\Form\ui_fviewchrome.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\build\Desktop_Qt_MSVC2019_64bit-Debug\qtc_Visual_Studio_17_2022\AutoWorker_autogen\include_MinSizeRel\Form\ui_loginwindow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\build\Desktop_Qt_MSVC2019_64bit-Debug\qtc_Visual_Studio_17_2022\AutoWorker_autogen\include_MinSizeRel\Form\ui_mainwindow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\build\Desktop_Qt_MSVC2019_64bit-Debug\qtc_Visual_Studio_17_2022\AutoWorker_autogen\include_MinSizeRel\Form\ui_downloaddialog.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\build\Desktop_Qt_MSVC2019_64bit-Debug\qtc_Visual_Studio_17_2022\AutoWorker_autogen\include_MinSizeRel\Form\ui_fcauhinhhienthi.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\build\Desktop_Qt_MSVC2019_64bit-Debug\qtc_Visual_Studio_17_2022\AutoWorker_autogen\include_MinSizeRel\Form\ui_fimportaccount.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\build\Desktop_Qt_MSVC2019_64bit-Debug\qtc_Visual_Studio_17_2022\AutoWorker_autogen\include_MinSizeRel\Form\ui_faddfile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\build\Desktop_Qt_MSVC2019_64bit-Debug\qtc_Visual_Studio_17_2022\AutoWorker_autogen\include_MinSizeRel\Form\ui_fimportaccountformatinput.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\build\Desktop_Qt_MSVC2019_64bit-Debug\qtc_Visual_Studio_17_2022\AutoWorker_autogen\include_MinSizeRel\Form\ui_fchonthumuc.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\build\Desktop_Qt_MSVC2019_64bit-Debug\qtc_Visual_Studio_17_2022\AutoWorker_autogen\include_MinSizeRel\Form\ui_fcauhinhtuongtac.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\build\Desktop_Qt_MSVC2019_64bit-Debug\qtc_Visual_Studio_17_2022\AutoWorker_autogen\include_MinSizeRel\Form\ui_fdanhsachkichban_old.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\build\Desktop_Qt_MSVC2019_64bit-Debug\qtc_Visual_Studio_17_2022\AutoWorker_autogen\include_MinSizeRel\Form\ui_fcauhinhchung.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\build\Desktop_Qt_MSVC2019_64bit-Debug\qtc_Visual_Studio_17_2022\AutoWorker_autogen\include_MinSizeRel\Form\ui_fviewchrome.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\build\Desktop_Qt_MSVC2019_64bit-Debug\qtc_Visual_Studio_17_2022\AutoWorker_autogen\include_RelWithDebInfo\Form\ui_loginwindow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\build\Desktop_Qt_MSVC2019_64bit-Debug\qtc_Visual_Studio_17_2022\AutoWorker_autogen\include_RelWithDebInfo\Form\ui_mainwindow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\build\Desktop_Qt_MSVC2019_64bit-Debug\qtc_Visual_Studio_17_2022\AutoWorker_autogen\include_RelWithDebInfo\Form\ui_downloaddialog.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\build\Desktop_Qt_MSVC2019_64bit-Debug\qtc_Visual_Studio_17_2022\AutoWorker_autogen\include_RelWithDebInfo\Form\ui_fcauhinhhienthi.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\build\Desktop_Qt_MSVC2019_64bit-Debug\qtc_Visual_Studio_17_2022\AutoWorker_autogen\include_RelWithDebInfo\Form\ui_fimportaccount.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\build\Desktop_Qt_MSVC2019_64bit-Debug\qtc_Visual_Studio_17_2022\AutoWorker_autogen\include_RelWithDebInfo\Form\ui_faddfile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\build\Desktop_Qt_MSVC2019_64bit-Debug\qtc_Visual_Studio_17_2022\AutoWorker_autogen\include_RelWithDebInfo\Form\ui_fimportaccountformatinput.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\build\Desktop_Qt_MSVC2019_64bit-Debug\qtc_Visual_Studio_17_2022\AutoWorker_autogen\include_RelWithDebInfo\Form\ui_fchonthumuc.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\build\Desktop_Qt_MSVC2019_64bit-Debug\qtc_Visual_Studio_17_2022\AutoWorker_autogen\include_RelWithDebInfo\Form\ui_fcauhinhtuongtac.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\build\Desktop_Qt_MSVC2019_64bit-Debug\qtc_Visual_Studio_17_2022\AutoWorker_autogen\include_RelWithDebInfo\Form\ui_fdanhsachkichban_old.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\build\Desktop_Qt_MSVC2019_64bit-Debug\qtc_Visual_Studio_17_2022\AutoWorker_autogen\include_RelWithDebInfo\Form\ui_fcauhinhchung.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\AutoWorker\XWorker\AutoWoker\build\Desktop_Qt_MSVC2019_64bit-Debug\qtc_Visual_Studio_17_2022\AutoWorker_autogen\include_RelWithDebInfo\Form\ui_fviewchrome.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="D:\AutoWorker\XWorker\AutoWoker\build\Desktop_Qt_MSVC2019_64bit-Debug\qtc_Visual_Studio_17_2022\CMakeFiles\61c10414b403f7a4fc165dd6e2cedc59\autouic_(CONFIG).stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="D:\AutoWorker\XWorker\AutoWoker\build\Desktop_Qt_MSVC2019_64bit-Debug\qtc_Visual_Studio_17_2022\CMakeFiles\65995a732b1659b5364c90e38fabdf99\qrc_resource.cpp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="D:\AutoWorker\XWorker\AutoWoker\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="D:\AutoWorker\XWorker\AutoWoker\Form\loginwindow.ui" />
+    <None Include="D:\AutoWorker\XWorker\AutoWoker\Form\mainwindow.ui" />
+    <None Include="D:\AutoWorker\XWorker\AutoWoker\Form\downloaddialog.ui" />
+    <None Include="D:\AutoWorker\XWorker\AutoWoker\Form\fcauhinhhienthi.ui" />
+    <None Include="D:\AutoWorker\XWorker\AutoWoker\Form\fimportaccount.ui" />
+    <None Include="D:\AutoWorker\XWorker\AutoWoker\Form\faddfile.ui" />
+    <None Include="D:\AutoWorker\XWorker\AutoWoker\Form\fimportaccountformatinput.ui" />
+    <None Include="D:\AutoWorker\XWorker\AutoWoker\Form\fchonthumuc.ui" />
+    <None Include="D:\AutoWorker\XWorker\AutoWoker\resource.qrc" />
+    <None Include="D:\AutoWorker\XWorker\AutoWoker\Form\fcauhinhtuongtac.ui" />
+    <None Include="D:\AutoWorker\XWorker\AutoWoker\Form\fdanhsachkichban_old.ui" />
+    <None Include="D:\AutoWorker\XWorker\AutoWoker\Form\fcauhinhchung.ui" />
+    <None Include="D:\AutoWorker\XWorker\AutoWoker\Form\fviewchrome.ui" />
+    <None Include="D:\AutoWorker\XWorker\AutoWoker\build\Desktop_Qt_MSVC2019_64bit-Debug\qtc_Visual_Studio_17_2022\AutoWorker_autogen\autouic_Debug.stamp" />
+    <None Include="D:\AutoWorker\XWorker\AutoWoker\build\Desktop_Qt_MSVC2019_64bit-Debug\qtc_Visual_Studio_17_2022\AutoWorker_autogen\autouic_Release.stamp" />
+    <None Include="D:\AutoWorker\XWorker\AutoWoker\build\Desktop_Qt_MSVC2019_64bit-Debug\qtc_Visual_Studio_17_2022\AutoWorker_autogen\autouic_MinSizeRel.stamp" />
+    <None Include="D:\AutoWorker\XWorker\AutoWoker\build\Desktop_Qt_MSVC2019_64bit-Debug\qtc_Visual_Studio_17_2022\AutoWorker_autogen\autouic_RelWithDebInfo.stamp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{EDFC0225-0BFF-39F1-A0F1-F460DC949A61}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{307917B0-1207-3593-A91F-3F40F2750E36}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{2324D592-BA75-310B-92A5-1863F95FC621}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

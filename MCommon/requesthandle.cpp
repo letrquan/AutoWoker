@@ -15,7 +15,7 @@
 RequestHandle::RequestHandle(QString cookie, QString userAgent, QString proxyString, int typeProxy) {
     manager = new QNetworkAccessManager(this);
     if(userAgent.trimmed() == ""){
-        userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.131 Safari/537.36";
+        userAgent = "Mozilla/5.0 (windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.131 Safari/537.36";
     }
     addHeader("User-Agent", userAgent.toUtf8());
     addHeader("Accept","text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8");

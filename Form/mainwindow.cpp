@@ -5,9 +5,8 @@
 #include "qnetworkreply.h"
 #include "ui_mainwindow.h"
 #include <QNetworkRequest>
-#include "../MCommon/requesthandle.h"
+#include "../MCommon/RequestHandle.h"
 #include <QNetworkAccessManager>
-#include <zlib.h>
 #include <QEventLoop>
 #include "../maxcare/Language.h"
 #include "../MCommon/commonsql.h"
@@ -40,6 +39,7 @@
 #include "../Form/fviewchrome.h"
 #include "../maxcare/interactsql.h"
 #include "../MCommon/account.h"
+#include "../MCommon/chrome.h"
 MainWindow::MainWindow(QString tokemem, QString namemem, QString phoneMem, QString maxDeviceMem,QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
@@ -102,7 +102,7 @@ QString MainWindow::md5Encode(const QString &input) {
 }
 
 void MainWindow::xoaProxy(){
-    QSettings settings("HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings", QSettings::NativeFormat);
+    QSettings settings("HKEY_CURRENT_USER\\Software\\Microsoft\\windows\\CurrentVersion\\Internet Settings", QSettings::NativeFormat);
 
     // Set the ProxyServer and ProxyEnable values
     settings.setValue("ProxyServer", 1);  // It seems like a mistake in the original C# to set ProxyServer to 1 while disabling it.
@@ -292,6 +292,7 @@ void MainWindow::LoadAccountFromFile(QList<QString> lstIdFile, QString info){
 }
 void MainWindow::LoadDtgvAccFromDatatable(QVariantList* tableAccount){
     cusModel->loadDataFromDatabase(tableAccount);
+    connect(cusModel, &CustomTableModel::checkedCountChanged, this, &MainWindow::CountCheckedAccount);
     ui->tableView->setModel(cusModel);
     QCoreApplication::processEvents();
     CountCheckedAccount(0);
@@ -421,7 +422,7 @@ void MainWindow::CountCheckedAccount(int count){
         count = 0;
         for (int i = 0; i < ui->tableView->model()->rowCount(); i++)
         {
-            if (ui->tableView->model()->index(i,Utils::GetIndexByColumnHeader(ui->tableView,"Select")).data().toInt() == 1)
+            if (ui->tableView->model()->index(i,Utils::GetIndexByColumnHeader(ui->tableView,"Select")).data(Qt::CheckStateRole) == Qt::Checked)
             {
                 count++;
             }
@@ -469,11 +470,15 @@ void MainWindow::KiemTraTaiKhoan(int type, bool useProxy) {
     });
     connect(watcher, &QFutureWatcher<void>::finished, this, [this]() {
         cControl("database");
-        if (CommonSQL::UpdateStatuses(*statusSQL, "status")) {
-            statusSQL->clear();
+        if(!statusSQL->isEmpty()){
+            if (CommonSQL::UpdateStatuses(*statusSQL, "status")) {
+                statusSQL->clear();
+            }
         }
-        if (CommonSQL::UpdateStatuses(*infoSQL, "info")) {
-            infoSQL->clear();
+        if(!infoSQL->isEmpty()){
+            if (CommonSQL::UpdateStatuses(*infoSQL, "info")) {
+                infoSQL->clear();
+            }
         }
         cControl("stop");
     });
@@ -632,7 +637,7 @@ void MainWindow::CheckAccountMail(int row){
 
 void MainWindow::CheckDangCheckPoint(int indexRow, QString statusProxy, QString cookie, QString proxy, int typeProxy,  bool &isCheckpoint282){
     try {
-        RequestHandle requestXNet(cookie, "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.131 Safari/537.36", proxy, typeProxy);
+        RequestHandle requestXNet(cookie, "Mozilla/5.0 (windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.131 Safari/537.36", proxy, typeProxy);
         isCheckpoint282 = false;
         QString text = requestXNet.RequestGet("https://mbasic.facebook.com/");
         QString url = requestXNet.GetUrl();
@@ -1216,156 +1221,157 @@ void MainWindow::Execute(const JSON_Settings &settings){
                                     num19++;
                                 }
                             });
-                            if(isStop){
-                                break;
-                            }
-                            idKichBan = list[k];
-                            if (SettingsTool::GetSettings("configInteractGeneral").GetValueBool("ckbRandomThuTuTaiKhoan"))
+                        }
+                        if(isStop){
+                            break;
+                        }
+                        idKichBan = list[k];
+                        if (SettingsTool::GetSettings("configInteractGeneral").GetValueBool("ckbRandomThuTuTaiKhoan"))
+                        {
+                            QMetaObject::invokeMethod(ui->tableView, [this]() {
+                                    RandomThuTuTaiKhoan();
+                                }, Qt::QueuedConnection);
+                        }
+                        dicUidNhom = GetDictionaryIntoHanhDong(idKichBan, "HDThamGiaNhomUid");
+                        dicUidNhom2 = GetDictionaryIntoHanhDong(idKichBan, "HDThamGiaNhomUidv2");
+                        dicUidCaNhan = GetDictionaryIntoHanhDong(idKichBan, "HDKetBanTepUid");
+                        dicUidCaNhan2 = GetDictionaryIntoHanhDong(idKichBan, "HDKetBanTepUidv2");
+                        dicUidBaivietProfile = GetDictionaryIntoHanhDong(idKichBan, "HDBaiVietProfile");
+                        dicUidSpamBaiViet = GetDictionaryIntoHanhDong(idKichBan, "HDSpamBaiViet");
+                        dicUidSpamBaiVietv2 = GetDictionaryIntoHanhDong(idKichBan, "HDSpamBaiVietv2");
+                        dicCommentSpamBaiViet = GetDictionaryIntoHanhDong(idKichBan, "HDSpamBaiViet", "txtComment");
+                        dicCommentSpamBaiVietv2 = GetDictionaryIntoHanhDong(idKichBan, "HDSpamBaiVietv2", "txtComment");
+                        dicUidTinNhanProfile = GetDictionaryIntoHanhDong(idKichBan, "HDBuffTinNhanProfile");
+                        dicKetBanUidNew = GetDictionaryIntoHanhDong(idKichBan, "HDKetBanTepUidNew", "txtLink");
+                        dicBuffLikeComment_Comment = GetDictionaryIntoHanhDong(idKichBan, "HDBuffLikeComment", "txtComment");
+                        dicBuffLikeComment_CommentGoc = GetDictionaryIntoHanhDong(idKichBan, "HDBuffLikeComment", "txtComment");
+                        dicDangStatus_NoiDung = GetDictionaryIntoHanhDong(idKichBan, "HDDangStatus", "txtNoiDung");
+                        dicDangStatus_NoiDungGoc = GetDictionaryIntoHanhDong(idKichBan, "HDDangStatus", "txtNoiDung");
+                        dicDangStatusV2_NoiDung = GetDictionaryIntoHanhDong(idKichBan, "HDDangStatusV2", "txtNoiDung");
+                        dicDangStatusV2_NoiDungGoc = GetDictionaryIntoHanhDong(idKichBan, "HDDangStatusV2", "txtNoiDung");
+                        dicDangBai_NoiDung = GetDictionaryIntoHanhDong(idKichBan, "HDDangBai", "txtNoiDung");
+                        dicDangBai_NoiDungGoc = GetDictionaryIntoHanhDong(idKichBan, "HDDangBai", "txtNoiDung");
+                        dicUidPhanHoiComment = GetDictionaryIntoHanhDong(idKichBan, "HDPhanHoiBinhLuan");
+                        dicIdBaiViet = GetDictionaryIntoHanhDong(idKichBan, "HDBuffLikeComment", "txtIdPost");
+                        dicIdBaiVietClone = GetDictionaryIntoHanhDong(idKichBan, "HDDangBaiTheoID", "txtIdPost");
+                        dicIdPageBuff = GetDictionaryIntoHanhDong(idKichBan, "HDBuffFollowLikePage");
+                        dicHDShareBaiTut_txtLinkChiaSe = GetDictionaryIntoHanhDong(idKichBan, "HDShareBaiTut", "txtLinkChiaSe");
+                        dicHDLinkToInstagram_txtBio = GetDictionaryIntoHanhDong(idKichBan, "HDLinkToInstagram", "txtBio");
+                        dicHDLinkToInstagram_txtBioGoc = GetDictionaryIntoHanhDong(idKichBan, "HDLinkToInstagram", "txtBio");
+                        dicHDReviewPage_txtUid = GetDictionaryIntoHanhDong(idKichBan, "HDReviewPage");
+                        dic_HDNhanTinBanBe_txtTinNhan = GetDictionaryIntoHanhDong(idKichBan, "HDNhanTinBanBe", "txtTinNhan");
+                        dic_HDNhanTinBanBe_txtTinNhan_Goc = GetDictionaryIntoHanhDong(idKichBan, "HDNhanTinBanBe", "txtTinNhan");
+                        dic_HDDangBai_lstNhomTuNhap = GetDictionaryIntoHanhDong(idKichBan, "HDDangBai", "lstNhomTuNhap");
+                        dic_HDDangBai_txtIdPost = GetDictionaryIntoHanhDong(idKichBan, "HDDangBai", "txtIdPost");
+                        dic_HDTuongTacLivestream_txtComment = GetDictionaryIntoHanhDong(idKichBan, "HDTuongTacLivestream", "txtComment");
+                        dic_HDAddMail_lstHotmail = GetDictionaryIntoHanhDong(idKichBan, "HDAddMail", "lstHotmail");
+                        dic_HDUpAvatar_lstImage = *new QMap<QString, QStringList>();
+                        dic_HDUpCover_lstImage = *new QMap<QString, QStringList>();
+                        dic_BuffLikeComment_LimitPerLink = *new QMap<QString, QMap<QString,int>>();
+                        dic_HDPhanHoiBinhLuan_Comment = GetDictionaryIntoHanhDong(idKichBan, "HDPhanHoiBinhLuan", "txtComment");
+                        ReadResultSpam();
+                        dicCommentPathOld = *new QMap<QString, QStringList>();
+                        dicCommentPathToRun = *new QMap<QString, QStringList>();
+                        dicImagePathOld = *new QMap<QString, QStringList>();
+                        dicImagePathToRun = *new QMap<QString, QStringList>();
+                        if (SettingsTool::GetSettings("configGeneral").GetValueInt("ip_iTypeChangeIp") == 8 && SettingsTool::GetSettings("configGeneral").GetValueInt("typeRunXproxy") == 1)
+                        {
+                            for (int l = 0; l < lstProxyTool.count(); l++)
                             {
-                                QMetaObject::invokeMethod(ui->tableView, [this]() {
-                                        RandomThuTuTaiKhoan();
-                                    }, Qt::QueuedConnection);
+                                (qobject_cast<XproxyProxy *>(lstProxyTool[l]))->resetProxy();
                             }
-                            dicUidNhom = GetDictionaryIntoHanhDong(idKichBan, "HDThamGiaNhomUid");
-                            dicUidNhom2 = GetDictionaryIntoHanhDong(idKichBan, "HDThamGiaNhomUidv2");
-                            dicUidCaNhan = GetDictionaryIntoHanhDong(idKichBan, "HDKetBanTepUid");
-                            dicUidCaNhan2 = GetDictionaryIntoHanhDong(idKichBan, "HDKetBanTepUidv2");
-                            dicUidBaivietProfile = GetDictionaryIntoHanhDong(idKichBan, "HDBaiVietProfile");
-                            dicUidSpamBaiViet = GetDictionaryIntoHanhDong(idKichBan, "HDSpamBaiViet");
-                            dicUidSpamBaiVietv2 = GetDictionaryIntoHanhDong(idKichBan, "HDSpamBaiVietv2");
-                            dicCommentSpamBaiViet = GetDictionaryIntoHanhDong(idKichBan, "HDSpamBaiViet", "txtComment");
-                            dicCommentSpamBaiVietv2 = GetDictionaryIntoHanhDong(idKichBan, "HDSpamBaiVietv2", "txtComment");
-                            dicUidTinNhanProfile = GetDictionaryIntoHanhDong(idKichBan, "HDBuffTinNhanProfile");
-                            dicKetBanUidNew = GetDictionaryIntoHanhDong(idKichBan, "HDKetBanTepUidNew", "txtLink");
-                            dicBuffLikeComment_Comment = GetDictionaryIntoHanhDong(idKichBan, "HDBuffLikeComment", "txtComment");
-                            dicBuffLikeComment_CommentGoc = GetDictionaryIntoHanhDong(idKichBan, "HDBuffLikeComment", "txtComment");
-                            dicDangStatus_NoiDung = GetDictionaryIntoHanhDong(idKichBan, "HDDangStatus", "txtNoiDung");
-                            dicDangStatus_NoiDungGoc = GetDictionaryIntoHanhDong(idKichBan, "HDDangStatus", "txtNoiDung");
-                            dicDangStatusV2_NoiDung = GetDictionaryIntoHanhDong(idKichBan, "HDDangStatusV2", "txtNoiDung");
-                            dicDangStatusV2_NoiDungGoc = GetDictionaryIntoHanhDong(idKichBan, "HDDangStatusV2", "txtNoiDung");
-                            dicDangBai_NoiDung = GetDictionaryIntoHanhDong(idKichBan, "HDDangBai", "txtNoiDung");
-                            dicDangBai_NoiDungGoc = GetDictionaryIntoHanhDong(idKichBan, "HDDangBai", "txtNoiDung");
-                            dicUidPhanHoiComment = GetDictionaryIntoHanhDong(idKichBan, "HDPhanHoiBinhLuan");
-                            dicIdBaiViet = GetDictionaryIntoHanhDong(idKichBan, "HDBuffLikeComment", "txtIdPost");
-                            dicIdBaiVietClone = GetDictionaryIntoHanhDong(idKichBan, "HDDangBaiTheoID", "txtIdPost");
-                            dicIdPageBuff = GetDictionaryIntoHanhDong(idKichBan, "HDBuffFollowLikePage");
-                            dicHDShareBaiTut_txtLinkChiaSe = GetDictionaryIntoHanhDong(idKichBan, "HDShareBaiTut", "txtLinkChiaSe");
-                            dicHDLinkToInstagram_txtBio = GetDictionaryIntoHanhDong(idKichBan, "HDLinkToInstagram", "txtBio");
-                            dicHDLinkToInstagram_txtBioGoc = GetDictionaryIntoHanhDong(idKichBan, "HDLinkToInstagram", "txtBio");
-                            dicHDReviewPage_txtUid = GetDictionaryIntoHanhDong(idKichBan, "HDReviewPage");
-                            dic_HDNhanTinBanBe_txtTinNhan = GetDictionaryIntoHanhDong(idKichBan, "HDNhanTinBanBe", "txtTinNhan");
-                            dic_HDNhanTinBanBe_txtTinNhan_Goc = GetDictionaryIntoHanhDong(idKichBan, "HDNhanTinBanBe", "txtTinNhan");
-                            dic_HDDangBai_lstNhomTuNhap = GetDictionaryIntoHanhDong(idKichBan, "HDDangBai", "lstNhomTuNhap");
-                            dic_HDDangBai_txtIdPost = GetDictionaryIntoHanhDong(idKichBan, "HDDangBai", "txtIdPost");
-                            dic_HDTuongTacLivestream_txtComment = GetDictionaryIntoHanhDong(idKichBan, "HDTuongTacLivestream", "txtComment");
-                            dic_HDAddMail_lstHotmail = GetDictionaryIntoHanhDong(idKichBan, "HDAddMail", "lstHotmail");
-                            dic_HDUpAvatar_lstImage = *new QMap<QString, QStringList>();
-                            dic_HDUpCover_lstImage = *new QMap<QString, QStringList>();
-                            dic_BuffLikeComment_LimitPerLink = *new QMap<QString, QMap<QString,int>>();
-                            dic_HDPhanHoiBinhLuan_Comment = GetDictionaryIntoHanhDong(idKichBan, "HDPhanHoiBinhLuan", "txtComment");
-                            ReadResultSpam();
-                            dicCommentPathOld = *new QMap<QString, QStringList>();
-                            dicCommentPathToRun = *new QMap<QString, QStringList>();
-                            dicImagePathOld = *new QMap<QString, QStringList>();
-                            dicImagePathToRun = *new QMap<QString, QStringList>();
-                            if (SettingsTool::GetSettings("configGeneral").GetValueInt("ip_iTypeChangeIp") == 8 && SettingsTool::GetSettings("configGeneral").GetValueInt("typeRunXproxy") == 1)
+                        }
+                        if (SettingsTool::GetSettings("configGeneral").GetValueInt("ip_iTypeChangeIp") == 14)
+                        {
+                            for (int m = 0; m < listObcDcom.count(); m++)
                             {
-                                for (int l = 0; l < lstProxyTool.count(); l++)
-                                {
-                                    (qobject_cast<XproxyProxy *>(lstProxyTool[l]))->resetProxy();
-                                }
+                                listObcDcom[m]->ResetDcom();
                             }
-                            if (SettingsTool::GetSettings("configGeneral").GetValueInt("ip_iTypeChangeIp") == 14)
-                            {
-                                for (int m = 0; m < listObcDcom.count(); m++)
-                                {
-                                    listObcDcom[m]->ResetDcom();
-                                }
-                            }
-                            QFuture<void> thread3 = QtConcurrent::run([this,&maxThread, &lstPossition, &idKichBan, &settings, &curChangeIp, &isChangeIPSuccess]{
-                                try {
-                                    int num13 = 0;
-                                    while(num13<ui->tableView->model()->rowCount() && !isStop){
-                                        if(ui->tableView->model()->index(num13,Utils::GetIndexByColumnHeader(ui->tableView,"Select")).data(Qt::CheckStateRole).toBool()){
-                                            if(isStop){
-                                                break;
-                                            }
-                                            if(QThreadPool::globalInstance()->activeThreadCount()< maxThread){
-                                                if (isStop)
-                                                {
-                                                    break;
-                                                }
-                                                QFuture<void> thread6 = QtConcurrent::run([&num13, &lstPossition, &idKichBan, &settings, this]{
-                                                    int indexOfPossitionApp2 = Common::GetIndexOfPositionApp(lstPossition);
-                                                    try {
-                                                        ExcuteOneThread(num13, indexOfPossitionApp2, idKichBan, settings);
-                                                        Common::FillIndexPossition(lstPossition,indexOfPossitionApp2);
-                                                        QString p = "Proxy chưa ủy quyền!";
-                                                        if (!SettingsTool::GetSettings("configInteractGeneral").GetValueBool("ckbRepeatAll") || GetInfoAccount(num13) != "Live" || GetStatusAccount(num13).toLower().contains("checkpoint") || GetStatusAccount(num13).toLower().contains("invalid username or password") || GetStatusAccount(num13).toLower().contains(p.toLower()))
-                                                        {
-                                                            emit updateCellAccount(num13, "cChose", Qt::Unchecked);
-                                                        }
-                                                    } catch (const std::exception &ex6) {
-                                                        QString ex6Str = QString::fromStdString(ex6.what());
-                                                        if (ex6Str.contains("Thread was being aborted.")) {
-                                                            Common::FillIndexPossition(lstPossition, indexOfPossitionApp2);
-                                                            if (!SettingsTool::GetSettings("configInteractGeneral").GetValueBool("ckbRepeatAll")) {
-                                                                emit updateCellAccount(num13, "Select", Qt::Unchecked);
-                                                            }
-                                                        }
-                                                    }
-                                                });
-                                                lstThread.append(&thread6);
-                                                Common::DelayTime(1);
-                                            }else{
-                                                if (isStop)
-                                                {
-                                                    break;
-                                                }
-                                                if ((SettingsTool::GetSettings("configGeneral").GetValueInt("ip_iTypeChangeIp") == 7 && SettingsTool::GetSettings("configGeneral").GetValueBool("ckbWaitDoneAllTinsoft")) || (SettingsTool::GetSettings("configGeneral").GetValueInt("ip_iTypeChangeIp") == 8 && SettingsTool::GetSettings("configGeneral").GetValueBool("ckbWaitDoneAllXproxy")) || (SettingsTool::GetSettings("configGeneral").GetValueInt("ip_iTypeChangeIp") == 10 && SettingsTool::GetSettings("configGeneral").GetValueBool("ckbWaitDoneAllTMProxy")))
-                                                {
-                                                    for (int num14 = 0; num14 < lstThread.count(); num14++)
-                                                    {
-                                                        lstThread[num14]->waitForFinished();
-                                                        lstThread.removeAt(num14--);
-                                                    }
-                                                }else if (SettingsTool::GetSettings("configGeneral").GetValueInt("ip_iTypeChangeIp") == 1 || SettingsTool::GetSettings("configGeneral").GetValueInt("ip_iTypeChangeIp") == 2){
-                                                    for (int num15 = 0; num15 < lstThread.count(); num15++)
-                                                    {
-                                                        lstThread[num15]->waitForFinished();
-                                                        lstThread.removeAt(num15--);
-                                                    }
-                                                    if (isStop)
-                                                    {
-                                                        break;
-                                                    }
-                                                    {
-                                                        QMutexLocker locker(&mutex);
-                                                        curChangeIp++;
-                                                    }
-                                                    if (curChangeIp >= SettingsTool::GetSettings("configGeneral").GetValueInt("ip_nudChangeIpCount", 1)){
-                                                        for (int num16 = 0; num16 < 3; num16++)
-                                                        {
-                                                            isChangeIPSuccess = Common::ChangeIP(SettingsTool::GetSettings("configGeneral").GetValueInt("ip_iTypeChangeIp"), SettingsTool::GetSettings("configGeneral").GetValueInt("typeDcom"), SettingsTool::GetSettings("configGeneral").GetValue("ip_txtProfileNameDcom"), SettingsTool::GetSettings("configGeneral").GetValue("txtUrlHilink"), SettingsTool::GetSettings("configGeneral").GetValueInt("ip_cbbHostpot"), SettingsTool::GetSettings("configGeneral").GetValue("ip_txtNordVPN"));
-                                                            if (isChangeIPSuccess)
-                                                            {
-                                                                break;
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                        num13++;
-                                        if (isStop)
-                                        {
+                        }
+                        QFuture<void> thread3 = QtConcurrent::run([this,&maxThread, &lstPossition, &idKichBan, &settings, &curChangeIp, &isChangeIPSuccess]{
+                            try {
+                                int num13 = 0;
+                                while(num13<ui->tableView->model()->rowCount() && !isStop){
+                                    auto check = ui->tableView->model()->index(num13,Utils::GetIndexByColumnHeader(ui->tableView,"Select")).data(Qt::CheckStateRole);
+                                    if(ui->tableView->model()->index(num13,Utils::GetIndexByColumnHeader(ui->tableView,"Select")).data(Qt::CheckStateRole).toBool()){
+                                        if(isStop){
                                             break;
                                         }
+                                        if(QThreadPool::globalInstance()->activeThreadCount()< maxThread){
+                                            if (isStop)
+                                            {
+                                                break;
+                                            }
+                                            QFuture<void> thread6 = QtConcurrent::run([&num13, &lstPossition, &idKichBan, &settings, this]{
+                                                int indexOfPossitionApp2 = Common::GetIndexOfPositionApp(lstPossition);
+                                                try {
+                                                    ExcuteOneThread(num13, indexOfPossitionApp2, idKichBan, settings);
+                                                    Common::FillIndexPossition(lstPossition,indexOfPossitionApp2);
+                                                    QString p = "Proxy chưa ủy quyền!";
+                                                    if (!SettingsTool::GetSettings("configInteractGeneral").GetValueBool("ckbRepeatAll") || GetInfoAccount(num13) != "Live" || GetStatusAccount(num13).toLower().contains("checkpoint") || GetStatusAccount(num13).toLower().contains("invalid username or password") || GetStatusAccount(num13).toLower().contains(p.toLower()))
+                                                    {
+                                                        emit updateCellAccount(num13, "Select", Qt::Unchecked);
+                                                    }
+                                                } catch (const std::exception &ex6) {
+                                                    QString ex6Str = QString::fromStdString(ex6.what());
+                                                    if (ex6Str.contains("Thread was being aborted.")) {
+                                                        Common::FillIndexPossition(lstPossition, indexOfPossitionApp2);
+                                                        if (!SettingsTool::GetSettings("configInteractGeneral").GetValueBool("ckbRepeatAll")) {
+                                                            emit updateCellAccount(num13, "Select", Qt::Unchecked);
+                                                        }
+                                                    }
+                                                }
+                                            });
+                                            lstThread.append(&thread6);
+                                            Common::DelayTime(1);
+                                        }else{
+                                            if (isStop)
+                                            {
+                                                break;
+                                            }
+                                            if ((SettingsTool::GetSettings("configGeneral").GetValueInt("ip_iTypeChangeIp") == 7 && SettingsTool::GetSettings("configGeneral").GetValueBool("ckbWaitDoneAllTinsoft")) || (SettingsTool::GetSettings("configGeneral").GetValueInt("ip_iTypeChangeIp") == 8 && SettingsTool::GetSettings("configGeneral").GetValueBool("ckbWaitDoneAllXproxy")) || (SettingsTool::GetSettings("configGeneral").GetValueInt("ip_iTypeChangeIp") == 10 && SettingsTool::GetSettings("configGeneral").GetValueBool("ckbWaitDoneAllTMProxy")))
+                                            {
+                                                for (int num14 = 0; num14 < lstThread.count(); num14++)
+                                                {
+                                                    lstThread[num14]->waitForFinished();
+                                                    lstThread.removeAt(num14--);
+                                                }
+                                            }else if (SettingsTool::GetSettings("configGeneral").GetValueInt("ip_iTypeChangeIp") == 1 || SettingsTool::GetSettings("configGeneral").GetValueInt("ip_iTypeChangeIp") == 2){
+                                                for (int num15 = 0; num15 < lstThread.count(); num15++)
+                                                {
+                                                    lstThread[num15]->waitForFinished();
+                                                    lstThread.removeAt(num15--);
+                                                }
+                                                if (isStop)
+                                                {
+                                                    break;
+                                                }
+                                                {
+                                                    QMutexLocker locker(&mutex);
+                                                    curChangeIp++;
+                                                }
+                                                if (curChangeIp >= SettingsTool::GetSettings("configGeneral").GetValueInt("ip_nudChangeIpCount", 1)){
+                                                    for (int num16 = 0; num16 < 3; num16++)
+                                                    {
+                                                        isChangeIPSuccess = Common::ChangeIP(SettingsTool::GetSettings("configGeneral").GetValueInt("ip_iTypeChangeIp"), SettingsTool::GetSettings("configGeneral").GetValueInt("typeDcom"), SettingsTool::GetSettings("configGeneral").GetValue("ip_txtProfileNameDcom"), SettingsTool::GetSettings("configGeneral").GetValue("txtUrlHilink"), SettingsTool::GetSettings("configGeneral").GetValueInt("ip_cbbHostpot"), SettingsTool::GetSettings("configGeneral").GetValue("ip_txtNordVPN"));
+                                                        if (isChangeIPSuccess)
+                                                        {
+                                                            break;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
                                     }
-                                } catch (...) {
+                                    num13++;
+                                    if (isStop)
+                                    {
+                                        break;
+                                    }
                                 }
-                            });
-                        }
+                            } catch (...) {
+                            }
+                        });
                     }
                 }
             }
@@ -1381,8 +1387,8 @@ void MainWindow::ExcuteOneThread(int indexRow, int indexPos, QString idKichBan, 
         limitTimeRun = QRandomGenerator::global()->bounded(SettingsTool::GetSettings("configInteractGeneral").GetValueInt("nudThoiGianChayTaiKhoanFrom"), SettingsTool::GetSettings("configInteractGeneral").GetValueInt("nudThoiGianChayTaiKhoanTo") + 1);
     }
     Account* account = new Account(QThread::currentThread(), limitTimeRun);
-
     QString proxy = "";
+    Chrome* chrome = nullptr;
     int num = 0;
     QString statusProxy = "";
     int typeProxy = 0;
@@ -1443,18 +1449,232 @@ void MainWindow::ExcuteOneThread(int indexRow, int indexPos, QString idKichBan, 
             emit updateStatusAccount(indexRow, statusProxy + Language::GetValue("Đã dừng!"));
             num2 = 1;
         }else{
+            GetProxy(indexRow,  isStop,  proxy,  typeProxy,  statusProxy,  ip,  tinsoft,  xproxy,  tmproxy,  proxyWeb,  shopLike,  minProxy,  obcProxy);
+            if (isStop)
+            {
+                emit updateStatusAccount(indexRow, statusProxy + Language::GetValue("Đã dừng!"));
+                num2 = 1;
+            }else{
+                if (!SettingsTool::GetSettings("configGeneral").GetValueBool("ckbKhongCheckIP")){
+                    if (SettingsTool::GetSettings("configGeneral").GetValueInt("ip_iTypeChangeIp") == 0 || SettingsTool::GetSettings("configGeneral").GetValueInt("ip_iTypeChangeIp") == 1 || SettingsTool::GetSettings("configGeneral").GetValueInt("ip_iTypeChangeIp") == 2 || SettingsTool::GetSettings("configGeneral").GetValueInt("ip_iTypeChangeIp") == 9){
+                        if (proxy != "")
+                        {
+                            statusProxy = "(IP: " + proxy.split(':')[0] + ") ";
+                        }
+                        emit updateStatusAccount(indexRow, statusProxy + "Check IP...");
+                        bool flag4 = false;
+                        int num5 = 0;
+                        while (num5 < 30)
+                        {
+                            Common::DelayTime(1.0);
+                            ip = Common::CheckProxyNew(proxy, typeProxy);
+                            if (ip != "")
+                            {
+                                flag4 = true;
+                                break;
+                            }
+                            if (!isStop)
+                            {
+                                num5++;
+                                continue;
+                            }
+                            // goto IL_0396;
+                        }
+                        if (!flag4)
+                        {
+                            if (proxy != "")
+                            {
+                                emit updateStatusAccount(indexRow, statusProxy + Language::GetValue("Không thể kết nối proxy!"));
+                            }
+                            else
+                            {
+                                emit updateStatusAccount(indexRow, statusProxy + Language::GetValue("Không có kết nối Internet!"));
+                            }
+                            num2 = 1;
+                            // goto IL_5233;
+                        }
+                    }
+                    statusProxy = "(IP: +"+proxy+"=>"+ip+") ";
+                }
+                if (isStop)
+                {
+                    emit updateStatusAccount(indexRow, statusProxy + Language::GetValue("Đã dừng!"));
+                    num2 = 1;
+                }else{
+                    try {
+                        bool flag5 = false;
+                        if (settings.GetValueBool("Unlock282"))
+                        {
+                            flag5 = true;
+                            ExcuteUnlock282(indexRow, statusProxy, text4, proxy, typeProxy);
+                        }
+                        if (!settings.GetValueBool("GetTokenEAAAAU"))
+                        {
+                            // goto IL_0533;
+                        }
+                        flag5 = true;
+                        emit updateStatusAccount(indexRow, "Get Token...");
+                        QString value = "Get Token fail!";
+                        text5 = CommonRequest::GetTokenEAAAAU(text3, cellAccount5, cellAccount4, text4, proxy, typeProxy);
+                        if (!(text5 == "Invalid username or password"))
+                        {
+                            if (text5 != "")
+                            {
+                                emit updateCellAccount(indexRow, "Token", text5, "token");
+                                value = "Get Token Success!";
+                            }
+                            emit updateStatusAccount(indexRow, value);
+                            // goto IL_0533;
+                        }
+                        emit updateStatusAccount(indexRow, "Get token fail (Sai pass)");
+                        num2 = 1;
+                        // goto end_IL_0482;
+                    IL_0863:
+                        emit updateStatusAccount(indexRow, statusProxy + Language::GetValue("Chờ đến lượt..."));
+                        {
+                            QMutexLocker locker(&mutex);
+                            if (checkDelayChrome > 0){
+                                int num6 = QRandomGenerator::global()->bounded(SettingsTool::GetSettings("configGeneral").GetValueInt("nudDelayOpenChromeFrom", 1), SettingsTool::GetSettings("configGeneral").GetValueInt("nudDelayOpenChromeTo", 1) + 1);
+                                if (num6 > 0)
+                                {
+                                    int tickCount = GetTickCount();
+                                    while ((GetTickCount() - tickCount) / 1000 - num6 < 0)
+                                    {
+                                        QString status = " {time}s...";
+                                        emit updateStatusAccount(indexRow, statusProxy + Language::GetValue("Mở tri\u0300nh duyê\u0323t sau") + status.replace("{time}", QString::number(num6 - (GetTickCount() - tickCount) / 1000)));
+                                        Common::DelayTime(0.5);
+                                        if (!isStop)
+                                        {
+                                            continue;
+                                        }
+                                        emit updateStatusAccount(indexRow, statusProxy + Language::GetValue("Đã dừng!"));
+                                        num2 = 1;
+                                        // goto end_IL_0482;
+                                    }
+                                }
+                            }else
+                            {
+                                checkDelayChrome++;
+                            }
+                        }
+                        emit updateStatusAccount(indexRow, statusProxy + Language::GetValue("Đang mơ\u0309 tri\u0300nh duyê\u0323t..."));
+                        QString text6 = "data:,";
+                        QPoint position;
+                        QPoint size;
+                        if (SettingsTool::GetSettings("configGeneral").GetValueBool("ckbAddChromeIntoForm"))
+                        {
+                            if (text6 == "")
+                            {
+                                position = *new QPoint(-1000, 0);
+                                size = *new QPoint(SettingsTool::GetSettings("configGeneral").GetValueInt("nudWidthChrome") + 16, SettingsTool::GetSettings("configGeneral").GetValueInt("nudHeighChrome") + 132);
+                            }
+                            else
+                            {
+                                position = *new QPoint(-1000, 0);
+                                size = *new QPoint(SettingsTool::GetSettings("configGeneral").GetValueInt("nudWidthChrome") + 33, SettingsTool::GetSettings("configGeneral").GetValueInt("nudHeighChrome") + 39);
+                            }
+                        }else{
+                            Common::initializeScreenDimensions();
+                            position = Common::GetPointFromIndexPosition(indexPos, SettingsTool::GetSettings("configGeneral").GetValueInt("cbbColumnChrome", 3), SettingsTool::GetSettings("configGeneral").GetValueInt("cbbRowChrome", 2));
+                            size = Common::GetSizeChrome(SettingsTool::GetSettings("configGeneral").GetValueInt("cbbColumnChrome", 3), SettingsTool::GetSettings("configGeneral").GetValueInt("cbbRowChrome", 2));
+                        }
+                        QString pathProfile = SettingsTool::GetPathProfile();
+                        QString text7 = "";
+                        if (pathProfile != "" && text3 != ""){
+                            text7 = pathProfile + "\\" + text3;
+                            QDir dir(text7);
+                            if (!SettingsTool::GetSettings("configInteractGeneral").GetValueBool("ckbCreateProfile") && !dir.exists())
+                            {
+                                text7 = "";
+                            }
+                            if (SettingsTool::GetSettings("configGeneral").GetValueInt("ip_iTypeChangeIp") == 13)
+                            {
+                                typeProxy = ((SettingsTool::GetSettings("configGeneral").GetValueInt("typeProxyMin") >= 2) ? 1 : 0);
+                            }
+                            chrome = new Chrome();
+                            chrome->indexChrome = indexRow;
+                            chrome->DisableImage = (!settings.GetValueBool("Unlock956") && !SettingsTool::GetSettings("configGeneral").GetValueBool("ckbShowImageInteract"));
+                            chrome->UserAgent = cellAccount6;
+                            chrome->ProfilePath = text7;
+                            chrome->Size = size;
+                            chrome->Position = position;
+                            chrome->TimeWaitForSearchingElement = 3;
+                            chrome->TimeWaitForLoadingPage = 120;
+                            chrome->Proxy = proxy;
+                            chrome->TypeProxy = typeProxy;
+                            chrome->DisableSound = true;
+                            chrome->IsUsePortable = SettingsTool::GetSettings("configGeneral").GetValueBool("ckbUsePortable");
+                            chrome->PathToPortableZip = SettingsTool::GetSettings("configGeneral").GetValue("txtPathToPortableZip");
+                            if (SettingsTool::GetSettings("configGeneral").GetValue("sizeChrome").contains("x"))
+                            {
+                                chrome->IsUseEmulator = true;
+                                QString text8 = SettingsTool::GetSettings("configGeneral").GetValue("sizeChrome").mid(0, SettingsTool::GetSettings("configGeneral").GetValue("sizeChrome").lastIndexOf('x'));
+                                int pixelRatio = SettingsTool::GetSettings("configGeneral").GetValue("sizeChrome").split('x')[2].toInt();
+                                chrome->Size_Emulator = *new QPoint(text8.split('x')[0].toInt(), text8.split('x')[1].toInt());
+                                chrome->UserAgent = cellAccount6;
+                                chrome->PixelRatio = pixelRatio;
+                            }
+                            QString text10;
+                            if (isStop)
+                            {
+                                emit updateStatusAccount(indexRow, statusProxy + Language::GetValue("Đã dừng!"));
+                                num2 = 1;
+                            }else{
+                                QString text9 = SettingsTool::GetSettings("configGeneral").GetValue("txtLinkToOtherBrowser").trimmed();
+                                if (text9 != "")
+                                {
+                                    chrome->LinkToOtherBrowser = text9;
+                                }
+                                int num7 = 0;
+                                while (true){
+                                    if (!chrome->Open()){
+                                        emit updateStatusAccount(indexRow, statusProxy + Language::GetValue("Lỗi mở trình duyệt!"));
+                                        num2 = 1;
+                                        break;
+                                    }
+                                    if(!SettingsTool::GetSettings("configGeneral").GetValueBool("ckbKhongCheckIP") && proxy.split(':').length() >1){
+                                        chrome->GotoURL("https://api.myip.com/");
+                                        chrome->DelayTime(1.0);
+                                        if(!chrome->GetPageSource().contains("ip")){
+                                            chrome->Close();
+                                            num7++;
+                                            if(num7 >= 3){
+                                                emit updateStatusAccount(indexRow, statusProxy + Language::GetValue("Lỗi kết nối proxy!"));
+                                                num2 = 1;
+                                                break;
+                                            }
+                                            continue;
+                                        }
+                                    }
+                                    if (SettingsTool::GetSettings("configGeneral").GetValueBool("ckbAddChromeIntoForm")){
+                                        if(text6 != ""){
 
+                                        }
+                                    }
+                                }
+                            }
+
+                        }
+                    } catch (...) {
+                    }
+                }
+            }
         }
     } catch (...) {
     }
 }
 
-void MainWindow::GetProxy(int indexRow, bool isStop, QString proxy, int typeProxy, QString statusProxy, QString ip, TinsoftProxy* tinsoft, XproxyProxy* xproxy, TMProxy* tmproxy, ProxyV6Net* proxyWeb, ShopLike* shopLike, MinProxy* minProxy, ObcProxy* obcProxy){
+void MainWindow::ExcuteUnlock282(int indexRow, QString statusProxy, QString cookie, QString proxy, int typeProxy){
+    new RequestHandle(cookie, "Mozilla/5.0 (windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.131 Safari/537.36", proxy, typeProxy);
+}
+
+void MainWindow::GetProxy(int indexRow, bool &isStop, QString &proxy, int &typeProxy, QString &statusProxy, QString &ip, TinsoftProxy* tinsoft, XproxyProxy* xproxy, TMProxy* tmproxy, ProxyV6Net* proxyWeb, ShopLike* shopLike, MinProxy* minProxy, ObcProxy* obcProxy){
     while(true){
         bool flag2;
         int num;
         int num2;
         switch (SettingsTool::GetSettings("configGeneral").GetValueInt("ip_iTypeChangeIp")) {
+        case 7:
         case 15:{
             emit updateStatusAccount(indexRow, "Get Proxy...");
             {
@@ -1501,7 +1721,7 @@ void MainWindow::GetProxy(int indexRow, bool isStop, QString proxy, int typeProx
                 }
                 if (SettingsTool::GetSettings("configGeneral").GetValueInt("nudDelayCheckIP") > 0)
                 {
-                    DatagridviewHelper::SetStatusDataGridViewWithWait(ui->tableView, indexRow, "cStatus", SettingsTool::GetSettings("configGeneral").GetValueInt("nudDelayCheckIP"), statusProxy + "Delay after change ip {time}s...");
+                    DatagridviewHelper::SetStatusDataGridViewWithWait(ui->tableView, indexRow, "Trạng thái", SettingsTool::GetSettings("configGeneral").GetValueInt("nudDelayCheckIP"), statusProxy + "Delay after change ip {time}s...");
                 }
                 bool flag8 = true;
                 if (!SettingsTool::GetSettings("configGeneral").GetValueBool("ckbKhongCheckIP")){
@@ -1584,7 +1804,7 @@ void MainWindow::GetProxy(int indexRow, bool isStop, QString proxy, int typeProx
                 while (!isStop)
                 {
                     xproxy = nullptr;
-                    QList<XproxyProxy> list3 = *new QList<XproxyProxy>();
+                    QList<XproxyProxy*> list3 = *new QList<XproxyProxy*>();
                     for (auto item3: lstProxyTool)
                     {
                         XproxyProxy* xProxy3 = dynamic_cast<XproxyProxy*>(item3);
@@ -1594,7 +1814,7 @@ void MainWindow::GetProxy(int indexRow, bool isStop, QString proxy, int typeProx
                             {
                                 if (xProxy3->daSuDung < xProxy3->limitThreadsUse)
                                 {
-                                    list3.append(*xProxy3);
+                                    list3.append(xProxy3);
                                 }
                                 else if (xProxy3->dangSuDung == 0)
                                 {
@@ -1607,9 +1827,9 @@ void MainWindow::GetProxy(int indexRow, bool isStop, QString proxy, int typeProx
                     }
                     for (int l = 0; l < list3.count(); l++)
                     {
-                        if (list3[l].checkLiveProxy(0))
+                        if (list3[l]->checkLiveProxy(0))
                         {
-                            xproxy = &list3[l];
+                            xproxy = list3[l];
                             break;
                         }
                     }
@@ -1628,7 +1848,7 @@ void MainWindow::GetProxy(int indexRow, bool isStop, QString proxy, int typeProx
             }
             if (SettingsTool::GetSettings("configGeneral").GetValueInt("nudDelayCheckIP") > 0)
             {
-                DatagridviewHelper::SetStatusDataGridViewWithWait(ui->tableView, indexRow, "cStatus", SettingsTool::GetSettings("configGeneral").GetValueInt("nudDelayCheckIP"), statusProxy + "Delay after change ip {time}s...");
+                DatagridviewHelper::SetStatusDataGridViewWithWait(ui->tableView, indexRow, "Trạng thái", SettingsTool::GetSettings("configGeneral").GetValueInt("nudDelayCheckIP"), statusProxy + "Delay after change ip {time}s...");
             }
             bool flag7 = true;
             if (!SettingsTool::GetSettings("configGeneral").GetValueBool("ckbKhongCheckIP")){
@@ -1712,7 +1932,7 @@ void MainWindow::GetProxy(int indexRow, bool isStop, QString proxy, int typeProx
             }
             if (SettingsTool::GetSettings("configGeneral").GetValueInt("nudDelayCheckIP") > 0)
             {
-                DatagridviewHelper::SetStatusDataGridViewWithWait(ui->tableView, indexRow, "cStatus", SettingsTool::GetSettings("configGeneral").GetValueInt("nudDelayCheckIP"), statusProxy + "Delay after change ip {time}s...");
+                DatagridviewHelper::SetStatusDataGridViewWithWait(ui->tableView, indexRow, "Trạng thái", SettingsTool::GetSettings("configGeneral").GetValueInt("nudDelayCheckIP"), statusProxy + "Delay after change ip {time}s...");
             }
             bool flag3 = true;
             if (!SettingsTool::GetSettings("configGeneral").GetValueBool("ckbKhongCheckIP"))
@@ -1772,13 +1992,13 @@ void MainWindow::GetProxy(int indexRow, bool isStop, QString proxy, int typeProx
             }
             if (SettingsTool::GetSettings("configGeneral").GetValueInt("nudDelayCheckIP") > 0)
             {
-                DatagridviewHelper::SetStatusDataGridViewWithWait(ui->tableView, indexRow, "cStatus", SettingsTool::GetSettings("configGeneral").GetValueInt("nudDelayCheckIP"), statusProxy + "Delay after change ip {time}s...");
+                DatagridviewHelper::SetStatusDataGridViewWithWait(ui->tableView, indexRow, "Trạng thái", SettingsTool::GetSettings("configGeneral").GetValueInt("nudDelayCheckIP"), statusProxy + "Delay after change ip {time}s...");
             }
             bool flag4 = true;
             if (!SettingsTool::GetSettings("configGeneral").GetValueBool("ckbKhongCheckIP"))
             {
                 statusProxy = "(IP: " + proxy.split(':')[0] + ") ";
-                SetStatusAccount(indexRow, statusProxy + "Check IP...");
+                emit updateStatusAccount(indexRow, statusProxy + "Check IP...");
                 for (int k = 0; k < 30; k++)
                 {
                     Common::DelayTime(1.0);
@@ -1805,8 +2025,310 @@ void MainWindow::GetProxy(int indexRow, bool isStop, QString proxy, int typeProx
             }
             return;
         }
-        default:
+        case 12:{
+            emit updateStatusAccount(indexRow, "Get Proxy...");
+            QMutexLocker locker(&mutex);
+            while(!isStop){
+                shopLike = nullptr;
+                while (!isStop){
+                    for(auto item6:lstProxyTool){
+                        ShopLike* sL = dynamic_cast<ShopLike*>(item6);
+                        if(sL){
+                            if (shopLike == nullptr || sL->daSuDung < shopLike->daSuDung)
+                            {
+                                shopLike = sL;
+                            }
+                        }
+                    }
+                    if (shopLike->daSuDung != shopLike->limitThreadsUse)
+                    {
+                        break;
+                    }
+                }
+                if (isStop)
+                {
+                    break;
+                }
+                if (shopLike->daSuDung > 0 || shopLike->ChangeProxy())
+                {
+                    proxy = shopLike->proxy;
+                    if (proxy == "")
+                    {
+                        proxy = shopLike->GetProxy();
+                    }
+                    shopLike->dangSuDung++;
+                    shopLike->daSuDung++;
+                    break;
+                }
+            }
+            if (isStop)
+            {
+                return;
+            }
+            if (SettingsTool::GetSettings("configGeneral").GetValueInt("nudDelayCheckIP") > 0)
+            {
+                DatagridviewHelper::SetStatusDataGridViewWithWait(ui->tableView, indexRow, "Trạng thái", SettingsTool::GetSettings("configGeneral").GetValueInt("nudDelayCheckIP"), statusProxy + "Delay after change ip {time}s...");
+            }
+            bool flag5 = true;
+            if (!SettingsTool::GetSettings("configGeneral").GetValueBool("ckbKhongCheckIP"))
+            {
+                statusProxy = "(IP: " + proxy.split(':')[0] + ") ";
+                SetStatusAccount(indexRow, statusProxy + "Check IP...");
+                ip = Common::CheckProxy(proxy, 0);
+                if (ip == "")
+                {
+                    flag5 = false;
+                }
+            }
+            if (!flag5)
+            {
+                shopLike->dangSuDung--;
+                shopLike->daSuDung--;
+                break;
+            }
+            return;
+        }
+        case 13:{
+            emit updateStatusAccount(indexRow, Language::GetValue("Đang lấy Api MinProxy..."));
+            minProxy = nullptr;
+            flag2 = false;
+            num = 0;
+            if (isStop)
+            {
+                return;
+            }
+            QMutexLocker locker(&mutex);
+            while (!isStop)
+            {
+                for (auto item7 : lstProxyTool)
+                {
+                    MinProxy* mProxy = dynamic_cast<MinProxy*>(item7);
+                    if(mProxy){
+                        if (mProxy->dangSuDung == 0)
+                        {
+                            minProxy = mProxy;
+                            break;
+                        }
+                        if (minProxy == nullptr || mProxy->daSuDung < minProxy->daSuDung)
+                        {
+                            minProxy = mProxy;
+                        }
+                    }
+                }
+                if (minProxy->daSuDung < minProxy->limit_theads_use)
+                {
+                    break;
+                }
+            }
+            if (minProxy != nullptr)
+            {
+                minProxy->dangSuDung++;
+                minProxy->daSuDung++;
+                num = minProxy->daSuDung;
+                goto IL_0d06;
+            }
+            goto IL_0f67;
+        }
+        case 14:{
+            emit updateStatusAccount(indexRow, "Get Proxy...");
+            QMutexLocker locker(&mutex);
+            if (SettingsTool::GetSettings("configGeneral").GetValueInt("typeRunObcProxy") == 0){
+                while (!isStop){
+                    obcProxy = nullptr;
+                    QList<ObcProxy*>* list = new QList<ObcProxy*>();
+                    for(auto item8:lstProxyTool){
+                        ObcProxy* oProxy = dynamic_cast<ObcProxy*>(item8);
+                        if(oProxy){
+                            if (oProxy->isProxyLive)
+                            {
+                                if (oProxy->daSuDung < oProxy->limit_theads_use)
+                                {
+                                    list->append(oProxy);
+                                }
+                                else if (oProxy->dangSuDung == 0)
+                                {
+                                    oProxy->ResetProxy();
+                                    oProxy->daSuDung = 0;
+                                }
+                            }
+                        }
+                    }
+                    for (int i = 0; i < list->count(); i++)
+                    {
+                        if (list->at(i)->CheckLiveProxy(0))
+                        {
+                            obcProxy = list->at(i);
+                            break;
+                        }
+                    }
+                    if (obcProxy != nullptr)
+                    {
+                        proxy = obcProxy->proxy;
+                        typeProxy = obcProxy->typeProxy;
+                        obcProxy->dangSuDung++;
+                        obcProxy->daSuDung++;
+                        break;
+                    }
+                }
+            }else{
+                while (!isStop)
+                {
+                    obcProxy = nullptr;
+                    QList<ObcProxy*>* list2 = new QList<ObcProxy*>();
+                    for (auto item9 : listObcDcom)
+                    {
+                        if (item9->IsCanReset())
+                        {
+                            item9->ResetDcom();
+                            list2->append(item9->GetListProxy());
+                        }
+                        else
+                        {
+                            list2->append(item9->GetListProxyCanUse());
+                        }
+                    }
+                    for (int j = 0; j < list2->count(); j++)
+                    {
+                        if (list2->at(j)->CheckLiveProxy(0))
+                        {
+                            obcProxy = list2->at(j);
+                            break;
+                        }
+                    }
+                    if (obcProxy != nullptr)
+                    {
+                        proxy = obcProxy->proxy;
+                        typeProxy = obcProxy->typeProxy;
+                        obcProxy->dangSuDung++;
+                        obcProxy->daSuDung++;
+                        break;
+                    }
+                }
+            }
+            if (isStop)
+            {
+                emit updateStatusAccount(indexRow, statusProxy + Language::GetValue("Đã dừng!"));
+                return;
+            }
+            if (SettingsTool::GetSettings("configGeneral").GetValueInt("nudDelayCheckIP") > 0)
+            {
+                DatagridviewHelper::SetStatusDataGridViewWithWait(ui->tableView, indexRow, "Trạng thái", SettingsTool::GetSettings("configGeneral").GetValueInt("nudDelayCheckIP"), statusProxy + "Delay after change ip {time}s...");
+            }
+            bool flag = true;
+            if (!SettingsTool::GetSettings("configGeneral").GetValueBool("ckbKhongCheckIP"))
+            {
+                statusProxy = "(IP: " + proxy + ") ";
+                SetStatusAccount(indexRow, statusProxy + "Check IP...");
+                ip = Common::CheckProxy(proxy, typeProxy, SettingsTool::GetSettings("configGeneral").GetValueInt("nudDelayCheckIPObcProxy", 1) * 60);
+                if (ip == "")
+                {
+                    obcProxy->isProxyLive = false;
+                    flag = false;
+                }
+            }
+            if (!flag)
+            {
+                obcProxy->dangSuDung--;
+                obcProxy->daSuDung--;
+                break;
+            }
+            return;
+        }
+        IL_0f67:{
+            if (!flag2)
+            {
+                minProxy->dangSuDung--;
+                minProxy->daSuDung--;
+                break;
+            }
+            return;
+        }
+        IL_0d06:{
+            emit updateStatusAccount(indexRow, Language::GetValue("Đang lấy Proxy từ API..."));
+            num2 = 0;
+            if (num > 1)
+            {
+                while (minProxy->isBlock)
+                {
+                    Common::DelayTime(1.0);
+                    num2++;
+                    if (num2 > 60)
+                    {
+                        break;
+                    }
+                }
+                proxy = minProxy->GetProxy();
+            }
+            else
+            {
+                while (!isStop)
+                {
+                    switch (minProxy->ChangeProxy())
+                    {
+                    case -2:{
+                        emit updateStatusAccount(indexRow, Language::GetValue("Api không đúng"));
+                        QMutexLocker locker(&mutex);
+                        lstProxyTool.removeOne(minProxy);
+                        break;
+                    }
+                    case -1:{
+                        emit updateStatusAccount(indexRow, Language::GetValue("Api hết hạn"));
+                        QMutexLocker locker(&mutex);
+                        lstProxyTool.removeOne(minProxy);
+                        break;
+                    }
+                    case 0:{
+                        emit updateStatusAccount(indexRow, Language::GetValue("Đang lấy Proxy từ API: Chờ " + QString::number(minProxy->next_change) + " s"));
+                        if (minProxy->next_change > 10)
+                        {
+                            Common::DelayTime(10.0);
+                        }
+                        else if (minProxy->next_change > 0)
+                        {
+                            Common::DelayTime(minProxy->next_change);
+                        }
+                        goto IL_0e83;
+                    }
+                    case 1:
+                        proxy = minProxy->proxy;
+                        minProxy->isBlock = false;
+                        goto IL_0e83;
+                    default:
+                        goto IL_0e83;
+                    }
+                    goto end_IL_0019;
+                IL_0e83:
+                    if (proxy != "")
+                    {
+                        break;
+                    }
+                }
+            }
+            if (!(proxy == ""))
+            {
+                flag2 = true;
+                if (SettingsTool::GetSettings("configGeneral").GetValueInt("nudDelayCheckIP") > 0)
+                {
+                    SetStatusAccount(indexRow, statusProxy + "Delay check IP...");
+                    Common::DelayTime(SettingsTool::GetSettings("configGeneral").GetValueInt("nudDelayCheckIP"));
+                }
+                if (!SettingsTool::GetSettings("configGeneral").GetValueBool("ckbKhongCheckIP"))
+                {
+                    statusProxy = "(IP: " + proxy + ") ";
+                    SetStatusAccount(indexRow, statusProxy + "Check IP...");
+                    ip = Common::CheckProxyNew(proxy, (SettingsTool::GetSettings("configGeneral").GetValueInt("typeProxyMin") >= 2) ? 1 : 0);
+                    if (ip == "")
+                    {
+                        flag2 = false;
+                    }
+                }
+            }
+            goto IL_0f67;
+        end_IL_0019:
             break;
+        }
+        default:
+            return;
         }
     }
 }
@@ -1876,14 +2398,12 @@ void MainWindow::RandomThuTuTaiKhoan(int soLuot){
     }
 }
 void ShowTrangThai(const QString& content, QWidget* plTrangThai, QLabel* lblTrangThai) {
-    // Ensure plTrangThai visibility is set in the main thread
     QMetaObject::invokeMethod(plTrangThai, [plTrangThai]() {
             if (!plTrangThai->isVisible()) {
                 plTrangThai->setVisible(true);
             }
         }, Qt::QueuedConnection);
 
-    // Set lblTrangThai text in the main thread
     QMetaObject::invokeMethod(lblTrangThai, [lblTrangThai, content]() {
             lblTrangThai->setText(content);
         }, Qt::QueuedConnection);
@@ -2095,7 +2615,7 @@ QList<QString> MainWindow::GetListKeyTinsoft(){
     {
         if (SettingsTool::GetSettings("configGeneral").GetValueInt("typeApiTinsoft") == 0)
         {
-            auto json = Utils::parseJsonString((new RequestHandle("", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; .NET CLR 1.0.3705;)", "", 0))->RequestGet("http://proxy.tinsoftsv.com/api/getUserKeys.php?key=" + SettingsTool::GetSettings("configGeneral").GetValue("txtApiUser")))["data"].toArray();
+            auto json = Utils::parseJsonString((new RequestHandle("", "Mozilla/4.0 (compatible; MSIE 6.0; windows NT 5.2; .NET CLR 1.0.3705;)", "", 0))->RequestGet("http://proxy.tinsoftsv.com/api/getUserKeys.php?key=" + SettingsTool::GetSettings("configGeneral").GetValue("txtApiUser")))["data"].toArray();
             for (const QJsonValue &value : json) {
                 QJsonObject item = value.toObject();
                 if (item["success"].toBool()) {

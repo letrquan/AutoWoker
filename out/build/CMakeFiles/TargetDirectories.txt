@@ -1,0 +1,8 @@
+D:/AutoWorker/XWorker/AutoWoker/out/build/CMakeFiles/AutoWorker.dir
+D:/AutoWorker/XWorker/AutoWoker/out/build/CMakeFiles/edit_cache.dir
+D:/AutoWorker/XWorker/AutoWoker/out/build/CMakeFiles/rebuild_cache.dir
+D:/AutoWorker/XWorker/AutoWoker/out/build/CMakeFiles/list_install_components.dir
+D:/AutoWorker/XWorker/AutoWoker/out/build/CMakeFiles/install.dir
+D:/AutoWorker/XWorker/AutoWoker/out/build/CMakeFiles/install/local.dir
+D:/AutoWorker/XWorker/AutoWoker/out/build/CMakeFiles/AutoWorker_autogen_timestamp_deps.dir
+D:/AutoWorker/XWorker/AutoWoker/out/build/CMakeFiles/AutoWorker_autogen.dir

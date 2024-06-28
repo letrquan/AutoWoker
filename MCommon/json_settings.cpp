@@ -78,7 +78,7 @@ void JSON_Settings::Update(QString key, QVariant value){
         if(JSON.contains(key)){
             JSON[key] = value.toString();
         }else{
-             qDebug() << "Key does not exist!";
+            JSON.insert(key,value.toString());
         }
     } catch (...) {
 

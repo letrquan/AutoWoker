@@ -132,6 +132,13 @@ bool CustomTableModel::setData(const QModelIndex &index, const QVariant &value, 
     if (index.isValid() && role == Qt::CheckStateRole && index.column() == 0) {
         dataStorage[index.row()][index.column()] = (value == Qt::Checked);
         emit dataChanged(index, index, {role});
+        int checkedCount = 0;
+        for (const auto &row : dataStorage) {
+            if (row[0].toBool()) {
+                checkedCount++;
+            }
+        }
+        emit checkedCountChanged();
         return true;
     }
     if (index.isValid() && role == Qt::EditRole && index.column() != 0) {
@@ -139,6 +146,7 @@ bool CustomTableModel::setData(const QModelIndex &index, const QVariant &value, 
         emit dataChanged(index, index, {role});
         return true;
     }
+
     return false;
 }
 QVariant CustomTableModel::getData(int row, int column) const {

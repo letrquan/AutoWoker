@@ -1,0 +1,17 @@
+# ninja log v5
+13	3330	7404934530118961	AutoWorker_autogen/timestamp	ec92a65001efd3f
+13	3330	7404934530118961	AutoWorker_autogen/mocs_compilation.cpp	ec92a65001efd3f
+13	3330	7404934530118961	D:/AutoWorker/XWorker/AutoWoker/out/build/AutoWorker_autogen/timestamp	ec92a65001efd3f
+13	3330	7404934530118961	D:/AutoWorker/XWorker/AutoWoker/out/build/AutoWorker_autogen/mocs_compilation.cpp	ec92a65001efd3f
+3331	3416	7404934531681351	AutoWorker_autogen/EWIEGA46WW/qrc_resource.cpp	ce8b6c57f48f57e3
+3331	3416	7404934531681351	D:/AutoWorker/XWorker/AutoWoker/out/build/AutoWorker_autogen/EWIEGA46WW/qrc_resource.cpp	ce8b6c57f48f57e3
+3425	9197	7404934587927500	CMakeFiles/AutoWorker.dir/MCommon/json_settings.cpp.obj	251d872a75fc5118
+3434	10491	7404934601676559	CMakeFiles/AutoWorker.dir/MCommon/requesthandle.cpp.obj	9a0fbd4b8c523e64
+3420	10947	7404934606519976	CMakeFiles/AutoWorker.dir/main.cpp.obj	3932ccf64f129fc3
+3430	10963	7404934605895012	CMakeFiles/AutoWorker.dir/Form/loginwindow.cpp.obj	11077eb47d5ba466
+3417	12104	7404934616675530	CMakeFiles/AutoWorker.dir/AutoWorker_autogen/mocs_compilation.cpp.obj	14e1d84085f65f49
+3445	13867	7404934635892955	CMakeFiles/AutoWorker.dir/Form/mainwindow.cpp.obj	e71bf98d82763c96
+9239	15263	7404934650110733	CMakeFiles/AutoWorker.dir/Form/downloaddialog.cpp.obj	361aff021f2bd81c
+10948	15576	7404934653235518	CMakeFiles/AutoWorker.dir/maxcare/SettingsTool.cpp.obj	ad465271a2a6e633
+10963	16605	7404934663547301	CMakeFiles/AutoWorker.dir/maxcare/setupfolder.cpp.obj	2664718c56a75752
+12104	17087	7404934668390722	CMakeFiles/AutoWorker.dir/MCommon/connector.cpp.obj	a3f36be1b87f8cc8

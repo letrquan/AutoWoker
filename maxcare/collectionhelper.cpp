@@ -12,3 +12,4 @@ QList<QString> CollectionHelper::CloneList(QList<QString> lstFrom){
     }
     return list;
 }
+

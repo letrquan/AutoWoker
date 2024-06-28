@@ -6,7 +6,7 @@
 #include <QPoint>
 #include <QRect>
 #include <QCoreApplication>
-#include <windows.h>
+#include <Windows.h>
 AutoControl::AutoControl(QObject *parent) : QObject(parent) {}
 
 HWND AutoControl::findWindow(const QString &className, const QString &windowName) {

@@ -1,7 +1,6 @@
 #include "emailhelper.h"
 #include "../MCommon/requesthandle.h"
-#include <sysinfoapi.h>
-#include <windows.h>
+
 #include "../MCommon/Common.h"
 #include <QJsonDocument>
 EmailHelper::EmailHelper() {}

@@ -1,6 +1,7 @@
 D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/AutoWorker_autogen/7A5D6QKFUP/moc_fimportaccount.cpp: D:/AutoWorker/XWorker/AutoWoker/Form/fimportaccount.h \
   D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/AutoWorker_autogen/moc_predefs.h \
   C:/Qt/6.7.1/mingw_64/include/QtCore/QAbstractTableModel \
+  C:/Qt/6.7.1/mingw_64/include/QtCore/QCoreApplication \
   C:/Qt/6.7.1/mingw_64/include/QtCore/QEventLoop \
   C:/Qt/6.7.1/mingw_64/include/QtCore/QFile \
   C:/Qt/6.7.1/mingw_64/include/QtCore/QFileInfo \
@@ -52,12 +53,16 @@ D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/AutoWo
   C:/Qt/6.7.1/mingw_64/include/QtCore/qcontainerinfo.h \
   C:/Qt/6.7.1/mingw_64/include/QtCore/qcontainertools_impl.h \
   C:/Qt/6.7.1/mingw_64/include/QtCore/qcontiguouscache.h \
+  C:/Qt/6.7.1/mingw_64/include/QtCore/qcoreapplication.h \
+  C:/Qt/6.7.1/mingw_64/include/QtCore/qcoreapplication_platform.h \
+  C:/Qt/6.7.1/mingw_64/include/QtCore/qcoreevent.h \
   C:/Qt/6.7.1/mingw_64/include/QtCore/qcryptographichash.h \
   C:/Qt/6.7.1/mingw_64/include/QtCore/qdarwinhelpers.h \
   C:/Qt/6.7.1/mingw_64/include/QtCore/qdatastream.h \
   C:/Qt/6.7.1/mingw_64/include/QtCore/qdatetime.h \
   C:/Qt/6.7.1/mingw_64/include/QtCore/qdeadlinetimer.h \
   C:/Qt/6.7.1/mingw_64/include/QtCore/qdebug.h \
+  C:/Qt/6.7.1/mingw_64/include/QtCore/qdir.h \
   C:/Qt/6.7.1/mingw_64/include/QtCore/qelapsedtimer.h \
   C:/Qt/6.7.1/mingw_64/include/QtCore/qendian.h \
   C:/Qt/6.7.1/mingw_64/include/QtCore/qeventloop.h \
@@ -96,6 +101,7 @@ D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/AutoWo
   C:/Qt/6.7.1/mingw_64/include/QtCore/qmetatype.h \
   C:/Qt/6.7.1/mingw_64/include/QtCore/qminmax.h \
   C:/Qt/6.7.1/mingw_64/include/QtCore/qnamespace.h \
+  C:/Qt/6.7.1/mingw_64/include/QtCore/qnativeinterface.h \
   C:/Qt/6.7.1/mingw_64/include/QtCore/qnumeric.h \
   C:/Qt/6.7.1/mingw_64/include/QtCore/qobject.h \
   C:/Qt/6.7.1/mingw_64/include/QtCore/qobject_impl.h \
@@ -519,6 +525,7 @@ D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/AutoWo
   C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/xsaveoptintrin.h \
   C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/xsavesintrin.h \
   C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/xtestintrin.h \
+  C:/Qt/Tools/mingw1120_64/x86_64-w64-mingw32/include/Windows.h \
   C:/Qt/Tools/mingw1120_64/x86_64-w64-mingw32/include/_bsd_types.h \
   C:/Qt/Tools/mingw1120_64/x86_64-w64-mingw32/include/_mingw.h \
   C:/Qt/Tools/mingw1120_64/x86_64-w64-mingw32/include/_mingw_mac.h \

@@ -8,6 +8,7 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include "../Utils/Utils.h"
+#include "../MCommon/Common.h"
 class CommonRequest{
 public:
     static QString CheckInfoUsingUid(QString uid, QString proxy = "", int typeProxy = 0){
@@ -94,6 +95,60 @@ public:
                 }
                 return result;
             }
+            return result;
+        } catch (...) {
+            return result;
+        }
+    }
+
+    static QString GetTokenEAAAAU(QString uid, QString password, QString fa2, QString cookie, QString proxy = "", int typeProxy = 0){
+        QString result = "";
+        try {
+            RequestHandle requestHttp(cookie, "", proxy, typeProxy);
+            static const QRegularExpression re("datr=(.*?);");
+            QString text = re.match(cookie + ";").captured(1);
+            if (text == "")
+            {
+                text = Common::CreateRandomString(8, "0_a_A") + "-" + Common::CreateRandomString(4, "0_a_A") + "-" + Common::CreateRandomString(4, "0_a_A") + "-" + Common::CreateRandomString(4, "0_a_A") + "-" + Common::CreateRandomString(12, "0_a_A");
+            }
+            QString value = Common::CreateRandomString(8, "0_a_A") + "-" + Common::CreateRandomString(4, "0_a_A") + "-" + Common::CreateRandomString(4, "0_a_A") + "-" + Common::CreateRandomString(4, "0_a_A") + "-" + Common::CreateRandomString(12, "0_a_A");
+            QString value2 = Common::CreateRandomString(8, "0_a_A") + "-" + Common::CreateRandomString(4, "0_a_A") + "-" + Common::CreateRandomString(4, "0_a_A") + "-" + Common::CreateRandomString(4, "0_a_A") + "-" + Common::CreateRandomString(12, "0_a_A");
+            QString value3 = Common::CreateRandomString(8, "0_a_A") + "-" + Common::CreateRandomString(4, "0_a_A") + "-" + Common::CreateRandomString(4, "0_a_A") + "-" + Common::CreateRandomString(4, "0_a_A") + "-" + Common::CreateRandomString(12, "0_a_A");
+            QString data = QString("adid=%1&format=json&device_id=%2&email=%3&password=%4&generate_analytics_claim=1&community_id=&cpl=true&try_num=1&family_device_id=%2&secure_family_device_id=%5&credentials_type=password&fb4a_shared_phone_cpl_experiment=fb4a_shared_phone_nonce_cpl_at_risk_v3&fb4a_shared_phone_cpl_group=enable_v3_at_risk&enroll_misauth=false&generate_session_cookies=1&error_detail_type=button_with_disabled&source=login&machine_id=%6&jazoest=22421&meta_inf_fbmeta=&advertiser_id=%1&encrypted_msisdn=&currently_logged_in_userid=0&locale=vi_VN&client_country_code=VN&fb_api_req_friendly_name=authenticate&fb_api_caller_class=Fb4aAuthHandler&api_key=882a8490361da98702bf97a021ddc14d&access_token=350685531728|62f8ce9f74b12f84c123cc23437a4a32")
+                               .arg(value2, value, uid, password, value3, text);
+            QString text2 = requestHttp.RequestPost("https://b-graph.facebook.com/auth/login", data);
+            if (text2.contains("Invalid username or password"))
+            {
+                return "Invalid username or password";
+            }
+            auto jObject = Utils::parseJsonString(text2);
+            auto js = jObject["error"].toObject()["error_subcode"];
+            try {
+                if(js.toString() == "1348077"){
+                    return result;
+                }
+                if(js.toString() == "1348131"){
+                    return result;
+                }
+            } catch (...) {
+            }
+            try {
+                if(js.toString() == "1348162" || js.toString() == "1348199"){
+                    QString value4 = jObject["error"].toObject()["error_data"].toObject()["login_first_factor"].toString();
+                    QString value5 = jObject["error"].toObject()["error_data"].toObject()["uid"].toString();
+                    QString totp = Common::GetTotp(fa2);
+                    data = QString("adid=%1&format=json&device_id=%2&email=%3&password=%4&generate_analytics_claim=1&community_id=&cpl=true&try_num=2&family_device_id=%2&secure_family_device_id=%5&sim_serials=[]&credentials_type=two_factor&fb4a_shared_phone_cpl_experiment=fb4a_shared_phone_nonce_cpl_at_risk_v3&fb4a_shared_phone_cpl_group=enable_v3_at_risk&enroll_misauth=false&generate_session_cookies=1&error_detail_type=button_with_disabled&source=login&machine_id=%6&jazoest=22327&meta_inf_fbmeta=&twofactor_code=%4&userid=%7&first_factor=%8&advertiser_id=%1&encrypted_msisdn=&currently_logged_in_userid=0&locale=vi_VN&client_country_code=VN&fb_api_req_friendly_name=authenticate&fb_api_caller_class=Fb4aAuthHandler&api_key=882a8490361da98702bf97a021ddc14d&access_token=350685531728|62f8ce9f74b12f84c123cc23437a4a32")
+                                       .arg(value2, value, uid, totp, value3, text, value5, value4);
+                    text2 = requestHttp.RequestPost("https://b-graph.facebook.com/auth/login", data);
+                    if (text2.contains("\"code\":401"))
+                    {
+                        return result;
+                    }
+                    jObject = Utils::parseJsonString(text2);
+                }
+            } catch (...) {
+            }
+            result = jObject["access_token"].toString();
             return result;
         } catch (...) {
             return result;

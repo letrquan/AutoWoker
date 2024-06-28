@@ -118,7 +118,7 @@ bool TinsoftProxy::checkApiProxy(const QString &apiProxy) {
 QList<QString> TinsoftProxy::getListKey(const QString &apiUser) {
     QList<QString> list;
     try {
-        auto dataArray= Utils::parseJsonString(((new RequestHandle("", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; .NET CLR 1.0.3705;)", "", 0))->RequestGet("http://proxy.tinsoftsv.com/api/getUserKeys.php?key=" + apiUser)))["data"].toArray();
+        auto dataArray= Utils::parseJsonString(((new RequestHandle("", "Mozilla/4.0 (compatible; MSIE 6.0; windows NT 5.2; .NET CLR 1.0.3705;)", "", 0))->RequestGet("http://proxy.tinsoftsv.com/api/getUserKeys.php?key=" + apiUser)))["data"].toArray();
         for (const QJsonValue &value : dataArray) {
             QJsonObject item = value.toObject();
             if (item["success"].toBool()) {

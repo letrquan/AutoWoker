@@ -7,9 +7,9 @@
 #include <QDir>
 #include <QEventLoop>
 #include <QTimer>
-#include <unistd.h>
-#include <windows.h>
+
 #include "../MCommon/connector.h"
+
 void Common::ExportError(const QException* ex, QString error){
     try {
         QFile file("log/log.txt");
@@ -179,7 +179,7 @@ bool Common::deleteFile(QString pathFile){
 
 void Common::DelayTime(double second){
     QApplication::processEvents();
-    sleep(second);
+    QThread::sleep(second);
 }
 void Common::CreateFolder(QString pathFolder){
     try {
@@ -260,3 +260,6 @@ bool Common::UpdateFieldToAccount(QString id, QString fieldName, QString fieldVa
     mutex.unlock();
     return result;
 }
+
+int Common::getWidthScreen = 0;
+int Common::getHeightScreen = 0;

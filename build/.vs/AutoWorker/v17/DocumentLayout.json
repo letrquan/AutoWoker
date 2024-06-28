@@ -1,0 +1,224 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\AutoWorker\\XWorker\\AutoWoker\\build\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A13C481D-2E9B-329C-BCE9-1CCAD06CF7AF}|AutoWorker.vcxproj|C:\\PROGRAM FILES (X86)\\WINDOWS KITS\\10\\INCLUDE\\10.0.22621.0\\UM\\WINNT.H||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A13C481D-2E9B-329C-BCE9-1CCAD06CF7AF}|AutoWorker.vcxproj|C:\\PROGRAM FILES (X86)\\WINDOWS KITS\\10\\INCLUDE\\10.0.22621.0\\UM\\ERRHANDLINGAPI.H||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A13C481D-2E9B-329C-BCE9-1CCAD06CF7AF}|AutoWorker.vcxproj|D:\\AutoWorker\\XWorker\\AutoWoker\\MCommon\\chrome.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A13C481D-2E9B-329C-BCE9-1CCAD06CF7AF}|AutoWorker.vcxproj|C:\\QT\\6.7.1\\MINGW_64\\INCLUDE\\QTCORE\\QRUNNABLE.H||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A13C481D-2E9B-329C-BCE9-1CCAD06CF7AF}|AutoWorker.vcxproj|D:\\AutoWorker\\XWorker\\AutoWoker\\Utils\\Utils.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A13C481D-2E9B-329C-BCE9-1CCAD06CF7AF}|AutoWorker.vcxproj|D:\\AutoWorker\\XWorker\\AutoWoker\\MCommon\\Common.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A13C481D-2E9B-329C-BCE9-1CCAD06CF7AF}|AutoWorker.vcxproj|D:\\AutoWorker\\XWorker\\AutoWoker\\MCommon\\autocontrol.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A13C481D-2E9B-329C-BCE9-1CCAD06CF7AF}|AutoWorker.vcxproj|D:\\AutoWorker\\XWorker\\AutoWoker\\maxcare\\emailhelper.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A13C481D-2E9B-329C-BCE9-1CCAD06CF7AF}|AutoWorker.vcxproj|D:\\AutoWorker\\XWorker\\AutoWoker\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A13C481D-2E9B-329C-BCE9-1CCAD06CF7AF}|AutoWorker.vcxproj|D:\\AutoWorker\\XWorker\\AutoWoker\\maxcare\\datagridviewhelper.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A13C481D-2E9B-329C-BCE9-1CCAD06CF7AF}|AutoWorker.vcxproj|D:\\AutoWorker\\XWorker\\AutoWoker\\MCommon\\AwApi.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A13C481D-2E9B-329C-BCE9-1CCAD06CF7AF}|AutoWorker.vcxproj|D:\\AutoWorker\\XWorker\\AutoWoker\\CloneDatabase\\clonedatabase.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A13C481D-2E9B-329C-BCE9-1CCAD06CF7AF}|AutoWorker.vcxproj|D:\\AutoWorker\\XWorker\\AutoWoker\\Form\\loginwindow.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{20D109C9-19AA-3B30-A6BB-DC11A3A61278}|ALL_BUILD.vcxproj|D:\\AutoWorker\\XWorker\\AutoWoker\\CMakeLists.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 11,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "errhandlingapi.h",
+              "DocumentMoniker": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\um\\errhandlingapi.h",
+              "ToolTip": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\um\\errhandlingapi.h",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-06-19T08:28:03.472Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "qrunnable.h",
+              "DocumentMoniker": "C:\\Qt\\6.7.1\\mingw_64\\include\\QtCore\\qrunnable.h",
+              "ToolTip": "C:\\Qt\\6.7.1\\mingw_64\\include\\QtCore\\qrunnable.h",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-06-19T08:25:35.662Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Utils.h",
+              "DocumentMoniker": "D:\\AutoWorker\\XWorker\\AutoWoker\\Utils\\Utils.h",
+              "RelativeDocumentMoniker": "..\\Utils\\Utils.h",
+              "ToolTip": "D:\\AutoWorker\\XWorker\\AutoWoker\\Utils\\Utils.h",
+              "RelativeToolTip": "..\\Utils\\Utils.h",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-06-19T08:25:14.82Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "autocontrol.cpp",
+              "DocumentMoniker": "D:\\AutoWorker\\XWorker\\AutoWoker\\MCommon\\autocontrol.cpp",
+              "RelativeDocumentMoniker": "..\\MCommon\\autocontrol.cpp",
+              "ToolTip": "D:\\AutoWorker\\XWorker\\AutoWoker\\MCommon\\autocontrol.cpp",
+              "RelativeToolTip": "..\\MCommon\\autocontrol.cpp",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-06-19T08:25:05.147Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "main.cpp",
+              "DocumentMoniker": "D:\\AutoWorker\\XWorker\\AutoWoker\\main.cpp",
+              "RelativeDocumentMoniker": "..\\main.cpp",
+              "ToolTip": "D:\\AutoWorker\\XWorker\\AutoWoker\\main.cpp",
+              "RelativeToolTip": "..\\main.cpp",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-06-19T08:24:57.679Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "emailhelper.cpp",
+              "DocumentMoniker": "D:\\AutoWorker\\XWorker\\AutoWoker\\maxcare\\emailhelper.cpp",
+              "RelativeDocumentMoniker": "..\\maxcare\\emailhelper.cpp",
+              "ToolTip": "D:\\AutoWorker\\XWorker\\AutoWoker\\maxcare\\emailhelper.cpp",
+              "RelativeToolTip": "..\\maxcare\\emailhelper.cpp",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-06-19T08:24:02.043Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "datagridviewhelper.cpp",
+              "DocumentMoniker": "D:\\AutoWorker\\XWorker\\AutoWoker\\maxcare\\datagridviewhelper.cpp",
+              "RelativeDocumentMoniker": "..\\maxcare\\datagridviewhelper.cpp",
+              "ToolTip": "D:\\AutoWorker\\XWorker\\AutoWoker\\maxcare\\datagridviewhelper.cpp",
+              "RelativeToolTip": "..\\maxcare\\datagridviewhelper.cpp",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-06-19T08:23:55.153Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "AwApi.cpp",
+              "DocumentMoniker": "D:\\AutoWorker\\XWorker\\AutoWoker\\MCommon\\AwApi.cpp",
+              "RelativeDocumentMoniker": "..\\MCommon\\AwApi.cpp",
+              "ToolTip": "D:\\AutoWorker\\XWorker\\AutoWoker\\MCommon\\AwApi.cpp",
+              "RelativeToolTip": "..\\MCommon\\AwApi.cpp",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-06-19T08:23:52.544Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "clonedatabase.cpp",
+              "DocumentMoniker": "D:\\AutoWorker\\XWorker\\AutoWoker\\CloneDatabase\\clonedatabase.cpp",
+              "RelativeDocumentMoniker": "..\\CloneDatabase\\clonedatabase.cpp",
+              "ToolTip": "D:\\AutoWorker\\XWorker\\AutoWoker\\CloneDatabase\\clonedatabase.cpp",
+              "RelativeToolTip": "..\\CloneDatabase\\clonedatabase.cpp",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-06-19T08:23:51.436Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "chrome.cpp",
+              "DocumentMoniker": "D:\\AutoWorker\\XWorker\\AutoWoker\\MCommon\\chrome.cpp",
+              "RelativeDocumentMoniker": "..\\MCommon\\chrome.cpp",
+              "ToolTip": "D:\\AutoWorker\\XWorker\\AutoWoker\\MCommon\\chrome.cpp",
+              "RelativeToolTip": "..\\MCommon\\chrome.cpp",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-06-19T08:23:50.373Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Common.cpp",
+              "DocumentMoniker": "D:\\AutoWorker\\XWorker\\AutoWoker\\MCommon\\Common.cpp",
+              "RelativeDocumentMoniker": "..\\MCommon\\Common.cpp",
+              "ToolTip": "D:\\AutoWorker\\XWorker\\AutoWoker\\MCommon\\Common.cpp",
+              "RelativeToolTip": "..\\MCommon\\Common.cpp",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-06-19T08:23:01.993Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "winnt.h",
+              "DocumentMoniker": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\um\\winnt.h",
+              "ToolTip": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\um\\winnt.h",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-06-19T08:13:27.501Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "loginwindow.cpp",
+              "DocumentMoniker": "D:\\AutoWorker\\XWorker\\AutoWoker\\Form\\loginwindow.cpp",
+              "RelativeDocumentMoniker": "..\\Form\\loginwindow.cpp",
+              "ToolTip": "D:\\AutoWorker\\XWorker\\AutoWoker\\Form\\loginwindow.cpp",
+              "RelativeToolTip": "..\\Form\\loginwindow.cpp",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-06-19T08:23:30.114Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "CMakeLists.txt",
+              "DocumentMoniker": "D:\\AutoWorker\\XWorker\\AutoWoker\\CMakeLists.txt",
+              "RelativeDocumentMoniker": "..\\CMakeLists.txt",
+              "ToolTip": "D:\\AutoWorker\\XWorker\\AutoWoker\\CMakeLists.txt",
+              "RelativeToolTip": "..\\CMakeLists.txt",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
+              "WhenOpened": "2024-06-19T08:06:24.501Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

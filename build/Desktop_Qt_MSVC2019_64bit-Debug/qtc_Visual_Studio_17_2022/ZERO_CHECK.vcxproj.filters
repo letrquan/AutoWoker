@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="D:\AutoWorker\XWorker\AutoWoker\build\Desktop_Qt_MSVC2019_64bit-Debug\qtc_Visual_Studio_17_2022\CMakeFiles\5729c6bc2efa3b3167f1fb2124d051be\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{EDFC0225-0BFF-39F1-A0F1-F460DC949A61}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

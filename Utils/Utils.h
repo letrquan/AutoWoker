@@ -1,5 +1,6 @@
 #ifndef UTILS_H
 #define UTILS_H
+#include "qdir.h"
 #include "qjsondocument.h"
 #include "qjsonobject.h"
 #include <QNetworkAccessManager>
@@ -9,7 +10,8 @@
 #include <QProcess>
 #include <QFile>
 #include <QFileInfo>
-#include <windows.h>
+#include <Windows.h>
+#include <QCoreApplication>
 #include <QSqlQueryModel>
 #include <QStandardItemModel>
 #include "../Table/customtablemodel.h"
@@ -42,6 +44,23 @@ public:
         reply->deleteLater();
         return isConnected;
     }
+
+    static QString getBuildFolderPath()
+    {
+        // Get the directory of the application executable
+        QString appDir = QCoreApplication::applicationDirPath();
+
+        // Create a QDir object from the application directory
+        QDir dir(appDir);
+
+        // Move up one directory level (assuming the executable is in a subdirectory of the build folder)
+        if (dir.cdUp()) {
+            return dir.absolutePath();
+        } else {
+            return QString(); // Return empty string if cdUp fails
+        }
+    }
+
     static int GetIndexByColumnHeader(QTableView* dgv, QString colHeader) {
         if (!dgv) {
             return -1;  // Return -1 if the QTableView pointer is null
@@ -136,7 +155,6 @@ public:
         QFileInfo fileInfo(executablePath);
         return fileInfo.absolutePath();
     }
-
     static bool writeAllLines(const QString &filePath, QList<QString> lines)
     {
         QFile file(filePath);
@@ -233,6 +251,16 @@ public:
             }
         }
         return QString();  // Return an empty string if no match is found
+    }
+    static QString GetPathToCurrentFolder() {
+        // Get the path to the executable
+        QString executablePath = QCoreApplication::applicationFilePath();
+
+        // Get the directory of the executable
+        QFileInfo fileInfo(executablePath);
+        QString directoryPath = fileInfo.absolutePath();
+
+        return directoryPath;
     }
 };
 

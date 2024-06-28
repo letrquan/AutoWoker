@@ -1,0 +1,403 @@
+
+---
+events:
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Qt/Tools/CMake_64/share/cmake-3.29/Modules/CMakeDetermineSystem.cmake:205 (message)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      The system is: Windows - 10.0.19045 - AMD64
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Qt/Tools/CMake_64/share/cmake-3.29/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/Qt/Tools/CMake_64/share/cmake-3.29/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Qt/Tools/CMake_64/share/cmake-3.29/Modules/CMakeDetermineCXXCompiler.cmake:126 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+      Compiler: C:/Program Files/Microsoft Visual Studio/2022/Preview/VC/Tools/MSVC/14.41.33901/bin/HostX64/x64/cl.exe 
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      0
+      MSBuild version 17.11.0-preview-24230-06+4be99f898 for .NET Framework
+      Build started 6/22/2024 11:03:26 AM.
+      
+      Project "D:\\AutoWorker\\XWorker\\AutoWoker\\build\\Desktop_Qt_MSVC2019_64bit-Debug\\qtc_Visual_Studio_17_2022\\CMakeFiles\\3.29.3\\CompilerIdCXX\\CompilerIdCXX.vcxproj" on node 1 (default targets).
+      PrepareForBuild:
+        Creating directory "Debug\\".
+        Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
+        Creating directory "Debug\\CompilerIdCXX.tlog\\".
+      InitializeBuildStatus:
+        Creating "Debug\\CompilerIdCXX.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+        Touching "Debug\\CompilerIdCXX.tlog\\unsuccessfulbuild".
+      ClCompile:
+        C:\\Program Files\\Microsoft Visual Studio\\2022\\Preview\\VC\\Tools\\MSVC\\14.41.33901\\bin\\HostX64\\x64\\CL.exe /c /nologo /W0 /WX- /diagnostics:column /Od /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\\\" /Fd"Debug\\vc143.pdb" /external:W0 /Gd /TP /FC /errorReport:queue CMakeCXXCompilerId.cpp
+        CMakeCXXCompilerId.cpp
+      Link:
+        C:\\Program Files\\Microsoft Visual Studio\\2022\\Preview\\VC\\Tools\\MSVC\\14.41.33901\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:".\\CompilerIdCXX.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /PDB:".\\CompilerIdCXX.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\\CompilerIdCXX.lib" /MACHINE:X64 Debug\\CMakeCXXCompilerId.obj
+        CompilerIdCXX.vcxproj -> D:\\AutoWorker\\XWorker\\AutoWoker\\build\\Desktop_Qt_MSVC2019_64bit-Debug\\qtc_Visual_Studio_17_2022\\CMakeFiles\\3.29.3\\CompilerIdCXX\\CompilerIdCXX.exe
+      PostBuildEvent:
+        for %%i in (cl.exe) do @echo CMAKE_CXX_COMPILER=%%~$PATH:i
+        :VCEnd
+        CMAKE_CXX_COMPILER=C:\\Program Files\\Microsoft Visual Studio\\2022\\Preview\\VC\\Tools\\MSVC\\14.41.33901\\bin\\Hostx64\\x64\\cl.exe
+      FinalizeBuildStatus:
+        Deleting file "Debug\\CompilerIdCXX.tlog\\unsuccessfulbuild".
+        Touching "Debug\\CompilerIdCXX.tlog\\CompilerIdCXX.lastbuildstate".
+      Done Building Project "D:\\AutoWorker\\XWorker\\AutoWoker\\build\\Desktop_Qt_MSVC2019_64bit-Debug\\qtc_Visual_Studio_17_2022\\CMakeFiles\\3.29.3\\CompilerIdCXX\\CompilerIdCXX.vcxproj" (default targets).
+      
+      Build succeeded.
+          0 Warning(s)
+          0 Error(s)
+      
+      Time Elapsed 00:00:01.19
+      
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.exe"
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.vcxproj"
+      
+      The CXX compiler identification is MSVC, found in:
+        D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_MSVC2019_64bit-Debug/qtc_Visual_Studio_17_2022/CMakeFiles/3.29.3/CompilerIdCXX/CompilerIdCXX.exe
+      
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Qt/Tools/CMake_64/share/cmake-3.29/Modules/CMakeDetermineCompilerABI.cmake:67 (try_compile)"
+      - "C:/Qt/Tools/CMake_64/share/cmake-3.29/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:3 (project)"
+    checks:
+      - "Detecting CXX compiler ABI info"
+    directories:
+      source: "D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_MSVC2019_64bit-Debug/qtc_Visual_Studio_17_2022/CMakeFiles/CMakeScratch/TryCompile-s6ov9q"
+      binary: "D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_MSVC2019_64bit-Debug/qtc_Visual_Studio_17_2022/CMakeFiles/CMakeScratch/TryCompile-s6ov9q"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /W3 /GR /EHsc"
+      CMAKE_CXX_SCAN_FOR_MODULES: "OFF"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+    buildResult:
+      variable: "CMAKE_CXX_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_MSVC2019_64bit-Debug/qtc_Visual_Studio_17_2022/CMakeFiles/CMakeScratch/TryCompile-s6ov9q'
+        
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Preview/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_4557d.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        MSBuild version 17.11.0-preview-24230-06+4be99f898 for .NET Framework
+        Build started 6/22/2024 11:03:27 AM.
+        
+        Project "D:\\AutoWorker\\XWorker\\AutoWoker\\build\\Desktop_Qt_MSVC2019_64bit-Debug\\qtc_Visual_Studio_17_2022\\CMakeFiles\\CMakeScratch\\TryCompile-s6ov9q\\cmTC_4557d.vcxproj" on node 1 (default targets).
+        PrepareForBuild:
+          Creating directory "cmTC_4557d.dir\\Debug\\".
+          Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
+          Creating directory "D:\\AutoWorker\\XWorker\\AutoWoker\\build\\Desktop_Qt_MSVC2019_64bit-Debug\\qtc_Visual_Studio_17_2022\\CMakeFiles\\CMakeScratch\\TryCompile-s6ov9q\\Debug\\".
+          Creating directory "cmTC_4557d.dir\\Debug\\cmTC_4557d.tlog\\".
+        InitializeBuildStatus:
+          Creating "cmTC_4557d.dir\\Debug\\cmTC_4557d.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+          Touching "cmTC_4557d.dir\\Debug\\cmTC_4557d.tlog\\unsuccessfulbuild".
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Preview\\VC\\Tools\\MSVC\\14.41.33901\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_4557d.dir\\Debug\\\\" /Fd"cmTC_4557d.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "C:\\Qt\\Tools\\CMake_64\\share\\cmake-3.29\\Modules\\CMakeCXXCompilerABI.cpp"
+          Microsoft (R) C/C++ Optimizing Compiler Version 19.41.33901 for x64
+          Copyright (C) Microsoft Corporation.  All rights reserved.
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_4557d.dir\\Debug\\\\" /Fd"cmTC_4557d.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "C:\\Qt\\Tools\\CMake_64\\share\\cmake-3.29\\Modules\\CMakeCXXCompilerABI.cpp"
+          CMakeCXXCompilerABI.cpp
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Preview\\VC\\Tools\\MSVC\\14.41.33901\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"D:\\AutoWorker\\XWorker\\AutoWoker\\build\\Desktop_Qt_MSVC2019_64bit-Debug\\qtc_Visual_Studio_17_2022\\CMakeFiles\\CMakeScratch\\TryCompile-s6ov9q\\Debug\\cmTC_4557d.exe" /INCREMENTAL /ILK:"cmTC_4557d.dir\\Debug\\cmTC_4557d.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_MSVC2019_64bit-Debug/qtc_Visual_Studio_17_2022/CMakeFiles/CMakeScratch/TryCompile-s6ov9q/Debug/cmTC_4557d.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_MSVC2019_64bit-Debug/qtc_Visual_Studio_17_2022/CMakeFiles/CMakeScratch/TryCompile-s6ov9q/Debug/cmTC_4557d.lib" /MACHINE:X64  /machine:x64 cmTC_4557d.dir\\Debug\\CMakeCXXCompilerABI.obj
+          cmTC_4557d.vcxproj -> D:\\AutoWorker\\XWorker\\AutoWoker\\build\\Desktop_Qt_MSVC2019_64bit-Debug\\qtc_Visual_Studio_17_2022\\CMakeFiles\\CMakeScratch\\TryCompile-s6ov9q\\Debug\\cmTC_4557d.exe
+        FinalizeBuildStatus:
+          Deleting file "cmTC_4557d.dir\\Debug\\cmTC_4557d.tlog\\unsuccessfulbuild".
+          Touching "cmTC_4557d.dir\\Debug\\cmTC_4557d.tlog\\cmTC_4557d.lastbuildstate".
+        Done Building Project "D:\\AutoWorker\\XWorker\\AutoWoker\\build\\Desktop_Qt_MSVC2019_64bit-Debug\\qtc_Visual_Studio_17_2022\\CMakeFiles\\CMakeScratch\\TryCompile-s6ov9q\\cmTC_4557d.vcxproj" (default targets).
+        
+        Build succeeded.
+            0 Warning(s)
+            0 Error(s)
+        
+        Time Elapsed 00:00:00.84
+        
+      exitCode: 0
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Qt/Tools/CMake_64/share/cmake-3.29/Modules/CMakeDetermineCompilerABI.cmake:173 (message)"
+      - "C:/Qt/Tools/CMake_64/share/cmake-3.29/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      Parsed CXX implicit link information:
+        link line regex: [^( *|.*[/\\])(ld[0-9]*(\\.[a-z]+)?|link\\.exe|lld-link(\\.exe)?|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
+        linker tool regex: [^[ 	]*(->|")?[ 	]*(([^"]*[/\\])?(ld[0-9]*(\\.[a-z]+)?|link\\.exe|lld-link(\\.exe)?))("|,| |$)]
+        linker tool for 'CXX': C:/Program Files/Microsoft Visual Studio/2022/Preview/VC/Tools/MSVC/14.41.33901/bin/HostX64/x64/link.exe
+        implicit libs: []
+        implicit objs: []
+        implicit dirs: []
+        implicit fwks: []
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Qt/Tools/CMake_64/share/cmake-3.29/Modules/Internal/CMakeDetermineLinkerId.cmake:40 (message)"
+      - "C:/Qt/Tools/CMake_64/share/cmake-3.29/Modules/CMakeDetermineCompilerABI.cmake:210 (cmake_determine_linker_id)"
+      - "C:/Qt/Tools/CMake_64/share/cmake-3.29/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      Running the CXX compiler's linker: "C:/Program Files/Microsoft Visual Studio/2022/Preview/VC/Tools/MSVC/14.41.33901/bin/HostX64/x64/link.exe" "-v"
+      Microsoft (R) Incremental Linker Version 14.41.33901.0
+      Copyright (C) Microsoft Corporation.  All rights reserved.
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Qt/Tools/CMake_64/share/cmake-3.29/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Qt/Tools/CMake_64/share/cmake-3.29/Modules/CheckCXXSourceCompiles.cmake:52 (cmake_check_source_compiles)"
+      - "C:/Qt/Tools/CMake_64/share/cmake-3.29/Modules/FindThreads.cmake:99 (CHECK_CXX_SOURCE_COMPILES)"
+      - "C:/Qt/Tools/CMake_64/share/cmake-3.29/Modules/FindThreads.cmake:163 (_threads_check_libc)"
+      - "C:/Qt/Tools/CMake_64/share/cmake-3.29/Modules/CMakeFindDependencyMacro.cmake:76 (find_package)"
+      - "C:/Qt/6.7.1/msvc2019_64/lib/cmake/Qt6/QtPublicDependencyHelpers.cmake:36 (find_dependency)"
+      - "C:/Qt/6.7.1/msvc2019_64/lib/cmake/Qt6/Qt6Dependencies.cmake:27 (_qt_internal_find_third_party_dependencies)"
+      - "C:/Qt/6.7.1/msvc2019_64/lib/cmake/Qt6/Qt6Config.cmake:124 (include)"
+      - "CMakeLists.txt:13 (find_package)"
+    checks:
+      - "Performing Test CMAKE_HAVE_LIBC_PTHREAD"
+    directories:
+      source: "D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_MSVC2019_64bit-Debug/qtc_Visual_Studio_17_2022/CMakeFiles/CMakeScratch/TryCompile-kpmql6"
+      binary: "D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_MSVC2019_64bit-Debug/qtc_Visual_Studio_17_2022/CMakeFiles/CMakeScratch/TryCompile-kpmql6"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /W3 /GR /EHsc"
+      CMAKE_CXX_FLAGS_DEBUG: "/MDd /Zi /Ob0 /Od /RTC1"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "C:/Qt/6.7.1/msvc2019_64/lib/cmake/Qt6;C:/Qt/6.7.1/msvc2019_64/lib/cmake/Qt6/3rdparty/extra-cmake-modules/find-modules;C:/Qt/6.7.1/msvc2019_64/lib/cmake/Qt6/3rdparty/kwin"
+    buildResult:
+      variable: "CMAKE_HAVE_LIBC_PTHREAD"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_MSVC2019_64bit-Debug/qtc_Visual_Studio_17_2022/CMakeFiles/CMakeScratch/TryCompile-kpmql6'
+        
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Preview/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_b331d.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        MSBuild version 17.11.0-preview-24230-06+4be99f898 for .NET Framework
+        Build started 6/22/2024 11:03:29 AM.
+        
+        Project "D:\\AutoWorker\\XWorker\\AutoWoker\\build\\Desktop_Qt_MSVC2019_64bit-Debug\\qtc_Visual_Studio_17_2022\\CMakeFiles\\CMakeScratch\\TryCompile-kpmql6\\cmTC_b331d.vcxproj" on node 1 (default targets).
+        PrepareForBuild:
+          Creating directory "cmTC_b331d.dir\\Debug\\".
+          Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
+          Creating directory "D:\\AutoWorker\\XWorker\\AutoWoker\\build\\Desktop_Qt_MSVC2019_64bit-Debug\\qtc_Visual_Studio_17_2022\\CMakeFiles\\CMakeScratch\\TryCompile-kpmql6\\Debug\\".
+          Creating directory "cmTC_b331d.dir\\Debug\\cmTC_b331d.tlog\\".
+        InitializeBuildStatus:
+          Creating "cmTC_b331d.dir\\Debug\\cmTC_b331d.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+          Touching "cmTC_b331d.dir\\Debug\\cmTC_b331d.tlog\\unsuccessfulbuild".
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Preview\\VC\\Tools\\MSVC\\14.41.33901\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D CMAKE_HAVE_LIBC_PTHREAD /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /std:c++17 /Fo"cmTC_b331d.dir\\Debug\\\\" /Fd"cmTC_b331d.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "D:\\AutoWorker\\XWorker\\AutoWoker\\build\\Desktop_Qt_MSVC2019_64bit-Debug\\qtc_Visual_Studio_17_2022\\CMakeFiles\\CMakeScratch\\TryCompile-kpmql6\\src.cxx"
+          Microsoft (R) C/C++ Optimizing Compiler Version 19.41.33901 for x64
+          Copyright (C) Microsoft Corporation.  All rights reserved.
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D CMAKE_HAVE_LIBC_PTHREAD /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /std:c++17 /Fo"cmTC_b331d.dir\\Debug\\\\" /Fd"cmTC_b331d.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "D:\\AutoWorker\\XWorker\\AutoWoker\\build\\Desktop_Qt_MSVC2019_64bit-Debug\\qtc_Visual_Studio_17_2022\\CMakeFiles\\CMakeScratch\\TryCompile-kpmql6\\src.cxx"
+          src.cxx
+        D:\\AutoWorker\\XWorker\\AutoWoker\\build\\Desktop_Qt_MSVC2019_64bit-Debug\\qtc_Visual_Studio_17_2022\\CMakeFiles\\CMakeScratch\\TryCompile-kpmql6\\src.cxx(1,10): error C1083: Cannot open include file: 'pthread.h': No such file or directory [D:\\AutoWorker\\XWorker\\AutoWoker\\build\\Desktop_Qt_MSVC2019_64bit-Debug\\qtc_Visual_Studio_17_2022\\CMakeFiles\\CMakeScratch\\TryCompile-kpmql6\\cmTC_b331d.vcxproj]
+        Done Building Project "D:\\AutoWorker\\XWorker\\AutoWoker\\build\\Desktop_Qt_MSVC2019_64bit-Debug\\qtc_Visual_Studio_17_2022\\CMakeFiles\\CMakeScratch\\TryCompile-kpmql6\\cmTC_b331d.vcxproj" (default targets) -- FAILED.
+        
+        Build FAILED.
+        
+        "D:\\AutoWorker\\XWorker\\AutoWoker\\build\\Desktop_Qt_MSVC2019_64bit-Debug\\qtc_Visual_Studio_17_2022\\CMakeFiles\\CMakeScratch\\TryCompile-kpmql6\\cmTC_b331d.vcxproj" (default target) (1) ->
+        (ClCompile target) -> 
+          D:\\AutoWorker\\XWorker\\AutoWoker\\build\\Desktop_Qt_MSVC2019_64bit-Debug\\qtc_Visual_Studio_17_2022\\CMakeFiles\\CMakeScratch\\TryCompile-kpmql6\\src.cxx(1,10): error C1083: Cannot open include file: 'pthread.h': No such file or directory [D:\\AutoWorker\\XWorker\\AutoWoker\\build\\Desktop_Qt_MSVC2019_64bit-Debug\\qtc_Visual_Studio_17_2022\\CMakeFiles\\CMakeScratch\\TryCompile-kpmql6\\cmTC_b331d.vcxproj]
+        
+            0 Warning(s)
+            1 Error(s)
+        
+        Time Elapsed 00:00:00.43
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Qt/Tools/CMake_64/share/cmake-3.29/Modules/CheckLibraryExists.cmake:69 (try_compile)"
+      - "C:/Qt/Tools/CMake_64/share/cmake-3.29/Modules/FindThreads.cmake:112 (CHECK_LIBRARY_EXISTS)"
+      - "C:/Qt/Tools/CMake_64/share/cmake-3.29/Modules/FindThreads.cmake:175 (_threads_check_lib)"
+      - "C:/Qt/Tools/CMake_64/share/cmake-3.29/Modules/CMakeFindDependencyMacro.cmake:76 (find_package)"
+      - "C:/Qt/6.7.1/msvc2019_64/lib/cmake/Qt6/QtPublicDependencyHelpers.cmake:36 (find_dependency)"
+      - "C:/Qt/6.7.1/msvc2019_64/lib/cmake/Qt6/Qt6Dependencies.cmake:27 (_qt_internal_find_third_party_dependencies)"
+      - "C:/Qt/6.7.1/msvc2019_64/lib/cmake/Qt6/Qt6Config.cmake:124 (include)"
+      - "CMakeLists.txt:13 (find_package)"
+    checks:
+      - "Looking for pthread_create in pthreads"
+    directories:
+      source: "D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_MSVC2019_64bit-Debug/qtc_Visual_Studio_17_2022/CMakeFiles/CMakeScratch/TryCompile-5ags11"
+      binary: "D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_MSVC2019_64bit-Debug/qtc_Visual_Studio_17_2022/CMakeFiles/CMakeScratch/TryCompile-5ags11"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /W3 /GR /EHsc"
+      CMAKE_CXX_FLAGS_DEBUG: "/MDd /Zi /Ob0 /Od /RTC1"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "C:/Qt/6.7.1/msvc2019_64/lib/cmake/Qt6;C:/Qt/6.7.1/msvc2019_64/lib/cmake/Qt6/3rdparty/extra-cmake-modules/find-modules;C:/Qt/6.7.1/msvc2019_64/lib/cmake/Qt6/3rdparty/kwin"
+    buildResult:
+      variable: "CMAKE_HAVE_PTHREADS_CREATE"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_MSVC2019_64bit-Debug/qtc_Visual_Studio_17_2022/CMakeFiles/CMakeScratch/TryCompile-5ags11'
+        
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Preview/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_51942.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        MSBuild version 17.11.0-preview-24230-06+4be99f898 for .NET Framework
+        Build started 6/22/2024 11:03:29 AM.
+        
+        Project "D:\\AutoWorker\\XWorker\\AutoWoker\\build\\Desktop_Qt_MSVC2019_64bit-Debug\\qtc_Visual_Studio_17_2022\\CMakeFiles\\CMakeScratch\\TryCompile-5ags11\\cmTC_51942.vcxproj" on node 1 (default targets).
+        PrepareForBuild:
+          Creating directory "cmTC_51942.dir\\Debug\\".
+          Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
+          Creating directory "D:\\AutoWorker\\XWorker\\AutoWoker\\build\\Desktop_Qt_MSVC2019_64bit-Debug\\qtc_Visual_Studio_17_2022\\CMakeFiles\\CMakeScratch\\TryCompile-5ags11\\Debug\\".
+          Creating directory "cmTC_51942.dir\\Debug\\cmTC_51942.tlog\\".
+        InitializeBuildStatus:
+          Creating "cmTC_51942.dir\\Debug\\cmTC_51942.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+          Touching "cmTC_51942.dir\\Debug\\cmTC_51942.tlog\\unsuccessfulbuild".
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Preview\\VC\\Tools\\MSVC\\14.41.33901\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D CHECK_FUNCTION_EXISTS=pthread_create /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /std:c++17 /Fo"cmTC_51942.dir\\Debug\\\\" /Fd"cmTC_51942.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "D:\\AutoWorker\\XWorker\\AutoWoker\\build\\Desktop_Qt_MSVC2019_64bit-Debug\\qtc_Visual_Studio_17_2022\\CMakeFiles\\CMakeScratch\\TryCompile-5ags11\\CheckFunctionExists.cxx"
+          Microsoft (R) C/C++ Optimizing Compiler Version 19.41.33901 for x64
+          Copyright (C) Microsoft Corporation.  All rights reserved.
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D CHECK_FUNCTION_EXISTS=pthread_create /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /std:c++17 /Fo"cmTC_51942.dir\\Debug\\\\" /Fd"cmTC_51942.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "D:\\AutoWorker\\XWorker\\AutoWoker\\build\\Desktop_Qt_MSVC2019_64bit-Debug\\qtc_Visual_Studio_17_2022\\CMakeFiles\\CMakeScratch\\TryCompile-5ags11\\CheckFunctionExists.cxx"
+          CheckFunctionExists.cxx
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Preview\\VC\\Tools\\MSVC\\14.41.33901\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"D:\\AutoWorker\\XWorker\\AutoWoker\\build\\Desktop_Qt_MSVC2019_64bit-Debug\\qtc_Visual_Studio_17_2022\\CMakeFiles\\CMakeScratch\\TryCompile-5ags11\\Debug\\cmTC_51942.exe" /INCREMENTAL /ILK:"cmTC_51942.dir\\Debug\\cmTC_51942.ilk" /NOLOGO pthreads.lib kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_MSVC2019_64bit-Debug/qtc_Visual_Studio_17_2022/CMakeFiles/CMakeScratch/TryCompile-5ags11/Debug/cmTC_51942.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_MSVC2019_64bit-Debug/qtc_Visual_Studio_17_2022/CMakeFiles/CMakeScratch/TryCompile-5ags11/Debug/cmTC_51942.lib" /MACHINE:X64  /machine:x64 cmTC_51942.dir\\Debug\\CheckFunctionExists.obj
+        LINK : fatal error LNK1104: cannot open file 'pthreads.lib' [D:\\AutoWorker\\XWorker\\AutoWoker\\build\\Desktop_Qt_MSVC2019_64bit-Debug\\qtc_Visual_Studio_17_2022\\CMakeFiles\\CMakeScratch\\TryCompile-5ags11\\cmTC_51942.vcxproj]
+        Done Building Project "D:\\AutoWorker\\XWorker\\AutoWoker\\build\\Desktop_Qt_MSVC2019_64bit-Debug\\qtc_Visual_Studio_17_2022\\CMakeFiles\\CMakeScratch\\TryCompile-5ags11\\cmTC_51942.vcxproj" (default targets) -- FAILED.
+        
+        Build FAILED.
+        
+        "D:\\AutoWorker\\XWorker\\AutoWoker\\build\\Desktop_Qt_MSVC2019_64bit-Debug\\qtc_Visual_Studio_17_2022\\CMakeFiles\\CMakeScratch\\TryCompile-5ags11\\cmTC_51942.vcxproj" (default target) (1) ->
+        (Link target) -> 
+          LINK : fatal error LNK1104: cannot open file 'pthreads.lib' [D:\\AutoWorker\\XWorker\\AutoWoker\\build\\Desktop_Qt_MSVC2019_64bit-Debug\\qtc_Visual_Studio_17_2022\\CMakeFiles\\CMakeScratch\\TryCompile-5ags11\\cmTC_51942.vcxproj]
+        
+            0 Warning(s)
+            1 Error(s)
+        
+        Time Elapsed 00:00:00.53
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Qt/Tools/CMake_64/share/cmake-3.29/Modules/CheckLibraryExists.cmake:69 (try_compile)"
+      - "C:/Qt/Tools/CMake_64/share/cmake-3.29/Modules/FindThreads.cmake:112 (CHECK_LIBRARY_EXISTS)"
+      - "C:/Qt/Tools/CMake_64/share/cmake-3.29/Modules/FindThreads.cmake:176 (_threads_check_lib)"
+      - "C:/Qt/Tools/CMake_64/share/cmake-3.29/Modules/CMakeFindDependencyMacro.cmake:76 (find_package)"
+      - "C:/Qt/6.7.1/msvc2019_64/lib/cmake/Qt6/QtPublicDependencyHelpers.cmake:36 (find_dependency)"
+      - "C:/Qt/6.7.1/msvc2019_64/lib/cmake/Qt6/Qt6Dependencies.cmake:27 (_qt_internal_find_third_party_dependencies)"
+      - "C:/Qt/6.7.1/msvc2019_64/lib/cmake/Qt6/Qt6Config.cmake:124 (include)"
+      - "CMakeLists.txt:13 (find_package)"
+    checks:
+      - "Looking for pthread_create in pthread"
+    directories:
+      source: "D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_MSVC2019_64bit-Debug/qtc_Visual_Studio_17_2022/CMakeFiles/CMakeScratch/TryCompile-wtyjcc"
+      binary: "D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_MSVC2019_64bit-Debug/qtc_Visual_Studio_17_2022/CMakeFiles/CMakeScratch/TryCompile-wtyjcc"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /W3 /GR /EHsc"
+      CMAKE_CXX_FLAGS_DEBUG: "/MDd /Zi /Ob0 /Od /RTC1"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "C:/Qt/6.7.1/msvc2019_64/lib/cmake/Qt6;C:/Qt/6.7.1/msvc2019_64/lib/cmake/Qt6/3rdparty/extra-cmake-modules/find-modules;C:/Qt/6.7.1/msvc2019_64/lib/cmake/Qt6/3rdparty/kwin"
+    buildResult:
+      variable: "CMAKE_HAVE_PTHREAD_CREATE"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_MSVC2019_64bit-Debug/qtc_Visual_Studio_17_2022/CMakeFiles/CMakeScratch/TryCompile-wtyjcc'
+        
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Preview/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_2b8f7.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        MSBuild version 17.11.0-preview-24230-06+4be99f898 for .NET Framework
+        Build started 6/22/2024 11:03:30 AM.
+        
+        Project "D:\\AutoWorker\\XWorker\\AutoWoker\\build\\Desktop_Qt_MSVC2019_64bit-Debug\\qtc_Visual_Studio_17_2022\\CMakeFiles\\CMakeScratch\\TryCompile-wtyjcc\\cmTC_2b8f7.vcxproj" on node 1 (default targets).
+        PrepareForBuild:
+          Creating directory "cmTC_2b8f7.dir\\Debug\\".
+          Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
+          Creating directory "D:\\AutoWorker\\XWorker\\AutoWoker\\build\\Desktop_Qt_MSVC2019_64bit-Debug\\qtc_Visual_Studio_17_2022\\CMakeFiles\\CMakeScratch\\TryCompile-wtyjcc\\Debug\\".
+          Creating directory "cmTC_2b8f7.dir\\Debug\\cmTC_2b8f7.tlog\\".
+        InitializeBuildStatus:
+          Creating "cmTC_2b8f7.dir\\Debug\\cmTC_2b8f7.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+          Touching "cmTC_2b8f7.dir\\Debug\\cmTC_2b8f7.tlog\\unsuccessfulbuild".
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Preview\\VC\\Tools\\MSVC\\14.41.33901\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D CHECK_FUNCTION_EXISTS=pthread_create /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /std:c++17 /Fo"cmTC_2b8f7.dir\\Debug\\\\" /Fd"cmTC_2b8f7.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "D:\\AutoWorker\\XWorker\\AutoWoker\\build\\Desktop_Qt_MSVC2019_64bit-Debug\\qtc_Visual_Studio_17_2022\\CMakeFiles\\CMakeScratch\\TryCompile-wtyjcc\\CheckFunctionExists.cxx"
+          Microsoft (R) C/C++ Optimizing Compiler Version 19.41.33901 for x64
+          Copyright (C) Microsoft Corporation.  All rights reserved.
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D CHECK_FUNCTION_EXISTS=pthread_create /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /std:c++17 /Fo"cmTC_2b8f7.dir\\Debug\\\\" /Fd"cmTC_2b8f7.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "D:\\AutoWorker\\XWorker\\AutoWoker\\build\\Desktop_Qt_MSVC2019_64bit-Debug\\qtc_Visual_Studio_17_2022\\CMakeFiles\\CMakeScratch\\TryCompile-wtyjcc\\CheckFunctionExists.cxx"
+          CheckFunctionExists.cxx
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Preview\\VC\\Tools\\MSVC\\14.41.33901\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"D:\\AutoWorker\\XWorker\\AutoWoker\\build\\Desktop_Qt_MSVC2019_64bit-Debug\\qtc_Visual_Studio_17_2022\\CMakeFiles\\CMakeScratch\\TryCompile-wtyjcc\\Debug\\cmTC_2b8f7.exe" /INCREMENTAL /ILK:"cmTC_2b8f7.dir\\Debug\\cmTC_2b8f7.ilk" /NOLOGO pthread.lib kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_MSVC2019_64bit-Debug/qtc_Visual_Studio_17_2022/CMakeFiles/CMakeScratch/TryCompile-wtyjcc/Debug/cmTC_2b8f7.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_MSVC2019_64bit-Debug/qtc_Visual_Studio_17_2022/CMakeFiles/CMakeScratch/TryCompile-wtyjcc/Debug/cmTC_2b8f7.lib" /MACHINE:X64  /machine:x64 cmTC_2b8f7.dir\\Debug\\CheckFunctionExists.obj
+        LINK : fatal error LNK1104: cannot open file 'pthread.lib' [D:\\AutoWorker\\XWorker\\AutoWoker\\build\\Desktop_Qt_MSVC2019_64bit-Debug\\qtc_Visual_Studio_17_2022\\CMakeFiles\\CMakeScratch\\TryCompile-wtyjcc\\cmTC_2b8f7.vcxproj]
+        Done Building Project "D:\\AutoWorker\\XWorker\\AutoWoker\\build\\Desktop_Qt_MSVC2019_64bit-Debug\\qtc_Visual_Studio_17_2022\\CMakeFiles\\CMakeScratch\\TryCompile-wtyjcc\\cmTC_2b8f7.vcxproj" (default targets) -- FAILED.
+        
+        Build FAILED.
+        
+        "D:\\AutoWorker\\XWorker\\AutoWoker\\build\\Desktop_Qt_MSVC2019_64bit-Debug\\qtc_Visual_Studio_17_2022\\CMakeFiles\\CMakeScratch\\TryCompile-wtyjcc\\cmTC_2b8f7.vcxproj" (default target) (1) ->
+        (Link target) -> 
+          LINK : fatal error LNK1104: cannot open file 'pthread.lib' [D:\\AutoWorker\\XWorker\\AutoWoker\\build\\Desktop_Qt_MSVC2019_64bit-Debug\\qtc_Visual_Studio_17_2022\\CMakeFiles\\CMakeScratch\\TryCompile-wtyjcc\\cmTC_2b8f7.vcxproj]
+        
+            0 Warning(s)
+            1 Error(s)
+        
+        Time Elapsed 00:00:00.51
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Qt/Tools/CMake_64/share/cmake-3.29/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Qt/Tools/CMake_64/share/cmake-3.29/Modules/CheckCXXSourceCompiles.cmake:52 (cmake_check_source_compiles)"
+      - "C:/Qt/6.7.1/msvc2019_64/lib/cmake/Qt6/FindWrapAtomic.cmake:36 (check_cxx_source_compiles)"
+      - "C:/Qt/Tools/CMake_64/share/cmake-3.29/Modules/CMakeFindDependencyMacro.cmake:76 (find_package)"
+      - "C:/Qt/6.7.1/msvc2019_64/lib/cmake/Qt6/QtPublicDependencyHelpers.cmake:36 (find_dependency)"
+      - "C:/Qt/6.7.1/msvc2019_64/lib/cmake/Qt6Core/Qt6CoreDependencies.cmake:33 (_qt_internal_find_third_party_dependencies)"
+      - "C:/Qt/6.7.1/msvc2019_64/lib/cmake/Qt6Core/Qt6CoreConfig.cmake:45 (include)"
+      - "C:/Qt/Tools/CMake_64/share/cmake-3.29/Modules/CMakeFindDependencyMacro.cmake:76 (find_package)"
+      - "C:/Qt/6.7.1/msvc2019_64/lib/cmake/Qt6/QtPublicDependencyHelpers.cmake:111 (find_dependency)"
+      - "C:/Qt/6.7.1/msvc2019_64/lib/cmake/Qt6Widgets/Qt6WidgetsDependencies.cmake:42 (_qt_internal_find_qt_dependencies)"
+      - "C:/Qt/6.7.1/msvc2019_64/lib/cmake/Qt6Widgets/Qt6WidgetsConfig.cmake:43 (include)"
+      - "C:/Qt/6.7.1/msvc2019_64/lib/cmake/Qt6/Qt6Config.cmake:169 (find_package)"
+      - "CMakeLists.txt:14 (find_package)"
+    checks:
+      - "Performing Test HAVE_STDATOMIC"
+    directories:
+      source: "D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_MSVC2019_64bit-Debug/qtc_Visual_Studio_17_2022/CMakeFiles/CMakeScratch/TryCompile-4hq8qd"
+      binary: "D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_MSVC2019_64bit-Debug/qtc_Visual_Studio_17_2022/CMakeFiles/CMakeScratch/TryCompile-4hq8qd"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /W3 /GR /EHsc"
+      CMAKE_CXX_FLAGS_DEBUG: "/MDd /Zi /Ob0 /Od /RTC1"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "C:/Qt/6.7.1/msvc2019_64/lib/cmake/Qt6;C:/Qt/6.7.1/msvc2019_64/lib/cmake/Qt6/3rdparty/extra-cmake-modules/find-modules;C:/Qt/6.7.1/msvc2019_64/lib/cmake/Qt6/3rdparty/kwin;C:/Qt/6.7.1/msvc2019_64/lib/cmake/Qt6;C:/Qt/6.7.1/msvc2019_64/lib/cmake/Qt6/3rdparty/extra-cmake-modules/find-modules;C:/Qt/6.7.1/msvc2019_64/lib/cmake/Qt6/3rdparty/kwin"
+    buildResult:
+      variable: "HAVE_STDATOMIC"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_MSVC2019_64bit-Debug/qtc_Visual_Studio_17_2022/CMakeFiles/CMakeScratch/TryCompile-4hq8qd'
+        
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Preview/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_cfea9.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        MSBuild version 17.11.0-preview-24230-06+4be99f898 for .NET Framework
+        Build started 6/22/2024 11:03:31 AM.
+        
+        Project "D:\\AutoWorker\\XWorker\\AutoWoker\\build\\Desktop_Qt_MSVC2019_64bit-Debug\\qtc_Visual_Studio_17_2022\\CMakeFiles\\CMakeScratch\\TryCompile-4hq8qd\\cmTC_cfea9.vcxproj" on node 1 (default targets).
+        PrepareForBuild:
+          Creating directory "cmTC_cfea9.dir\\Debug\\".
+          Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
+          Creating directory "D:\\AutoWorker\\XWorker\\AutoWoker\\build\\Desktop_Qt_MSVC2019_64bit-Debug\\qtc_Visual_Studio_17_2022\\CMakeFiles\\CMakeScratch\\TryCompile-4hq8qd\\Debug\\".
+          Creating directory "cmTC_cfea9.dir\\Debug\\cmTC_cfea9.tlog\\".
+        InitializeBuildStatus:
+          Creating "cmTC_cfea9.dir\\Debug\\cmTC_cfea9.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+          Touching "cmTC_cfea9.dir\\Debug\\cmTC_cfea9.tlog\\unsuccessfulbuild".
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Preview\\VC\\Tools\\MSVC\\14.41.33901\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D HAVE_STDATOMIC /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /std:c++17 /Fo"cmTC_cfea9.dir\\Debug\\\\" /Fd"cmTC_cfea9.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "D:\\AutoWorker\\XWorker\\AutoWoker\\build\\Desktop_Qt_MSVC2019_64bit-Debug\\qtc_Visual_Studio_17_2022\\CMakeFiles\\CMakeScratch\\TryCompile-4hq8qd\\src.cxx"
+          Microsoft (R) C/C++ Optimizing Compiler Version 19.41.33901 for x64
+          Copyright (C) Microsoft Corporation.  All rights reserved.
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D HAVE_STDATOMIC /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /std:c++17 /Fo"cmTC_cfea9.dir\\Debug\\\\" /Fd"cmTC_cfea9.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "D:\\AutoWorker\\XWorker\\AutoWoker\\build\\Desktop_Qt_MSVC2019_64bit-Debug\\qtc_Visual_Studio_17_2022\\CMakeFiles\\CMakeScratch\\TryCompile-4hq8qd\\src.cxx"
+          src.cxx
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Preview\\VC\\Tools\\MSVC\\14.41.33901\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"D:\\AutoWorker\\XWorker\\AutoWoker\\build\\Desktop_Qt_MSVC2019_64bit-Debug\\qtc_Visual_Studio_17_2022\\CMakeFiles\\CMakeScratch\\TryCompile-4hq8qd\\Debug\\cmTC_cfea9.exe" /INCREMENTAL /ILK:"cmTC_cfea9.dir\\Debug\\cmTC_cfea9.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_MSVC2019_64bit-Debug/qtc_Visual_Studio_17_2022/CMakeFiles/CMakeScratch/TryCompile-4hq8qd/Debug/cmTC_cfea9.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_MSVC2019_64bit-Debug/qtc_Visual_Studio_17_2022/CMakeFiles/CMakeScratch/TryCompile-4hq8qd/Debug/cmTC_cfea9.lib" /MACHINE:X64  /machine:x64 cmTC_cfea9.dir\\Debug\\src.obj
+          cmTC_cfea9.vcxproj -> D:\\AutoWorker\\XWorker\\AutoWoker\\build\\Desktop_Qt_MSVC2019_64bit-Debug\\qtc_Visual_Studio_17_2022\\CMakeFiles\\CMakeScratch\\TryCompile-4hq8qd\\Debug\\cmTC_cfea9.exe
+        FinalizeBuildStatus:
+          Deleting file "cmTC_cfea9.dir\\Debug\\cmTC_cfea9.tlog\\unsuccessfulbuild".
+          Touching "cmTC_cfea9.dir\\Debug\\cmTC_cfea9.tlog\\cmTC_cfea9.lastbuildstate".
+        Done Building Project "D:\\AutoWorker\\XWorker\\AutoWoker\\build\\Desktop_Qt_MSVC2019_64bit-Debug\\qtc_Visual_Studio_17_2022\\CMakeFiles\\CMakeScratch\\TryCompile-4hq8qd\\cmTC_cfea9.vcxproj" (default targets).
+        
+        Build succeeded.
+            0 Warning(s)
+            0 Error(s)
+        
+        Time Elapsed 00:00:00.86
+        
+      exitCode: 0
+...

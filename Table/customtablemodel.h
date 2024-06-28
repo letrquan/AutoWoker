@@ -32,5 +32,7 @@ private:
     QVector<QVector<QVariant>> dataStorage;
     QVector<QString> headerLabels;
     QMap<int, QColor> rowColors;
+signals:
+    void checkedCountChanged(int check = -1);
 };
 #endif // CUSTOMTABLEMODEL_H

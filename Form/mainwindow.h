@@ -50,7 +50,8 @@ public:
     QList<QString> GetListKeyTinsoft();
     QString GetStatusAccount(int indexRow);
 private:
-    void GetProxy(int indexRow, bool isStop, QString proxy, int typeProxy, QString statusProxy, QString ip, TinsoftProxy* tinsoft, XproxyProxy* xproxy, TMProxy* tmproxy, ProxyV6Net* proxyWeb, ShopLike* shopLike, MinProxy* minProxy, ObcProxy* obcProxy);
+    void ExcuteUnlock282(int indexRow, QString statusProxy, QString cookie, QString proxy, int typeProxy);
+    void GetProxy(int indexRow, bool &isStop, QString &proxy, int &typeProxy, QString &statusProxy, QString &ip, TinsoftProxy* tinsoft, XproxyProxy* xproxy, TMProxy* tmproxy, ProxyV6Net* proxyWeb, ShopLike* shopLike, MinProxy* minProxy, ObcProxy* obcProxy);
     void ExcuteOneThread(int indexRow, int indexPos, QString idKichBan, JSON_Settings settings);
     void ReadResultSpam();
     QMap<QString,QStringList> dicUidNhom;
