@@ -70,7 +70,7 @@ MainWindow::MainWindow(QString tokemem, QString namemem, QString phoneMem, QStri
     connect(this, &MainWindow::updateRowColor2, this, static_cast<void (MainWindow::*)(int, int)>(&MainWindow::SetRowColor), Qt::QueuedConnection);
     connect(this, &MainWindow::updateRowColor, this, static_cast<void (MainWindow::*)(int)>(&MainWindow::SetRowColor), Qt::QueuedConnection);
     OnLoaded();
-
+    
 }
 
 MainWindow::~MainWindow()
@@ -90,20 +90,20 @@ QString MainWindow::getIPServer(const QString& address) {
 QString MainWindow::md5Encode(const QString &input) {
     // Convert the input QString to a QByteArray in UTF-8 encoding
     QByteArray byteArray = input.toUtf8();
-
+    
     // Create an MD5 hash object and compute the hash
     QByteArray hash = QCryptographicHash::hash(byteArray, QCryptographicHash::Md5);
-
+    
     // Convert the hash to a hex string
     QString hexString = hash.toHex().toUpper();
-
+    
     // Return the first 12 characters of the hex string
     return hexString.left(12);
 }
 
 void MainWindow::xoaProxy(){
     QSettings settings("HKEY_CURRENT_USER\\Software\\Microsoft\\windows\\CurrentVersion\\Internet Settings", QSettings::NativeFormat);
-
+    
     // Set the ProxyServer and ProxyEnable values
     settings.setValue("ProxyServer", 1);  // It seems like a mistake in the original C# to set ProxyServer to 1 while disabling it.
     settings.setValue("ProxyEnable", 0);
@@ -119,7 +119,7 @@ QString MainWindow::Getdocs(QString uri){
     QNetworkAccessManager manager;
     QNetworkReply *reply = manager.get(request);
     QEventLoop loop;
-
+    
     // Use an event loop to wait for the reply to finish
     QObject::connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
     loop.exec();
@@ -128,7 +128,7 @@ QString MainWindow::Getdocs(QString uri){
         // Check for content encoding
         QByteArray responseData = reply->readAll();
         responseText = QString::fromUtf8(responseData);
-
+        
     } else {
         qDebug() << "Network error:" << reply->errorString();
     }
@@ -207,7 +207,7 @@ void MainWindow::OnLoaded(){
         }
         SetupFolder::StartApplication();
         LoadcbbSearch();
-        LoadCbbThuMuc(1);
+        LoadCbbThuMuc(2);
         LoadCbbTinhTrang();
         LoadConfigManHinh();
         AddUI();
@@ -225,7 +225,7 @@ void MainWindow::changeEvent(QEvent *event){
             //     try {
             //         QFile file("settings\\language.txt");
             //         file.remove();
-
+            
             //     } catch (...) {
             //     }
             //     if(SettingsTool::GetSettings("configInteractGeneral").GetValueBool("ckbBackupDB",true)){
@@ -235,10 +235,10 @@ void MainWindow::changeEvent(QEvent *event){
             // } catch (...) {
             //     this->close();
             // }
-
+            
         }else{
             if(isMaximized()){
-
+                
             }
         }
     }
@@ -411,7 +411,7 @@ QString MainWindow::GetInfoAccount(int indexRow)
 QString MainWindow::GetStatusAccount(int indexRow){
     QString statusDataGridView = ui->tableView->model()->index(indexRow, Utils::GetIndexByColumnHeader(ui->tableView,"Trạng thái")).data().toString();
     if(statusDataGridView.startsWith("(")){
-
+        
         return statusDataGridView.mid(statusDataGridView.indexOf(')') + 1).trimmed();
     }
     return statusDataGridView;
@@ -464,7 +464,7 @@ void MainWindow::KiemTraTaiKhoan(int type, bool useProxy) {
     QThreadPool::globalInstance()->setMaxThreadCount(SettingsTool::GetSettings("configGeneral").GetValueInt("nudHideThread", 10));
     auto tokenTrunggian = SettingsTool::GetSettings("configGeneral").GetValue("token");
     QFutureWatcher<void> *watcher = new QFutureWatcher<void>(this);
-
+    
     connect(watcher, &QFutureWatcher<void>::started, this, [this]() {
         cControl("start");
     });
@@ -482,7 +482,7 @@ void MainWindow::KiemTraTaiKhoan(int type, bool useProxy) {
         }
         cControl("stop");
     });
-
+    
     QFuture<void> future = QtConcurrent::run([this, tokenTrunggian, type]() {
         switch (type) {
         case 0:
@@ -490,17 +490,17 @@ void MainWindow::KiemTraTaiKhoan(int type, bool useProxy) {
                 QtConcurrent::run(&MainWindow::CheckMyWall, this, num, tokenTrunggian);
             });
             break;
-
+            
         case 3:
             checkAccounts([this](int num) {
                 QtConcurrent::run(&MainWindow::CheckDangCheckpoint, this, num);
             });
             break;
-
+            
         default:
             break;
         }
-
+        
         // auto tickCount = QDateTime::currentSecsSinceEpoch();
         // while (QThreadPool::globalInstance()->activeThreadCount() > 0 && QDateTime::currentSecsSinceEpoch() - tickCount <= 60) {
         //     QMetaObject::invokeMethod(QCoreApplication::instance(), []() {
@@ -509,7 +509,7 @@ void MainWindow::KiemTraTaiKhoan(int type, bool useProxy) {
         //     QThread::sleep(1);
         // }
     });
-
+    
     watcher->setFuture(future);
 }
 
@@ -602,7 +602,7 @@ void MainWindow::CheckInfoUid(int row, bool useProxy){
     } catch (...) {
         SetStatusAccount(row, Language::GetValue("Không check đươ\u0323c!"));
     }
-
+    
 }
 void MainWindow::SetCellAccount(int indexRow, QString column, QVariant value, bool isAllowEmptyValue){
     if ((!(column == "Uid") || !(value.toString().trimmed() == "")) && (isAllowEmptyValue || !(value.toString().trimmed() == "")))
@@ -803,7 +803,7 @@ void MainWindow::CheckMyToken(int row){
         {
             SetInfoAccount(row, text);
         }
-
+        
     } catch (...) {
         SetStatusAccount(row, Language::GetValue("Không check đươ\u0323c!"));
     }
@@ -994,7 +994,7 @@ void MainWindow::showContextMenu(const QPoint &pos) {
     QAction *actionOpenProgram = new QAction(QIcon(""),"Mở trình duyệt", this);
     QAction *actionDeleteAccount = new QAction(QIcon(""),"Xóa tài khoản", this);
     QAction *actionCheckAccount = new QAction("Kiểm tra tài khoản", this);
-
+    
     // connect(actionSelect, &QAction::triggered, this, &MainWindow::onActionSelect);
     connect(actionDeselect, &QAction::triggered, this, &MainWindow::onActionDeselect);
     // connect(actionHideList, &QAction::triggered, this, &MainWindow::onActionHideList);
@@ -1003,7 +1003,7 @@ void MainWindow::showContextMenu(const QPoint &pos) {
     connect(actionCopy, &QAction::triggered, this, &MainWindow::onActionCopy);
     // connect(actionOpenProgram, &QAction::triggered, this, &MainWindow::onActionOpenProgram);
     // connect(actionDeleteAccount, &QAction::triggered, this, &MainWindow::onActionDeleteAccount);
-
+    
     // Create a submenu for "Chọn"
     QMenu *subMenuSelect = new QMenu("Chọn", this);
     subMenuSelect->setStyleSheet("background-color: #424769; color: white;");
@@ -1012,7 +1012,7 @@ void MainWindow::showContextMenu(const QPoint &pos) {
     QAction *subActionCondition = new QAction("Tình trạng", this);
     QAction *subActionStatus = new QAction("Trạng thái", this);
     QAction *subActionSelectByUID = new QAction("Chọn danh sách theo UID", this);
-
+    
     connect(subActionAll, &QAction::triggered, this, &MainWindow::onSubActionAll);
     // connect(subActionBlackList, &QAction::triggered, this, &MainWindow::onSubActionBlackList);
     // connect(subActionCondition, &QAction::triggered, this, &MainWindow::onSubActionCondition);
@@ -1024,9 +1024,9 @@ void MainWindow::showContextMenu(const QPoint &pos) {
     subMenuSelect->addAction(subActionCondition);
     subMenuSelect->addAction(subActionStatus);
     subMenuSelect->addAction(subActionSelectByUID);
-
-
-
+    
+    
+    
     //sub menu for Kiểm tra tài khoản
     QMenu *subMenuCheckAccount = new QMenu("Kiểm tra tài khoản", this);
     subMenuCheckAccount->setStyleSheet("background-color: #424769; color: white;");
@@ -1037,8 +1037,8 @@ void MainWindow::showContextMenu(const QPoint &pos) {
     QAction *checkAvatar = new QAction("Check Avatar", this);
     QAction *checkProfile = new QAction("Check Profile", this);
     QAction *checkBackup = new QAction("Check Back Up", this);
-
-
+    
+    
     subMenuCheckAccount->addAction(checkWall);
     subMenuCheckAccount->addAction(checkInfoUid);
     subMenuCheckAccount->addAction(checkToken);
@@ -1046,11 +1046,11 @@ void MainWindow::showContextMenu(const QPoint &pos) {
     subMenuCheckAccount->addAction(checkAvatar);
     subMenuCheckAccount->addAction(checkProfile);
     subMenuCheckAccount->addAction(checkBackup);
-
-
+    
+    
     connect(checkWall, &QAction::triggered, this, &MainWindow::checkWall);
     connect(checkCookie, &QAction::triggered, this, &MainWindow::checkCookie);
-
+    
     // Add the submenu to the main action
     actionSelect->setMenu(subMenuSelect);
     actionCheckAccount->setMenu(subMenuCheckAccount);
@@ -1058,7 +1058,7 @@ void MainWindow::showContextMenu(const QPoint &pos) {
     QWidgetAction *widgetActionNote = new QWidgetAction(this);
     QLineEdit *lineEditNote = new QLineEdit(this);
     widgetActionNote->setDefaultWidget(lineEditNote);
-
+    
     // Add actions and submenus to the context menu
     contextMenu.addAction(actionSelect);
     contextMenu.addAction(actionDeselect);
@@ -1072,8 +1072,8 @@ void MainWindow::showContextMenu(const QPoint &pos) {
     contextMenu.addSeparator();
     contextMenu.addAction(widgetActionNote);
     contextMenu.addAction(widgetActionNote);
-
-
+    
+    
     // Show the context menu at the cursor position
     contextMenu.exec(ui->tableView->viewport()->mapToGlobal(pos));
 }
@@ -1098,7 +1098,7 @@ void MainWindow::onActionCopy(){
     if (selection->hasSelection()) {
         QModelIndex index = selection->currentIndex();
         QString cellValue = index.data().toString();
-
+        
         QClipboard *clipboard = QApplication::clipboard();
         clipboard->setText(cellValue);
     }
@@ -1150,13 +1150,13 @@ void MainWindow::Execute(const JSON_Settings &settings){
         if(!IsChooseRow()){
             return;
         }
-        int maxThread = SettingsTool::GetSettings("configGeneral").GetValueInt("nudInteractThread", 3);
+        QAtomicInt maxThread = SettingsTool::GetSettings("configGeneral").GetValueInt("nudInteractThread", 3);
         lstProxyTool = GetListProxy(maxThread);
         if(!lstProxyTool.isEmpty() && lstProxyTool.count() ==0){
             MessageBoxHelper::Show("Proxy không đủ, vui lòng cấu hình lại!", 2);
             return;
         }
-        QList<int> lstPossition = *new QList<int>();
+        QList<int> lstPossition;
         for (int i = 0; i < maxThread; i++)
         {
             lstPossition.append(0);
@@ -1173,7 +1173,7 @@ void MainWindow::Execute(const JSON_Settings &settings){
         int curChangeIp = 0;
         bool isChangeIPSuccess = false;
         checkDelayChrome = 0;
-        QFuture<void> thread= QtConcurrent::run([this, settings, maxThread, &lstPossition, &curChangeIp, &isChangeIPSuccess]() {
+        QFuture<void> thread= QtConcurrent::run([this, settings, maxThread, lstPossition, &curChangeIp, &isChangeIPSuccess]() mutable {
             if (const_cast<JSON_Settings&>(settings).GetValueBool("Interact")){
                 QStringList list;
                 QString idKichBan="";
@@ -1216,7 +1216,7 @@ void MainWindow::Execute(const JSON_Settings &settings){
                                             emit updateStatusAccount(num19, Language::GetValue("Đang xóa Cache Profile..."));
                                             DeleteCacheProfile(num19);
                                         });
-
+                                        
                                     }
                                     num19++;
                                 }
@@ -1288,11 +1288,10 @@ void MainWindow::Execute(const JSON_Settings &settings){
                                 listObcDcom[m]->ResetDcom();
                             }
                         }
-                        QFuture<void> thread3 = QtConcurrent::run([this,&maxThread, &lstPossition, &idKichBan, &settings, &curChangeIp, &isChangeIPSuccess]{
+                        QFuture<void> thread3 = QtConcurrent::run([this, maxThread, lstPossition, idKichBan, settings, curChangeIp, isChangeIPSuccess] () mutable {
                             try {
                                 int num13 = 0;
                                 while(num13<ui->tableView->model()->rowCount() && !isStop){
-                                    auto check = ui->tableView->model()->index(num13,Utils::GetIndexByColumnHeader(ui->tableView,"Select")).data(Qt::CheckStateRole);
                                     if(ui->tableView->model()->index(num13,Utils::GetIndexByColumnHeader(ui->tableView,"Select")).data(Qt::CheckStateRole).toBool()){
                                         if(isStop){
                                             break;
@@ -1302,11 +1301,18 @@ void MainWindow::Execute(const JSON_Settings &settings){
                                             {
                                                 break;
                                             }
-                                            QFuture<void> thread6 = QtConcurrent::run([&num13, &lstPossition, &idKichBan, &settings, this]{
-                                                int indexOfPossitionApp2 = Common::GetIndexOfPositionApp(lstPossition);
+                                            QFuture<void> thread6 = QtConcurrent::run([this, lstPossition, idKichBan, settings, num13] () mutable {
+                                                int indexOfPossitionApp2;
+                                                {
+                                                    QMutexLocker locker(&mutex);
+                                                    indexOfPossitionApp2 = Common::GetIndexOfPositionApp(lstPossition);
+                                                }
                                                 try {
                                                     ExcuteOneThread(num13, indexOfPossitionApp2, idKichBan, settings);
-                                                    Common::FillIndexPossition(lstPossition,indexOfPossitionApp2);
+                                                    {
+                                                        QMutexLocker locker(&mutex);
+                                                        Common::FillIndexPossition(lstPossition,indexOfPossitionApp2);
+                                                    }
                                                     QString p = "Proxy chưa ủy quyền!";
                                                     if (!SettingsTool::GetSettings("configInteractGeneral").GetValueBool("ckbRepeatAll") || GetInfoAccount(num13) != "Live" || GetStatusAccount(num13).toLower().contains("checkpoint") || GetStatusAccount(num13).toLower().contains("invalid username or password") || GetStatusAccount(num13).toLower().contains(p.toLower()))
                                                     {
@@ -1421,20 +1427,20 @@ void MainWindow::ExcuteOneThread(int indexRow, int indexPos, QString idKichBan, 
     QString check_HDUpCover = "";
     QString check_HDOnOff2FA = "";
     QString text177 = "";
-    QString text3 = GetCellAccount(indexRow, "cUid");
-    QString cellAccount = GetCellAccount(indexRow, "cId");
-    QString cellAccount2 = GetCellAccount(indexRow, "cEmail");
-    QString cellAccount3 = GetCellAccount(indexRow, "cPassMail");
-    QString cellAccount4 = GetCellAccount(indexRow, "cFa2");
-    QString cellAccount5 = GetCellAccount(indexRow, "cPassword");
-    QString text4 = GetCellAccount(indexRow, "cCookies");
-    QString text5 = GetCellAccount(indexRow, "cToken");
-    QString cellAccount6 = GetCellAccount(indexRow, "cUseragent");
+    QString text3 = GetCellAccount(indexRow, "Uid");
+    QString cellAccount = GetCellAccount(indexRow, "Id");
+    QString cellAccount2 = GetCellAccount(indexRow, "Email");
+    QString cellAccount3 = GetCellAccount(indexRow, "Mật khẩu Mail");
+    QString cellAccount4 = GetCellAccount(indexRow, "Mã 2FA");
+    QString cellAccount5 = GetCellAccount(indexRow, "Mật khẩu");
+    QString text4 = GetCellAccount(indexRow, "Cookies");
+    QString text5 = GetCellAccount(indexRow, "Token");
+    QString cellAccount6 = GetCellAccount(indexRow, "Useragent");
     if (text3.isEmpty())
     {
         QRegularExpression regex("c_user=(\\d+)");
         QRegularExpressionMatch match = regex.match(text4);
-
+        
         if (match.hasMatch())
         {
             text3 = match.captured(1);
@@ -1478,7 +1484,7 @@ void MainWindow::ExcuteOneThread(int indexRow, int indexPos, QString idKichBan, 
                                 num5++;
                                 continue;
                             }
-                            // goto IL_0396;
+                            goto IL_0396;
                         }
                         if (!flag4)
                         {
@@ -1491,7 +1497,7 @@ void MainWindow::ExcuteOneThread(int indexRow, int indexPos, QString idKichBan, 
                                 emit updateStatusAccount(indexRow, statusProxy + Language::GetValue("Không có kết nối Internet!"));
                             }
                             num2 = 1;
-                            // goto IL_5233;
+                            goto IL_5233;
                         }
                     }
                     statusProxy = "(IP: +"+proxy+"=>"+ip+") ";
@@ -1503,6 +1509,14 @@ void MainWindow::ExcuteOneThread(int indexRow, int indexPos, QString idKichBan, 
                 }else{
                     try {
                         bool flag5 = false;
+                        QString text6 = "data:,";
+                        QPoint position;
+                        QPoint size;
+                        QString value = "Get Token fail!";
+                        QString pathProfile = SettingsTool::GetPathProfile();
+                        QString text7 = "";
+                        QDir dir(text7);
+                        QString text10;
                         if (settings.GetValueBool("Unlock282"))
                         {
                             flag5 = true;
@@ -1510,11 +1524,11 @@ void MainWindow::ExcuteOneThread(int indexRow, int indexPos, QString idKichBan, 
                         }
                         if (!settings.GetValueBool("GetTokenEAAAAU"))
                         {
-                            // goto IL_0533;
+                            goto IL_0533;
                         }
                         flag5 = true;
                         emit updateStatusAccount(indexRow, "Get Token...");
-                        QString value = "Get Token fail!";
+                        
                         text5 = CommonRequest::GetTokenEAAAAU(text3, cellAccount5, cellAccount4, text4, proxy, typeProxy);
                         if (!(text5 == "Invalid username or password"))
                         {
@@ -1524,11 +1538,11 @@ void MainWindow::ExcuteOneThread(int indexRow, int indexPos, QString idKichBan, 
                                 value = "Get Token Success!";
                             }
                             emit updateStatusAccount(indexRow, value);
-                            // goto IL_0533;
+                            goto IL_0533;
                         }
                         emit updateStatusAccount(indexRow, "Get token fail (Sai pass)");
                         num2 = 1;
-                        // goto end_IL_0482;
+                        goto end_IL_0482;
                     IL_0863:
                         emit updateStatusAccount(indexRow, statusProxy + Language::GetValue("Chờ đến lượt..."));
                         {
@@ -1558,9 +1572,7 @@ void MainWindow::ExcuteOneThread(int indexRow, int indexPos, QString idKichBan, 
                             }
                         }
                         emit updateStatusAccount(indexRow, statusProxy + Language::GetValue("Đang mơ\u0309 tri\u0300nh duyê\u0323t..."));
-                        QString text6 = "data:,";
-                        QPoint position;
-                        QPoint size;
+                        
                         if (SettingsTool::GetSettings("configGeneral").GetValueBool("ckbAddChromeIntoForm"))
                         {
                             if (text6 == "")
@@ -1578,11 +1590,10 @@ void MainWindow::ExcuteOneThread(int indexRow, int indexPos, QString idKichBan, 
                             position = Common::GetPointFromIndexPosition(indexPos, SettingsTool::GetSettings("configGeneral").GetValueInt("cbbColumnChrome", 3), SettingsTool::GetSettings("configGeneral").GetValueInt("cbbRowChrome", 2));
                             size = Common::GetSizeChrome(SettingsTool::GetSettings("configGeneral").GetValueInt("cbbColumnChrome", 3), SettingsTool::GetSettings("configGeneral").GetValueInt("cbbRowChrome", 2));
                         }
-                        QString pathProfile = SettingsTool::GetPathProfile();
-                        QString text7 = "";
+                        
                         if (pathProfile != "" && text3 != ""){
                             text7 = pathProfile + "\\" + text3;
-                            QDir dir(text7);
+                            
                             if (!SettingsTool::GetSettings("configInteractGeneral").GetValueBool("ckbCreateProfile") && !dir.exists())
                             {
                                 text7 = "";
@@ -1614,7 +1625,7 @@ void MainWindow::ExcuteOneThread(int indexRow, int indexPos, QString idKichBan, 
                                 chrome->UserAgent = cellAccount6;
                                 chrome->PixelRatio = pixelRatio;
                             }
-                            QString text10;
+                            
                             if (isStop)
                             {
                                 emit updateStatusAccount(indexRow, statusProxy + Language::GetValue("Đã dừng!"));
@@ -1648,19 +1659,430 @@ void MainWindow::ExcuteOneThread(int indexRow, int indexPos, QString idKichBan, 
                                     }
                                     if (SettingsTool::GetSettings("configGeneral").GetValueBool("ckbAddChromeIntoForm")){
                                         if(text6 != ""){
-
+                                            
                                         }
                                     }
+                                    if (settings.GetValueBool("RecoverPass")){
+                                        // chrome->GotoURL(text10);
+                                        // bool flag6 = false;
+                                        // int num8 = 0;
+                                        // while (true){
+                                        //     if (num8 < 60)
+                                        //     {
+                                        //         if (chrome->CheckExistElement("[name=\"password_new\"]") == 1)
+                                        //         {
+                                        //             flag6 = true;
+                                        //         }
+                                        //         else if (chrome->CheckExistElement("[href*=\"/login/identify/?ctx=recover\"]") != 1)
+                                        //         {
+                                        //             if (CommonChrome.CheckCheckpoint(chrome))
+                                        //             {
+                                        //                 SetStatusAccount(indexRow, "Checkpoint!");
+                                        //                 SetInfoAccount(indexRow, "Checkpoint");
+                                        //                 num2 = 1;
+                                        //                 break;
+                                        //             }
+                                        //             chrome->DelayTime(1.0);
+                                        //             num8++;
+                                        //             continue;
+                                        //         }
+                                        //     }
+                                        // }
+                                    }
+                                    emit updateStatusAccount(indexRow, statusProxy + Language::GetValue("Đang đăng nhâ\u0323p..."));
+                                    bool flag7 = false;
+                                    bool isLoginVia = false;
+                                    QString text11 = "https://www.facebook.com/";
+                                    switch (SettingsTool::GetSettings("configInteractGeneral").GetValueInt("typeBrowserLogin"))
+                                    {
+                                    case 0:
+                                        text11 = "https://mobile.facebook.com/";
+                                        break;
+                                    case 2:
+                                        text11 = "https://mbasic.facebook.com";
+                                        break;
+                                    case 3:
+                                        isLoginVia = true;
+                                        break;
+                                    }
+                                    if(!chrome->GetUrl().startsWith("https://")){
+                                        chrome->GotoURL(text11);
+                                    }
+                                    if (chrome->Proxy != "")
+                                    {
+                                        chrome->DelayTime(2.0);
+                                        if (chrome->GetPageSource() == "<html><head></head><body></body></html>")
+                                        {
+                                            emit updateStatusAccount(indexRow, statusProxy + "Proxy yêu cầu User/Pass!");
+                                            num2 = 1;
+                                            break;
+                                        }
+                                    }
+                                    bool flag8 = false;
+                                    if (text7.trimmed() != ""){
+                                        
+                                    }
+                                    goto IL_1322;
+                                IL_17a9:
+                                    if (settings.GetValueBool("Unlock956")){
+                                        if (flag8)
+                                        {
+                                            chrome->Status = StatusChromeAccount::Empty;
+                                            CheckDangCheckpointNew(chrome, indexRow, statusProxy, settings.GetValueBool("Unlock956"), settings.GetValueInt("TypeUnlock956"));
+                                        }
+                                    }
+                                IL_1322:
+                                    if (!flag7) {
+                                        int num11 = SettingsTool::GetSettings("configInteractGeneral").GetValueInt("typeLogin");
+                                        QString text14;
+                                        while (true) {
+                                            switch (num11) {
+                                            case 0:
+                                                emit updateStatusAccount(indexRow, statusProxy + Language::GetValue("Đăng nhập bằng uid|pass..."));
+                                                break;
+                                            case 1:
+                                                emit updateStatusAccount(indexRow, statusProxy + Language::GetValue("Đăng nhập bằng email|pass..."));
+                                                break;
+                                            case 2:
+                                            case 3:
+                                                emit updateStatusAccount(indexRow, statusProxy + Language::GetValue("Đăng nhập bằng cookie..."));
+                                                break;
+                                            }
+
+                                            text14 = LoginFacebook(chrome, num11, text11, text3, cellAccount2, cellAccount5, cellAccount4, text4,
+                                                                   SettingsTool::GetSettings("configGeneral").GetValueInt("tocDoGoVanBan"),
+                                                                   SettingsTool::GetSettings("configInteractGeneral").GetValueBool("ckbDontSaveBrowser"),
+                                                                   SettingsTool::GetSettings("configGeneral").GetValueInt("type2Fa"),
+                                                                   isLoginVia);
+
+                                            if (num11 != 3 || QStringList({"1", "2", "8"}).contains(text14)) {
+                                                break;
+                                            }
+                                            num11 = 0;
+                                        }
+
+                                        if (text14 == "-3") {
+                                            chrome->Status = StatusChromeAccount::NoInternet;
+                                            goto end_IL_0d65;
+                                        } else if (text14 == "-2") {
+                                            chrome->Status = StatusChromeAccount::ChromeClosed;
+                                            goto IL_178b;
+                                        } else if (text14 == "0") {
+                                            emit updateStatusAccount(indexRow, statusProxy + Language::GetValue("Đăng nhập thất bại!"));
+                                            goto IL_178b;
+                                        } else if (text14 == "1") {
+                                            flag7 = true;
+                                            goto IL_178b;
+                                        } else if (text14 == "2") {
+                                            chrome->Status = StatusChromeAccount::Checkpoint;
+                                            flag = !CheckIsUidFacebook(text3);
+                                            if (flag) {
+                                                text = text3;
+                                                text3 = chrome->GetUid();
+                                                Common::UpdateFieldToAccount(cellAccount, "uid", text3);
+                                                emit updateCellAccount(indexRow, "cUid", text3);
+                                            }
+                                            if (settings.GetValueBool("Unlock956")) {
+                                                flag8 = true;
+                                            } else {
+                                                flag7 = CheckDangCheckpointNew(chrome, indexRow, statusProxy);
+                                            }
+                                            goto IL_178b;
+                                        } else if (text14 == "3") {
+                                            if (num11 != 2) {
+                                                emit updateStatusAccount(indexRow, statusProxy + Language::GetValue("Không có 2fa!"));
+                                            } else {
+                                                flag7 = true;
+                                            }
+                                            goto IL_178b;
+                                        } else if (text14 == "4") {
+                                            emit updateStatusAccount(indexRow, statusProxy + Language::GetValue("Tài khoản không đúng!"));
+                                            goto IL_178b;
+                                        } else if (text14 == "5") {
+                                            emit updateStatusAccount(indexRow, statusProxy + Language::GetValue("Mật khẩu không đúng!"));
+                                            emit updateInfoAccount(indexRow, "Changed pass");
+                                            goto IL_178b;
+                                        } else if (text14 == "6") {
+                                            emit updateStatusAccount(indexRow, statusProxy + Language::GetValue("Mã 2fa không đúng!"));
+                                            goto IL_178b;
+                                        } else if (text14 == "8") {
+                                            emit updateInfoAccount(indexRow, "Live");
+                                            emit updateRowColor2(indexRow, 2);
+                                            if (SettingsTool::GetSettings("configInteractGeneral").GetValueBool("ckbGetCookie") || text4.isEmpty()) {
+                                                text4 = chrome->GetCookie();
+                                                if (!text4.isEmpty()) {
+                                                    emit updateCellAccount(indexRow, "cCookies", text4, "cookie1");
+                                                }
+                                            }
+                                            emit updateStatusAccount(indexRow, statusProxy + Language::GetValue("Account Novery!"));
+                                            goto IL_178b;
+                                        } else {
+                                            emit updateStatusAccount(indexRow, statusProxy + text14);
+                                            goto IL_178b;
+                                        }
+
+                                    IL_178b:
+                                        if (flag7) {
+                                            break;
+                                        }
+                                        emit updateRowColor2(indexRow, 1);
+                                        ScreenCaptureError(chrome, text3, 1);
+                                        num2 = 1;
+                                        goto end_IL_0d65;
+                                    }
+
+                                    goto IL_17a9;
+                                    continue;
+
+                                end_IL_0d65:
+                                    break;
+
+                                }
+
+                            }
+                            goto end_IL_0482;
+                        IL_0533:
+                            if (settings.GetValueBool("Bat2FA"))
+                            {
+                                flag5 = true;
+                                emit updateStatusAccount(indexRow, "Bật 2FA...");
+                                QString value2 = "Bật 2fa fail!";
+                                if (text5.trimmed() != "")
+                                {
+                                    QString text15 = TurnOn2FA(cellAccount5, text5, proxy, typeProxy);
+                                    if (text15 != "")
+                                    {
+                                        emit updateCellAccount(indexRow, "cFa2", text15, "fa2");
+                                        value2 = "Bật 2fa Success!";
+                                    }
+                                }
+                                emit updateStatusAccount(indexRow, value2);
+                            }
+                            if (settings.GetValueBool("UpAvatar"))
+                            {
+                                flag5 = true;
+                                emit updateStatusAccount(indexRow, "Up Avatar...");
+                                QString value3 = "Up Avatar fail!";
+                                if (text5.trimmed() != "")
+                                {
+                                    RequestHandle* requestXNet = new RequestHandle("", "", proxy, typeProxy);
+                                    QString text16 = "";
+                                    try
+                                    {
+                                        text16 = requestXNet->RequestPost("https://graph.facebook.com/me/photos?access_token=" + text5, "url=" + (new RequestHandle("", "", "", 0))->RequestGet("https://download.minsoftware.vn/photos/"));
+                                        if (text16 != "")
+                                        {
+                                            QString text17 = Utils::parseJsonString(text16)["id"].toString();
+                                            text16 = requestXNet->RequestPost("https://graph.facebook.com/me/picture?access_token=" + text5, "focus_y=0.49902534&focus_x=0.5&photo=" + text17 + "&no_feed_story=false&locale=en_US&client_country_code=VN&fb_api_req_friendly_name=set_cover_photo&fb_api_caller_class=SetCoverPhotoHandlerImpl");
+                                            if (text16 != "")
+                                            {
+                                                value3 = "Up Avatar Success!";
+                                            }
+                                        }
+                                    }
+                                    catch (QException)
+                                    {
+                                        // text16 = requestXNet.request.Response.ToString();
+                                    }
+                                }
+                                emit updateStatusAccount(indexRow, value3);
+                            }
+                            if (flag5)
+                            {
+                                num2 = 1;
+                            }
+                            else
+                            {
+                                text10 = "";
+                                if (!settings.GetValueBool("RecoverPass"))
+                                {
+                                    goto IL_0863;
+                                }
+                                emit updateStatusAccount(indexRow, statusProxy + "Gư\u0309i yêu câ\u0300u khôi phục mật khẩu...");
+                                num = QuenMatKhau(cellAccount2, proxy, typeProxy);
+                                switch (num)
+                                {
+                                case 0:
+                                    emit updateStatusAccount(indexRow, statusProxy + "Mail chưa đăng ky\u0301 Fb!");
+                                    break;
+                                case 1:
+                                    emit updateStatusAccount(indexRow, statusProxy + "Gư\u0309i yêu câ\u0300u tha\u0300nh công!");
+                                    break;
+                                case 2:
+                                    emit updateStatusAccount(indexRow, statusProxy + "Lô\u0303i gửi yêu cầu!");
+                                    break;
+                                case 3:
+                                    emit updateStatusAccount(indexRow, statusProxy + "Gư\u0309i yêu câ\u0300u thâ\u0301t ba\u0323i!");
+                                    break;
+                                case 4:
+                                    emit updateStatusAccount(indexRow, statusProxy + "Chặn tính năng!");
+                                    break;
+                                }
+                                if (num != 1)
+                                {
+                                    num2 = 1;
+                                }
+                                else
+                                {
+                                    for (int j = 0; j < 2; j++)
+                                    {
+                                        emit updateStatusAccount(indexRow, statusProxy + "Get otp...");
+                                        // text10 = GetOtpFromEmail(2, cellAccount2, cellAccount3, 60, text3);
+                                        if (text10.startsWith("https://m.facebook.com") || j == 1)
+                                        {
+                                            break;
+                                        }
+                                        emit updateStatusAccount(indexRow, statusProxy + "Gư\u0309i yêu câ\u0300u khôi phục mật khẩu (2)...");
+                                        QuenMatKhau(cellAccount2, proxy, typeProxy);
+                                    }
+                                    if (!(text10 == "") && text10.startsWith("https://m.facebook.com"))
+                                    {
+                                        emit updateStatusAccount(indexRow, statusProxy + "Get otp thành công!");
+                                        goto IL_0863;
+                                    }
+                                    emit updateStatusAccount(indexRow, statusProxy + "Không lấy được otp!");
+                                    num2 = 1;
                                 }
                             }
-
+                        end_IL_0482:;
                         }
-                    } catch (...) {
+                    } catch (QException ex5) {
+                        emit updateStatusAccount(indexRow, statusProxy + Language::GetValue("Lô\u0303i không xa\u0301c đi\u0323nh!"));
+                        num2 = 1;
                     }
                 }
             }
         }
+        goto IL_5233;
+    IL_0396:
+        emit updateStatusAccount(indexRow, statusProxy + Language::GetValue("Đã dừng!"));
+        num2 = 1;
+        goto IL_5233;
+    IL_5233:
+        QString text18 = "";
     } catch (...) {
+    }
+}
+
+// QString MainWindow::GetOtpFromEmail(int type, QString mail, QString passMail, int timeout, QString uid){
+
+// }
+
+
+QString MainWindow::LoginFacebook(Chrome* chrome, int typeLogin, const QString &typeWeb, const QString &uid, const QString &email, QString &pass, QString &fa2, const QString &cookie, int tocDoGoVanBan, bool isDontSaveBrowser, int type2Fa, bool isLoginVia)
+{
+    QString result;
+    switch (typeLogin) {
+    case 0:
+        if (uid.trimmed().isEmpty() || pass.trimmed().isEmpty()) {
+            if (uid.trimmed().isEmpty()) {
+                result = Language::GetValue("Không tìm thấy UID!");
+            } else if (pass.trimmed().isEmpty()) {
+                result = Language::GetValue("Không tìm thấy Pass!");
+            }
+        } else {
+            result = CommonChrome::LoginFacebookUsingUidPassNew(chrome, uid, pass, fa2, typeWeb, tocDoGoVanBan, isDontSaveBrowser, type2Fa, 120, isLoginVia);
+        }
+        break;
+    case 1:
+        if (email.trimmed().isEmpty() || pass.trimmed().isEmpty()) {
+            if (email.trimmed().isEmpty()) {
+                result = Language::GetValue("Không tìm thấy Email!");
+            } else if (pass.trimmed().isEmpty()) {
+                result = Language::GetValue("Không tìm thấy Pass!");
+            }
+        } else {
+            result = CommonChrome::LoginFacebookUsingUidPassNew(chrome, email, pass, fa2, typeWeb, tocDoGoVanBan, isDontSaveBrowser, type2Fa, 120, isLoginVia);
+        }
+        break;
+    case 2:
+    case 3:
+        result = (!cookie.trimmed().isEmpty()) ? CommonChrome::LoginFacebookUsingCookie(chrome, cookie, typeWeb) : Language::GetValue("Không tìm thấy Cookie!");
+        break;
+    }
+    return result;
+}
+
+
+int MainWindow::QuenMatKhau(QString mail, QString proxy, int typeProxy){
+    try {
+        RequestHandle* request = new RequestHandle("", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.131 Safari/537.36", proxy, typeProxy);
+        QString input = request->RequestGet("https://mobile.facebook.com/login/identify/?ctx=recover&c=https%3A%2F%2Fm.facebook.com%2F&multiple_results=0&ars=facebook_login&lwv=100&_rdr");
+        QString value = QRegularExpression("name=\"lsd\" value=\"(.*?)\"").match(input).captured(1);
+        QString value2 = QRegularExpression("name=\"jazoest\" value=\"(.*?)\"").match(input).captured(1);
+        QString data = "lsd=" + value + "&jazoest=" + value2 + "&email=" + QUrl::toPercentEncoding(mail) + "&did_submit=T%C3%ACm+ki%E1%BA%BFm";
+        QString text = request->RequestPost("https://mobile.facebook.com/login/identify/?ctx=recover&c=%2Flogin%2F&search_attempts=1&ars=facebook_login&alternate_search=0&show_friend_search_filtered_list=0&birth_month_search=0&city_search=0", data);
+        if (text.contains("login_identify_search_error_msg"))
+        {
+            return 0;
+        }
+        if (text.contains("571927962827151"))
+        {
+            return 4;
+        }
+        text = request->RequestGet("https://mobile.facebook.com/recover/initiate/?c=%2Flogin%2F&fl=initiate_view&ctx=msite_initiate_view");
+        value = QRegularExpression("name=\"lsd\" value=\"(.*?)\"").match(input).captured(1);
+        value2 = QRegularExpression("name=\"jazoest\" value=\"(.*?)\"").match(input).captured(1);
+        text = request->RequestPost("https://mobile.facebook.com/ajax/recover/initiate/?c=%2Flogin%2F&sr=0", "lsd=" + value + "&jazoest=" + value2 + "&recover_method=send_email&reset_action=Ti%E1%BA%BFp+t%E1%BB%A5c");
+        if (text.contains("name=\"n\"") && text.contains(QUrl::toPercentEncoding(mail)))
+        {
+            return 1;
+        }
+        return 3;
+    } catch (QException) {
+        return 2;
+    }
+}
+
+
+
+QString MainWindow::TurnOn2FA(QString password, QString token, QString proxy, int typeProxy){
+    QString text = "";
+    try{
+        QString userAgent = "[FBAN/FB4A;FBAV/322.0.0.35.121;FBBV/297186297;FBDM/{density=2.75,width=1080,height=2130};FBLC/en_US;FBRV/298570471;FBCR/Viettel;FBMF/Xiaomi;FBBD/xiaomi;FBPN/com.facebook.katana;FBDV/Redmi Note 8;FBSV/10;FBOP/1;FBCA/arm64-v8a:;]";
+        RequestHandle request("", userAgent, proxy, typeProxy);
+        request.addHeader("Authorization", "OAuth " + token.toUtf8());
+        QString data = "method=POST&challenge_type=PASSWORD&challenge_params={\"password\":\"" + password + "\"}&locale=en_US&client_country_code=VN&fb_api_req_friendly_name=validate_challenge&fb_api_caller_class=SecuredActionServiceHandler";
+        request.RequestPost("https://graph.facebook.com/secured_action/validate_challenge", data);
+        request.addHeader("X-FB-Net-HNI", " 45204");
+        request.addHeader("X-FB-SIM-HNI", " 45201");
+        request.addHeader("Authorization", " OAuth " + token.toUtf8());
+        request.addHeader("X-FB-Connection-Type", " WIFI");
+        request.addHeader("X-Tigon-Is-Retry", " False");
+        request.addHeader("x-fb-rmd", " state=NO_MATCH");
+        request.addHeader("x-fb-session-id", " nid=OMyw5/7ZxImN;pid=Main;tid=947;nc=0;fc=0;bc=0;cid=f36ca4f6f658dd2e6a1f0ff6e43e6051");
+        request.addHeader("x-fb-device-group", " 5120");
+        request.addHeader("X-FB-Friendly-Name", " PageCreationNewPage");
+        request.addHeader("X-FB-Request-Analytics-Tags", " graphservice");
+        request.addHeader("X-FB-HTTP-Engine", " Liger");
+        request.addHeader("X-FB-Client-IP", " True");
+        request.addHeader("X-FB-Server-Cluster", " True");
+        request.addHeader("x-fb-connection-token", " f36ca4f6f658dd2e6a1f0ff6e43e6051");
+        data = "doc_id=4330798123599254&method=post&locale=en_US&pretty=false&format=json&purpose=fetch&variables={\"params\":{\"nt_context\":{\"using_white_navbar\":true,\"pixel_ratio\":3,\"styles_id\":\"b6ae3d50d6f559cf2e62adb67b77fd9e\",\"bloks_version\":\"3b5a444c99b7214e5eefefb79bcaf6e89b80ae7db8ced15a5588301589a164c1\"},\"path\":\"security/2fac/nt/setup/qr_code\",\"params\":\"{\\\"start_screen_id\\\":\\\"[\\\\\\\"__ntid:uu97dx:0__\\\\\\\",null]\\\"}\",\"extra_client_data\":{}},\"scale\":\"3\",\"nt_context\":{\"using_white_navbar\":true,\"pixel_ratio\":3,\"styles_id\":\"b6ae3d50d6f559cf2e62adb67b77fd9e\",\"bloks_version\":\"3b5a444c99b7214e5eefefb79bcaf6e89b80ae7db8ced15a5588301589a164c1\"}}&fb_api_req_friendly_name=NativeTemplateScreenQuery&fb_api_caller_class=graphservice&fb_api_analytics_tags=[\"GraphServices\"]&server_timestamps=true";
+        QString text = QRegularExpression("secret=(.*?)&").match(request.RequestPost("https://graph.facebook.com/graphql/", data)).captured(1);
+        if(text != ""){
+            QString topt = Common::GetTotp(text);
+            request.addHeader("X-FB-Net-HNI", " 45204");
+            request.addHeader("X-FB-SIM-HNI", " 45201");
+            request.addHeader("Authorization", "OAuth " + token.toUtf8());
+            request.addHeader("X-FB-Connection-Type", " WIFI");
+            request.addHeader("X-Tigon-Is-Retry", " False");
+            request.addHeader("x-fb-rmd", " state=NO_MATCH");
+            request.addHeader("x-fb-session-id", " nid=OMyw5/7ZxImN;pid=Main;tid=947;nc=0;fc=0;bc=0;cid=f36ca4f6f658dd2e6a1f0ff6e43e6051");
+            request.addHeader("x-fb-device-group", " 5120");
+            data = "doc_id=6091464777534071&method=post&locale=en_US&pretty=false&format=json&variables=%7B%22scale%22%3A%223%22%2C%22params%22%3A%7B%22nt_context%22%3A%7B%22using_white_navbar%22%3Atrue%2C%22pixel_ratio%22%3A3%2C%22styles_id%22%3A%22b6ae3d50d6f559cf2e62adb67b77fd9e%22%2C%22bloks_version%22%3A%223b5a444c99b7214e5eefefb79bcaf6e89b80ae7db8ced15a5588301589a164c1%22%7D%2C%22payload%22%3A%22security%2F2fac%2Fnt%2Fsetup%2Fcode_entry%2Fsubmit%3Fcontent_id%3D%255B%2522__ntid%253Av10gun%253A1__%2522%252Cnull%255D%26error_element_id%3D%255B%2522__ntid%253Av10gun%253A6__%2522%252Cnull%255D%26submit_button_id%3D%255B%2522__ntid%253Av10gun%253A4__%2522%252Cnull%255D%26progress_id%3D%255B%2522__ntid%253Av10gun%253A5__%2522%252Cnull%255D%26form_id%3D%255B%2522__ntid%253Av10gun%253A2__%2522%252Cnull%255D%26start_screen_id%3D%255B%2522__ntid%253Auu97dx%253A0__%2522%252Cnull%255D%22%2C%22client_data%22%3A%7B%22sensitive_string_value%22%3A%22%5B%5B%5C%22code%5B%5D%5C%22%2C%5C%22" + topt + "%5C%22%5D%2C%5B%5C%22code_handler_type%5C%22%2C%5C%22third_party_qr_auth%5C%22%5D%5D%22%7D%7D%2C%22nt_context%22%3A%7B%22using_white_navbar%22%3Atrue%2C%22pixel_ratio%22%3A3%2C%22styles_id%22%3A%22b6ae3d50d6f559cf2e62adb67b77fd9e%22%2C%22bloks_version%22%3A%223b5a444c99b7214e5eefefb79bcaf6e89b80ae7db8ced15a5588301589a164c1%22%7D%2C%22profile_image_size%22%3A258%2C%22include_image_ranges%22%3Atrue%7D&fb_api_req_friendly_name=NativeTemplateAsyncQuery&fb_api_caller_class=graphservice&fb_api_analytics_tags=%5B%22GraphServices%22%5D&server_timestamps=true";
+            if (request.RequestPost("https://graph.facebook.com/graphql/", data).contains("error"))
+            {
+                text = "";
+                return text;
+            }
+            return text;
+            
+        }
+        return text;
+    }catch (std::exception ex) {
+        qDebug() << ex.what();
+        return text;
     }
 }
 
@@ -1673,6 +2095,7 @@ void MainWindow::GetProxy(int indexRow, bool &isStop, QString &proxy, int &typeP
         bool flag2;
         int num;
         int num2;
+        auto check = SettingsTool::GetSettings("configGeneral").GetValueInt("ip_iTypeChangeIp");
         switch (SettingsTool::GetSettings("configGeneral").GetValueInt("ip_iTypeChangeIp")) {
         case 7:
         case 15:{
@@ -1691,7 +2114,7 @@ void MainWindow::GetProxy(int indexRow, bool &isStop, QString &proxy, int &typeP
                                 {
                                     tinsoft = tinsoftProxy;
                                 }
-
+                                
                             }
                         }
                         if (tinsoft->daSuDung != tinsoft->limitThreadsUse)
@@ -1823,7 +2246,7 @@ void MainWindow::GetProxy(int indexRow, bool &isStop, QString &proxy, int &typeP
                                 }
                             }
                         }
-
+                        
                     }
                     for (int l = 0; l < list3.count(); l++)
                     {
@@ -2347,6 +2770,7 @@ void MainWindow::ReadResultSpam(){
 }
 
 QMap<QString,QStringList> MainWindow::GetDictionaryIntoHanhDong(QString idKichBan, QString tenTuongTac, QString field){
+    QMutexLocker locker(&mutex);
     QMap<QString,QStringList> dictionary;
     try {
         QStringList idHanhDongByIdKichBanAndTenTuongTac = InteractSQL::GetIdHanhDongByIdKichBanAndTenTuongTac(idKichBan, tenTuongTac);
@@ -2403,7 +2827,7 @@ void ShowTrangThai(const QString& content, QWidget* plTrangThai, QLabel* lblTran
                 plTrangThai->setVisible(true);
             }
         }, Qt::QueuedConnection);
-
+    
     QMetaObject::invokeMethod(lblTrangThai, [lblTrangThai, content]() {
             lblTrangThai->setText(content);
         }, Qt::QueuedConnection);
@@ -2451,7 +2875,7 @@ int MainWindow::CountChooseRowInDatagridview(){
         if (dir.exists()) {
             // Directory exists, do nothing or add your logic here if needed
         }
-
+        
         bool ok;
         int count = ui->lblCountSelect->text().toInt(&ok);
         if (ok) {
@@ -2464,7 +2888,7 @@ int MainWindow::CountChooseRowInDatagridview(){
         // Handle any unexpected exceptions
         qDebug() << "An unexpected error occurred.";
     }
-
+    
     return result;
 }
 
@@ -2570,7 +2994,6 @@ QList<ProxyTool*> MainWindow::GetListProxy(int maxThread){
                     obcDcom = new ObcDcom(key);
                     listObcDcom.append(obcDcom);
                 }
-
                 ObcProxy* obcProxy = new ObcProxy(
                     SettingsTool::GetSettings("configGeneral").GetValue("txtLinkWebObcProxy"),
                     valueList6[num],
@@ -2650,5 +3073,98 @@ void MainWindow::OpenFormViewChrome(){
     if (!flag)
     {
         (new fViewChrome(this))->show();
+    }
+}
+
+void MainWindow::ScreenCaptureError(Chrome* chrome, const QString& uid, int type)
+{
+    try {
+        if (chrome != nullptr) {
+            QString path = QDir::currentPath() + "/log_capture";
+
+            switch (type) {
+            case 0:
+                path += "/checkpoint";
+                break;
+            case 1:
+                path += "/loginfail";
+                break;
+            case 2:
+                path += "/disconnect";
+                break;
+            }
+
+            QDir().mkpath(path);
+
+            chrome->ScreenCapture(path, uid);
+
+            QFile urlFile(path + "/" + uid + ".txt");
+            if (urlFile.open(QIODevice::WriteOnly | QIODevice::Text)) {
+                QTextStream out(&urlFile);
+                out << chrome->GetUrl();
+                urlFile.close();
+            }
+
+            QFile htmlFile(path + "/" + uid + ".html");
+            if (htmlFile.open(QIODevice::WriteOnly | QIODevice::Text)) {
+                QTextStream out(&htmlFile);
+                out << chrome->GetPageSource();
+                htmlFile.close();
+            }
+        }
+    }
+    catch (const std::exception& e) {
+        // Handle or log the exception
+        qDebug() << "Exception in ScreenCaptureError: " << e.what();
+    }
+}
+
+
+bool MainWindow::CheckDangCheckpointNew(Chrome* chrome, int indexRow, QString statusAction, bool isUnlock956, int typeWebUnlock956){
+    QString text = "";
+    QString cssSelectorsOrXpath = "[href*=\"facebook.com/security/2fac/setup/intro/\"]";
+    auto check = chrome->CheckExistElement(cssSelectorsOrXpath);
+    if(chrome->CheckExistElement(cssSelectorsOrXpath) == 1){
+        QString cellAccount = GetCellAccount(indexRow, "Mật khẩu");
+        if (!(cellAccount == "")){
+            int num = 0;
+            int num2 = 3;
+            QString text2 = "";
+            // do{
+            //     auto list =  *new QStringList { "[type=\"submit\"]" };
+            //     QString text3 = chrome->CheckExistElements(0.0, list);
+            //     if (text3 == "[type=\"submit\"]"){
+            //         auto check = chrome->CheckExistElement("[href^=\"/security/2fac/setup/turn_off/\"]");
+            //         if (chrome->CheckExistElement("[href^=\"/security/2fac/setup/turn_off/\"]").toInt() == 1){
+            //             if (text2 != "")
+            //             {
+            //                 emit updateCellAccount(indexRow, "cFa2", text2, "fa2");
+            //                 return true;
+            //             }
+            //             auto check =chrome->CheckExistElement("[href*=\"/security/2fac/setup/qrcode/generate/\"]");
+            //             if (chrome->CheckExistElement("[href*=\"/security/2fac/setup/qrcode/generate/\"]").toInt() == 1)
+            //             {
+            //                 text3 = "[href*=\"/security/2fac/setup/qrcode/generate/\"]";
+            //                 QString value = QRegularExpression("https://(.*?)facebook\\.com")
+            //                                     .match(chrome->GetUrl())
+            //                                     .captured(0);
+            //                 QString text4 = chrome->GetAttributeValue(text3, "href");
+            //                 if (!text4.startsWith("http"))
+            //                 {
+            //                     text4 = value + text4;
+            //                 }
+            //                 chrome->GotoURL(text4);
+            //             }
+            //         }else if(chrome->CheckExistElement("[name=\"pass\"]").toInt() == 1){
+            //             if (chrome->ExecuteScript("return document.querySelector('[data-sigil=\"marea\"] .mfsm').innerText") != "")
+            //             {
+            //                 emit updateInfoAccount(indexRow, "Changed pass");
+            //                 emit updateStatusAccount(indexRow, statusAction + Language::GetValue("Mật khẩu không đúng!"));
+            //                 return false;
+            //             }
+            //         }
+            //     }
+            // }while();
+        }
     }
 }

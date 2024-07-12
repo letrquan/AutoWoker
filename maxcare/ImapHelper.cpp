@@ -84,3 +84,4 @@ bool ImapHelper::CheckConnectImap(const QString& email, const QString& password)
     tut3(socket);
     return isConnected;
 }
+

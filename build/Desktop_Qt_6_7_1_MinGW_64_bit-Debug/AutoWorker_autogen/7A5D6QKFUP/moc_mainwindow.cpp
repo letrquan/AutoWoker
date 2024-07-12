@@ -71,7 +71,13 @@ constexpr auto qt_meta_stringdata_CLASSMainWindowENDCLASS = QtMocHelpers::string
     "SetRowColor",
     "on_pushButton_3_clicked",
     "on_pushButton_clicked",
-    "on_btnInteract_clicked"
+    "on_btnInteract_clicked",
+    "CheckDangCheckpointNew",
+    "Chrome*",
+    "chrome",
+    "statusAction",
+    "isUnlock956",
+    "typeWebUnlock956"
 );
 #else  // !QT_MOC_HAS_STRINGDATA
 #error "qtmochelpers.h not found or too old."
@@ -84,7 +90,7 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSMainWindowENDCLASS[] = {
       12,       // revision
        0,       // classname
        0,    0, // classinfo
-      30,   14, // methods
+      33,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -92,38 +98,41 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSMainWindowENDCLASS[] = {
        8,       // signalCount
 
  // signals: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    3,  194,    2, 0x06,    1 /* Public */,
-       1,    2,  201,    2, 0x26,    5 /* Public | MethodCloned */,
-       6,    2,  206,    2, 0x06,    8 /* Public */,
-       8,    2,  211,    2, 0x06,   11 /* Public */,
-      11,    1,  216,    2, 0x06,   14 /* Public */,
-      11,    0,  219,    2, 0x26,   16 /* Public | MethodCloned */,
-      12,    4,  220,    2, 0x06,   17 /* Public */,
-      12,    3,  229,    2, 0x26,   22 /* Public | MethodCloned */,
+       1,    3,  212,    2, 0x06,    1 /* Public */,
+       1,    2,  219,    2, 0x26,    5 /* Public | MethodCloned */,
+       6,    2,  224,    2, 0x06,    8 /* Public */,
+       8,    2,  229,    2, 0x06,   11 /* Public */,
+      11,    1,  234,    2, 0x06,   14 /* Public */,
+      11,    0,  237,    2, 0x26,   16 /* Public | MethodCloned */,
+      12,    4,  238,    2, 0x06,   17 /* Public */,
+      12,    3,  247,    2, 0x26,   22 /* Public | MethodCloned */,
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-      16,    1,  236,    2, 0x08,   26 /* Private */,
-      18,    0,  239,    2, 0x08,   28 /* Private */,
-      19,    0,  240,    2, 0x08,   29 /* Private */,
-      20,    0,  241,    2, 0x08,   30 /* Private */,
-      21,    0,  242,    2, 0x08,   31 /* Private */,
-      22,    0,  243,    2, 0x08,   32 /* Private */,
-      23,    0,  244,    2, 0x08,   33 /* Private */,
-      24,    1,  245,    2, 0x08,   34 /* Private */,
-      26,    1,  248,    2, 0x08,   36 /* Private */,
-      27,    0,  251,    2, 0x08,   38 /* Private */,
-      28,    0,  252,    2, 0x08,   39 /* Private */,
-      29,    2,  253,    2, 0x08,   40 /* Private */,
-      30,    4,  258,    2, 0x08,   43 /* Private */,
-      30,    3,  267,    2, 0x28,   48 /* Private | MethodCloned */,
-      31,    3,  274,    2, 0x08,   52 /* Private */,
-      31,    2,  281,    2, 0x28,   56 /* Private | MethodCloned */,
-      32,    1,  286,    2, 0x08,   59 /* Private */,
-      32,    0,  289,    2, 0x28,   61 /* Private | MethodCloned */,
-      32,    2,  290,    2, 0x08,   62 /* Private */,
-      33,    0,  295,    2, 0x08,   65 /* Private */,
-      34,    0,  296,    2, 0x08,   66 /* Private */,
-      35,    0,  297,    2, 0x08,   67 /* Private */,
+      16,    1,  254,    2, 0x08,   26 /* Private */,
+      18,    0,  257,    2, 0x08,   28 /* Private */,
+      19,    0,  258,    2, 0x08,   29 /* Private */,
+      20,    0,  259,    2, 0x08,   30 /* Private */,
+      21,    0,  260,    2, 0x08,   31 /* Private */,
+      22,    0,  261,    2, 0x08,   32 /* Private */,
+      23,    0,  262,    2, 0x08,   33 /* Private */,
+      24,    1,  263,    2, 0x08,   34 /* Private */,
+      26,    1,  266,    2, 0x08,   36 /* Private */,
+      27,    0,  269,    2, 0x08,   38 /* Private */,
+      28,    0,  270,    2, 0x08,   39 /* Private */,
+      29,    2,  271,    2, 0x08,   40 /* Private */,
+      30,    4,  276,    2, 0x08,   43 /* Private */,
+      30,    3,  285,    2, 0x28,   48 /* Private | MethodCloned */,
+      31,    3,  292,    2, 0x08,   52 /* Private */,
+      31,    2,  299,    2, 0x28,   56 /* Private | MethodCloned */,
+      32,    1,  304,    2, 0x08,   59 /* Private */,
+      32,    0,  307,    2, 0x28,   61 /* Private | MethodCloned */,
+      32,    2,  308,    2, 0x08,   62 /* Private */,
+      33,    0,  313,    2, 0x08,   65 /* Private */,
+      34,    0,  314,    2, 0x08,   66 /* Private */,
+      35,    0,  315,    2, 0x08,   67 /* Private */,
+      36,    5,  316,    2, 0x08,   68 /* Private */,
+      36,    4,  327,    2, 0x28,   74 /* Private | MethodCloned */,
+      36,    3,  336,    2, 0x28,   79 /* Private | MethodCloned */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::Int, QMetaType::QString, QMetaType::Int,    3,    4,    5,
@@ -158,6 +167,9 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSMainWindowENDCLASS[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
+    QMetaType::Bool, 0x80000000 | 37, QMetaType::Int, QMetaType::QString, QMetaType::Bool, QMetaType::Int,   38,    9,   39,   40,   41,
+    QMetaType::Bool, 0x80000000 | 37, QMetaType::Int, QMetaType::QString, QMetaType::Bool,   38,    9,   39,   40,
+    QMetaType::Bool, 0x80000000 | 37, QMetaType::Int, QMetaType::QString,   38,    9,   39,
 
        0        // eod
 };
@@ -267,7 +279,25 @@ Q_CONSTINIT const QMetaObject MainWindow::staticMetaObject = { {
         // method 'on_pushButton_clicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'on_btnInteract_clicked'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'CheckDangCheckpointNew'
+        QtPrivate::TypeAndForceComplete<bool, std::false_type>,
+        QtPrivate::TypeAndForceComplete<Chrome *, std::false_type>,
+        QtPrivate::TypeAndForceComplete<int, std::false_type>,
+        QtPrivate::TypeAndForceComplete<QString, std::false_type>,
+        QtPrivate::TypeAndForceComplete<bool, std::false_type>,
+        QtPrivate::TypeAndForceComplete<int, std::false_type>,
+        // method 'CheckDangCheckpointNew'
+        QtPrivate::TypeAndForceComplete<bool, std::false_type>,
+        QtPrivate::TypeAndForceComplete<Chrome *, std::false_type>,
+        QtPrivate::TypeAndForceComplete<int, std::false_type>,
+        QtPrivate::TypeAndForceComplete<QString, std::false_type>,
+        QtPrivate::TypeAndForceComplete<bool, std::false_type>,
+        // method 'CheckDangCheckpointNew'
+        QtPrivate::TypeAndForceComplete<bool, std::false_type>,
+        QtPrivate::TypeAndForceComplete<Chrome *, std::false_type>,
+        QtPrivate::TypeAndForceComplete<int, std::false_type>,
+        QtPrivate::TypeAndForceComplete<QString, std::false_type>
     >,
     nullptr
 } };
@@ -308,6 +338,12 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 27: _t->on_pushButton_3_clicked(); break;
         case 28: _t->on_pushButton_clicked(); break;
         case 29: _t->on_btnInteract_clicked(); break;
+        case 30: { bool _r = _t->CheckDangCheckpointNew((*reinterpret_cast< std::add_pointer_t<Chrome*>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[3])),(*reinterpret_cast< std::add_pointer_t<bool>>(_a[4])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[5])));
+            if (_a[0]) *reinterpret_cast< bool*>(_a[0]) = std::move(_r); }  break;
+        case 31: { bool _r = _t->CheckDangCheckpointNew((*reinterpret_cast< std::add_pointer_t<Chrome*>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[3])),(*reinterpret_cast< std::add_pointer_t<bool>>(_a[4])));
+            if (_a[0]) *reinterpret_cast< bool*>(_a[0]) = std::move(_r); }  break;
+        case 32: { bool _r = _t->CheckDangCheckpointNew((*reinterpret_cast< std::add_pointer_t<Chrome*>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[3])));
+            if (_a[0]) *reinterpret_cast< bool*>(_a[0]) = std::move(_r); }  break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -369,13 +405,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 30)
+        if (_id < 33)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 30;
+        _id -= 33;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 30)
+        if (_id < 33)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 30;
+        _id -= 33;
     }
     return _id;
 }

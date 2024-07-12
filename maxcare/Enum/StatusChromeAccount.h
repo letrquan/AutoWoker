@@ -3,7 +3,7 @@
 #include <QObject>
 
 
-enum StatusChromeAccount {
+enum class StatusChromeAccount {
     Empty,
     ChromeClosed,
     LoginWithUserPass,

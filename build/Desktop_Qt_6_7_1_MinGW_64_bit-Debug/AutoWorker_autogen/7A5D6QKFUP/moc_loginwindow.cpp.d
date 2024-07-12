@@ -16,6 +16,7 @@ D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/AutoWo
   C:/Qt/6.7.1/mingw_64/include/QtCore/QMetaType \
   C:/Qt/6.7.1/mingw_64/include/QtCore/QMutex \
   C:/Qt/6.7.1/mingw_64/include/QtCore/QObject \
+  C:/Qt/6.7.1/mingw_64/include/QtCore/QPoint \
   C:/Qt/6.7.1/mingw_64/include/QtCore/QProcess \
   C:/Qt/6.7.1/mingw_64/include/QtCore/QRect \
   C:/Qt/6.7.1/mingw_64/include/QtCore/QRegularExpression \
@@ -750,10 +751,12 @@ D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/AutoWo
   C:/Qt/Tools/mingw1120_64/x86_64-w64-mingw32/include/wow64apiset.h \
   C:/Qt/Tools/mingw1120_64/x86_64-w64-mingw32/include/wtypes.h \
   C:/Qt/Tools/mingw1120_64/x86_64-w64-mingw32/include/wtypesbase.h \
+  D:/AutoWorker/XWorker/AutoWoker/API/apihandler.h \
   D:/AutoWorker/XWorker/AutoWoker/Form/mainwindow.h \
   D:/AutoWorker/XWorker/AutoWoker/MCommon/ObcProxy.h \
   D:/AutoWorker/XWorker/AutoWoker/MCommon/ProxyTool.h \
   D:/AutoWorker/XWorker/AutoWoker/MCommon/RequestHandle.h \
+  D:/AutoWorker/XWorker/AutoWoker/MCommon/chrome.h \
   D:/AutoWorker/XWorker/AutoWoker/MCommon/json_settings.h \
   D:/AutoWorker/XWorker/AutoWoker/MCommon/minproxy.h \
   D:/AutoWorker/XWorker/AutoWoker/MCommon/obcdcom.h \
@@ -764,4 +767,5 @@ D:/AutoWorker/XWorker/AutoWoker/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/AutoWo
   D:/AutoWorker/XWorker/AutoWoker/MCommon/xproxyproxy.h \
   D:/AutoWorker/XWorker/AutoWoker/Table/customtablemodel.h \
   D:/AutoWorker/XWorker/AutoWoker/Utils/Utils.h \
+  D:/AutoWorker/XWorker/AutoWoker/maxcare/Enum/StatusChromeAccount.h \
   D:/AutoWorker/XWorker/AutoWoker/maxcare/SettingsTool.h

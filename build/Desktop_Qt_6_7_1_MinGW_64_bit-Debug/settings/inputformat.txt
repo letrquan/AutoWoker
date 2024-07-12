@@ -7,4 +7,3 @@ Uid|Pass|Token|Cookie|Email|Pass Email
 Uid|Pass|Token|Cookie|Email|Pass Email|2FA
 Uid|Pass|2FA|Cookie|Token
 Uid|Pass|Token|Birthday|2FA
-Uid|Pass|Cookie|Email

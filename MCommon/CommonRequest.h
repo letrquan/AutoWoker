@@ -122,15 +122,18 @@ public:
                 return "Invalid username or password";
             }
             auto jObject = Utils::parseJsonString(text2);
-            auto js = jObject["error"].toObject()["error_subcode"];
+            QJsonValueRef js = jObject["error"].toObject()["error_subcode"];
             try {
-                if(js.toString() == "1348077"){
-                    return result;
-                }
-                if(js.toString() == "1348131"){
-                    return result;
+                if(!js.isNull()){
+                    if(js.toString() == "1348077"){
+                        return result;
+                    }
+                    if(js.toString() == "1348131"){
+                        return result;
+                    }
                 }
             } catch (...) {
+
             }
             try {
                 if(js.toString() == "1348162" || js.toString() == "1348199"){

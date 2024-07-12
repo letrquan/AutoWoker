@@ -1,4 +1,5 @@
 #include "json_settings.h"
+#include "qmutex.h"
 #include <QFile>
 #include <QString>
 #include <QIODevice>
@@ -118,6 +119,8 @@ QStringList JSON_Settings::GetValueList(QString key, int typeSplitString){
 }
 
 bool JSON_Settings::GetValueBool(QString key, bool valueDefault){
+    static QMutex mutex;
+    QMutexLocker locker(&mutex);
     bool result =valueDefault;
     try {
         if(JSON.contains(key)){

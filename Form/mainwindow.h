@@ -24,6 +24,7 @@
 #include "../MCommon/shoplike.h"
 #include "../MCommon/minproxy.h"
 #include "../MCommon/obcdcom.h"
+#include "../MCommon/chrome.h"
 namespace Ui {
 class MainWindow;
 }
@@ -49,6 +50,7 @@ public:
     int CountChooseRowInDatagridview();
     QList<QString> GetListKeyTinsoft();
     QString GetStatusAccount(int indexRow);
+    QString TurnOn2FA(QString password, QString token, QString proxy, int typeProxy);
 private:
     void ExcuteUnlock282(int indexRow, QString statusProxy, QString cookie, QString proxy, int typeProxy);
     void GetProxy(int indexRow, bool &isStop, QString &proxy, int &typeProxy, QString &statusProxy, QString &ip, TinsoftProxy* tinsoft, XproxyProxy* xproxy, TMProxy* tmproxy, ProxyV6Net* proxyWeb, ShopLike* shopLike, MinProxy* minProxy, ObcProxy* obcProxy);
@@ -59,7 +61,7 @@ private:
     QMap<QString,QStringList> dicUidCaNhan;
     QMap<QString,QStringList> dicUidCaNhan2;
     QMap<QString,QStringList> dicUidBaivietProfile;
-
+    QString LoginFacebook(Chrome *chrome, int typeLogin, const QString &typeWeb, const QString &uid, const QString &email, QString &pass, QString &fa2, const QString &cookie, int tocDoGoVanBan, bool isDontSaveBrowser, int type2Fa, bool isLoginVia = false);
     QMap<QString,QStringList> dicUidSpamBaiViet;
     QMap<QString,QStringList> dicUidSpamBaiVietv2;
     QMap<QString,QStringList> dicSpamBaiVietIdPostOld;
@@ -171,6 +173,8 @@ private:
     void LoadConfigManHinh();
     void setColumnVisibility(const QString& headerLabel, bool isVisible);
     void AddUI();
+    int QuenMatKhau(QString mail, QString proxy, int typeProxy);
+    void ScreenCaptureError(Chrome* chrome, const QString& uid, int type);
 protected:
     void changeEvent(QEvent *event) override;
     bool eventFilter(QObject *obj, QEvent *event) override {
@@ -215,7 +219,7 @@ private slots:
     void on_pushButton_clicked();
 
     void on_btnInteract_clicked();
-
+    bool CheckDangCheckpointNew(Chrome *chrome, int indexRow, QString statusAction, bool isUnlock956 = false, int typeWebUnlock956 = 0);
 signals:
     void updateStatusAccount(int row, QString status, int timeWait = -1);
     void updateInfoAccount(int row, QString info);

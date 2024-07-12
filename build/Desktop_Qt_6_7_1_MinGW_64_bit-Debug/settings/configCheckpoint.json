@@ -1,10 +1,10 @@
 {
-  "typePass": "0",
-  "txtPass": "Khanhtung123@",
+  "typePass": "1",
+  "txtPass": "",
   "ckbCaptcha": "True",
   "typeCaptcha": "7",
-  "txtCaptcha_7": "8df0b732646a41fe8827c0ec821219ad",
-  "ckbPhone": "False",
+  "txtCaptcha_7": "09dbb5a01da74abb8b21566df5c5b540",
+  "ckbPhone": "True",
   "typeSim": "40",
   "txtApiPhone_39": "593a248eda50150be51151999664d61c1aa74fd9",
   "txtServiceId": "fb_tn",
@@ -23,12 +23,11 @@
   "ckbImage": "True",
   "ckbBackupAnh": "True",
   "ckbChangeMD5": "True",
-  "typeImage": "0",
-  "txtImage": "D:\\CLONE DUY GO 956\\Image Downloader\\20230924",
+  "typeImage": "1",
+  "txtImage": "",
   "txtImageUrl": "https://thispersondoesnotexist.com/",
   "txtApiPhone_32": "c45f5f6c8432c4bbd521975380136637",
   "txtApiPhone_40": "1ecc2359fdbe97755b849ab8977200c6",
-  "cbDa282956": "True",
-  "txtApiPhone_12": "63574a53c579644495665ca0",
-  "cbbStatusKeo": "0"
+  "cbDa282956": "False",
+  "txtApiPhone_12": "63574a53c579644495665ca0"
 }

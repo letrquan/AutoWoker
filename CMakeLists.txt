@@ -78,7 +78,7 @@ set(PROJECT_SOURCES
     MCommon/minproxy.h MCommon/minproxy.cpp
     MCommon/obcdcom.h MCommon/obcdcom.cpp
     MCommon/obcproxy.h MCommon/obcproxy.cpp
-    Form/fviewchrome.h Form/fviewchrome.cpp Form/fviewchrome.ui
+
     MCommon/account.h MCommon/account.cpp
     MCommon/autocontrol.h MCommon/autocontrol.cpp
     MCommon/chrome.h MCommon/chrome.cpp
@@ -90,8 +90,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
         API/apihandler.h API/apihandler.cpp
-
-
+        Form/fviewchrome.h Form/fviewchrome.cpp Form/fviewchrome.ui
     )
 else()
     if(ANDROID)

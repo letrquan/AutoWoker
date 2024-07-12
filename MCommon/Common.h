@@ -480,6 +480,17 @@ public:
         int y = getHeightScreen / row + 10;
         return QPoint(x, y);
     }
+    static QString CheckExistText(const QString& content, const QList<QString>& lstText)
+    {
+        for (const QString& text : lstText)
+        {
+            if (content.contains(text))
+            {
+                return text;
+            }
+        }
+        return QString();
+    }
 private:
     static int getWidthScreen;
     static int getHeightScreen;

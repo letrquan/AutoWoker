@@ -33,12 +33,11 @@ void Common::ExportError(const QException* ex, QString error){
     }
 }
 
-int Common::GetIndexOfPositionApp(QList<int> &lstPosition) {
+int Common::GetIndexOfPositionApp(QList<int>& lstPosition) {
+    static QMutex mutex;
+    QMutexLocker locker(&mutex);
     int result = 0;
-    QMutex mutex;
-    QMutexLocker locker(&mutex); // Automatically locks the mutex
-
-    for (int i = 0; i < lstPosition.size(); i++) {
+    for (int i = 0; i < lstPosition.count(); i++) {
         if (lstPosition[i] == 0) {
             result = i;
             lstPosition[i] = 1;
