@@ -247,6 +247,9 @@ class FileHelper:
 
 class Chrome:
     def __init__(self):
+        self.width = 0
+        self.height = 0
+        self.url = ""
         self.index_chrome = 0
         self.hide_browser = False
         self.disable_image = False
@@ -375,9 +378,7 @@ class Chrome:
         result = False
         try:
             chrome_options = uc.ChromeOptions()
-            chrome_options.add_argument(f"--window-size={self.size[0]},{self.size[1]}")
-            chrome_options.add_argument(f"--window-position={self.position[0]},{self.position[1]}")
-
+            chrome_options.add_argument("--no-default-browser-check")
             chrome_options.add_argument("--disable-3d-apis")
             chrome_options.add_argument("--disable-background-networking")
             chrome_options.add_argument("--disable-bundled-ppapi-flash")
@@ -485,12 +486,13 @@ class Chrome:
 
             if self.auto_play_video:
                  chrome_options.add_argument("--autoplay-policy=no-user-gesture-required")
+            
             self.chrome = uc.Chrome(
                 options=chrome_options,
                 suppress_welcome=True,
                 headless=False
             )
-            self.chrome.set_window_size(300,300)
+            self.chrome.set_window_rect(self.position[0], self.position[1], self.size[0], self.size[1])
             self.processChromeDriver = psutil.Process(self.chrome.service.process.pid)
             self.chrome.implicitly_wait(self.time_wait_for_searching_element)
             self.chrome.set_page_load_timeout(self.time_wait_for_loading_page)
@@ -810,15 +812,15 @@ class Chrome:
     
         result = 0
         if toc_do == 0:
-            result = self.send_keys(type_attribute, attribute_value, content, time_delay_second, is_click, time_delay_after_click)
+            result = self.send_keys1(type_attribute, attribute_value, content, time_delay_second, is_click, time_delay_after_click)
         elif toc_do == 1:
-            result = self.send_keys(type_attribute, attribute_value, content, time_delay_second, is_click, time_delay_after_click)
+            result = self.send_keys2(type_attribute, attribute_value, content, time_delay_second, is_click, time_delay_after_click)
         elif toc_do == 2:
-            result = self.send_keys(type_attribute, attribute_value, content, is_click, time_delay_after_click)
+            result = self.send_keys3(type_attribute, attribute_value, content, is_click, time_delay_after_click)
     
         return result
 
-    def send_keys(self, type_attribute, attribute_value, content, time_delay_second, is_click=True, time_delay_after_click=0.1):
+    def send_keys1(self, type_attribute, attribute_value, content, time_delay_second, is_click=True, time_delay_after_click=0.1):
         if self.checkChromeClose():
             return -2
 
@@ -895,13 +897,13 @@ class Chrome:
             return 0
 
 
-    def click(self, typeAttribute, attributeValue, index=0, subTypeAttribute=0, subAttributeValue="", subIndex=0, times=1):
+    def click_complex(self, typeAttribute, attributeValue, index=0, subTypeAttribute=0, subAttributeValue="", subIndex=0, times=1):
         flag = False
         if self.checkChromeClose():
             return -2
         
         for i in range(times):
-            time.sleep(1.0)  # Simulate DelayTime(1.0) in C#
+            time.sleep(2.0)  # Simulate DelayTime(1.0) in C#
             try:
                 if subTypeAttribute == 0:
                     if typeAttribute == 1:
@@ -912,6 +914,8 @@ class Chrome:
                         self.chrome.find_elements(By.XPATH, attributeValue)[index].click()
                     elif typeAttribute == 4:
                         self.chrome.find_elements(By.CSS_SELECTOR, attributeValue)[index].click()
+                    elif typeAttribute == 5:
+                        self.chrome.find_elements(By.TAG_NAME, attributeValue)[index].click()
                 else:
                     if typeAttribute == 1:
                         self.chrome.find_elements(By.ID, attributeValue)[index].find_elements(By.ID, subAttributeValue)[subIndex].click()
@@ -935,7 +939,7 @@ class Chrome:
         return 1
 
 
-    def send_keys(self, type_attribute, attribute_value, content, time_delay_second, is_click=True, time_delay_after_click=0.1):
+    def send_keys2(self, type_attribute, attribute_value, content, time_delay_second, is_click=True, time_delay_after_click=0.1):
         if self.checkChromeClose():
             return -2
 
@@ -1027,13 +1031,13 @@ class Chrome:
             self.export_error(None, ex, f"chrome.send_enter({type_attribute},{attribute_value},{index})")
             return 0
     
-    def send_keys(self, type_attribute, attribute_value, content, is_click=True, time_delay_after_click=0.1):
+    def send_keys3(self, type_attribute, attribute_value, content, is_click=True, time_delay_after_click=0.1):
         if self.checkChromeClose():
             return -2
         
         try:
             if is_click:
-                self.click(type_attribute, attribute_value)
+                self.click_complex(type_attribute, attribute_value)
                 self.delayTime(time_delay_after_click)
             
             element = None
@@ -1055,6 +1059,7 @@ class Chrome:
             self.export_error(None, ex, f"chrome.send_keys({type_attribute},{attribute_value},{content},{is_click})")
             return 0
         
+
     def click_js(self, timeout=0, *css_selectors):
         if self.checkChromeClose():
             return -2
@@ -1272,7 +1277,142 @@ class Chrome:
             return 0
         return 1
     
+    def accept_cookie(self):
+        for _ in range(4):
+            if self.get_fb_web() == 1:
+                if self.click_js("[role=\"dialog\"] [aria-label=\"Close\"],[role=\"dialog\"] [aria-label][role=\"button\"]:has(svg)"):
+                    time.sleep(2)
+                break
+            
+            if self.check_exist_element("[data-cookiebanner=\"accept_button\"]") == 1:
+                self.execute_script("document.querySelector('[data-cookiebanner=\"accept_button\"]').click()")
+                continue
+            
+            url = self.get_url()
+            if url.startswith("https://m.facebook.com/si/actor_experience/actor_gateway") and \
+               self.check_exist_element("[data-nt=\"NT:IMAGE\"]", 15.0) == 1:
+                self.execute_script("document.querySelector('[data-nt=\"NT:IMAGE\"]').click()")
+                time.sleep(2)
+                continue
+            
+            if "facebook.com/legal_consent" in url:
+                self.click_js("button[type=\"submit\"]")
+                time.sleep(1)
+                self.click_js("button[type=\"submit\"]:last-child")
+                time.sleep(1)
+                self.click_js("button[type=\"submit\"]")
+                time.sleep(1)
+                self.click_js("#consent-page-container button[type=\"submit\"]:last-child")
+                time.sleep(1)
+                continue
+            
+            if "facebook.com/privacy/consent_framework/prompt/" in url:
+                checkboxes = [
+                    "personal_data_toggle",
+                    "data_shared_3pd_toggle",
+                    "cross_border_data_transfer_toggle",
+                    "location_info_toggle"
+                ]
+                for checkbox in checkboxes:
+                    if self.check_exist_element(f"[type=\"checkbox\"][name=\"{checkbox}\"]") == 1:
+                        self.execute_script(f"document.querySelector('[type=\"checkbox\"][name=\"{checkbox}\"]').checked=true;")
+                
+                self.click_js("button[name=\"primary_consent_button\"]")
+                time.sleep(2)
+                continue
+            
+            break
 
+    def send_keys_with_speed_new(self, element_selector, text, speed, click_before=True, click_delay=0.1):
+        if self.checkChromeClose():
+            return False
+        
+        try:
+            if click_before:
+                self.click_with_action(element_selector)
+                time.sleep(click_delay)
+            
+            typing_method = SettingsTool.get_settings("configGeneral").get_value_int("tocDoGoVanBan", 0)
+            
+            if typing_method == 2:
+                self.chrome.find_element(By.CSS_SELECTOR, element_selector).send_keys(text)
+            elif typing_method in [0, 1]:
+                element = self.get_element(element_selector)
+                for char in text:
+                    element.send_keys(char)
+                    if speed > 0:
+                        delay = max(int(speed * 1000), 100)
+                        time.sleep(random.randint(delay, delay + 50) / 1000)
+        
+        except Exception as e:
+            self.export_error(e)
+            return False
+        
+        return True
+    
+    def clear(self, element_selector: str) -> bool:
+        if self.checkChromeClose():
+            return False
+        
+        try:
+            web_element = self.get_element(element_selector)
+            web_element.clear()
+            return True
+        except Exception as e:
+            self.export_error(e)
+        
+        return False
+    
+    def send_keys4(self, css_selectors_or_xpath, keys):
+        if self.checkChromeClose():
+            return False
+
+        try:
+            element = self.get_element(css_selectors_or_xpath)
+            if element is None:
+                return False
+            else:
+                element.send_keys(keys)
+                return True
+        except Exception:
+            return False
+        
+    def clear_text(self, css_selectors_or_xpath):
+        flag = False
+        
+        if not self.checkChromeClose():
+            return -2
+        
+        try:
+            element = self.get_element(css_selectors_or_xpath)
+            element.clear()
+            flag = True
+        except Exception as ex:
+            # Optionally log the exception or handle it
+            pass
+        
+        if not flag:
+            return 0
+        return 1
+    
+    def clear_text(self):
+        if not self.checkChromeClose():
+            return -2
+        
+        # Get the active element or you can specify the element explicitly if needed
+        element = self.chrome.switch_to.active_element
+        # Perform the clear text operation
+        actions = ActionChains(self.chrome)
+        actions.key_down(Keys.SHIFT) \
+               .send_keys(Keys.ARROW_UP) \
+               .send_keys(Keys.ARROW_UP) \
+               .send_keys(Keys.ARROW_UP) \
+               .send_keys(Keys.DELETE) \
+               .key_up(Keys.SHIFT) \
+               .perform()
+
+        return 1
+    
 app = Flask(__name__)
 chrome_instances: list[Chrome] = []
 
@@ -1343,7 +1483,7 @@ def api_click(instance_id):
         return jsonify({"status": "error", "message": "Missing required parameters"}), 400
 
     try:
-        result = chromeInstance.click(
+        result = chromeInstance.click_complex(
             typeAttribute, attributeValue, index, subTypeAttribute, subAttributeValue, subIndex, times
         )
         if result == 1:
@@ -1528,7 +1668,7 @@ def check_exist_elements(instance_id):
     if not isinstance(time_out, (int, float)) or not isinstance(selectors, list):
         return jsonify({"error": "Invalid parameter types"}), 400
     try:
-        result = chromeInstance.check_exist_element(selectors , time_out)
+        result = chromeInstance.check_exist_elements(time_out , selectors)
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
     if result == "-2":
@@ -1717,7 +1857,7 @@ def api_send_keys(instance_id):
     is_click = data.get('is_click', True)
     time_delay_after_click = data.get('time_delay_after_click', 0.1)
 
-    result = chrome_instance.send_keys(type_attribute, attribute_value, content, is_click, time_delay_after_click)
+    result = chrome_instance.send_keys1(type_attribute, attribute_value, content, is_click, time_delay_after_click)
 
     if result == -2:
         return jsonify({"status": "error", "message": "Chrome is closed"}), 400
@@ -1984,7 +2124,18 @@ def add_cookie_into_chrome_api(instance_id):
     except Exception as e:
         return jsonify({"status": "error", "message": str(e), "traceback": traceback.format_exc()}), 500
 
+@app.route('/switch_to_alert_accept/<instance_id>', methods=['GET'])
+def switch_to_alert_accept(instance_id):
+    chrome_instance = next((c for c in chrome_instances if c.index_chrome == int(instance_id)), None)
+    
+    if chrome_instance is None:
+        return jsonify({"status": "error", "message": "Instance not found"}), 404
 
+    try:
+        result = chrome_instance.chrome.switch_to.alert.accept()
+        return jsonify({"status": "success", "message": "Browser refreshed successfully"}), 200
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)}), 500
 
 @app.route('/refresh/<instance_id>', methods=['GET'])
 def refresh_browser(instance_id):
@@ -2003,6 +2154,136 @@ def refresh_browser(instance_id):
             return jsonify({"status": "error", "message": "Failed to refresh browser"}), 500
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
+
+
+@app.route('/accept_cookie/<instance_id>', methods=['POST'])
+def api_accept_cookie(instance_id):
+    chrome_instance = next((c for c in chrome_instances if c.index_chrome == int(instance_id)), None)
+    
+    if chrome_instance is None:
+        return jsonify({"status": "error", "message": "Instance not found"}), 404
+
+    try:
+        result = chrome_instance.accept_cookie()
+        if result:
+            return jsonify({"status": "success", "message": "Cookie accepted successfully"}), 200
+        else:
+            return jsonify({"status": "error", "message": "Failed to accept cookie"}), 500
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)}), 500
+
+
+@app.route('/set_size/<int:instance_id>', methods=['POST'])
+def set_size(instance_id: int):
+    chrome_instance = next((c for c in chrome_instances if c.index_chrome == instance_id), None)
+    
+    if chrome_instance is None:
+        return jsonify({"status": "error", "message": "Instance not found"}), 404
+
+    data = request.json
+    width = data.get('width')
+    height = data.get('height')
+
+    if width is None or height is None:
+        return jsonify({"status": "error", "message": "Missing required parameters"}), 400
+
+    try:
+        chrome_instance.chrome.set_window_size(width, height)
+        return jsonify({"status": "success", "message": "Window size set successfully"}), 200
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)}), 500
+
+
+@app.route('/send_keys_with_speed_new/<int:instance_id>', methods=['POST'])
+def api_send_keys_with_speed_new(instance_id: int):
+    chrome_instance = next((c for c in chrome_instances if c.index_chrome == instance_id), None)
+    
+    if chrome_instance is None:
+        return jsonify({"status": "error", "message": "Instance not found"}), 404
+
+    data = request.json
+    element_selector = data.get('element_selector')
+    text = data.get('text')
+    speed = data.get('speed', 0)
+    click_before = data.get('click_before', True)
+    click_delay = data.get('click_delay', 0.1)
+
+    if not element_selector or not text:
+        return jsonify({"status": "error", "message": "Missing required parameters"}), 400
+
+    result = chrome_instance.send_keys_with_speed_new(
+        element_selector=element_selector,
+        text=text,
+        speed=speed,
+        click_before=click_before,
+        click_delay=click_delay
+    )
+
+    if result:
+        return jsonify({"status": "success", "message": "Keys sent successfully"}), 200
+    else:
+        return jsonify({"status": "error", "message": "Failed to send keys"}), 400
+
+
+@app.route('/send_keys4/<int:instance_id>', methods=['POST'])
+def api_send_keys4(instance_id):
+    chromeInstance = next((c for c in chrome_instances if c.index_chrome == instance_id), None)
+    
+    if chromeInstance is None:
+        return jsonify({"status": "error", "message": "Instance not found"}), 404
+
+    data = request.json
+    css_selectors_or_xpath = data.get('css_selectors_or_xpath')
+    keys = data.get('keys')
+
+    if css_selectors_or_xpath is None or keys is None:
+        return jsonify({"status": "error", "message": "Missing required parameters"}), 400
+
+    result = chromeInstance.send_keys4(css_selectors_or_xpath, keys)
+
+    if result:
+        return jsonify({"status": "success", "message": "Keys sent successfully"}), 200
+    else:
+        return jsonify({"status": "error", "message": "Failed to send keys"}), 400
+
+
+
+@app.route('/clear/<int:instance_id>', methods=['POST'])
+def api_clear(instance_id: int):
+    chrome_instance = next((c for c in chrome_instances if c.index_chrome == instance_id), None)
+    
+    if chrome_instance is None:
+        return jsonify({"status": "error", "message": "Instance not found"}), 404
+
+    data = request.json
+    element_selector = data.get('element_selector')
+
+    if not element_selector:
+        return jsonify({"status": "error", "message": "Missing element_selector parameter"}), 400
+
+    result = chrome_instance.clear(element_selector)
+
+    if result:
+        return jsonify({"status": "success", "message": "Element cleared successfully"}), 200
+    else:
+        return jsonify({"status": "error", "message": "Failed to clear element"}), 400
+
+@app.route('/clear_text/<int:instance_id>', methods=['GET'])
+def api_clear_text(instance_id):
+    chrome_instance = next((c for c in chrome_instances if c.index_chrome == instance_id), None)
+    
+    if chrome_instance is None:
+        return jsonify({"status": "error", "message": "Instance not found"}), 404
+    
+    try:
+        result = chrome_instance.clear_text()
+        if result == -2:
+            return jsonify({"status": "error", "message": "Chrome is closed"}), 500
+        else:
+            return jsonify({"status": "success", "message": "Text cleared successfully"}), 200
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)}), 500
+
 
 
 

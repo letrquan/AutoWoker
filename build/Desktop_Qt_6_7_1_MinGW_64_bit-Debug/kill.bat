@@ -1,0 +1,1 @@
+TASKKILL /F /IM undetected_chromedriver.exe /T

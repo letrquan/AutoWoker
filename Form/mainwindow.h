@@ -52,6 +52,10 @@ public:
     QString GetStatusAccount(int indexRow);
     QString TurnOn2FA(QString password, QString token, QString proxy, int typeProxy);
 private:
+    void FinishProxy(TinsoftProxy* tinsoft, XproxyProxy* xproxy, TMProxy* tmproxy,
+                                 ProxyV6Net* proxyWeb, ShopLike* shopLike, MinProxy* minProxy,
+                     ObcProxy* obcProxy);
+    void CloseChrome(int indexRow, QString statusProxy, Chrome* chrome);
     void ExcuteUnlock282(int indexRow, QString statusProxy, QString cookie, QString proxy, int typeProxy);
     void GetProxy(int indexRow, bool &isStop, QString &proxy, int &typeProxy, QString &statusProxy, QString &ip, TinsoftProxy* tinsoft, XproxyProxy* xproxy, TMProxy* tmproxy, ProxyV6Net* proxyWeb, ShopLike* shopLike, MinProxy* minProxy, ObcProxy* obcProxy);
     void ExcuteOneThread(int indexRow, int indexPos, QString idKichBan, JSON_Settings settings);
@@ -175,6 +179,9 @@ private:
     void AddUI();
     int QuenMatKhau(QString mail, QString proxy, int typeProxy);
     void ScreenCaptureError(Chrome* chrome, const QString& uid, int type);
+    int HDXoaNhatKyHoatDong(int indexRow, const QString& statusProxy, Chrome& chrome, JSON_Settings& cauHinh);
+    int HDTaoPage_Fix(QString& F62A033F, int B5193F02, const QString& string_1, Chrome& b901B28A_0, JSON_Settings& cauHinh, const QString& string_2, const QString& text12);
+    void SetStatusAccount(int indexRow, QString value, int timeWaitFrom, int timeWaitTo);
 protected:
     void changeEvent(QEvent *event) override;
     bool eventFilter(QObject *obj, QEvent *event) override {
@@ -220,6 +227,8 @@ private slots:
 
     void on_btnInteract_clicked();
     bool CheckDangCheckpointNew(Chrome *chrome, int indexRow, QString statusAction, bool isUnlock956 = false, int typeWebUnlock956 = 0);
+    void on_metroButton1_clicked();
+
 signals:
     void updateStatusAccount(int row, QString status, int timeWait = -1);
     void updateInfoAccount(int row, QString info);

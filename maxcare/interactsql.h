@@ -11,6 +11,8 @@ public:
     static QVariantList* GetAllHanhDongByKichBan(QString idKichBan);
     static QStringList GetIdHanhDongByIdKichBanAndTenTuongTac(QString Id_KichBan, QString tenTuongTac);
     static QString GetCauHinhFromHanhDong(QString Id_HanhDong);
+    static QString GetCauHinhFromKichBan(QString Id_KichBan);
+    static QVariantList* GetHanhDongById(QString id);
 };
 
 #endif // INTERACTSQL_H

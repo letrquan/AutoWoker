@@ -579,6 +579,12 @@
 			null
 		],
 		[
+			"D:/AutoWorker/XWorker/AutoWoker/maxcare/GetIconFacebook.h",
+			"MU",
+			"JDXPVWFE7V/moc_GetIconFacebook.cpp",
+			null
+		],
+		[
 			"D:/AutoWorker/XWorker/AutoWoker/maxcare/ImapHelper.h",
 			"MU",
 			"JDXPVWFE7V/moc_ImapHelper.cpp",
@@ -600,6 +606,12 @@
 			"D:/AutoWorker/XWorker/AutoWoker/maxcare/MessageBoxHelper.h",
 			"MU",
 			"JDXPVWFE7V/moc_MessageBoxHelper.cpp",
+			null
+		],
+		[
+			"D:/AutoWorker/XWorker/AutoWoker/maxcare/RegPage.h",
+			"MU",
+			"JDXPVWFE7V/moc_RegPage.cpp",
 			null
 		],
 		[
@@ -809,6 +821,11 @@
 		],
 		[ "D:/AutoWorker/XWorker/AutoWoker/main.cpp", "MU", null ],
 		[ "D:/AutoWorker/XWorker/AutoWoker/maxcare/Base.cpp", "MU", null ],
+		[
+			"D:/AutoWorker/XWorker/AutoWoker/maxcare/GetIconFacebook.cpp",
+			"MU",
+			null
+		],
 		[ "D:/AutoWorker/XWorker/AutoWoker/maxcare/ImapHelper.cpp", "MU", null ],
 		[
 			"D:/AutoWorker/XWorker/AutoWoker/maxcare/KichBan/interactconnector.cpp",

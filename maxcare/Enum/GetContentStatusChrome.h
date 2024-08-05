@@ -4,7 +4,7 @@
 #include "StatusChromeAccount.h"
 class GetContentStatusChrome {
 public:
-    static QString GetContent(StatusChromeAccount::Status status){
+    static QString GetContent(StatusChromeAccount status){
         QString result;
         switch (status) {
         case StatusChromeAccount::ChromeClosed:

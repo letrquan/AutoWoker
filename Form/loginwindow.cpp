@@ -37,7 +37,6 @@ LoginWindow::~LoginWindow()
 void LoginWindow::loadSettings(){
     getLogin();
     Loadx();
-    this->hide();
 }
 
 
@@ -75,7 +74,7 @@ void LoginWindow::on_LoginButton_clicked()
                 QMessageBox::information(this, "Đăng nhập", boxchao);
                 if(status_u==1){
                     auto  mainWindow = new MainWindow(token,name,phone,max_devices,this);
-                    this->hide();
+                    this->close();
                     mainWindow->show();
                 }else{
                     QMessageBox::critical(this,
@@ -165,44 +164,7 @@ void LoginWindow::Loadx(){
                 }
             } catch (...) {
             }
-            if(ui->accountEdit->text() != "" && ui->passwordEdit->text() != "" ){
-                try {
-                    QString account = ui->accountEdit->text();
-                    QString password = ui->passwordEdit->text();
-                    QString res = AwApi::LoginTool(account,password);
-                    QJsonDocument doc =QJsonDocument::fromJson(res.toUtf8());
-                    if(!doc.isNull()){
-                        QJsonObject response = doc.object();
-                        int status = response["status"].toInt();
-                        QString mess = response["msg"].toString();
-                        if(status == 200){
-                            QJsonObject result = response["result"].toObject();
-                            QString token = result["token"].toString();
-                            QString name = result["fullname"].toString();
-                            QString phone = result["phone"].toString();
-                            QString max_devices = result["status"].toString();
-                            int status_u = result["status"].toString().toInt();
-                            // QString boxchao = name + " đăng nhập thành công";
-                            // QMessageBox::information(this, "Đăng nhập", boxchao);
-                            if(status_u==1){
-                                auto  mainWindow = new MainWindow(token,name,phone,max_devices,this);
-                                this->hide();
-                                mainWindow->show();
-                            }else{
-                                QMessageBox::critical(this,
-                                                      "ĐĂNG NHẬP",
-                                                      "Tài khoản của bạn đã bị khoá",
-                                                      QMessageBox::Ok);
-                                QCoreApplication::exit(0);
-                            }
-                        }else{
-                            QMessageBox::warning(this, "ĐĂNG NHẬP", "Sai tên tài khoản hoặc mật khẩu");
-                        }
-                    }
-                } catch (...) {
-                    QMessageBox::warning(this, "ĐĂNG NHẬP", "Lỗi kết nối đến Server !");
-                }
-            }
+            on_LoginButton_clicked();
         }
     } catch (...) {
     }

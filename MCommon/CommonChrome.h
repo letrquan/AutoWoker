@@ -29,8 +29,9 @@ public:
         }
         int num = 0;
         QString uRL = chrome->GetUrl();
-        if (uRL.contains("1501092823525282") || uRL.contains("828281030927956") || (uRL.contains("facebook.com/nt/screen/?params=") && uRL.contains("checkpoint"))) {
-            num = 2;
+        if (uRL.contains("1501092823525282") || uRL.contains("828281030927956") || (uRL.contains("facebook.com/nt/screen/?params=") && uRL.contains("checkpoint")))
+        {
+            return "2";
         } else {
             int num2 = 0;
             int startTick = QTime::currentTime().msecsSinceStartOfDay();
@@ -38,65 +39,71 @@ public:
                 int typeWeb = checkFacebookWebsite(chrome, url);
                 while (true) {
                     IL_007c:
-                    if (chrome->CheckExistElement("[name='email']") != 1 || chrome->CheckExistElement("[name='pass']") != 1 || chrome->CheckExistElement("[name='login']") != 1 || chrome->CheckExistElement("[data-cookiebanner=\"accept_button\"]") == 1) {
-                        if (chrome->GetUrl().contains("facebook.com/user_cookie_prompt")) {
+                    if (chrome->CheckExistElement("[name='email']") != 1 || chrome->CheckExistElement("[name='pass']") != 1 || chrome->CheckExistElement("[name='login'],#loginbutton") != 1 || chrome->CheckExistElement("[data-cookiebanner=\"accept_button\"]") == 1) {
+                        if (chrome->GetUrl().contains("facebook.com/user_cookie_prompt"))
+                        {
                             chrome->GotoURL("https://mobile.facebook.com/");
+                        }
+                        if (chrome->CheckExistElement("[name=\"accept_only_essential\"][value=\"0\"]"))
+                        {
+                            chrome->ClickWithAction("[name=\"accept_only_essential\"][value=\"0\"]");
                         }
                         chrome->ExecuteScript("document.querySelector('[name=\"primary_consent_button\"]').click()");
                         chrome->ExecuteScript("document.querySelector('[data-cookiebanner=\"accept_button\"]').click()");
                         chrome->ExecuteScript("document.querySelectorAll('[data-testid=\"cookie-policy-manage-dialog-accept-button\"]')[1].click()");
-                        if (chrome->CheckExistElement("[name=\"pass\"]") != 1) {
-                            chrome->gotoLogin(typeWeb);
+                        if (!chrome->CheckExistElement("[name=\"pass\"]"))
+                        {
+                            chrome->GotoURL(url + "/login");
                             chrome->ExecuteScript("document.querySelector('[data-cookiebanner=\"accept_button\"]').click()");
                             chrome->ExecuteScript("document.querySelectorAll('[data-testid=\"cookie-policy-manage-dialog-accept-button\"]')[1].click()");
                         }
-                        if (chrome->findAndClick(0.0, 4, "[data-sigil=\"login_profile_form\"] div[role=\"button\"]") == 1 || chrome->findAndClick(0.0, 4, "[action*=\"/login/device-based/\"] [type=\"submit\"]") == 1) {
-                            chrome->DelayTime(1.0);
-                            num2 = chrome->CheckExistElements(5.0, QStringList{"[name=\"pass\"]", "#approvals_code"});
-                            if (num2 == 1)
-                            {
-                                if (isCheckPass)
-                                {
-                                    if (queue.count() == 0)
-                                    {
-                                        break;
-                                    }
-                                    pass = queue.dequeue();
-                                }
-                                if (chrome->sendKeysWithSpeed(tocDoGoVanBan, 2, "pass", pass, 0.1) == 1)
-                                {
-                                    chrome->DelayTime(1.0);
-                                    chrome->sendEnter(2, "pass");
-                                }
-                            }
-                        }else if (checkTypeWebFacebookFromUrl(chrome->GetUrl()) == 2)
+                    }
+                    if(chrome->GetFbWeb() == 1){
+                        if (chrome->ClickJs(0, QStringList { "[data-userid] [name=\"login\"]", "[data-userid]" }) && chrome->CheckExistElement("[role=\"dialog\"] [name=\"pass\"]", 5.0))
                         {
-                            chrome->findAndClick(0.0, 4, "[id=\"nux-nav-button\"]");
+                            chrome->DelayTime(1.0);
+                            chrome->SendKeysWithSpeedNew("[role=\"dialog\"] [name=\"pass\"]", pass, 0.1);
+                            chrome->DelayTime(1.0);
+                            chrome->ClickJs("[role=\"dialog\"] [name=\"login\"]");
+                        }
+                    }else if (!chrome->CheckExistElement("[name='email']") || !chrome->CheckExistElement("[name='pass']") || !chrome->CheckExistElement("[name='login']"))
+                    {
+                        if (chrome->ClickJs(0, QStringList { "[data-sigil=\"login_profile_form\"] div[role=\"button\"]", "[action*=\"/login/device-based/\"] [type=\"submit\"]" }))
+                        {
+                            if(chrome->CheckExistElements(5.0, QStringList { "[name=\"pass\"]", "#approvals_code" }) == 1)
+                            {
+                                chrome->DelayTime(1.0);
+                                chrome->SendKeysWithSpeedNew("[name=\"pass\"]", pass, 0.1);
+                                chrome->DelayTime(1.0);
+                                chrome->sendEnter("[name=\"pass\"]");
+                            }
+                        }
+                        else if (chrome->GetFbWeb() > 1 && chrome->CheckExistElement("#nux-nav-button,[href^=\"/a/nux/wizard/nav.php\"]", 4.0) == 1)
+                        {
+                            chrome->ClickWithAction("#nux-nav-button,[href^=\"/a/nux/wizard/nav.php\"]");
                         }
                     }
-                    if (chrome->CheckExistElement("[name='email']") == 1 && chrome->CheckExistElement("[name='pass']") == 1 && chrome->CheckExistElement("[name='login']") == 1) {
-                        QString uRL2 = chrome->GetUrl();
-                        num2 = chrome->sendKeysWithSpeed(tocDoGoVanBan, 2, "email", uid, 0.1);
-                        chrome->DelayTime(1.0);
-                        if (isCheckPass)
-                        {
-                            if (queue.count() == 0)
-                            {
-                                break;
-                            }
-                            pass = queue.dequeue();
+                    if (chrome->CheckExistElement("[name='email']") == 1 && chrome->CheckExistElement("[name='pass']") == 1 && chrome->CheckExistElement("[name='login'],#loginbutton") == 1) {
+                        if(chrome->CheckExistElement("[role=\"button\"][tabindex=\"0\"][aria-label=\"Allow all cookies\"]")){
+                            chrome->click(4, "[role=\"button\"][tabindex=\"0\"][aria-label=\"Allow all cookies\"]");
+                            chrome->DelayTime(1.0);
                         }
-                        num2 = chrome->sendKeysWithSpeed(tocDoGoVanBan, 2, "pass", pass, 0.1);
+                        QString text2 = chrome->GetUrl();
+                        chrome->Clear("[name='email']");
+                        chrome->SendKeysWithSpeedNew("[name='email']", uid, 0.1);
                         chrome->DelayTime(1.0);
-                        num2 = chrome->click(2, "login");
+                        chrome->Clear("[name='pass']");
+                        chrome->SendKeysWithSpeedNew("[name='pass']", pass, 0.1);
+                        chrome->DelayTime(1.0);
+                        chrome->ClickWithAction("[name='login'],#loginbutton");
                         chrome->DelayTime(2.0);
                         for (int i = 0; i < 10; i++)
                         {
-                            if (chrome->GetUrl() != uRL2)
+                            if (chrome->GetUrl() != text2)
                             {
                                 break;
                             }
-                            if (chrome->ExecuteScript("return document.querySelectorAll('[name=\"email\"]')[0].value").isEmpty())
+                            if (chrome->ExecuteScript("return document.querySelector('[name = \'pass\']').value") == "")
                             {
                                 break;
                             }
@@ -109,7 +116,7 @@ public:
                     int num6 = 2;
                     int num7 = 0;
                     while (QTime::currentTime().msecsSinceStartOfDay() - startTick < timeOut * 1000) {
-                        switch (chrome->CheckExistElements(0.0, QStringList{"[name=\"login\"]",  "[name=\"approvals_code\"]", "[name=\"verification_method\"]", "#checkpointSubmitButton", "#qf_skip_dialog_skip_link", "#nux-nav-button", "[name=\"n\"]", "[name=\"reset_action\"]", "#checkpointBottomBar", "[name=\"primary_consent_button\"]", "#identify_search_text_input", "[name=\"submit[Get Started]\"]"})) {
+                        switch (chrome->CheckExistElements(0.0, QStringList{"[name=\"login\"]","[name=\"approvals_code\"]", "[name=\"verification_method\"]", "#checkpointSubmitButton", "#qf_skip_dialog_skip_link", "#nux-nav-button", "[name=\"n\"]", "[name=\"reset_action\"]", "#checkpointBottomBar", "[name=\"primary_consent_button\"]", "#identify_search_text_input", "[name=\"submit[Get Started]\"]","[role=\"button\"][tabindex=\"0\"][aria-label=\"Allow all cookies\"]"})) {
                         case 1:
                         case 8:
                             if (num5 == 0 && num7 == 0) {
@@ -143,24 +150,30 @@ public:
                             }
                             break;
                         case 2:
-                            if (fa2.isEmpty()) {
+                            if (fa2 == "")
+                            {
                                 num = 3;
                                 break;
                             }
-                            if (num5 >= num6) {
+                            if (num5 >= num6)
+                            {
                                 num = 6;
                                 break;
                             }
-                            if (isLoginVia) {
+                            if (isLoginVia)
+                            {
                                 chrome->GotoURL(chrome->GetUrl().replace("www.face", "m.face"));
-                                for (int m = 0; m < 10; m++) {
-                                    if (chrome->CheckExistElement("[name=\"approvals_code\"]") == 1) {
+                                for (int m = 0; m < 10; m++)
+                                {
+                                    if (chrome->CheckExistElement("[name=\"approvals_code\"]") == 1)
+                                    {
                                         break;
                                     }
                                     chrome->DelayTime(1.0);
                                 }
                             }
-                            if (Common::GetTotp(fa2.replace(" ", "").replace("\n", "").trimmed(), type2Fa).isEmpty()) {
+                            if (Common::GetTotp(fa2.replace(" ", "").replace("\n", "").trimmed(), type2Fa) == "")
+                            {
                                 num = 6;
                                 break;
                             }
@@ -268,6 +281,9 @@ public:
                             chrome->click(4, "[name=\"submit[Get Started]\"]");
                             chrome->DelayTime(10.0);
                             break;
+                        case 13:
+
+                            break;
                         default:
                             if ((chrome->ExecuteScript("async function checkCookie(){try{let a=await fetch(\"https://www.facebook.com/me\"),b=\"0|0\";if(a.ok){if(a.url.includes(\"checkpoint\"))b=\"0|1\";else if(a.url.includes(\"com/?refsrc\")||\"https://www.facebook.com/\"==a.url)b=\"0|2\";else{let d=await a.text();if(d.includes(\"/photos/change/profile_picture\"))b=\"1|1\";else{let e=d.match(/\"USER_ID\"\\:\"([0-9]{0,})\"/)[1],f=document.cookie.match(/c_user\\=([0-9]{0,})/)[1];e==f&&(b=\"1|1\")}}}return b}catch{}}var c=await checkCookie(); return c")).startsWith("0|"))
                             {
@@ -283,6 +299,24 @@ public:
                             {
                                 num = 2;
                                 break;
+                            }
+                            if(chrome->GetUrl().contains("facebook.com/two_step_verification/two_factor")){
+                                chrome->click(4, "div[role=\"button\"][tabindex=\"0\"]");
+                                chrome->DelayTime(1.0);
+                                chrome->ExecuteScript("document.querySelector('input[type=\"radio\"][name=\"unused\"][value=\"1\"]').click()");
+                                chrome->DelayTime(1.0);
+                                chrome->ExecuteScript("document.querySelectorAll('div[role=\"button\"][tabindex=\"0\"]')[3].click()");
+                                chrome->DelayTime(1.0);
+                                chrome->Clear("input[type=\"text\"]");
+                                chrome->SendKeysWithSpeedNew("input[type=\"text\"]", Common::GetTotp(fa2.replace(" ", "").replace("\n", "").trimmed(), type2Fa),0.1);
+                                chrome->DelayTime(1.0);
+                                chrome->sendEnter("input[type=\"text\"]");
+                                chrome->DelayTime(1.0);
+                            }
+                            // if(chrome->GetUrl().contains())
+                            if(chrome->GetUrl().contains("facebook.com/two_factor/remember_browser")){
+                                chrome->ExecuteScript("document.querySelectorAll('[role=\"button\"][tabindex=\"0\"]')[1].click()");
+                                chrome->DelayTime(1.0);
                             }
                             if (chrome->GetUrl().contains("facebook.com/user_cookie_prompt"))
                             {

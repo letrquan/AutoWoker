@@ -293,3 +293,47 @@ QString SetupFolder::smethod_88()
     QRandomGenerator rd;
     return list[rd.bounded(0,list.count())];
 }
+
+QStringList SetupFolder::GetListHoVN()
+{
+    return QString("Nguyễn|Trần|Lê|Phạm|Hoàng|Phan|Vũ|Đặng|Bùi|Đỗ|Hồ|Ngô|Dương|Lý|Huỳnh|Võ").split('|');
+}
+
+QStringList SetupFolder::GetListTenDemVN()
+{
+    return QStringList
+        {
+            "Diệu", "Quỳnh", "Trâm", "Nguyệt", "Trân", "Quế", "Trúc", "Xuyến", "Thiên", "Ngọc",
+            "Nghi", "Linh", "Thục", "Thu", "Thiên", "Hiếu", "Thái", "Dạ", "Quỳnh", "Thiên",
+            "Ái", "Kim", "Vân", "Hồng", "Minh", "Diễm", "Chi", "Bạch", "Ngọc", "Mộc",
+            "Ha", "Thương", "Dại", "Thu", "Uyển", "Yến", "Thục", "Hạnh", "Thanh", "Tú",
+            "Song", "Cát", "Lâm", "Hương", "Dạ", "Anh", "Đoan", "Phượng", "Tịnh", "Hải",
+            "Thiên", "Gia", "Thành", "Trung", "Thái", "Hải", "Thành", "Thông", "Phúc", "Tài",
+            "Mạnh", "Chấn", "Bảo", "Khang", "Đăng", "Tuấn", "Thanh", "Hiền", "Thiện", "Thụ",
+            "Minh", "Nhân", "Trọng", "Trung", "Khôi", "Hạo", "Phương", "Thanh", "Hữu", "Minh",
+            "Đông", "Sơn", "Tùng", "Ái", "Thái", "Trường", "Thiện", "Thạch", "An", "Anh",
+            "Thanh", "Chiến", "Toàn", "Minh", "Đình", "Kiến", "Nhân", "Khôi", "Quang", "Uy",
+            "Hoài", "Huyền", "Thùy", "Trung", "Tú", "Vàng", "Hạ", "Lệ", "Tuyết", "Yên",
+            "Ngọc", "Bảo", "Khải", "Sơn", "Nguyệt", "Bảo", "Ly", "Minh", "Hương", "Lan",
+            "Lien", "Linh", "Mai", "Quỳnh", "Hiền", "Hạc", "Nhật", "Quỳnh", "Huyền", "Kỳ",
+            "Vinh", "Thụy", "Van", "Hạnh", "Kiều", "Từ", "Thien", "Hải", "Hướng", "Thuy",
+            "Kim", "Minh", "Yen", "Truc", "Hồng", "Hạ", "Hồng", "Hương", "Khánh"
+        };
+}
+
+QStringList SetupFolder::GetListTenVN()
+{
+    return QStringList
+        {
+            "Anh", "Cát", "Châu", "Chi", "Di", "Diệp", "Dung", "Đan", "Đoan", "Giang",
+            "Hà", "Hạnh", "Hòa", "Hương", "Khanh", "Khánh", "Khuê", "Khue", "Kiều", "Lan",
+            "Lien", "Mien", "Mi", "Nga", "Ngọc", "Nguyệt", "Nhã", "Oanh", "Quyên", "San",
+            "Tâm", "Thư", "Tường", "Tuyền", "Thảo", "Thi", "Trang", "Vũ", "Yên", "Yến",
+            "Ân", "Bảo", "Công", "Dũng", "Dương", "Đăng", "Đạt", "Điền", "Đức", "Hùng",
+            "Hưng", "Kiện", "Khoa", "Kiệt", "Liêm", "Minh", "Ngôn", "Nhân", "Nhật", "Nghĩa",
+            "Nguyên", "Nhiên", "Phi", "Phong", "Phước", "Quân", "Quốc", "Sơn", "Tùng", "Thái",
+            "Thế", "Thắng", "Triết", "Trung", "Văn", "Vĩ", "Vinh", "An", "Băng", "Bằng",
+            "Bích", "Bình", "Ca", "Chau", "Chung", "Cuc", "Dạ", "Dao", "Diệu", "Du",
+            "Duyen", "Dan", "Dang"
+        };
+}

@@ -78,3 +78,25 @@ QString InteractSQL::GetCauHinhFromHanhDong(QString Id_HanhDong){
     }
     return result;
 }
+
+QString InteractSQL::GetCauHinhFromKichBan(QString Id_KichBan){
+    QString result = "";
+    try {
+        QString query ="SELECT CauHinh FROM Kich_Ban WHERE Id_KichBan = " + Id_KichBan;
+        QVariantList dataTable = *InteractConnector::getInstance().ExecuteQuery(query);
+        result = dataTable[0].toMap()["CauHinh"].toString();
+    } catch (...) {
+    }
+    return result;
+}
+
+QVariantList* InteractSQL::GetHanhDongById(QString id){
+    QVariantList* result;
+    try {
+        QString query ="SELECT t1.TenHanhDong,t1.CauHinh,t2.Id_TuongTac,t2.TenTuongTac, t2.MoTa FROM Hanh_Dong t1 JOIN Tuong_Tac t2 ON t1.Id_TuongTac = t2.Id_TuongTac WHERE t1.Id_HanhDong = " + id;
+        result = InteractConnector::getInstance().ExecuteQuery(query);
+        return result;
+    } catch (...) {
+    }
+    return result;
+}

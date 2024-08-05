@@ -45,6 +45,26 @@ public:
         return isConnected;
     }
 
+    static QString findFirstDifference(const QList<QString>& first,const QList<QString>& second)
+    {
+        // Convert both lists to QSet for efficient difference operation
+        QSet<QString> firstSet = QSet<QString>(first.begin(), first.end());
+        QSet<QString> secondSet = QSet<QString>(second.begin(), second.end());
+
+        // Perform the difference operation
+        QSet<QString> differenceSet = firstSet.subtract(secondSet);
+
+        // Convert back to QList
+        QList<QString> difference = differenceSet.values();
+
+        // Return the first element or a default value if the list is empty
+        if (!difference.isEmpty()) {
+            return difference.first();
+        } else {
+            return QString(); // This is equivalent to returning null in C#
+        }
+    }
+
     static QString getBuildFolderPath()
     {
         // Get the directory of the application executable

@@ -7,7 +7,7 @@
 #include <QDir>
 #include <QEventLoop>
 #include <QTimer>
-
+#include "../maxcare/GetIconFacebook.h"
 #include "../MCommon/connector.h"
 
 void Common::ExportError(const QException* ex, QString error){
@@ -34,17 +34,14 @@ void Common::ExportError(const QException* ex, QString error){
 }
 
 int Common::GetIndexOfPositionApp(QList<int>& lstPosition) {
-    static QMutex mutex;
-    QMutexLocker locker(&mutex);
     int result = 0;
-    for (int i = 0; i < lstPosition.count(); i++) {
+    for (int i = 0; i < lstPosition.size(); i++) {
         if (lstPosition[i] == 0) {
             result = i;
             lstPosition[i] = 1;
             return result;
         }
     }
-
     return result;
 }
 
@@ -259,6 +256,23 @@ bool Common::UpdateFieldToAccount(QString id, QString fieldName, QString fieldVa
     mutex.unlock();
     return result;
 }
+
+QString Common::SpinText(const QString& text) {
+    QString result = text;
+    QRegularExpression pattern("\\{[^{}]*\\}");
+    QRegularExpressionMatch match = pattern.match(result);
+
+    while (match.hasMatch()) {
+        QStringList options = result.mid(match.capturedStart() + 1, match.capturedLength() - 2).split('|');
+        QString selected = options.at(QRandomGenerator::global()->bounded(options.size()));
+        result = result.left(match.capturedStart()) + selected + result.mid(match.capturedEnd());
+        match = pattern.match(result);
+    }
+
+    result = GetIconFacebook::ProcessString(result); // Ensure you have the ProcessString method in GetIconFacebook class
+    return result;
+}
+
 
 int Common::getWidthScreen = 0;
 int Common::getHeightScreen = 0;

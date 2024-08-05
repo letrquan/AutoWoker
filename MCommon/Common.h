@@ -16,7 +16,14 @@
 #include "qtconcurrentrun.h"
 #include "../maxcare/SettingsTool.h"
 #include <Windows.h>
+#include <QDirIterator>
+#include <QRandomGenerator>
+
+
 class Common{
+private:
+    static int getWidthScreen;
+    static int getHeightScreen;
 public:
     typedef void* (*RandomStringFunc)(const char*, const char*);
     static void ExportError(const QException* ex = nullptr, QString error ="");
@@ -55,6 +62,112 @@ public:
         } catch (...) {
         }
     }
+
+
+    static QString SpinText(const QString& text);
+
+    static bool CheckStringIsContainIcon(const QString& content)
+    {
+        QRegularExpression regex("\\p{Cs}");
+        QString strippedContent = content;
+        strippedContent.remove(regex);
+
+        return content.length() != strippedContent.length();
+    }
+
+
+    static QString RandomString(int length, const QString& charset)
+    {
+        QString result;
+        result.reserve(length);
+
+        for (int i = 0; i < length; ++i) {
+            int index = QRandomGenerator::global()->bounded(charset.length());
+            result.append(charset.at(index));
+        }
+
+        return result;
+    }
+
+
+    static double ConvertDatetimeToTimestamp(const QDateTime &value)
+    {
+        QDateTime epoch(QDate(1970, 1, 1), QTime(0, 0, 0, 0), Qt::LocalTime);
+        return epoch.secsTo(value);
+    }
+
+
+    static QVariantList shuffleVariantList(QVariantList& input) {
+        QVariantList result;
+        try {
+            result = input;
+            std::random_shuffle(result.begin(), result.end(), [](int i) {
+                return QRandomGenerator::global()->bounded(i);
+            });
+        } catch (...) {
+            // In case of any error, return an empty list
+            result.clear();
+        }
+        return result;
+    }
+
+    static QString createRandomNumber(int length, QRandomGenerator* randomGenerator = nullptr)
+    {
+        QString result;
+
+        // Use the provided random generator or the global one if not provided
+        QRandomGenerator* generator = randomGenerator ? randomGenerator : QRandomGenerator::global();
+
+        const QString digits = "0123456789";
+
+        for (int i = 0; i < length; ++i)
+        {
+            int index = generator->bounded(digits.length());
+            result.append(digits.at(index));
+        }
+
+        return result;
+    }
+
+    static QString createRandomString(int length, QRandomGenerator* randomGenerator = nullptr)
+    {
+        QString result;
+
+        // Use the provided random generator or the global one if not provided
+        QRandomGenerator* generator = randomGenerator ? randomGenerator : QRandomGenerator::global();
+
+        const QString characters = "abcdefghijklmnopqrstuvwxyz";
+
+        for (int i = 0; i < length; ++i)
+        {
+            int index = generator->bounded(characters.length());
+            result.append(characters.at(index));
+        }
+
+        return result;
+    }
+
+    static void KillProcess(const QString& nameProcess)
+    {
+        try {
+            // Create the batch file content
+            QString contents = QString("TASKKILL /F /IM %1.exe /T").arg(nameProcess);
+
+            // Write the batch file
+            QFile file("kill.bat");
+            if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+                QTextStream stream(&file);
+                stream << contents;
+                file.close();
+
+                // Execute the batch file
+                QProcess::startDetached("kill.bat");
+            }
+        } catch (...) {
+            // Catch any exceptions and ignore them
+        }
+    }
+
     static QString ConvertSecondsToTime(int seconds) {
         if (seconds < 0) {
             return QStringLiteral("Invalid time (negative)");
@@ -491,9 +604,133 @@ public:
         }
         return QString();
     }
-private:
-    static int getWidthScreen;
-    static int getHeightScreen;
+    static bool moveFolder(const QString& pathFrom, const QString& pathTo)
+    {
+        QDir dir;
+
+        // Check if source directory exists
+        if (!dir.exists(pathFrom))
+        {
+            return false;
+        }
+
+        // Check if destination already exists
+        if (dir.exists(pathTo))
+        {
+            // If destination exists, we can't move there
+            return false;
+        }
+
+        // Attempt to rename (move) the directory
+        if (dir.rename(pathFrom, pathTo))
+        {
+            return true;
+        }
+        else
+        {
+            // If rename fails, it might be due to moving across file systems
+            // In this case, we need to manually copy and then remove
+            if (copyAndRemoveDir(pathFrom, pathTo))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    // Helper function to recursively copy a directory
+    static bool copyAndRemoveDir(const QString& pathFrom, const QString& pathTo)
+    {
+        QDir sourceDir(pathFrom);
+        QDir targetDir(pathTo);
+
+        if (!targetDir.exists())
+        {
+            if (!targetDir.mkdir(targetDir.absolutePath()))
+                return false;
+        }
+
+        QFileInfoList fileList = sourceDir.entryInfoList(QDir::AllEntries | QDir::NoDotAndDotDot | QDir::Hidden);
+        for (const QFileInfo &fileInfo : fileList)
+        {
+            QString sourcePath = fileInfo.filePath();
+            QString targetPath = targetDir.filePath(fileInfo.fileName());
+
+            if (fileInfo.isDir())
+            {
+                if (!copyAndRemoveDir(sourcePath, targetPath))
+                    return false;
+            }
+            else
+            {
+                if (!QFile::copy(sourcePath, targetPath))
+                    return false;
+            }
+        }
+
+        // After successful copy, remove the source directory
+        return sourceDir.removeRecursively();
+    }
+    static bool copyFolder(const QString& pathFrom, const QString& pathTo)
+    {
+        try
+        {
+            CreateFolder(pathTo);
+
+            QDir sourceDir(pathFrom);
+            QDir targetDir(pathTo);
+
+            // Copy directories
+            QDirIterator dirIt(pathFrom, QDir::Dirs | QDir::NoDotAndDotDot, QDirIterator::Subdirectories);
+            while (dirIt.hasNext())
+            {
+                dirIt.next();
+                QString newPath = dirIt.filePath().replace(pathFrom, pathTo);
+                if (!targetDir.mkpath(newPath))
+                {
+                    return false;
+                }
+            }
+
+            // Copy files
+            QDirIterator fileIt(pathFrom, QDir::Files, QDirIterator::Subdirectories);
+            while (fileIt.hasNext())
+            {
+                fileIt.next();
+                QString targetFilePath = fileIt.filePath().replace(pathFrom, pathTo);
+                if (QFile::exists(targetFilePath))
+                {
+                    QFile::remove(targetFilePath);
+                }
+                if (!QFile::copy(fileIt.filePath(), targetFilePath))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+        catch (const std::exception&)
+        {
+            // Catch any standard C++ exceptions
+            return false;
+        }
+        catch (...)
+        {
+            // Catch any other exceptions
+            return false;
+        }
+    }
+
+    static bool deleteFolder(const QString &pathFolder)
+    {
+        QDir dir(pathFolder);
+        if (!dir.exists())
+            return true; // Consider non-existent directory as successfully deleted
+
+        return dir.removeRecursively();
+    }
 };
 
 #endif // COMMON_H

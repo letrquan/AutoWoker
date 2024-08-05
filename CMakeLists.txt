@@ -91,6 +91,9 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         ${PROJECT_SOURCES}
         API/apihandler.h API/apihandler.cpp
         Form/fviewchrome.h Form/fviewchrome.cpp Form/fviewchrome.ui
+        maxcare/GetIconFacebook.h
+        maxcare/GetIconFacebook.cpp
+        maxcare/RegPage.h
     )
 else()
     if(ANDROID)

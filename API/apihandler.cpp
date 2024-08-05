@@ -72,13 +72,15 @@ void ApiHandler::startApiProcess()
     }
 }
 
-
 void ApiHandler::stopApiProcess()
 {
     if (m_apiProcess->state() == QProcess::Running)
     {
         m_apiProcess->terminate();
-        m_apiProcess->waitForFinished();
+        if (!m_apiProcess->waitForFinished(5000)) { // Wait for 5 seconds
+            qDebug() << "API process did not terminate gracefully. Killing...";
+            m_apiProcess->kill();
+        }
     }
 }
 
@@ -90,8 +92,8 @@ QString ApiHandler::createInstance(int indexChrome, bool disableImage, const QSt
     jsonObject["disableImage"] = disableImage;
     jsonObject["userAgent"] = userAgent;
     jsonObject["profilePath"] = profilePath;
-    jsonObject["size"] = QString("%1x%2").arg(size.x()).arg(size.y());
-    jsonObject["position"] = QString("%1,%2").arg(position.x()).arg(position.y());
+    jsonObject["size"] = QJsonArray{size.x(),size.y()};
+    jsonObject["position"] = QJsonArray{position.x(),position.y()};
     jsonObject["timeWaitForSearchingElement"] = timeWaitForSearchingElement;
     jsonObject["timeWaitForLoadingPage"] = timeWaitForLoadingPage;
     jsonObject["proxy"] = proxy;
@@ -345,7 +347,7 @@ QString ApiHandler::checkExistElement(int instanceId, QString cssSelectorsOrXpat
         QString status = response["status"].toString();
         if (status == "success")
         {
-            return response["is_exist"].toString();
+            return QString::number(response["is_exist"].toInt());
         }
         else if (status == "error")
         {
@@ -365,6 +367,8 @@ QString ApiHandler::checkExistElements(int instanceId, double timeOut, const QSt
         QString status = response["status"].toString();
         if (status == "success")
         {
+            auto check =QString::number(response["is_exist"].toInt());
+
             return response["is_exist"].toString();
         }
         else if (status == "error")
@@ -764,4 +768,121 @@ QString ApiHandler::Refresh(int instanceId){
         }
     }
     return "Unexpected response format";
+}
+
+bool ApiHandler::sendKeysWithSpeed(int instanceId,QString elementSelector, QString text, double speed, bool click_before, double click_delay){
+    QJsonObject jsonObject;
+    jsonObject["element_selector"] = elementSelector;
+    jsonObject["text"] = text;
+    jsonObject["speed"] = speed;
+    jsonObject["click_before"] = click_before;
+    jsonObject["click_delay"] = click_delay;
+    auto response = sendRequest(QString("/send_keys_with_speed_new/%1").arg(instanceId), jsonObject);
+    if (response.contains("status"))
+    {
+        QString status = response["status"].toString();
+        if (status == "success")
+        {
+            return true;
+        }
+        else if (status == "error")
+        {
+            return false;
+        }
+    }
+    return "Unexpected response format";
+}
+
+bool ApiHandler::Clear(int instanceId,QString elementSelector){
+    QJsonObject jsonObject;
+    jsonObject["element_selector"] = elementSelector;
+    auto response = sendRequest(QString("/clear/%1").arg(instanceId), jsonObject);
+    if (response.contains("status"))
+    {
+        QString status = response["status"].toString();
+        if (status == "success")
+        {
+            return true;
+        }
+        else if (status == "error")
+        {
+            return false;
+        }
+    }
+    return "Unexpected response format";
+}
+
+bool ApiHandler::SendKeys(int instanceId,QString csselectorsOrXPath, QString keys){
+    QJsonObject jsonObject;
+    jsonObject["css_selectors_or_xpath"] = csselectorsOrXPath;
+    jsonObject["keys"] = keys;
+    auto response = sendRequest(QString("/send_keys4/%1").arg(instanceId), jsonObject);
+    if (response.contains("status"))
+    {
+        QString status = response["status"].toString();
+        if (status == "success")
+        {
+            return true;
+        }
+        else if (status == "error")
+        {
+            return false;
+        }
+    }
+    return "Unexpected response format";
+}
+
+QString ApiHandler::ClearText(int instanceId){
+    auto response = sendRequest(QString("/clear_text/%1").arg(instanceId));
+    if (response.contains("status"))
+    {
+        QString status = response["status"].toString();
+        if (status == "success")
+        {
+            return status;
+        }
+        else if (status == "error")
+        {
+            return response["message"].toString();
+        }
+    }
+    return "Unexpected response format";
+}
+
+QString ApiHandler::SetSize(int instanceId, int width, int height){
+    QJsonObject jsonObject;
+    jsonObject["width"] = width;
+    jsonObject["height"] = height;
+    auto response = sendRequest(QString("/set_size/%1").arg(instanceId));
+    if (response.contains("status"))
+    {
+        QString status = response["status"].toString();
+        if (status == "success")
+        {
+            return status;
+        }
+        else if (status == "error")
+        {
+            return response["message"].toString();
+        }
+    }
+    return "Unexpected response format";
+}
+
+bool ApiHandler::switch_to_alert_accept(int instanceId){
+    auto response = sendRequest(QString("/switch_to_alert_accept/%1").arg(instanceId));
+    if (response.contains("status"))
+    {
+        QString status = response["status"].toString();
+        if (status == "success")
+        {
+            return true;
+        }
+        else if (status == "error")
+        {
+            return false;
+        }
+    }else{
+        return false;
+    }
 }

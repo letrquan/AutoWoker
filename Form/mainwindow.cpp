@@ -40,6 +40,8 @@
 #include "../maxcare/interactsql.h"
 #include "../MCommon/account.h"
 #include "../MCommon/chrome.h"
+#include "../maxcare/Enum/GetContentStatusChrome.h"
+#include <QDateTime>
 MainWindow::MainWindow(QString tokemem, QString namemem, QString phoneMem, QString maxDeviceMem,QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
@@ -65,7 +67,7 @@ MainWindow::MainWindow(QString tokemem, QString namemem, QString phoneMem, QStri
     ui->tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     ui->tableView->installEventFilter(this);
     connect(this, &MainWindow::updateCellAccount, this, &MainWindow::SetCellAccount, Qt::QueuedConnection);
-    connect(this, &MainWindow::updateStatusAccount, this, &MainWindow::SetStatusAccount, Qt::QueuedConnection);
+    connect(this, &MainWindow::updateStatusAccount, this,static_cast<void (MainWindow::*)(int, QString, int)>(&MainWindow::SetStatusAccount), Qt::QueuedConnection);
     connect(this, &MainWindow::updateInfoAccount, this, &MainWindow::SetInfoAccount, Qt::QueuedConnection);
     connect(this, &MainWindow::updateRowColor2, this, static_cast<void (MainWindow::*)(int, int)>(&MainWindow::SetRowColor), Qt::QueuedConnection);
     connect(this, &MainWindow::updateRowColor, this, static_cast<void (MainWindow::*)(int)>(&MainWindow::SetRowColor), Qt::QueuedConnection);
@@ -445,8 +447,8 @@ void MainWindow::on_button9_clicked()
         if(ui->cbbThuMuc->currentData() != NULL){
             text = ui->cbbThuMuc->currentData().toString();
         }
-        fImportAccount* fImportAccount2 = new fImportAccount(text);
-        Common::ShowForm(fImportAccount2);
+        QSharedPointer<fImportAccount> fImportAccount2(new fImportAccount(text));
+        Common::ShowForm(fImportAccount2.data());
         if(fImportAccount2->isAddAccount || fImportAccount2->isAddFile){
             LoadCbbThuMuc();
             indexCbbThuMucOld=-1;
@@ -810,7 +812,7 @@ void MainWindow::CheckMyToken(int row){
 }
 
 
-void MainWindow::CheckMyWall(int row, QString tokenTg){
+void MainWindow::CheckMyWall(int row, QString tokenTg) {
     try {
         GetCellAccount(row, "Id");
         QString cellAccount = GetCellAccount(row, "Uid");
@@ -835,12 +837,13 @@ void MainWindow::CheckMyWall(int row, QString tokenTg){
         if (text != "") {
             emit updateInfoAccount(row, text);
         }
-    }catch (const std::exception& e) {
+    } catch (const std::exception& e) {
         qDebug() << "Exception in CheckMyWall:" << e.what();
     } catch (...) {
         emit updateStatusAccount(row, Language::GetValue("Không check đươ\u0323c!"));
     }
 }
+
 void MainWindow::SetInfoAccount(int indexRow, QString value){
     DatagridviewHelper::SetStatusDataGridView(ui->tableView, indexRow, "Tình Trạng", value);
     emit updateRowColor(indexRow);
@@ -1127,7 +1130,7 @@ void MainWindow::on_btnInteract_clicked()
 {
     try
     {
-        if (ui->btnInteract->styleSheet().contains("stop-button.png"))
+        if (ui->btnInteract->text() == "Dừng tương tác")
         {
             isStop = true;
             ui->btnInteract->setEnabled(false);
@@ -1216,7 +1219,7 @@ void MainWindow::Execute(const JSON_Settings &settings){
                                             emit updateStatusAccount(num19, Language::GetValue("Đang xóa Cache Profile..."));
                                             DeleteCacheProfile(num19);
                                         });
-                                        
+
                                     }
                                     num19++;
                                 }
@@ -1296,12 +1299,12 @@ void MainWindow::Execute(const JSON_Settings &settings){
                                         if(isStop){
                                             break;
                                         }
-                                        if(QThreadPool::globalInstance()->activeThreadCount()< maxThread){
+                                        if(lstThread.count() < maxThread){
                                             if (isStop)
                                             {
                                                 break;
                                             }
-                                            QFuture<void> thread6 = QtConcurrent::run([this, lstPossition, idKichBan, settings, num13] () mutable {
+                                            QFuture<void> thread6 = QtConcurrent::run([this, &lstPossition, idKichBan, settings, num13] () mutable {
                                                 int indexOfPossitionApp2;
                                                 {
                                                     QMutexLocker locker(&mutex);
@@ -1515,6 +1518,16 @@ void MainWindow::ExcuteOneThread(int indexRow, int indexPos, QString idKichBan, 
                         QString value = "Get Token fail!";
                         QString pathProfile = SettingsTool::GetPathProfile();
                         QString text7 = "";
+                        QVariantList dataTable = *InteractSQL::GetAllHanhDongByKichBan(idKichBan);
+                        QString text12 = "";
+                        QString text13 = "";
+                        QVariantList dataTable2;
+                        JSON_Settings jSON_Settings(InteractSQL::GetCauHinhFromKichBan(idKichBan), true);
+                        int valueInt = jSON_Settings.GetValueInt("typeSoLuongHanhDong");
+                        int valueInt2 = jSON_Settings.GetValueInt("nudHanhDongFrom");
+                        int valueInt3 = jSON_Settings.GetValueInt("nudHanhDongTo");
+                        int num9 = dataTable.count();
+                        int num10 = 0;
                         QDir dir(text7);
                         QString text10;
                         if (settings.GetValueBool("Unlock282"))
@@ -1563,7 +1576,7 @@ void MainWindow::ExcuteOneThread(int indexRow, int indexPos, QString idKichBan, 
                                         }
                                         emit updateStatusAccount(indexRow, statusProxy + Language::GetValue("Đã dừng!"));
                                         num2 = 1;
-                                        // goto end_IL_0482;
+                                        goto end_IL_0482;
                                     }
                                 }
                             }else
@@ -1663,31 +1676,92 @@ void MainWindow::ExcuteOneThread(int indexRow, int indexPos, QString idKichBan, 
                                         }
                                     }
                                     if (settings.GetValueBool("RecoverPass")){
-                                        // chrome->GotoURL(text10);
-                                        // bool flag6 = false;
-                                        // int num8 = 0;
-                                        // while (true){
-                                        //     if (num8 < 60)
-                                        //     {
-                                        //         if (chrome->CheckExistElement("[name=\"password_new\"]") == 1)
-                                        //         {
-                                        //             flag6 = true;
-                                        //         }
-                                        //         else if (chrome->CheckExistElement("[href*=\"/login/identify/?ctx=recover\"]") != 1)
-                                        //         {
-                                        //             if (CommonChrome.CheckCheckpoint(chrome))
-                                        //             {
-                                        //                 SetStatusAccount(indexRow, "Checkpoint!");
-                                        //                 SetInfoAccount(indexRow, "Checkpoint");
-                                        //                 num2 = 1;
-                                        //                 break;
-                                        //             }
-                                        //             chrome->DelayTime(1.0);
-                                        //             num8++;
-                                        //             continue;
-                                        //         }
-                                        //     }
-                                        // }
+                                        chrome->GotoURL(text10);
+                                        bool flag6 = false;
+                                        int num8 = 0;
+                                        while (true)
+                                        {
+                                            // if (num8 < 60)
+                                            // {
+                                            //     if (chrome->CheckExistElement("[name=\"password_new\"]") == 1)
+                                            //     {
+                                            //         flag6 = true;
+                                            //     }
+                                            //     else if (chrome->CheckExistElement("[href*=\"/login/identify/?ctx=recover\"]") != 1)
+                                            //     {
+                                            //         if (CommonChrome.CheckCheckpoint(chrome))
+                                            //         {
+                                            //             SetStatusAccount(indexRow, "Checkpoint!");
+                                            //             SetInfoAccount(indexRow, "Checkpoint");
+                                            //             num2 = 1;
+                                            //             break;
+                                            //         }
+                                            //         chrome->DelayTime(1.0);
+                                            //         num8++;
+                                            //         continue;
+                                            //     }
+                                            // }
+                                            if (flag6)
+                                            {
+                                                // flag6 = false;
+                                                // chrome->DelayTime(2.0);
+                                                // QString passwordRecoverPass = GetPasswordRecoverPass();
+                                                // chrome->sendKeys(4, "[name=\"password_new\"]", passwordRecoverPass);
+                                                // chrome->DelayRandom(2, 3);
+                                                // chrome->sendEnter("[name=\"password_new\"]");
+                                                // SetCellAccount(cellAccount, "pass", indexRow, "cPassword", passwordRecoverPass);
+                                                // for (int i = 0; i < 60; i++)
+                                                // {
+                                                //     if (chrome->CheckExistElement("[name=\"approvals_code\"]") == 1)
+                                                //     {
+                                                //         flag6 = true;
+                                                //         break;
+                                                //     }
+                                                //     if (chrome->CheckExistElement("[name=\"submit[Continue]\"]") == 1)
+                                                //     {
+                                                //         chrome.Click(4, "[name=\"submit[Continue]\"]");
+
+                                                //     }
+                                                //     if (chrome.CheckExistElement("[name=\"submit_action\"]") == 1)
+                                                //     {
+                                                //         chrome.DelayRandom(2, 3);
+                                                //         chrome.Click(4, "[name=\"submit_action\"]");
+                                                //         if (chrome.CheckExistElement("[value=\"OK\"]", 10.0) == 1)
+                                                //         {
+                                                //             chrome.DelayRandom(2, 3);
+                                                //             chrome.Click(4, "[value=\"OK\"]");
+                                                //         }
+                                                //         flag6 = true;
+                                                //         break;
+                                                //     }
+                                                //     if (chrome.CheckExistElement("[data-sigil=\"m_login_email\"]") == 1)
+                                                //     {
+                                                //         break;
+                                                //     }
+                                                //     if (CommonChrome.CheckCheckpoint(chrome))
+                                                //     {
+                                                //         SetInfoAccount(indexRow, "Checkpoint");
+                                                //         flag6 = true;
+                                                //         break;
+                                                //     }
+                                                //     chrome.DelayTime(1.0);
+                                                // }
+                                            }
+                                            if (flag6)
+                                            {
+                                                SetInfoAccount(indexRow, "Live");
+                                                SetRowColor(indexRow, 2);
+                                                SetStatusAccount(indexRow, statusProxy + "Khôi phục mật khẩu thành công!");
+                                            }
+                                            else
+                                            {
+                                                SetRowColor(indexRow, 1);
+                                                SetStatusAccount(indexRow, statusProxy + "Khôi phục mật khẩu thất bại!");
+                                            }
+                                            num2 = 1;
+                                            break;
+                                        }
+                                        break;
                                     }
                                     emit updateStatusAccount(indexRow, statusProxy + Language::GetValue("Đang đăng nhâ\u0323p..."));
                                     bool flag7 = false;
@@ -1720,7 +1794,43 @@ void MainWindow::ExcuteOneThread(int indexRow, int indexPos, QString idKichBan, 
                                     }
                                     bool flag8 = false;
                                     if (text7.trimmed() != ""){
-                                        
+                                        chrome->AcceptCookie();
+                                        num = CommonChrome::CheckLiveCookie(chrome, text11);
+                                        switch (num)
+                                        {
+                                        case 1:
+                                            flag7 = true;
+                                            goto IL_1322;
+                                        case -2:
+                                            chrome->Status = StatusChromeAccount::ChromeClosed;
+                                            goto end_IL_0d65;
+                                        case -3:
+                                            chrome->Status = StatusChromeAccount::NoInternet;
+                                            goto end_IL_0d65;
+                                        case 2:
+                                            break;
+                                        default:
+                                            goto IL_1322;
+                                        }
+                                        chrome->Status = StatusChromeAccount::Checkpoint;
+                                        flag = !CheckIsUidFacebook(text3);
+                                        if (flag)
+                                        {
+                                            text = text3;
+                                            text3 = chrome->GetUid();
+                                            SetCellAccount(indexRow, "cUid", text3, "uid");
+                                        }
+                                        if (settings.GetValueBool("Unlock956"))
+                                        {
+                                            flag8 = true;
+                                            goto IL_17a9;
+                                        }
+                                        if (!CheckDangCheckpointNew(chrome, indexRow, statusProxy))
+                                        {
+                                            num2 = 1;
+                                            break;
+                                        }
+                                        flag7 = true;
                                     }
                                     goto IL_1322;
                                 IL_17a9:
@@ -1729,8 +1839,115 @@ void MainWindow::ExcuteOneThread(int indexRow, int indexPos, QString idKichBan, 
                                         {
                                             chrome->Status = StatusChromeAccount::Empty;
                                             CheckDangCheckpointNew(chrome, indexRow, statusProxy, settings.GetValueBool("Unlock956"), settings.GetValueInt("TypeUnlock956"));
+                                        }else if(flag7){
+                                            emit updateStatusAccount(indexRow, statusProxy + Language::GetValue("Đăng nhâ\u0323p tha\u0300nh công!"));
+                                            emit updateRowColor2(indexRow, 2);
+                                            emit updateInfoAccount(indexRow, "Live");
+                                        }
+                                        if (SettingsTool::GetSettings("configInteractGeneral").GetValueBool("ckbGetCookie") || text4 == "")
+                                        {
+                                            text4 = chrome->GetCookie();
+                                            if (text4 != "")
+                                            {
+                                                emit updateCellAccount(indexRow, "Cookies", text4, "cookie1");
+                                            }
+                                        }
+                                        num2 = 1;
+                                        break;
+                                    }
+                                    emit updateInfoAccount(indexRow, "Live");
+                                    emit updateStatusAccount(indexRow, statusProxy + Language::GetValue("Đăng nhâ\u0323p tha\u0300nh công!"));
+                                    emit updateRowColor2(indexRow, 2);
+                                    chrome->AcceptCookie();
+                                    if (chrome->GetUrl().startsWith("https://m.facebook.com/si/actor_experience/actor_gateway") && chrome->CheckExistElement("[data-nt=\"NT:IMAGE\"]", 15.0) == 1)
+                                    {
+                                        chrome->ClickJs("[data-nt=\"NT:IMAGE\"]");
+                                        chrome->DelayTime(2.0);
+                                    }
+                                    if (chrome->CheckExistElement("[data-cookiebanner=\"accept_button\"]") == 1)
+                                    {
+                                        chrome->ClickJs("[data-cookiebanner=\"accept_button\"]");
+                                    }
+                                    if (chrome->GetFbWeb() == 2)
+                                    {
+                                        chrome->ClickJs(0, QStringList{"[href^=\"/a/preferences.php?fast_switch_site\"]"});
+                                    }
+                                    if (chrome->GetUrl().startsWith("https://free.facebook.com/") || chrome->CheckExistElement("[href^=\"/upsell/advanced_upsell/in_line\"]") == 1)
+                                    {
+                                        chrome->ClickJs(0, QStringList{"[href^=\"/upsell/advanced_upsell/in_line\"]"});
+                                        chrome->ClickJs(5, QStringList{"#upsell_upgrade_confirm_button"});
+                                    }
+                                    flag = !CheckIsUidFacebook(text3);
+                                    if (flag)
+                                    {
+                                        text = text3;
+                                        text3 = chrome->GetUid();
+                                        Common::UpdateFieldToAccount(cellAccount, "uid", text3);
+                                        emit updateCellAccount(indexRow, "Uid", text3);
+                                    }
+                                    if (SettingsTool::GetSettings("configInteractGeneral").GetValueBool("ckbGetCookie") || text4 == "")
+                                    {
+                                        text4 = chrome->GetCookie();
+                                        if (text4 != "")
+                                        {
+                                            emit updateCellAccount(indexRow, "Cookies", text4, "cookie1");
                                         }
                                     }
+                                    if (SettingsTool::GetSettings("configInteractGeneral").GetValueBool("ckbRandomHanhDong"))
+                                    {
+                                        dataTable = Common::shuffleVariantList(dataTable);
+                                        dataTable = Common::shuffleVariantList(dataTable);
+                                        dataTable = Common::shuffleVariantList(dataTable);
+                                    }
+                                    if (valueInt == 1 && valueInt2 <= valueInt3)
+                                    {
+                                        num9 = QRandomGenerator::global()->bounded(valueInt2, valueInt3 + 1);
+                                        if (num9 > dataTable.count())
+                                        {
+                                            num9 = dataTable.count();
+                                        }
+                                    }
+                                    while(true){
+                                        if (num10 < num9){
+                                            if (isStop)
+                                            {
+                                                emit updateStatusAccount(indexRow, statusProxy + Language::GetValue("Đã dừng!"));
+                                                num2 = 1;
+                                                break;
+                                            }
+                                        }
+                                        try {
+                                            text13 = dataTable[num10].toMap()["TenHanhDong"].toString();
+                                            text12 = dataTable[num10].toMap()["Id_HanhDong"].toString();
+                                            emit updateStatusAccount(indexRow, statusProxy + Language::GetValue("Đang") + " " + text13 + "...");
+                                            dataTable2 = *InteractSQL::GetHanhDongById(text12);
+                                            JSON_Settings jSON_Settings2(dataTable2[0].toMap()["CauHinh"].toString(), true);
+                                            // try {
+                                            //     auto tenTuongTac = dataTable2[0].toMap()["TenTuongTac"].toString();
+                                            //     if (tenTuongTac == "HDXoaNhatKyHoatDong") {
+                                            //         num = HDXoaNhatKyHoatDong(indexRow, statusProxy, chrome, jSON_Settings2);
+                                            //     } else if (tenTuongTac == "HDTaoPage") {
+                                            //         num = HDTaoPage_Fix(text177, indexRow, statusProxy, chrome, jSON_Settings2, text13, text12);
+                                            //     } else if (tenTuongTac == "HDDocThongBao") {
+                                            //         num = HDDocThongBao(indexRow, statusProxy, chrome, jSON_Settings2.GetValueInt("nudSoLuongFrom"), jSON_Settings2.GetValueInt("nudSoLuongTo"), jSON_Settings2.GetValueInt("typeDocThongBao"), jSON_Settings2.GetValueInt("nudDelayFrom"), jSON_Settings2.GetValueInt("nudDelayTo"), text13);
+                                            //     } else if (tenTuongTac == "HDDocThongBaov2") {
+                                            //         num = HDDocThongBaov2(indexRow, statusProxy, chrome, jSON_Settings2.GetValueInt("nudSoLuongFrom"), jSON_Settings2.GetValueInt("nudSoLuongTo"), jSON_Settings2.GetValueInt("nudDelayFrom"), jSON_Settings2.GetValueInt("nudDelayTo"), text13);
+                                            //     } else if (tenTuongTac == "HDXemStory") {
+                                            //         num = HDXemStory(indexRow, statusProxy, chrome, jSON_Settings2.GetValueInt("nudSoLuongFrom"), jSON_Settings2.GetValueInt("nudSoLuongTo"), jSON_Settings2.GetValueInt("nudDelayFrom"), jSON_Settings2.GetValueInt("nudDelayTo"), jSON_Settings2.GetValueBool("ckbInteract"), jSON_Settings2.GetValue("typeReaction"), jSON_Settings2.GetValueBool("ckbComment"), jSON_Settings2.GetValueList("txtComment"), text13);
+                                            //     } else if (tenTuongTac == "HDXemStoryv2") {
+                                            //         num = HDXemStoryv2(indexRow, statusProxy, chrome, jSON_Settings2.GetValueInt("nudSoLuongFrom"), jSON_Settings2.GetValueInt("nudSoLuongTo"), jSON_Settings2.GetValueInt("nudDelayFrom"), jSON_Settings2.GetValueInt("nudDelayTo"), jSON_Settings2.GetValueBool("ckbInteract").toBool(), jSON_Settings2.GetValue("typeReaction"), jSON_Settings2.GetValueBool("ckbComment"), jSON_Settings2.GetValueList("txtComment"), text13);
+                                            //     } else if (tenTuongTac == "HDXemStoryChiDinh") {
+                                            //         num = HDXemStoryChiDinh(indexRow, statusProxy, chrome, jSON_Settings2, text13);
+                                            //     } else if (tenTuongTac == "HDDangStory") {
+                                            //         num = HDDangStory(indexRow, statusProxy, chrome, jSON_Settings2, text13);
+                                            //     } else if (tenTuongTac == "HDXemWatch") {
+                                            //         num = HDXemWatch(indexRow, statusProxy, chrome, jSON_Settings2.GetValueInt("nudSoLuongFrom"), jSON_Settings2.GetValueInt("nudSoLuongTo"), jSON_Settings2.GetValueInt("nudTimeWatchFrom"), jSON_Settings2.GetValueInt("nudTimeWatchTo"), jSON_Settings2.GetValueBool("ckbInteract"), jSON_Settings2.GetValueInt("nudCountLikeFrom"), jSON_Settings2.GetValueInt("nudCountLikeTo"), jSON_Settings2.GetValueBool("ckbShareWall"), jSON_Settings2.GetValueInt("nudCountShareFrom"), jSON_Settings2.GetValueInt("nudCountShareTo"), jSON_Settings2.GetValueBool("ckbComment"), jSON_Settings2.GetValueList("txtComment"), jSON_Settings2.GetValueInt("nudCountCommentFrom"), jSON_Settings2.GetValueInt("nudCountCommentTo"), jSON_Settings2.GetValueBool("ckbFollow"), jSON_Settings2.GetValueInt("nudFollowFrom"), jSON_Settings2.GetValueInt("nudFollowTo"), text13);
+                                            // } catch (...) {
+                                            // }
+                                        } catch (...) {
+                                        }
+                                    }
+                                    break;
                                 IL_1322:
                                     if (!flag7) {
                                         int num11 = SettingsTool::GetSettings("configInteractGeneral").GetValueInt("typeLogin");
@@ -1749,7 +1966,7 @@ void MainWindow::ExcuteOneThread(int indexRow, int indexPos, QString idKichBan, 
                                                 break;
                                             }
 
-                                            text14 = LoginFacebook(chrome, num11, text11, text3, cellAccount2, cellAccount5, cellAccount4, text4,
+                                            text14 = LoginFacebook(chrome, num11, "https://mobile.facebook.com/", text3, cellAccount2, cellAccount5, cellAccount4, text4,
                                                                    SettingsTool::GetSettings("configGeneral").GetValueInt("tocDoGoVanBan"),
                                                                    SettingsTool::GetSettings("configInteractGeneral").GetValueBool("ckbDontSaveBrowser"),
                                                                    SettingsTool::GetSettings("configGeneral").GetValueInt("type2Fa"),
@@ -1780,7 +1997,7 @@ void MainWindow::ExcuteOneThread(int indexRow, int indexPos, QString idKichBan, 
                                                 text = text3;
                                                 text3 = chrome->GetUid();
                                                 Common::UpdateFieldToAccount(cellAccount, "uid", text3);
-                                                emit updateCellAccount(indexRow, "cUid", text3);
+                                                emit updateCellAccount(indexRow, "Uid", text3);
                                             }
                                             if (settings.GetValueBool("Unlock956")) {
                                                 flag8 = true;
@@ -1811,7 +2028,7 @@ void MainWindow::ExcuteOneThread(int indexRow, int indexPos, QString idKichBan, 
                                             if (SettingsTool::GetSettings("configInteractGeneral").GetValueBool("ckbGetCookie") || text4.isEmpty()) {
                                                 text4 = chrome->GetCookie();
                                                 if (!text4.isEmpty()) {
-                                                    emit updateCellAccount(indexRow, "cCookies", text4, "cookie1");
+                                                    emit updateCellAccount(indexRow, "Cookies", text4, "cookie1");
                                                 }
                                             }
                                             emit updateStatusAccount(indexRow, statusProxy + Language::GetValue("Account Novery!"));
@@ -1865,24 +2082,22 @@ void MainWindow::ExcuteOneThread(int indexRow, int indexPos, QString idKichBan, 
                                 QString value3 = "Up Avatar fail!";
                                 if (text5.trimmed() != "")
                                 {
-                                    RequestHandle* requestXNet = new RequestHandle("", "", proxy, typeProxy);
+                                    std::unique_ptr<RequestHandle> requestXNet = std::make_unique<RequestHandle>("", "", proxy, typeProxy);
                                     QString text16 = "";
-                                    try
-                                    {
-                                        text16 = requestXNet->RequestPost("https://graph.facebook.com/me/photos?access_token=" + text5, "url=" + (new RequestHandle("", "", "", 0))->RequestGet("https://download.minsoftware.vn/photos/"));
-                                        if (text16 != "")
-                                        {
+                                    try {
+                                        text16 = requestXNet->RequestPost("https://graph.facebook.com/me/photos?access_token=" + text5,
+                                                                          "url=" + RequestHandle("", "", "", 0).RequestGet("https://download.minsoftware.vn/photos/"));
+                                        if (!text16.isEmpty()) {
                                             QString text17 = Utils::parseJsonString(text16)["id"].toString();
-                                            text16 = requestXNet->RequestPost("https://graph.facebook.com/me/picture?access_token=" + text5, "focus_y=0.49902534&focus_x=0.5&photo=" + text17 + "&no_feed_story=false&locale=en_US&client_country_code=VN&fb_api_req_friendly_name=set_cover_photo&fb_api_caller_class=SetCoverPhotoHandlerImpl");
-                                            if (text16 != "")
-                                            {
+                                            text16 = requestXNet->RequestPost("https://graph.facebook.com/me/picture?access_token=" + text5,
+                                                                              "focus_y=0.49902534&focus_x=0.5&photo=" + text17 + "&no_feed_story=false&locale=en_US&client_country_code=VN&fb_api_req_friendly_name=set_cover_photo&fb_api_caller_class=SetCoverPhotoHandlerImpl");
+                                            if (!text16.isEmpty()) {
                                                 value3 = "Up Avatar Success!";
                                             }
                                         }
-                                    }
-                                    catch (QException)
-                                    {
-                                        // text16 = requestXNet.request.Response.ToString();
+                                    } catch (const QException& e) {
+                                        // Handle the exception properly
+                                        qDebug() << "Exception caught: " << e.what();
                                     }
                                 }
                                 emit updateStatusAccount(indexRow, value3);
@@ -1960,13 +2175,359 @@ void MainWindow::ExcuteOneThread(int indexRow, int indexPos, QString idKichBan, 
         goto IL_5233;
     IL_5233:
         QString text18 = "";
-    } catch (...) {
+        if(num2 == 1){
+            if(chrome != nullptr){
+                if(chrome->Status == StatusChromeAccount::Checkpoint){
+                    ScreenCaptureError(chrome,text3, 0);
+                }
+                StatusChromeAccount status = chrome->Status;
+                if (status == StatusChromeAccount::ChromeClosed || status == StatusChromeAccount::Checkpoint || status == StatusChromeAccount::NoInternet)
+                {
+                    SetRowColor(indexRow, 1);
+                    text18 = GetContentStatusChrome::GetContent(chrome->Status);
+                }
+                else
+                {
+                    text18 = GetStatusAccount(indexRow);
+                }
+            }else{
+                text18 = GetStatusAccount(indexRow);
+            }
+        }else if (CheckIsUidFacebook(text3) && CommonRequest::CheckLiveWall(text3).startsWith("0|"))
+        {
+            SetInfoAccount(indexRow, "Die");
+            text18 = Language::GetValue("Tài khoản Die!");
+        }else{
+            chrome->Status = StatusChromeAccount::Empty;
+            CommonChrome::CheckStatusAccount(chrome, true);
+            StatusChromeAccount status = chrome->Status;
+            if (status == StatusChromeAccount::ChromeClosed || status == StatusChromeAccount::Checkpoint || status == StatusChromeAccount::NoInternet)
+            {
+                SetRowColor(indexRow, 1);
+                text18 = GetContentStatusChrome::GetContent(chrome->Status);
+            }
+        }
+        try
+        {
+            if (chrome != nullptr)
+            {
+                if (!chrome->CheckChromeClose() && SettingsTool::GetSettings("configGeneral").GetValueBool("ckbDelayCloseChrome"))
+                {
+                    int timeWait = QRandomGenerator::global()->bounded(SettingsTool::GetSettings("configGeneral").GetValueInt("nudDelayCloseChromeFrom"), SettingsTool::GetSettings("configGeneral").GetValueInt("nudDelayCloseChromeTo") + 1);
+                    SetStatusAccount(indexRow, statusProxy + "Đóng tri\u0300nh duyê\u0323t sau {time}s...", timeWait);
+                }
+                CloseChrome(indexRow, statusProxy, chrome);
+            }
+        }
+        catch(...)
+        {
+        }
+        QString text19 = "";
+        if (check_HDNhanTinBanBe != "")
+        {
+            text19 = text19 + "- " + check_HDNhanTinBanBe;
+        }
+        if (check_HDKetBanTepUid != "")
+        {
+            text19 = text19 + "- " + check_HDKetBanTepUid;
+        }
+        if (check_HDKetBanGoiY != "")
+        {
+            text19 = text19 + "- " + Language::GetValue("Gợi ý Kb: ") + check_HDKetBanGoiY;
+        }
+        if (check_HDXoaSdt != "")
+        {
+            text19 = text19 + "- " + Language::GetValue("Xóa Sđt: ") + check_HDXoaSdt;
+        }
+        if (check_HDAddMail != "")
+        {
+            text19 = text19 + "- Add mail: " + check_HDAddMail;
+        }
+        if (check_HDXoaMail != "")
+        {
+            text19 = text19 + "- Xóa mail: " + check_HDXoaMail;
+        }
+        if (check_HDDoiMatKhau != "")
+        {
+            text19 = text19 + "- Đổi pass: " + check_HDDoiMatKhau;
+        }
+        if (check_HDDoiTen != "")
+        {
+            text19 = text19 + "- Đổi tên: " + check_HDDoiTen;
+        }
+        if (check_HDUpAvatar != "")
+        {
+            text19 = text19 + "- Up avatar: " + check_HDUpAvatar;
+        }
+        if (check_HDUpCover != "")
+        {
+            text19 = text19 + "- Up cover: " + check_HDUpCover;
+        }
+        if (check_HDOnOff2FA != "")
+        {
+            text19 = text19 + "- 2FA: " + check_HDOnOff2FA;
+        }
+        if (text18 == "")
+        {
+            QString text20 = "";
+            switch (num4)
+            {
+            case 1:
+                text20 += " -Like page success!";
+                break;
+            case 2:
+                text20 += " -Like page fail!";
+                break;
+            }
+            switch (num3)
+            {
+            case 1:
+                text20 += " -Follow success!";
+                break;
+            case 2:
+                text20 += " -Follow fail!";
+                break;
+            }
+            SetStatusAccount(indexRow, statusProxy + Language::GetValue("Đã tương tác xong!") + (flag2 ? "- Facebook blocked!" : "") + (flag3 ? "- Facebook spam!" : "") + text20 + ((text2 != "") ? ("- " + text2) : "") + text19 + " [" /*+ account.GetTimeRun()*/ + "(s)]");
+            SetCellAccount(indexRow, "cInteractEnd", QDateTime::currentDateTime().toString("dd/MM/yyyy HH:mm:ss"), "interactEnd");
+            if (GetInfoAccount(indexRow) != "Changed pass")
+            {
+                SetInfoAccount(indexRow, "Live");
+            }
+        }
+        else
+        {
+            SetStatusAccount(indexRow, statusProxy + text18 + (flag2 ? "- Facebook blocked!" : ""));
+        }
+        if (flag && QFileInfo::exists(SettingsTool::GetSettings("configGeneral").GetValue("txbPathProfile") + "\\" + text) && QFileInfo(SettingsTool::GetSettings("configGeneral").GetValue("txbPathProfile") + "\\" + text).isDir() && text != "")
+        {
+            QString text21 = SettingsTool::GetSettings("configGeneral").GetValue("txbPathProfile") + "\\" + text;
+            QString pathTo = SettingsTool::GetSettings("configGeneral").GetValue("txbPathProfile") + "\\" + text3;
+            if (!Common::moveFolder(text21, pathTo) && Common::copyFolder(text21, pathTo))
+            {
+                Common::deleteFolder(text21);
+            }
+        }
+        FinishProxy(tinsoft, xproxy, tmproxy, proxyWeb, shopLike, minProxy, obcProxy);
+    } catch (QException ex6) {
+        QString exceptionString = QString::fromLatin1(ex6.what());
+        if (QString::fromLatin1(ex6.what()).contains("Thread was being aborted."))
+        {
+            try
+            {
+                CloseChrome(indexRow, statusProxy, chrome);
+                emit updateStatusAccount(indexRow, statusProxy + Language::GetValue("Đã tương tác xong!") + (flag2 ? "- Facebook blocked!" : "") + " [" + account->getTimeRun() + "(s)]");
+                emit updateCellAccount(indexRow, "cInteractEnd", QDateTime::currentDateTime().toString("dd/MM/yyyy HH:mm:ss"));
+                Common::UpdateFieldToAccount(cellAccount, "interactEnd", QDateTime::currentDateTime().toString("dd/MM/yyyy HH:mm:ss"));
+                FinishProxy(tinsoft, xproxy, tmproxy, proxyWeb, shopLike, minProxy, obcProxy);
+                return;
+            }
+            catch (QException ex)
+            {
+                return;
+            }
+        }
     }
 }
 
-// QString MainWindow::GetOtpFromEmail(int type, QString mail, QString passMail, int timeout, QString uid){
+int MainWindow::HDXoaNhatKyHoatDong(int indexRow, const QString& statusProxy, Chrome& chrome, JSON_Settings& cauHinh) {
+    int num = cauHinh.GetValueInt("nudSoLuong");
+    try {
+        QString format = "https://m.facebook.com/%1/allactivity/?category_key=all&timestart=%2&timeend=%3";
+        QString arg = chrome.ExecuteScript("return (document.cookie + ';').match(new RegExp('c_user=(.*?);'))[1]");
+        QString text, text2, text3;
+        int i = 0;
+        if (cauHinh.GetValueBool("ckbXoaThangNay")) {
+            i = -1;
+            num--;
+        }
+        for (; i < num; i++) {
+            QList<QString> list;
+            QDateTime dateTime = QDateTime::currentDateTime().addMonths(-1 - i);
+            QDateTime dateTime2 = QDateTime::currentDateTime().addMonths(-i);
 
-// }
+            // Corrected QDateTime construction
+            QDateTime startOfMonth = QDateTime(QDate(dateTime.date().year(), dateTime.date().month(), 1), QTime(0, 0));
+            QDateTime startOfNextMonth = QDateTime(QDate(dateTime2.date().year(), dateTime2.date().month(), 1), QTime(0, 0));
+
+            text = QString::number(Common::ConvertDatetimeToTimestamp(startOfMonth));
+            text2 = QString::number(Common::ConvertDatetimeToTimestamp(startOfNextMonth));
+            text3 = format.arg(arg).arg(text).arg(text2);
+            chrome.GotoURL(text3);
+            chrome.DelayTime(1.0);
+            if (chrome.CheckExistElement("[href*=\"allactivity/?category_key=trash\"]", 30.0) != 1) {
+                continue;
+            }
+            SetStatusAccount(indexRow, statusProxy + tr("Đang lấy link xóa tháng %1...").arg(dateTime.date().month()));
+            if (chrome.CheckExistElement(QString("[id*=\"month_%1_%2_more\"]").arg(dateTime.date().year()).arg(dateTime.date().month()), 5.0) != 1) {
+                continue;
+            }
+            for (int j = 0; j < 5; j++) {
+                if (chrome.CheckExistElement(QString("[id*=\"month_%1_%2_more\"]").arg(dateTime.date().year()).arg(dateTime.date().month()), 5.0) != 1) {
+                    break;
+                }
+                chrome.ScrollSmoothv2(QString("document.querySelector('[id*=\"month_%1_%2_more\"]')").arg(dateTime.date().year()).arg(dateTime.date().month()));
+                chrome.click(4, QString("[id*=\"month_%1_%2_more\"]").arg(dateTime.date().year()).arg(dateTime.date().month()));
+                chrome.DelayTime(1.0);
+            }
+            int num2 = chrome.ExecuteScript("return document.querySelectorAll('[href*=\"activity_log/confirm_dialog\"]').length").toInt();
+            for (int k = 0; k < num2; k++) {
+                list.append(chrome.ExecuteScript(QString("return document.querySelectorAll('[href*=\"activity_log/confirm_dialog\"]')[%1].href").arg(k)));
+            }
+            for (int l = 0; l < list.count(); l++) {
+                if (isStop) {
+                    return 0;
+                }
+                SetStatusAccount(indexRow, statusProxy + tr("Đang xóa (%1/%2) - Tháng %3...").arg(l + 1).arg(list.count()).arg(dateTime.date().month()));
+                chrome.GotoURL(list[l]);
+                chrome.DelayTime(1.0);
+                if (chrome.CheckExistElement("[rel=\"async-post\"]", 10.0) != 1) {
+                    continue;
+                }
+                chrome.click(4, "[rel=\"async-post\"]");
+                chrome.DelayTime(1.0);
+                for (int m = 0; m < 20; m++) {
+                    if (chrome.GetUrl() != list[l]) {
+                        break;
+                    }
+                    chrome.DelayTime(1.0);
+                }
+                chrome.DelayTime(QRandomGenerator::global()->bounded(cauHinh.GetValueInt("nudDelayFrom"), cauHinh.GetValueInt("nudDelayTo") + 1));
+            }
+        }
+    } catch (...) {
+        // Handle exceptions
+    }
+    return 0;
+}
+
+int MainWindow::HDTaoPage_Fix(QString& F62A033F, int B5193F02, const QString& string_1, Chrome& b901B28A_0, JSON_Settings& cauHinh, const QString& string_2, const QString& text12) {
+    int num = cauHinh.GetValueInt("nudSoLuongFrom");
+    int num2 = cauHinh.GetValueInt("nudSoLuongTo");
+    int num3 = cauHinh.GetValueInt("nudDelayFrom");
+    int num4 = cauHinh.GetValueInt("nudDelayTo");
+    QStringList list = cauHinh.GetValueList("txtPageName");
+    QStringList list2 = cauHinh.GetValueList("txtCatagory");
+    QString text = cauHinh.GetValue("txtToCookie", "");
+    QStringList list3 = list;
+    QStringList list4 = list2;
+    int num5 = QRandomGenerator::global()->bounded(num, num2 + 1);
+    QString text2;
+    QRegularExpression regex("c_user=(\\d+)");
+    QRegularExpressionMatch match = regex.match(text);
+    if (match.hasMatch()) {
+        text2 = match.captured(1);
+    }
+    if (text2.isEmpty() && Common::smethod_28(text)) {
+        text2 = text;
+    }
+    int num6 = 0;
+    int num7 = 0;
+    int num8 = 2;
+    for (int i = 0; i < num5 + 10; i++) {
+        SetStatusAccount(B5193F02, string_1 + Language::GetValue("Đang") + QString(" %1 (%2/%3)...").arg(string_2).arg(num6 + 1).arg(num5), -1);
+        QString text3;
+        if (list3.isEmpty()) {
+            list3 = list;
+        }
+        if (!list3.isEmpty()) {
+            text3 = list3.takeLast();
+        }
+        QString text4;
+        if (list4.isEmpty()) {
+            list4 = list2;
+        }
+        if (!list4.isEmpty()) {
+            text4 = list4.takeFirst();
+        }
+        QString text5 = b901B28A_0.method_72(text3, text4);
+        if (text5.isEmpty()) {
+            num7++;
+            if (num7 >= num8) {
+                break;
+            }
+        } else {
+            num6++;
+            if (!text2.isEmpty()) {
+                // Do something with text2 if needed
+            }
+            if (num6 >= num5) {
+                break;
+            }
+            SetStatusAccount(B5193F02,
+                             string_1 + Language::GetValue("Đang") +
+                                 QString(" %1 (%2/%3), %4 {{time}}s...")
+                                     .arg(string_2)
+                                     .arg(num6)
+                                     .arg(num5)
+                                     .arg(Language::GetValue("đợi")),
+                             num3, num4);
+        }
+    }
+    F62A033F = QString::number(num6);
+    return 0;
+}
+
+
+void MainWindow::SetStatusAccount(int indexRow, QString value, int timeWaitFrom, int timeWaitTo)
+{
+    int timeWait = QRandomGenerator::global()->bounded(timeWaitFrom, timeWaitTo + 1);
+    emit updateStatusAccount(indexRow, value, timeWait);
+}
+
+void MainWindow::FinishProxy(TinsoftProxy* tinsoft, XproxyProxy* xproxy, TMProxy* tmproxy,
+                 ProxyV6Net* proxyWeb, ShopLike* shopLike, MinProxy* minProxy,
+                 ObcProxy* obcProxy)
+{
+    QMutexLocker locker(&mutex);
+
+    QSettings settings("configGeneral");
+    int ipChangeType = settings.value("ip_iTypeChangeIp").toInt();
+
+    switch (ipChangeType) {
+    case 7:
+    case 15:
+        if (tinsoft) tinsoft->decrementDangSuDung();
+        break;
+    case 8:
+        if (xproxy) xproxy->decrementDangSuDung();
+        break;
+    case 10:
+        if (tmproxy) tmproxy->DecrementDangSuDung();
+        break;
+    case 11:
+        if (proxyWeb) proxyWeb->DecrementDangSuDung();
+        break;
+    case 12:
+        if (shopLike) shopLike->DecrementDangSuDung();
+        break;
+    case 13:
+        if (minProxy) minProxy->DecrementDangSuDung();
+        break;
+    case 14:
+        if (obcProxy) obcProxy->DecrementDangSuDung();
+        break;
+    case 9:
+        break;
+    }
+}
+
+
+void MainWindow::CloseChrome(int indexRow, QString statusProxy, Chrome* chrome){
+    try
+    {
+        SetStatusAccount(indexRow, statusProxy + "Close chrome...");
+        chrome->Close();
+        // if (SettingsTool::GetSettings("configGeneral").GetValueBool("ckbAddChromeIntoForm"))
+        // {
+        //     fViewChrome.remote.RemovePanelDevice(chrome.IndexChrome);
+        // }
+    }
+    catch(...)
+    {
+    }
+}
+
 
 
 QString MainWindow::LoginFacebook(Chrome* chrome, int typeLogin, const QString &typeWeb, const QString &uid, const QString &email, QString &pass, QString &fa2, const QString &cookie, int tocDoGoVanBan, bool isDontSaveBrowser, int type2Fa, bool isLoginVia)
@@ -2006,12 +2567,14 @@ QString MainWindow::LoginFacebook(Chrome* chrome, int typeLogin, const QString &
 
 int MainWindow::QuenMatKhau(QString mail, QString proxy, int typeProxy){
     try {
-        RequestHandle* request = new RequestHandle("", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.131 Safari/537.36", proxy, typeProxy);
+        std::unique_ptr<RequestHandle> request = std::make_unique<RequestHandle>("", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.131 Safari/537.36", proxy, typeProxy);
+
         QString input = request->RequestGet("https://mobile.facebook.com/login/identify/?ctx=recover&c=https%3A%2F%2Fm.facebook.com%2F&multiple_results=0&ars=facebook_login&lwv=100&_rdr");
         QString value = QRegularExpression("name=\"lsd\" value=\"(.*?)\"").match(input).captured(1);
         QString value2 = QRegularExpression("name=\"jazoest\" value=\"(.*?)\"").match(input).captured(1);
         QString data = "lsd=" + value + "&jazoest=" + value2 + "&email=" + QUrl::toPercentEncoding(mail) + "&did_submit=T%C3%ACm+ki%E1%BA%BFm";
         QString text = request->RequestPost("https://mobile.facebook.com/login/identify/?ctx=recover&c=%2Flogin%2F&search_attempts=1&ars=facebook_login&alternate_search=0&show_friend_search_filtered_list=0&birth_month_search=0&city_search=0", data);
+
         if (text.contains("login_identify_search_error_msg"))
         {
             return 0;
@@ -2020,10 +2583,12 @@ int MainWindow::QuenMatKhau(QString mail, QString proxy, int typeProxy){
         {
             return 4;
         }
+
         text = request->RequestGet("https://mobile.facebook.com/recover/initiate/?c=%2Flogin%2F&fl=initiate_view&ctx=msite_initiate_view");
         value = QRegularExpression("name=\"lsd\" value=\"(.*?)\"").match(input).captured(1);
         value2 = QRegularExpression("name=\"jazoest\" value=\"(.*?)\"").match(input).captured(1);
         text = request->RequestPost("https://mobile.facebook.com/ajax/recover/initiate/?c=%2Flogin%2F&sr=0", "lsd=" + value + "&jazoest=" + value2 + "&recover_method=send_email&reset_action=Ti%E1%BA%BFp+t%E1%BB%A5c");
+
         if (text.contains("name=\"n\"") && text.contains(QUrl::toPercentEncoding(mail)))
         {
             return 1;
@@ -2227,11 +2792,11 @@ void MainWindow::GetProxy(int indexRow, bool &isStop, QString &proxy, int &typeP
                 while (!isStop)
                 {
                     xproxy = nullptr;
-                    QList<XproxyProxy*> list3 = *new QList<XproxyProxy*>();
-                    for (auto item3: lstProxyTool)
+                    QList<XproxyProxy*> list3;
+
+                    for (auto item3 : lstProxyTool)
                     {
-                        XproxyProxy* xProxy3 = dynamic_cast<XproxyProxy*>(item3);
-                        if (xProxy3)
+                        if (auto xProxy3 = dynamic_cast<XproxyProxy*>(item3))
                         {
                             if (xProxy3->isProxyLive)
                             {
@@ -2246,16 +2811,17 @@ void MainWindow::GetProxy(int indexRow, bool &isStop, QString &proxy, int &typeP
                                 }
                             }
                         }
-                        
                     }
-                    for (int l = 0; l < list3.count(); l++)
+
+                    for (auto proxy : list3)
                     {
-                        if (list3[l]->checkLiveProxy(0))
+                        if (proxy->checkLiveProxy(0))
                         {
-                            xproxy = list3[l];
+                            xproxy = proxy;
                             break;
                         }
                     }
+
                     if (xproxy != nullptr)
                     {
                         proxy = xproxy->proxy;
@@ -2558,7 +3124,7 @@ void MainWindow::GetProxy(int indexRow, bool &isStop, QString &proxy, int &typeP
             if (SettingsTool::GetSettings("configGeneral").GetValueInt("typeRunObcProxy") == 0){
                 while (!isStop){
                     obcProxy = nullptr;
-                    QList<ObcProxy*>* list = new QList<ObcProxy*>();
+                    QList<ObcProxy*> list;
                     for(auto item8:lstProxyTool){
                         ObcProxy* oProxy = dynamic_cast<ObcProxy*>(item8);
                         if(oProxy){
@@ -2566,7 +3132,7 @@ void MainWindow::GetProxy(int indexRow, bool &isStop, QString &proxy, int &typeP
                             {
                                 if (oProxy->daSuDung < oProxy->limit_theads_use)
                                 {
-                                    list->append(oProxy);
+                                    list.append(oProxy);
                                 }
                                 else if (oProxy->dangSuDung == 0)
                                 {
@@ -2576,11 +3142,11 @@ void MainWindow::GetProxy(int indexRow, bool &isStop, QString &proxy, int &typeP
                             }
                         }
                     }
-                    for (int i = 0; i < list->count(); i++)
+                    for (int i = 0; i < list.count(); i++)
                     {
-                        if (list->at(i)->CheckLiveProxy(0))
+                        if (list.at(i)->CheckLiveProxy(0))
                         {
-                            obcProxy = list->at(i);
+                            obcProxy = list.at(i);
                             break;
                         }
                     }
@@ -2597,24 +3163,24 @@ void MainWindow::GetProxy(int indexRow, bool &isStop, QString &proxy, int &typeP
                 while (!isStop)
                 {
                     obcProxy = nullptr;
-                    QList<ObcProxy*>* list2 = new QList<ObcProxy*>();
+                    QList<ObcProxy*> list2;
                     for (auto item9 : listObcDcom)
                     {
                         if (item9->IsCanReset())
                         {
                             item9->ResetDcom();
-                            list2->append(item9->GetListProxy());
+                            list2.append(item9->GetListProxy());
                         }
                         else
                         {
-                            list2->append(item9->GetListProxyCanUse());
+                            list2.append(item9->GetListProxyCanUse());
                         }
                     }
-                    for (int j = 0; j < list2->count(); j++)
+                    for (int j = 0; j < list2.count(); j++)
                     {
-                        if (list2->at(j)->CheckLiveProxy(0))
+                        if (list2.at(j)->CheckLiveProxy(0))
                         {
-                            obcProxy = list2->at(j);
+                            obcProxy = list2.at(j);
                             break;
                         }
                     }
@@ -2757,7 +3323,8 @@ void MainWindow::GetProxy(int indexRow, bool &isStop, QString &proxy, int &typeP
 }
 
 void MainWindow::ReadResultSpam(){
-    dicSpamBaiVietIdPostOld = *new QMap<QString,QStringList>();
+    dicSpamBaiVietIdPostOld = QMap<QString,QStringList>(); // Stack-allocated QMap
+
     try {
         QString value = SettingsTool::GetSettings("configGeneral").GetValue("pathResult", "output\\resultSpam");
         if (value == "output\\resultSpam")
@@ -2765,7 +3332,10 @@ void MainWindow::ReadResultSpam(){
             Common::CreateFolder("output");
             Common::CreateFolder("output\\resultSpam");
         }
+    } catch (const std::exception& e) {
+        qDebug() << "Exception caught: " << e.what();
     } catch (...) {
+        qDebug() << "Unknown exception caught";
     }
 }
 
@@ -2774,17 +3344,19 @@ QMap<QString,QStringList> MainWindow::GetDictionaryIntoHanhDong(QString idKichBa
     QMap<QString,QStringList> dictionary;
     try {
         QStringList idHanhDongByIdKichBanAndTenTuongTac = InteractSQL::GetIdHanhDongByIdKichBanAndTenTuongTac(idKichBan, tenTuongTac);
-        if (idHanhDongByIdKichBanAndTenTuongTac.count() > 0){
-            for (int i = 0; i < idHanhDongByIdKichBanAndTenTuongTac.count(); i++)
-            {
-                QString text = idHanhDongByIdKichBanAndTenTuongTac[i];
-                JSON_Settings jSON_Settings = *new JSON_Settings(InteractSQL::GetCauHinhFromHanhDong(text), true);
-                QStringList list;
-                list = ((!(new QStringList { "txtUid", "lstNhomTuNhap", "txtLinkChiaSe", "txtIdPost", "txtLink" })->contains(field)) ? jSON_Settings.GetValueList(field, jSON_Settings.GetValueInt("typeNganCach")) : jSON_Settings.GetValueList(field));
-                dictionary.insert(text, list);
-            }
+        for (const auto& text : idHanhDongByIdKichBanAndTenTuongTac)
+        {
+            JSON_Settings jSON_Settings(InteractSQL::GetCauHinhFromHanhDong(text), true);
+            QStringList fieldList = {"txtUid", "lstNhomTuNhap", "txtLinkChiaSe", "txtIdPost", "txtLink"};
+            QStringList list = fieldList.contains(field) ?
+                                   jSON_Settings.GetValueList(field) :
+                                   jSON_Settings.GetValueList(field, jSON_Settings.GetValueInt("typeNganCach"));
+            dictionary.insert(text, list);
         }
+    } catch (const std::exception& e) {
+        qDebug() << "Exception caught: " << e.what();
     } catch (...) {
+        qDebug() << "Unknown exception caught";
     }
     return dictionary;
 }
@@ -2792,33 +3364,45 @@ QMap<QString,QStringList> MainWindow::GetDictionaryIntoHanhDong(QString idKichBa
 
 void MainWindow::RandomThuTuTaiKhoan(int soLuot){
     try {
+        auto model = ui->tableView->model();
+        CustomTableModel *customModel = qobject_cast<CustomTableModel *>(model);
+        if (!customModel) {
+            throw std::runtime_error("Invalid model type");
+        }
+
         for (int var = 0; var < soLuot; ++var) {
-            if(ui->tableView->model()->rowCount() <=1){
+            int rowCount = model->rowCount();
+            int columnCount = model->columnCount();
+
+            if (rowCount <= 1) {
                 continue;
             }
+
             QVector<QVector<QVariant>> list;
-            for(int i =0; i<ui->tableView->model()->rowCount();i++){
+            list.reserve(rowCount);
+
+            for (int i = 0; i < rowCount; i++) {
                 QVector<QVariant> rowData;
-                for (int col = 0; col < ui->tableView->model()->columnCount(); ++col) {
-                    rowData.append(ui->tableView->model()->index(i, col).data());
+                rowData.reserve(columnCount);
+                for (int col = 0; col < columnCount; ++col) {
+                    rowData.append(model->index(i, col).data());
                 }
-                list.append(rowData);
+                list.append(std::move(rowData));
             }
-            int num = list.count();
-            while (num > 1){
-                num--;
-                int index = QRandomGenerator::global()->bounded(num+1);
-                auto value = list[index];
-                list[index] = list[num];
-                list[num] = value;
-            }
-            CustomTableModel *customModel = qobject_cast<CustomTableModel *>(ui->tableView->model());
+
+            std::random_device rd;
+            std::mt19937 g(rd());
+            std::shuffle(list.begin(), list.end(), g);
+
             customModel->clearRows();
-            for(auto item:list){
+            for (const auto &item : list) {
                 customModel->addRow(item);
             }
         }
+    } catch (const std::exception& e) {
+        qDebug() << "Exception caught: " << e.what();
     } catch (...) {
+        qDebug() << "Unknown exception caught";
     }
 }
 void ShowTrangThai(const QString& content, QWidget* plTrangThai, QLabel* lblTrangThai) {
@@ -3032,6 +3616,8 @@ QList<ProxyTool*> MainWindow::GetListProxy(int maxThread){
     return list;
 }
 
+
+
 QList<QString> MainWindow::GetListKeyTinsoft(){
     QList<QString> list;
     try
@@ -3168,3 +3754,18 @@ bool MainWindow::CheckDangCheckpointNew(Chrome* chrome, int indexRow, QString st
         }
     }
 }
+
+void MainWindow::on_metroButton1_clicked()
+{
+    Common::KillProcess("undetected_chromedriver");
+}
+
+// QString MainWindow::GetPasswordRecoverPass()
+// {
+//     QString content = Common::createRandomString(6) + Common::createRandomNumber(4) + Common::createRandomString(5);
+//     if (SettingsTool::GetSettings("configGeneral").GetValueInt("typePass") == 0)
+//     {
+//         content = SettingsTool::GetSettings("configGeneral").GetValue("txtPass");
+//     }
+//     return content.RandomChar(1);
+// }
