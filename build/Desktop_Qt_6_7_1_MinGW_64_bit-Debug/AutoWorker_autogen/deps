@@ -1066,6 +1066,7 @@ AutoWorker_autogen/timestamp: \
 	D:/AutoWorker/XWorker/AutoWoker/MCommon/proxyv6net.cpp \
 	D:/AutoWorker/XWorker/AutoWoker/MCommon/proxyv6net.h \
 	D:/AutoWorker/XWorker/AutoWoker/MCommon/requesthandle.cpp \
+	D:/AutoWorker/XWorker/AutoWoker/MCommon/requesthandle.h \
 	D:/AutoWorker/XWorker/AutoWoker/MCommon/shoplike.cpp \
 	D:/AutoWorker/XWorker/AutoWoker/MCommon/shoplike.h \
 	D:/AutoWorker/XWorker/AutoWoker/MCommon/tinsoftproxy.cpp \
@@ -1097,6 +1098,7 @@ AutoWorker_autogen/timestamp: \
 	D:/AutoWorker/XWorker/AutoWoker/maxcare/Language.cpp \
 	D:/AutoWorker/XWorker/AutoWoker/maxcare/Language.h \
 	D:/AutoWorker/XWorker/AutoWoker/maxcare/MessageBoxHelper.h \
+	D:/AutoWorker/XWorker/AutoWoker/maxcare/RegPage.h \
 	D:/AutoWorker/XWorker/AutoWoker/maxcare/SettingsTool.cpp \
 	D:/AutoWorker/XWorker/AutoWoker/maxcare/SettingsTool.h \
 	D:/AutoWorker/XWorker/AutoWoker/maxcare/StringHelper.h \

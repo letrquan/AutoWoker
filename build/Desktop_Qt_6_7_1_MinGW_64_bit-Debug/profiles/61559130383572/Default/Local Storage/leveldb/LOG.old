@@ -1,2 +1,6 @@
-2024/07/26-09:29:01.341 2c58 Creating DB D:\AutoWorker\XWorker\AutoWoker\build\Desktop_Qt_6_7_1_MinGW_64_bit-Debug\profiles\61559130383572\Default\Local Storage\leveldb since it was missing.
-2024/07/26-09:29:02.122 2c58 Reusing MANIFEST D:\AutoWorker\XWorker\AutoWoker\build\Desktop_Qt_6_7_1_MinGW_64_bit-Debug\profiles\61559130383572\Default\Local Storage\leveldb/MANIFEST-000001
+2024/08/15-13:23:10.734 1ba8 Reusing MANIFEST D:\AutoWorker\XWorker\AutoWoker\build\Desktop_Qt_6_7_1_MinGW_64_bit-Debug\profiles\61559130383572\Default\Local Storage\leveldb/MANIFEST-000001
+2024/08/15-13:23:10.742 1ba8 Recovering log #13
+2024/08/15-13:23:10.744 1ba8 Reusing old log D:\AutoWorker\XWorker\AutoWoker\build\Desktop_Qt_6_7_1_MinGW_64_bit-Debug\profiles\61559130383572\Default\Local Storage\leveldb/000013.log 
+2024/08/15-13:33:25.714 1ba8 Level-0 table #17: started
+2024/08/15-13:33:25.992 1ba8 Level-0 table #17: 14123 bytes OK
+2024/08/15-13:33:26.054 1ba8 Delete type=0 #13

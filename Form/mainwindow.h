@@ -50,8 +50,16 @@ public:
     int CountChooseRowInDatagridview();
     QList<QString> GetListKeyTinsoft();
     QString GetStatusAccount(int indexRow);
+    QStringList CloneList(const QStringList &lstFrom);
     QString TurnOn2FA(QString password, QString token, QString proxy, int typeProxy);
 private:
+    void CongKhaiBanBe(Chrome* chrome);
+    void Logout(Chrome* chrome);
+    void CauHinhTaiKhoan(Chrome* chrome);
+    void DelayThaoTacNho(int timeAdd = 0);
+    QTimer* stateChangeTimer = nullptr;
+    static const int BATCH_SIZE = 25;
+    bool isCheck;
     void FinishProxy(TinsoftProxy* tinsoft, XproxyProxy* xproxy, TMProxy* tmproxy,
                                  ProxyV6Net* proxyWeb, ShopLike* shopLike, MinProxy* minProxy,
                      ObcProxy* obcProxy);
@@ -165,6 +173,8 @@ private:
     bool isExcute_CbbTinhTrang_SelectedIndexChanged = true;
     int indexCbbTinhTrangOld = -1;
     void LoadcbbSearch();
+    bool ReviewTag(Chrome* chrome);
+    bool AllowFollow(Chrome* chrome);
     void LoadCbbThuMuc(int selectedIndex = -1);
     void LoadCbbTinhTrang(const QList<QString>& lstIdFile = QList<QString>());
     void OnLoaded();
@@ -177,11 +187,16 @@ private:
     void LoadConfigManHinh();
     void setColumnVisibility(const QString& headerLabel, bool isVisible);
     void AddUI();
+    int BatThongBaoDangNhap(Chrome* chrome, int indexRow);
     int QuenMatKhau(QString mail, QString proxy, int typeProxy);
     void ScreenCaptureError(Chrome* chrome, const QString& uid, int type);
-    int HDXoaNhatKyHoatDong(int indexRow, const QString& statusProxy, Chrome& chrome, JSON_Settings& cauHinh);
-    int HDTaoPage_Fix(QString& F62A033F, int B5193F02, const QString& string_1, Chrome& b901B28A_0, JSON_Settings& cauHinh, const QString& string_2, const QString& text12);
+    int HDXoaNhatKyHoatDong(int indexRow, const QString& statusProxy, Chrome* chrome, JSON_Settings& cauHinh);
+    int HDTaoPage_Fix(QString& F62A033F, int B5193F02, const QString& string_1, Chrome* b901B28A_0, JSON_Settings& cauHinh, const QString& string_2, const QString& text12);
+    int HDDocThongBaov2(int indexRow, QString statusProxy, Chrome* chrome, int nudSoLuongFrom, int nudSoLuongTo, int nudDelayFrom, int nudDelayTo, QString tenHanhDong = "" );
     void SetStatusAccount(int indexRow, QString value, int timeWaitFrom, int timeWaitTo);
+    int HDTuongTacNewsfeed(int indexRow, QString statusProxy, Chrome* chrome, int timeFrom, int timeTo, int delayFrom, int delayTo, bool isLike, int countLikeFrom, int countLikeTo, QString type, bool isComment, int countCommentFrom, int countCommentTo, QList<QString> lstComment, QString tenHanhDong = "");
+    int CheckFacebookLogout(Chrome* chrome, QString uid, QString pass, QString fa2, bool isSendRequest = false);
+    void CheckInfoWhenInteracting(Chrome* chrome, int indexRow);
 protected:
     void changeEvent(QEvent *event) override;
     bool eventFilter(QObject *obj, QEvent *event) override {
@@ -218,6 +233,8 @@ private slots:
     void checkCookie();
     void SetInfoAccount(int indexRow, QString value);
     void SetCellAccount(int indexRow, QString column, QVariant value, bool isAllowEmptyValue = true);
+    void SetCellAccountv2(QString id, QString field,int indexRow, QString column, QVariant value, bool isAllowEmptyValue= true);
+    void SetCellAccountv3(int indexRow, QString column, QVariant value, QString field, bool isAllowEmptyValue = true);
     void SetStatusAccount(int indexRow, QString value, int timeWait = -1);
     void SetRowColor(int indexRow = -1);
     void SetRowColor(int indexRow, int typeColor);
@@ -228,6 +245,7 @@ private slots:
     void on_btnInteract_clicked();
     bool CheckDangCheckpointNew(Chrome *chrome, int indexRow, QString statusAction, bool isUnlock956 = false, int typeWebUnlock956 = 0);
     void on_metroButton1_clicked();
+    void setAllCheckStates(Qt::CheckState state);
 
 signals:
     void updateStatusAccount(int row, QString status, int timeWait = -1);
@@ -235,6 +253,8 @@ signals:
     void updateRowColor2(int indexRow, int typeColor);
     void updateRowColor(int indexRow = -1);
     void updateCellAccount(int indexRow, QString column, QVariant value, bool isAllowEmptyValue = true);
+    void updateCellAccountv2(QString id, QString field,int indexRow, QString column, QVariant value, bool isAllowEmptyValue= true);
+    void updateCellAccountv3(int indexRow, QString column, QVariant value, QString field, bool isAllowEmptyValue = true);
 };
 
 #endif // MAINWINDOW_H

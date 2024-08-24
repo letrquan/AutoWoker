@@ -1,7 +1,7 @@
 {
   "token": "",
   "nudInteractThread": "4",
-  "nudHideThread": "100",
+  "nudHideThread": "10",
   "txbPathProfile": "D:\\src\\Source MaxCare v23.08.21\\AutoPC\\bin\\Release\\net461\\profiles",
   "ckbShowImageInteract": "True",
   "nudDelayOpenChrome": "1",

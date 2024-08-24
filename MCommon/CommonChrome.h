@@ -6,6 +6,7 @@
 #include <QQueue>
 #include "../maxcare/SettingsTool.h"
 #include "../MCommon/Common.h"
+#include "qurlquery.h"
 class CommonChrome{
 public:
     static bool CheckStringContainKeyword(const QString &content, const QStringList &lstKeyword) {
@@ -17,6 +18,374 @@ public:
         }
         return false;
     }
+
+    static QString GetTokenEAABw(Chrome* chrome)
+    {
+        QString result = "";
+        try
+        {
+            if (!chrome->GetUrl().startsWith("https://www.face"))
+            {
+                chrome->GotoURL("https://www.facebook.com/");
+            }
+            chrome->DelayTime(1.0);
+            QString text = chrome->ExecuteScript("return require('DTSGInitData').token");
+            QString uid = chrome->GetUid();
+            QString data = "fb_dtsg=" + text + "&app_id=124024574287414&redirect_uri=fbconnect%3A%2F%2Fsuccess&display=page&access_token=&from_post=1&return_format=access_token&domain=&sso_device=ios&_CONFIRM=1&_user=" + uid;
+            result = QRegularExpression("access_token=(.*?)&").match(RequestPost(chrome, "https://www.facebook.com/v1.0/dialog/oauth/confirm", data, chrome->GetUrl())).captured(1);
+            return result;
+        }
+        catch(QException)
+        {
+            return result;
+        }
+    }
+
+
+    static QString GetTokenEAAAAU(Chrome* chrome, const QString& uid, const QString& password, const QString& fa2)
+    {
+        QString result;
+        try {
+            QRegularExpression regex("datr=(.*?);");
+            QRegularExpressionMatch match = regex.match(chrome->GetCookie() + ";");
+            QString value = match.hasMatch() ? match.captured(1) : "";
+
+            QString value2 = Common::CreateRandomString(8, "0_a_A") + "-" + Common::CreateRandomString(4, "0_a_A") + "-" +
+                             Common::CreateRandomString(4, "0_a_A") + "-" + Common::CreateRandomString(4, "0_a_A") + "-" +
+                             Common::CreateRandomString(12, "0_a_A");
+            QString value3 = Common::CreateRandomString(8, "0_a_A") + "-" + Common::CreateRandomString(4, "0_a_A") + "-" +
+                             Common::CreateRandomString(4, "0_a_A") + "-" + Common::CreateRandomString(4, "0_a_A") + "-" +
+                             Common::CreateRandomString(12, "0_a_A");
+            QString value4 = Common::CreateRandomString(8, "0_a_A") + "-" + Common::CreateRandomString(4, "0_a_A") + "-" +
+                             Common::CreateRandomString(4, "0_a_A") + "-" + Common::CreateRandomString(4, "0_a_A") + "-" +
+                             Common::CreateRandomString(12, "0_a_A");
+
+            QUrlQuery query;
+            query.addQueryItem("adid", value3);
+            query.addQueryItem("format", "json");
+            query.addQueryItem("device_id", value2);
+            query.addQueryItem("email", uid);
+            query.addQueryItem("password", password);
+            // ... Add all other query parameters here ...
+
+            QString data = query.toString(QUrl::FullyEncoded);
+
+            QString json = chrome->RequestPost("https://b-graph.facebook.com/auth/login", data);
+            QJsonDocument jsonDoc = QJsonDocument::fromJson(json.toUtf8());
+            QJsonObject jsonObj = jsonDoc.object();
+
+            if (jsonObj["error"].toObject()["error_subcode"].toString() == "1348077" ||
+                jsonObj["error"].toObject()["error_subcode"].toString() == "1348131") {
+                return result;
+            }
+
+            if (jsonObj["error"].toObject()["error_subcode"].toString() == "1348162" ||
+                jsonObj["error"].toObject()["error_subcode"].toString() == "1348199") {
+                QString value5 = jsonObj["error"].toObject()["error_data"].toObject()["login_first_factor"].toString();
+                QString value6 = jsonObj["error"].toObject()["error_data"].toObject()["uid"].toString();
+                QString totp = Common::GetTotp(fa2); // Implement this function
+
+                query.clear();
+                query.addQueryItem("adid", value3);
+                query.addQueryItem("format", "json");
+                query.addQueryItem("device_id", value2);
+                query.addQueryItem("email", uid);
+                query.addQueryItem("password", totp);
+                // ... Add all other query parameters here ...
+
+                data = query.toString(QUrl::FullyEncoded);
+
+                json = chrome->RequestPost("https://b-graph.facebook.com/auth/login", data);
+                if (json.contains("\"code\":401")) {
+                    return result;
+                }
+                jsonDoc = QJsonDocument::fromJson(json.toUtf8());
+                jsonObj = jsonDoc.object();
+            }
+
+            result = jsonObj["access_token"].toString();
+        }
+        catch (...) {
+            // Handle any exceptions
+        }
+
+        return result;
+    }
+
+
+    static QString GetTokenEAAG(Chrome* chrome, QString fa2 = "")
+    {
+        QString result = "";
+        try
+        {
+            if (!chrome->GetUrl().contains("https://business.facebook.com/business_locations"))
+            {
+                chrome->GotoURL("https://business.facebook.com/business_locations");
+                chrome->DelayTime(1.0);
+            }
+            for (int i = 0; i < 5; i++)
+            {
+                if (chrome->CheckExistElement("#globalContainer [type=\"text\"]") != 1)
+                {
+                    break;
+                }
+                chrome->ClearText(4, "#globalContainer [type=\"text\"]");
+                chrome->DelayTime(1.0);
+                chrome->sendKeys(4, "#globalContainer [type=\"text\"]", Common::GetTotp(fa2));
+                chrome->DelayTime(1.0);
+                chrome->sendEnter(4, "#globalContainer [type=\"text\"]");
+                chrome->DelayTime(5.0);
+            }
+            result = QRegularExpression("EAAG(.*?)\"").match(chrome->GetPageSource()).captured().replace("'", "").replace("\"", "");
+            return result;
+        }
+        catch(QException)
+        {
+            return result;
+        }
+    }
+
+    static int GoToSetting_TimelineAndTagging(Chrome* chrome)
+    {
+        try
+        {
+            if (chrome != nullptr)
+            {
+                if (chrome->CheckChromeClose())
+                {
+                    return -2;
+                }
+                GoToSetting(chrome);
+                QString cssSelector = chrome->GetCssSelector("a", "href", "/privacy/touch/timeline_and_tagging/");
+                if (cssSelector != "")
+                {
+                    chrome->ScrollSmoothIfNotExistOnScreen("document.querySelector('" + cssSelector + "')");
+                    chrome->DelayThaoTacNho();
+                    if (chrome->click(4, cssSelector) == 1)
+                    {
+                        chrome->DelayThaoTacNho();
+                        return 1;
+                    }
+                }
+                return chrome->GotoURL("https://mobile.facebook.com/privacy/touch/timeline_and_tagging/");
+            }
+        }
+        catch(...)
+        {
+        }
+        return 0;
+    }
+
+
+    static QString GetTokenEAABs(Chrome* chrome)
+    {
+        QString result = "";
+        try
+        {
+            chrome->GotoURL("https://www.facebook.com/adsmanager/manage/campaigns?act=");
+            QString pageSource = chrome->GetPageSource();
+            RequestGet(chrome, "https://www.facebook.com/adsmanager/manage/campaigns?act=", chrome->GetUrl());
+            result = QRegularExpression("(EAABs.*?)\"").match(pageSource).captured(1);
+            return result;
+        }
+        catch(QException)
+        {
+            return result;
+        }
+    }
+
+
+    static QString GetTokenEAAGv2(Chrome* chrome)
+    {
+        QString result = "";
+        try
+        {
+            RequestHandle requestXNet("", "", "", 0);
+            QString text = requestXNet.RequestPost("https://graph.facebook.com/v2.6/device/login", "scope=email,read_custom_friendlists&access_token=437340816620806|04a36c2558cde98e185d7f4f701e4d94");
+            if (text != nullptr)
+            {
+                QJsonObject jObject = Utils::parseJsonString(text);
+                QString text2 = jObject["code"].toString();
+                QString text3 = jObject["user_code"].toString();
+                QString fbdtsg = GetFbdtsg(chrome);
+                text = RequestPost(chrome, "https://m.facebook.com/device/redirect/", "fb_dtsg=" + fbdtsg + "&jazoest=25333&qr=0&user_code=" + text3, "https://m.facebook.com");
+                QString value = QRegularExpression("encrypted_post_body\" value=\"(.*?)\"").match(text).captured(1);
+                QString value2 = QRegularExpression("logger_id\" value=\"(.*?)\"").match(text).captured(1);
+                QString data = "fb_dtsg=" + fbdtsg + "&jazoest=25359&from_post=1&push_read=&push_link=&deduplicate=&link_customer_account=&read=&link_news_subscription=&write=&extended=&confirm=&reauthorize=&user_messenger_contact=&user_pay_preference=&seen_scopes=&response_type=code&auth_type=rerequest&auth_nonce=&calling_package_key=&default_audience=&dialog_type=gdp_v4&fbapp_pres=&ret=&return_format=code&domain=&scope=email%2Cread_custom_friendlists&sso_device=&logger_id=" + value2 + "&sheet_name=initial&fallback_redirect_uri=&sdk=&facebook_sdk_version=&sdk_version=&user_code=" + text3 + "&logged_out_behavior=&install_nonce=&l_nonce=&original_redirect_uri=&loyalty_program_id=&messenger_page_id=&page_id_account_linking=&reset_messenger_state=&aid=&deferred_redirect_uri=&code_redirect_uri=&extras=&tp=unspecified&fx_app=&is_promote_auth=&code_challenge=&code_challenge_method=&encrypted_post_body=" + value + "&cbt=&__CONFIRM__=Ti%E1%BA%BFp+t%E1%BB%A5c";
+                text = RequestPost(chrome, "https://m.facebook.com/v2.0/dialog/oauth/confirm/", data, "https://m.facebook.com/");
+                text = requestXNet.RequestPost("https://graph.facebook.com/v2.6/device/login_status?access_token=437340816620806|04a36c2558cde98e185d7f4f701e4d94&code=" + text2);
+                result = Utils::parseJsonString(text)["access_token"].toString();
+                return result;
+            }
+            return result;
+        }
+        catch(QException)
+        {
+            return result;
+        }
+    }
+
+    static QString GetFbdtsg(Chrome* chrome)
+    {
+        QString result = "";
+        try
+        {
+
+            result = QRegularExpression("fb_dtsg\" value=\"(.*?)\"").match(RequestGet(chrome, "https://mobile.facebook.com/help", "https://mobile.facebook.com")).captured(1);
+            return result;
+        }
+        catch(QException)
+        {
+            return result;
+        }
+    }
+
+    static QString RequestPost(Chrome* chrome, QString url, QString data, QString website, QString contentType = "application/x-www-form-urlencoded")
+    {
+        try
+        {
+            if (!chrome->GetUrl().startsWith(website))
+            {
+                chrome->GotoURL(website);
+                chrome->DelayTime(1.0);
+                chrome->ExecuteScript("document.querySelector('body').innerHTML='AUTOWORKER'; document.querySelector('body').style = 'text-align: center; background-color:#fff'");
+            }
+            chrome->DelayTime(1.0);
+            data = data.replace("\n", "\\n").replace("\"", "\\\"");
+            return chrome->ExecuteScript("async function RequestPost() { var output = ''; try { var response = await fetch('" + url + "', { method: 'POST', body: '" + data + "', headers: { 'Content-Type': '" + contentType + "' } }); if (response.ok) { var body = await response.text(); return body; } } catch {} return output; }; var c = await RequestPost(); return c;");
+        }
+        catch(QException)
+        {
+        }
+        return "";
+    }
+
+
+    static int GoToSetting(Chrome* chrome)
+    {
+        try
+        {
+            if (chrome != nullptr)
+            {
+                if (chrome->CheckChromeClose())
+                {
+                    return -2;
+                }
+                if (chrome->CheckExistElement("[data-sigil=\"nav-popover bookmarks\"]>a") == 1)
+                {
+                    chrome->ScrollSmoothIfNotExistOnScreen("document.querySelector('[data-sigil=\"nav-popover bookmarks\"]>a')");
+                    chrome->DelayThaoTacNho();
+                }
+                int num = chrome->click(4, "[data-sigil=\"nav-popover bookmarks\"]>a");
+                if (num != 1)
+                {
+                    GoToHome(chrome);
+                    chrome->DelayThaoTacNho(2);
+                    num = chrome->click(4, "[data-sigil=\"nav-popover bookmarks\"]>a");
+                }
+                if (num == 1)
+                {
+                    chrome->DelayThaoTacNho(1);
+                    QString cssSelector = chrome->GetCssSelector("a", "href", "/settings/");
+                    if (cssSelector != "")
+                    {
+                        chrome->ScrollSmoothIfNotExistOnScreen("document.querySelector('" + cssSelector + "')");
+                        chrome->DelayThaoTacNho();
+                        if (chrome->click(4, cssSelector) == 1)
+                        {
+                            chrome->DelayThaoTacNho();
+                            return 1;
+                        }
+                    }
+                }
+                return chrome->GotoURL("https://mobile.facebook.com/settings/?entry_point=bookmark");
+            }
+        }
+        catch(...)
+        {
+        }
+        return 0;
+    }
+
+    static int GoToHome(Chrome* chrome)
+    {
+        try
+        {
+            if (chrome == nullptr)
+            {
+                return -1;
+            }
+            QElapsedTimer timer;
+            timer.start();
+            int num = 30;
+            do
+            {
+                if (!chrome->CheckChromeClose())
+                {
+                    QString uRL = chrome->GetUrl();
+                    if (!uRL.startsWith(chrome->ConvertFbUrl("https://mobile.facebook.com/home.php", uRL)) && !(uRL == chrome->ConvertFbUrl("https://mobile.facebook.com", uRL)))
+                    {
+                        if (!chrome->click("#feed_jewel a"))
+                        {
+                            chrome->GotoURL("https://mobile.facebook.com/home.php");
+                        }
+                        if(chrome->CheckExistElement("#nux-nav-button,[href^=\"/a/nux/wizard/nav.php\"]")){
+                            chrome->ClickWithAction("#nux-nav-button,[href^=\"/a/nux/wizard/nav.php\"]");
+                            if (chrome->CheckExistElement("#qf_skip_dialog_skip_link", 5.0))
+                            {
+                                chrome->ClickWithAction("#qf_skip_dialog_skip_link");
+                            }
+                        }
+                        chrome->DelayTime(1.0);
+                        continue;
+                    }
+                    return 1;
+                }
+                return -2;
+            }
+            while (timer.elapsed() < num * 1000);
+        }
+        catch(...)
+        {
+        }
+        return 0;
+    }
+
+
+    static QString RequestGet(Chrome chrome, QString url, QString website)
+    {
+        try
+        {
+            if (website.split('/').length() > 2)
+            {
+                website = website.replace("//", "__");
+                website = website.split('/')[0];
+                website = website.replace("__", "//");
+            }
+            if (!chrome.GetUrl().startsWith(website))
+            {
+                chrome.GotoURL(website);
+                chrome.DelayTime(1.0);
+                chrome.ExecuteScript("document.querySelector('body').innerHTML='AUTOWORKER'; document.querySelector('body').style = 'text-align: center; background-color:#fff'");
+            }
+            return chrome.ExecuteScript("async function RequestGet() { var output = ''; try { var response = await fetch('" + url + "'); if (response.ok) { var body = await response.text(); return body; } } catch {} return output; }; var c = await RequestGet(); return c;");
+        }
+        catch(...)
+        {
+        }
+        return "";
+    }
+
+    static QString GetNameFromPost(Chrome* chrome)
+    {
+        QString text = chrome->ExecuteScript("var x='';document.querySelectorAll('[property=\"og:title\"]').length>0&&(x=document.querySelector('[property=\"og:title\"]').getAttribute('content')),''==x&&document.querySelectorAll('[data-gt] a').length>0&&(x=document.querySelector('[data-gt] a').innerText),''==x&&document.querySelectorAll('.actor').length>0&&(x=document.querySelector('.actor').innerText), x+''; return x;");
+        if (text == "")
+        {
+            text = chrome->ExecuteScript("return document.title").split(QRegularExpression("[-|]"))[0].trimmed();
+        }
+        return text;
+    }
+
     static QString LoginFacebookUsingUidPassNew(Chrome* chrome, const QString uid, QString pass, QString fa2 = "", const QString url = "https://mobile.facebook.com", int tocDoGoVanBan = 0, bool isDontSaveBrowser = false, int type2Fa = 0, int timeOut = 120, bool isLoginVia = false, bool isCheckPass = false) {
         QQueue<QString> queue;
         if (isCheckPass) {
@@ -178,7 +547,7 @@ public:
                                 break;
                             }
                             num5++;
-                            chrome->sendKeys(2, "approvals_code", Common::GetTotp(fa2.replace(" ", "").replace("\n", "").trimmed(), type2Fa));
+                            chrome->SendKeysWithSpeedNew("[name='approvals_code']", Common::GetTotp(fa2.replace(" ", "").replace("\n", "").trimmed(), type2Fa), 0.1);
                             chrome->DelayTime(1.0);
                             chrome->sendEnter("[name='approvals_code']");
                             chrome->DelayTime(1.0);
@@ -192,6 +561,8 @@ public:
                                 num = 2;
                                 break;
                             }
+                            chrome->SendKeysWithSpeedNew("approvals_code", Common::GetTotp(fa2.replace(" ", "").replace("\n", "").trimmed(), type2Fa),0.1);
+                            chrome->DelayTime(1.0);
                             if (chrome->CheckExistElement("#checkpointSubmitButton>input") == 1) {
                                 chrome->ClickJs("#checkpointSubmitButton>input");
                             } else if (chrome->CheckExistElement("#checkpointSubmitButton>button") == 1) {
@@ -299,6 +670,14 @@ public:
                             {
                                 num = 2;
                                 break;
+                            }
+                            if(chrome->GetUrl().contains("facebook.com/privacy/consent/?flow=ad_free_subscription")){
+                                chrome->click(4, "[role=\"button\"]");
+                                chrome->DelayTime(1.0);
+                                chrome->ExecuteScript("document.querySelectorAll('[role=\"button\"]')[0].click()");
+                                chrome->DelayTime(1.0);
+                                chrome->ExecuteScript("document.querySelectorAll('[role=\"button\"]')[0].click()");
+                                chrome->DelayTime(1.0);
                             }
                             if(chrome->GetUrl().contains("facebook.com/two_step_verification/two_factor")){
                                 chrome->click(4, "div[role=\"button\"][tabindex=\"0\"]");
@@ -433,7 +812,7 @@ public:
                     }
                     break;
                 }
-            } catch (const QException& e) {
+            } catch (QException& e) {
                 Common::ExportError(&e,"Error Login Uid Pass");
             }
         }
@@ -762,6 +1141,49 @@ public:
             //     break;
             }
         } catch (...) {
+        }
+        return 0;
+    }
+
+    static int scrollRandom(Chrome* chrome, int from = 3, int to = 5)
+    {
+        try {
+            if (chrome->CheckChromeClose()) {
+                return -2;
+            }
+
+            int num = QRandomGenerator::global()->bounded(from, to + 1);
+            int num2 = chrome->ExecuteScript("return document.querySelector('html').getBoundingClientRect().y+''").toInt();
+
+            if (chrome->scrollSmooth(QRandomGenerator::global()->bounded(chrome->GetSize().y() / 2, chrome->GetSize().y())) == 1) {
+                chrome->DelayRandom(1, 3);
+                int num3 = chrome->ExecuteScript("return document.querySelector('html').getBoundingClientRect().y+''").toInt();
+
+                if (num2 != num3) {
+                    for (int i = 0; i < num - 1; i++) {
+                        num2 = chrome->ExecuteScript("return document.querySelector('html').getBoundingClientRect().y+''").toInt();
+                        int scrollDirection = (QRandomGenerator::global()->bounded(1000) % 5 != 0) ? 1 : -1;
+                        int scrollDistance = QRandomGenerator::global()->bounded(chrome->GetSize().y() / 2, chrome->GetSize().y());
+
+                        if (chrome->scrollSmooth(scrollDirection * scrollDistance) == -2) {
+                            return -2;
+                        }
+
+                        chrome->DelayRandom(1, 3);
+                        num3 = chrome->ExecuteScript("return document.querySelector('html').getBoundingClientRect().y+''").toInt();
+
+                        if (num2 == num3) {
+                            break;
+                        }
+
+                        chrome->DelayRandom(1, 2);
+                    }
+                }
+                return 1;
+            }
+        }
+        catch (...) {
+            // Handle exceptions
         }
         return 0;
     }

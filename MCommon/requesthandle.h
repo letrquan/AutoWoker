@@ -8,8 +8,8 @@ class RequestHandle: public QObject
 {
     Q_OBJECT
 public:
-    RequestHandle(QString cookie, QString userAgent, QString proxy, int typeProxy);  
-    QString RequestPost(QString url, const QString &data, QString contentType = "application/x-www-form-urlencoded");
+    RequestHandle(QString cookie, QString userAgent, QString proxy, int typeProxy);
+    QString RequestPost(QString url, const QString &data = "", QString contentType = "application/x-www-form-urlencoded");
     void AddCookie(const QString &cookie, QNetworkRequest& request);
     void Parse(int typeProxy, QString proxyAddress);
     QByteArray RequestGet(QString url);

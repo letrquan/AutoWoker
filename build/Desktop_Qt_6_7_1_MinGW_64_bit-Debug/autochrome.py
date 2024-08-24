@@ -544,7 +544,8 @@ class Chrome:
             return -2
         
         try:
-            return self.chrome.execute_script(script)
+            check = self.chrome.execute_script(script)
+            return check;
         except Exception as ex:
             self.export_error(None, ex, f"chrome.execute_script({script})")
         
@@ -826,7 +827,7 @@ class Chrome:
 
         try:
             if is_click:
-                self.click(type_attribute, attribute_value)
+                self.click_complex(type_attribute, attribute_value)
                 self.delayTime(time_delay_after_click)
 
             num = 0
@@ -838,12 +839,12 @@ class Chrome:
 
             if num2 == 0:
                 content4 = content[:num]
-                self.send_keys(random, type_attribute, attribute_value, content4, random.randint(10, 100) / 1000.0)
+                self.send_keys2(type_attribute, attribute_value, content4, random.randint(10, 100) / 1000.0)
                 self.delayTime(random.randint(1, 3))
                 num3 = random.randint(1, num)
                 for _ in range(num3):
                     self.send_backspace(type_attribute, attribute_value)
-                    self.delayTime(random.randint(1000, 2000) / 10000.0)
+                    self.delayTime(random.randint(1, 2) / 10)
 
                 text = ""
                 if type_attribute == 1:
@@ -856,24 +857,24 @@ class Chrome:
                 current_value = self.execute_script(f"return document.querySelector('{text}').value+''")
                 content4 = content[len(current_value):]
                 self.delayTime(random.randint(1, 3))
-                self.send_keys(random, type_attribute, attribute_value, content4, random.randint(100, 300) / 1000.0, False)
+                self.send_keys2(type_attribute, attribute_value, content4, random.randint(100, 300) / 1000.0, False)
                 self.delayTime(random.randint(1, 3))
 
             elif num2 == 1:
                 content2 = content[:num]
                 content3 = content[num:]
-                self.send_keys(random, type_attribute, attribute_value, content2, random.randint(10, 100) / 1000.0)
+                self.send_keys2(random, type_attribute, attribute_value, content2, random.randint(10, 100) / 1000.0)
                 self.delayTime(random.randint(1, 3))
-                self.send_keys(random, type_attribute, attribute_value, content3, random.randint(100, 300) / 1000.0, False)
+                self.send_keys2(random, type_attribute, attribute_value, content3, random.randint(100, 300) / 1000.0, False)
                 self.delayTime(random.randint(1, 3))
 
             else:  # num2 == 2
-                self.send_keys(random, type_attribute, attribute_value, content, random.randint(100, 200) / 1000.0)
+                self.send_keys2(random, type_attribute, attribute_value, content, random.randint(100, 200) / 1000.0)
                 self.delayTime(random.randint(1, 3))
 
             return 1
         except Exception as ex:
-            self.export_error(None, ex, f"chrome.send_keys({type_attribute},{attribute_value},{content},{time_delay_second},{is_click})")
+            self.export_error(ex, f"chrome.send_keys({type_attribute},{attribute_value},{content},{time_delay_second},{is_click})")
             return 0
 
     def send_backspace(self, type_attribute, attribute_value):
@@ -945,7 +946,7 @@ class Chrome:
 
         try:
             if is_click:
-                self.click(type_attribute, attribute_value)
+                self.click_complex(type_attribute, attribute_value)
                 self.delayTime(time_delay_after_click)
 
             for char in content:
@@ -965,7 +966,7 @@ class Chrome:
 
             return 1
         except Exception as ex:
-            self.export_error(None, ex, f"chrome.send_keys({type_attribute},{attribute_value},{content},{time_delay_second},{is_click})")
+            self.export_error(ex, f"chrome.send_keys({type_attribute},{attribute_value},{content},{time_delay_second},{is_click})")
             return 0
 
     def export_error(self, ex, error=""):
@@ -1413,6 +1414,64 @@ class Chrome:
 
         return 1
     
+
+    def clear_textv2(self,typeAttribute, attributeValue):
+        flag = False
+        if self.checkChromeClose():
+            return -2
+        
+        try:
+            if(typeAttribute == 1):
+                self.chrome.find_element(By.ID, attributeValue).clear()
+            elif(typeAttribute == 2):
+                self.chrome.find_element(By.NAME, attributeValue).clear()
+            elif(typeAttribute == 3):
+                self.chrome.find_element(By.XPATH, attributeValue).clear()
+            elif(typeAttribute == 4):
+                self.chrome.find_element(By.CSS_SELECTOR, attributeValue).clear()
+            flag = True
+        except Exception as ex:
+            self.export_error(None, ex, f"chrome.clear_textv2({attributeValue})")
+        if not flag:
+            return 0
+        return 1
+
+    def send_keys_v2(self, type_attribute, attribute_value, index, sub_type_attribute, sub_attribute_value, sub_index, content, is_click=True, time_delay_after_click=0.1):
+        flag = False
+        if self.checkChromeClose():
+            return -2
+        try:
+            if is_click:
+                self.click(type_attribute, attribute_value, index, sub_type_attribute, sub_attribute_value, sub_index)
+                self.delayTime(time_delay_after_click)
+            
+            if sub_type_attribute == 0:
+                if type_attribute == 1:
+                    self.chrome.find_elements(By.ID, attribute_value)[index].send_keys(content)
+                elif type_attribute == 2:
+                    self.chrome.find_elements(By.NAME, attribute_value)[index].send_keys(content)
+                elif type_attribute == 3:
+                    self.chrome.find_elements(By.XPATH, attribute_value)[index].send_keys(content)    
+                elif type_attribute == 4:
+                    self.chrome.find_elements(By.CSS_SELECTOR, attribute_value)[index].send_keys(content)
+            else:
+                if type_attribute == 1:
+                    self.chrome.find_elements(By.ID, attribute_value)[index].find_elements(By.ID, sub_attribute_value)[sub_index].send_keys(content)
+                elif type_attribute == 2:
+                    self.chrome.find_elements(By.NAME, attribute_value)[index].find_elements(By.NAME, sub_attribute_value)[sub_index].send_keys(content)
+                elif type_attribute == 3:
+                    self.chrome.find_elements(By.XPATH, attribute_value)[index].find_elements(By.XPATH, sub_attribute_value)[sub_index].send_keys(content)
+                elif type_attribute == 4:
+                    self.chrome.find_elements(By.CSS_SELECTOR, attribute_value)[index].find_elements(By.CSS_SELECTOR, sub_attribute_value)[sub_index].send_keys(content)
+            
+            flag = True
+        except Exception as ex:
+            self.export_error(None, ex, f"chrome.send_keys({type_attribute},{attribute_value},{content},{is_click})")
+        
+        if not flag:
+            return 0
+        return 1
+    
 app = Flask(__name__)
 chrome_instances: list[Chrome] = []
 
@@ -1575,11 +1634,14 @@ def execute_script(instance_id):
     script = request.json.get('script')
     if not script:
         return jsonify({"status": "error", "message": "Script not provided"}), 400
-    result = chromeInstance.execute_script(script)
-    if result and not result == "-2":
-        return jsonify({"status": "success", "result": result}), 200
-    else:
-        return jsonify({"status": "error", "message": "Failed to execute script"}), 500
+    try:
+        result = chromeInstance.execute_script(script)
+        if result and not result == "-2":
+            return jsonify({"status": "success", "result": str(result)}), 200
+        else:
+            return jsonify({"status": "error", "message": "Failed to execute script"}), 500
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)}), 500
 
 @app.route('/check_chrome_close/<instance_id>', methods=['GET'])
 def check_chrome_close(instance_id):
@@ -1590,12 +1652,12 @@ def check_chrome_close(instance_id):
     if chromeInstance is None:
         print("Instance not found")
         return jsonify({"status": "error", "message": "Instance not found"}), 404
-    result = chromeInstance.checkChromeClose()
-    if result:
+    try:
+        result = chromeInstance.checkChromeClose()
         return jsonify({"status": "success", "is_closed": result}), 200
-    else:
-        print("Failed to check")
-        return jsonify({"status": "error", "message": "Failed to check"}), 500
+    except Exception as e:
+        print(str(e))
+        return jsonify({"status": "error", "message": str(e)}), 500
 
 @app.route('/delay_time/<instance_id>', methods=['POST'])
 def delay_time(instance_id):
@@ -1846,25 +1908,28 @@ def send_keys(instance_id):
 
 @app.route('/send_keys_without_time_delay_second/<int:instance_id>', methods=['POST'])
 def api_send_keys(instance_id):
-    chrome_instance = next((c for c in chrome_instances if c.index_chrome == instance_id), None)
-    if chrome_instance is None:
-        return jsonify({"status": "error", "message": "Instance not found"}), 404
+    try:
+        chrome_instance = next((c for c in chrome_instances if c.index_chrome == instance_id), None)
+        if chrome_instance is None:
+            return jsonify({"status": "error", "message": "Instance not found"}), 404
 
-    data = request.json
-    type_attribute = data.get('type_attribute')
-    attribute_value = data.get('attribute_value')
-    content = data.get('content')
-    is_click = data.get('is_click', True)
-    time_delay_after_click = data.get('time_delay_after_click', 0.1)
+        data = request.json
+        type_attribute = data.get('type_attribute')
+        attribute_value = data.get('attribute_value')
+        content = data.get('content')
+        is_click = data.get('is_click', True)
+        time_delay_after_click = data.get('time_delay_after_click', 0.1)
 
-    result = chrome_instance.send_keys1(type_attribute, attribute_value, content, is_click, time_delay_after_click)
+        result = chrome_instance.send_keys1(type_attribute, attribute_value, content, is_click, time_delay_after_click)
 
-    if result == -2:
-        return jsonify({"status": "error", "message": "Chrome is closed"}), 400
-    elif result == 0:
-        return jsonify({"status": "error", "message": "Failed to send keys"}), 400
-    else:
-        return jsonify({"status": "success", "message": "Keys sent successfully"}), 200
+        if result == -2:
+            return jsonify({"status": "error", "message": "Chrome is closed"}), 400
+        elif result == 0:
+            return jsonify({"status": "error", "message": "Failed to send keys"}), 400
+        else:
+            return jsonify({"status": "success", "message": "Keys sent successfully"}), 200
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)}), 500
 
     
 @app.route('/click_js_single/<int:instance_id>', methods=['POST'])
@@ -2076,7 +2141,7 @@ def click_single_api(instance_id):
         return jsonify({"status": "error", "message": "Failed to click element"}), 400
 
 
-@app.route('/goto_url_if_not_exist/<instance_id>', methods=['POST'])
+@app.route('/goto_url_if_not_exist/<int:instance_id>', methods=['POST'])
 def goto_url_if_not_exist_api(instance_id):
     chromeInstance = next((c for c in chrome_instances if c.index_chrome == instance_id), None)
     if chromeInstance is None:
@@ -2285,7 +2350,105 @@ def api_clear_text(instance_id):
         return jsonify({"status": "error", "message": str(e)}), 500
 
 
+@app.route('/get_size/<int:instance_id>', methods=['GET'])
+def get_size(instance_id):
+    chrome_instance = next((c for c in chrome_instances if c.index_chrome == instance_id), None)
+    
+    if chrome_instance is None:
+        return jsonify({"status": "error", "message": "Instance not found"}), 404
 
+    try:
+        size = chrome_instance.chrome.get_window_size()
+        width = size['width']
+        height = size['height']
+        return jsonify({"status": "success", "width": width, "height": height}), 200
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)}), 500
+
+
+@app.route('/go_back/<int:instance_id>', methods=['POST'])
+def go_back(instance_id):
+    chrome_instance = next((c for c in chrome_instances if c.index_chrome == instance_id), None)
+    
+    if chrome_instance is None:
+        return jsonify({"status": "error", "message": "Instance not found"}), 404
+
+    try:
+        chrome_instance.chrome.back()
+        return jsonify({"status": "success", "message": "Navigated back successfully"}), 200
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)}), 500
+
+
+@app.route('/send_keys_v2/<int:instance_id>', methods=['POST'])
+def api_send_keys_v2(instance_id):
+    chromeInstance = next((c for c in chrome_instances if c.index_chrome == instance_id), None)
+    if chromeInstance is None:
+        return jsonify({"status": "error", "message": "Instance not found"}), 404
+
+    data = request.json
+    if not data or 'type_attribute' not in data or 'attribute_value' not in data or 'index' not in data or \
+       'sub_type_attribute' not in data or 'sub_attribute_value' not in data or 'sub_index' not in data or \
+       'content' not in data:
+        return jsonify({"error": "Missing required parameters"}), 400
+
+    type_attribute = data['type_attribute']
+    attribute_value = data['attribute_value']
+    index = data['index']
+    sub_type_attribute = data['sub_type_attribute']
+    sub_attribute_value = data['sub_attribute_value']
+    sub_index = data['sub_index']
+    content = data['content']
+    is_click = data.get('is_click', True)
+    time_delay_after_click = data.get('time_delay_after_click', 0.1)
+
+    if not all(isinstance(i, (int, float)) for i in [type_attribute, index, sub_type_attribute, sub_index, time_delay_after_click]) or \
+       not isinstance(attribute_value, str) or not isinstance(sub_attribute_value, str) or not isinstance(content, str) or not isinstance(is_click, bool):
+        return jsonify({"error": "Invalid parameter types"}), 400
+
+    try:
+        result = chromeInstance.send_keys_v2(
+            type_attribute, attribute_value, index, sub_type_attribute, sub_attribute_value, sub_index, content, is_click, time_delay_after_click
+        )
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)}), 500
+
+    if result == -2:
+        return jsonify({"status": "error", "message": "Chrome is closed"}), 400
+    elif result == 0:
+        return jsonify({"status": "error", "message": "Operation failed"}), 400
+    else:
+        return jsonify({"status": "success", "message": "Keys sent successfully"}), 200
+
+
+
+@app.route('/clear_text_v2/<int:instance_id>', methods=['POST'])
+def api_clear_text_v2(instance_id):
+    chromeInstance = next((c for c in chrome_instances if c.index_chrome == instance_id), None)
+    if chromeInstance is None:
+        return jsonify({"status": "error", "message": "Instance not found"}), 404
+
+    data = request.json
+    if not data or 'type_attribute' not in data or 'attribute_value' not in data:
+        return jsonify({"error": "Missing required parameters"}), 400
+
+    type_attribute = data['type_attribute']
+    attribute_value = data['attribute_value']
+
+    if not isinstance(type_attribute, int) or not isinstance(attribute_value, str):
+        return jsonify({"error": "Invalid parameter types"}), 400
+
+    try:
+        result = chromeInstance.clear_textv2(type_attribute, attribute_value)
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)}), 500
+
+    if result == -2:
+        return jsonify({"status": "error", "message": "Chrome is closed"}), 400
+    elif result == 0:
+        return jsonify({"status": "error", "message": "Operation failed"}), 400
+    else:
+        return jsonify({"status": "success", "message": "Text cleared successfully"}), 200
 
 @app.route('/health', methods=['GET'])
 def health_check():

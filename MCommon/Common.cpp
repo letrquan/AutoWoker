@@ -10,7 +10,7 @@
 #include "../maxcare/GetIconFacebook.h"
 #include "../MCommon/connector.h"
 
-void Common::ExportError(const QException* ex, QString error){
+void Common::ExportError(QException* ex, QString error){
     try {
         QFile file("log/log.txt");
         if (!file.open(QIODevice::Append | QIODevice::Text))

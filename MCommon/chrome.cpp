@@ -30,9 +30,9 @@ Chrome::Chrome() {
     PathToPortableZip = "";
     Scale = 1.0;
     api = new ApiHandler();
+    api->startApiProcess();
 }
 bool Chrome::Open(){
-    api->startApiProcess();
     QString create = api->createInstance(indexChrome,DisableImage,UserAgent,ProfilePath,Size, Position,TimeWaitForSearchingElement,TimeWaitForLoadingPage,Proxy,TypeProxy,DisableSound,App,IsUsePortable,PathToPortableZip);
     if(create != "success" && !create.contains("Instance already exists")){
         return false;
@@ -42,6 +42,64 @@ bool Chrome::Open(){
         return false;
     }
     return true;
+}
+
+int Chrome::ClearText(int typeAttribute, QString attributeValue){
+    QString clea = api->ClearText(indexChrome,typeAttribute, attributeValue);
+    if(clea.contains("errorHandler") || clea == "Unexpected response format"){
+        if(clea.contains("Chrome is closed")){
+            return -2;
+        }else{
+            return 0;
+        }
+    }else{
+        if(clea == "success"){
+            return 1;
+        }else{
+            return 0;
+        }
+    }
+}
+
+QString Chrome::method_112(QString string_10, QString string_11, QString string_12, QString string_13)
+{
+    if (!this->GetUrl().startsWith("https://graph.facebook.com/"))
+    {
+        this->GotoURL("https://graph.facebook.com/");
+    }
+    QString text = QString("\n\tasync function RequestGet(url) {\n\t\tvar output = '';\n\t\ttry {\n\t\t\tvar response = await fetch(url);\n\t\t\tif (response.ok) {\n\t\t\t\tvar body = await response.text();\n\t\t\t\treturn body;\n\t\t\t}\n\t\t} catch { }\n\t\treturn output;\n\t};\n\n\tfriend = '{friend}'\n\tpage = '{page}'\n\tads = '{ads}'\n\tfields = ''\n\tif (friend == '')\n\t\tfields += 'friends.limit(0).summary(1),'\n\tif (page == '')\n\t\tfields += 'accounts.limit(0).summary(1),'\n\tif (ads == '')\n\t\tfields += 'adaccounts.limit(2){account_status,adtrust_dsl,currency,min_billing_threshold{amount}},'\n\tif (fields == '')\n\t\treturn ''\n\tfields = fields.slice(0, -1)\n\turl = 'https://graph.facebook.com/v14.0/me?fields='+fields+'&access_token={token}';\n\tc = await RequestGet(url);\n\n\tif (page == '')\n\t\tpage = JSON.parse(c)['accounts']['summary']['total_count']\n\tif (friend == '')\n\t\tfriend = JSON.parse(c)['friends']['summary']['total_count']\n\tif (ads == ''){\n\t\taccount_status = JSON.parse(c)['adaccounts']['data'][0]['account_status'].toString()\n\t\tswitch (account_status) {\n\t\t\tcase '1':\n\t\t\t\tads = 'Live|'\n\t\t\t\tbreak;\n\t\t\tcase '2':\n\t\t\t\tads = 'Die|'\n\t\t\t\tbreak;\n\t\t\tcase '100':\n\t\t\t\tads = 'Pending closed|'\n\t\t\t\tbreak;\n\t\t\tcase '101':\n\t\t\t\tads = 'Closed|'\n\t\t\t\tbreak;\n\t\t\tdefault:\n\t\t\t\tads = 'Unknow|'\n\t\t\t\tbreak;\t\n\t\t}\n\n\t\tcurrency = JSON.parse(c)['adaccounts']['data'][0]['currency']\n\t\tnguong = JSON.parse(c)['adaccounts']['data'][0]['min_billing_threshold']['amount']\n\t\tads += nguong + \" \"+currency\n\t\tads += \"|\"\n\n\t\tadtrust_dsl = JSON.parse(c)['adaccounts']['data'][0]['adtrust_dsl']\n\t\tif (adtrust_dsl == \"-1\")\n\t\t\tads += \"Nolimit\";\n\t\telse\n\t\t\tads += adtrust_dsl + \" \" + currency;\n\t}\n\n\tconst obj = {\n\t\tfriend: friend,\n\t\tpage: page,\n\t\tads: ads\n\t};\n\treturn JSON.stringify(obj)\n\t").replace("{token}", string_10).replace("{friend}", string_11).replace("{page}", string_12)
+                      .replace("{ads}", string_13);
+    return this->ExecuteScript(text);
+}
+
+QString Chrome::A9015F2E()
+
+{
+    QString text = "";
+    try
+    {
+        if (!this->GetUrl().startsWith("https://www.facebook.com") || this->GetUrl().contains("https://www.facebook.com/api/graphql"))
+        {
+            this->GotoURL("https://www.facebook.com/");
+        }
+        QString text2 = "CheckLocation";
+        text = this->ExecuteScript(text2);
+    }
+    catch(QException)
+    {
+    }
+    return text;
+}
+
+
+QString Chrome::method_110(QString string_10)
+{
+    if (!GetUrl().startsWith("https://graph.facebook.com/"))
+    {
+        this->GotoURL("https://graph.facebook.com/");
+    }
+    QString text = QString("\n\tasync function RequestGet(url) {\n\t\tvar output = '';\n\t\ttry {\n\t\t\tvar response = await fetch(url);\n\t\t\tif (response.ok) {\n\t\t\t\tvar body = await response.text();\n\t\t\t\treturn body;\n\t\t\t}\n\t\t} catch { }\n\t\treturn output;\n\t};\n\n\turl = 'https://graph.facebook.com/v3.0/me/businesses?fields=id&limit=5000&access_token={token}';\n\tc = await RequestGet(url);\n\treturn JSON.parse(c)['data'].length\n\t").replace("{token}", string_10);
+    return this->ExecuteScript(text);
 }
 
 bool Chrome::GotoURL(QString url){
@@ -116,6 +174,8 @@ int Chrome::CheckExistElements(double timeOut,const QStringList &lstCssSelectors
         return check.toInt();
     }
 }
+
+
 
 QString Chrome::GetAttributeValue(QString cssSelectorsOrXpath, QString attributeName){
     QString value = api->GetAttributeValue(indexChrome,cssSelectorsOrXpath,attributeName);
@@ -341,7 +401,7 @@ bool Chrome::ClearText(){
 }
 
 void Chrome::SetSize(int width, int height){
-    QString resposne = api->SetSize(width, height);
+    QString resposne = api->SetSize(indexChrome ,width, height);
 }
 
 QString Chrome::method_72(QString B686CD07, QString DF35EF25)
@@ -482,6 +542,15 @@ QString Chrome::method_72(QString B686CD07, QString DF35EF25)
     return text;
 }
 
+bool Chrome::GotoBackPage(){
+    auto res = api->GotoBackPage(indexChrome);
+    if(res == "success"){
+        return true;
+    }else{
+        return false;
+    }
+}
+
 int Chrome::WaitForSearchElement(QString querySelector, int typeSearch, double timeWait_Second)
 {
     bool flag = true;
@@ -496,7 +565,7 @@ int Chrome::WaitForSearchElement(QString querySelector, int typeSearch, double t
         {
             while (ExecuteScript("return document.querySelectorAll('" + querySelector.replace("'", "\\'") + "').length+''") == "0")
             {
-                if ((double)(QDateTime::currentSecsSinceEpoch() - tickCount) > timeWait_Second * 1000.0)
+                if ((double)(QDateTime::currentSecsSinceEpoch() - tickCount) > timeWait_Second)
                 {
                     flag = false;
                     break;
@@ -508,7 +577,7 @@ int Chrome::WaitForSearchElement(QString querySelector, int typeSearch, double t
         {
             while (ExecuteScript("return document.querySelectorAll('" + querySelector.replace("'", "\\'") + "').length+''") != "0")
             {
-                if ((double)(QDateTime::currentSecsSinceEpoch() - tickCount) > timeWait_Second * 1000.0)
+                if ((double)(QDateTime::currentSecsSinceEpoch() - tickCount) > timeWait_Second)
                 {
                     flag = false;
                     break;
@@ -521,6 +590,99 @@ int Chrome::WaitForSearchElement(QString querySelector, int typeSearch, double t
     {
         flag = false;
         ExportError(nullptr, ex, "chrome.WaitForSearchElement("+querySelector+","+QString::number(typeSearch)+","+QString::number(timeWait_Second)+")");
+    }
+    if (!flag)
+    {
+        return 0;
+    }
+    return 1;
+}
+
+int Chrome::ScrollSmoothIfNotExistOnScreen(QString JSpath)
+{
+    if (!CheckChromeClose())
+    {
+        return -2;
+    }
+    try
+    {
+        if (CheckExistElementOnScreen(JSpath) != 0)
+        {
+            ExecuteScript(JSpath + ".scrollIntoView({ behavior: 'smooth', block: 'center'});");
+            return 1;
+        }
+    }
+    catch (QException ex)
+    {
+        ExportError(nullptr, ex, "chrome.ScrollSmoothIfNotExistOnScreen(" + JSpath + ")");
+    }
+    return 0;
+}
+
+QString Chrome::GetFbdtsg()
+{
+    QString text = "";
+    try
+    {
+        QString input = RequestGet("https://m.facebook.com/help");
+        text = QRegularExpression("fb_dtsg\" value=\"(.*?)\"").match(input).captured(1);
+        if (text == "")
+        {
+            text = QRegularExpression(Common::Base64Decode("ZHRzZyI6eyJ0b2tlbiI6IiguKj8pIg==")).match(input).captured(1);
+            return text;
+        }
+        return text;
+    }
+    catch(QException)
+    {
+        return text;
+    }
+}
+
+QString Chrome::ConvertFbUrl(QString url, QString currentUrl)
+{
+    if(CheckChromeClose()){
+        return "";
+    }
+    if (currentUrl == "")
+    {
+        currentUrl = GetUrl();
+    }
+    QString domainFb = GetDomainFb(currentUrl);
+    QString domainFb2 = GetDomainFb(url);
+    return url.replace(domainFb2, domainFb);
+}
+
+int Chrome::CheckExistElementv2(QString JSPath, double timeWait_Second)
+{
+    bool flag = true;
+    if (CheckChromeClose())
+    {
+        return -2;
+    }
+    try
+    {
+        QElapsedTimer timer;
+        timer.start();
+        while (ExecuteScript("return " + JSPath + ".length+''") == "0")
+        {
+            if (timer.elapsed() > timeWait_Second * 1000)
+            {
+                flag = false;
+                break;
+            }
+            QThread::sleep(1);
+        }
+    }
+    catch (QException ex)
+    {
+        flag = false;
+        ExportError(nullptr, ex, QString("chrome.CheckExistElement(%1,%2)")
+                                     .arg(JSPath)
+                                     .arg(timeWait_Second));
+    }
+    if(ExecuteScript("return " + JSPath + ".length+''") == ""){
+        flag = false;
     }
     if (!flag)
     {
@@ -593,6 +755,15 @@ QString Chrome::checkExistElements(double timeOut, const QStringList& lstCssSele
     return "";
 }
 
+QString Chrome::method_113()
+{
+    if (!GetUrl().startsWith("https://www.facebook.com"))
+    {
+        GotoURL("https://www.facebook.com/api/graphql/");
+    }
+    QString text = "\n\tasync function RequestGet(url) {\n\t\tvar output = '';\n\t\ttry {\n\t\t\tvar response = await fetch(url);\n\t\t\tif (response.ok) {\n\t\t\t\tvar body = await response.text();\n\t\t\t\treturn body;\n\t\t\t}\n\t\t} catch { }\n\t\treturn output;\n\t};\n\n\tvar html = await RequestGet('https://www.facebook.com/dating/get-started/');\n\tlet check = '';\n\tif (html.includes('download__section-heading')) check = 'Yes';\n\telse if (html.includes('unavailable__section-container')) check = 'No';\n\treturn check";
+    return ExecuteScript(text);
+}
 
 int Chrome::SetFbLanguage(const QString& language)
 {
@@ -1057,6 +1228,59 @@ bool Chrome::Clear(QString elementSelector){
     return clear;
 }
 
+QString Chrome::GetCssSelector(QString querySelector, QString attributeName, QString attributeValue)
+{
+    QString result = "";
+    if (!CheckChromeClose())
+    {
+        return "-2";
+    }
+    try
+    {
+        result = ExecuteScript("function GetSelector(el){let path=[],parent;while(parent=el.parentNode){path.unshift(`${el.tagName}:nth-child(${[].indexOf.call(parent.children, el)+1})`);el=parent}return `${path.join('>')}`.toLowerCase()}; function GetCssSelector(selector, attribute, value){var c = document.querySelectorAll(selector); for (i = 0; i < c.length; i++) { if (c[i].getAttribute(attribute)!=null && c[i].getAttribute(attribute).includes(value)) { return GetSelector(c[i])} }; return '';}; return GetCssSelector('" + querySelector + "','" + attributeName + "','" + attributeValue + "')");
+        return result;
+    }
+    catch (QException ex)
+    {
+        ExportError(nullptr, ex, "chrome.GetCssSelector("+querySelector+","+attributeName+","+attributeValue+")");
+        return result;
+    }
+}
+
+
+
+int Chrome::CheckExistElementOnScreen(QString JSpath, int timeOut)
+{
+    int num = 0;
+    QElapsedTimer timer;
+    timer.start();
+    do
+    {
+        if (CheckChromeClose())
+        {
+            return -2;
+        }
+        try
+        {
+            num = ExecuteScript("var check='';x=" + JSpath + ";if(x.getBoundingClientRect().top<=0) check='-1'; else if(x.getBoundingClientRect().top+x.getBoundingClientRect().height>window.innerHeight) check='1'; else check='0'; return check;").toInt();
+            if (num == 0)
+            {
+                return num;
+            }
+        }
+        catch (QException)
+        {
+        }
+        if (timeOut == 0)
+        {
+            break;
+        }
+        DelayTime(1.0);
+    }
+    while (timer.elapsed() < timeOut * 1000);
+    return num;
+}
+
 QString Chrome::CheckExistElementsString(double timeOut,const QStringList &lstCssSelectors){
     QString check = api->checkExistElements(indexChrome,timeOut,lstCssSelectors);
     if(check.contains("errorHandler") || check == "Unexpected response format"){
@@ -1073,4 +1297,141 @@ QString Chrome::CheckExistElementsString(double timeOut,const QStringList &lstCs
 bool Chrome::switch_to_alert_accept(){
     bool sw = api->switch_to_alert_accept(indexChrome);
     return sw;
+}
+
+QPoint Chrome::GetSize(){
+    QVariant res = api->GetSize(indexChrome);
+    if(res.canConvert<QPoint>()){
+        return res.toPoint();
+    }else{
+        qDebug() << res.toString();
+        return QPoint(0,0);
+    }
+}
+
+int Chrome::scrollSmooth(int distance)
+{
+    if (CheckChromeClose())
+    {
+        return -2;
+    }
+
+    try
+    {
+        int initialPosition = ExecuteScript("return document.querySelector('html').getBoundingClientRect().y+''").toInt();
+
+        ExecuteScript(QString("window.scrollBy({ top: %1, behavior: 'smooth'});").arg(distance));
+
+        DelayTime(0.1);
+
+        int newPosition = ExecuteScript("return document.querySelector('html').getBoundingClientRect().y+''").toInt();
+
+        if (initialPosition == newPosition)
+        {
+            return 2;
+        }
+    }
+    catch (const QException& ex)
+    {
+        ExportError(nullptr, ex, QString("chrome.scrollSmooth(%1)").arg(distance));
+    }
+
+    return 1;
+}
+
+int Chrome::SendKeysv2(int typeAttribute, QString attributeValue, int index, int subTypeAttribute, QString subAttributeValue, int subIndex, QString content, bool isClick, double timeDelayAfterClick){
+    auto res = api->SendKeysv2(indexChrome,typeAttribute,attributeValue,index,subTypeAttribute,subAttributeValue,subIndex,content,isClick,timeDelayAfterClick);
+    if(res.contains("errorHandler") || res == "Unexpected response format"){
+        if(res.contains("Chrome is closed")){
+            return -2;
+        }else{
+            return 0;
+        }
+    }else{
+        if(res == "success"){
+            return 1;
+        }else{
+            return 0;
+        }
+    }
+}
+
+void Chrome::ClosePopup()
+{
+    try
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            switch (CheckExistElements(5.0, QStringList{"[aria-label=\"Done\"]", "[aria-label=\"Xong\"]", "body > div > div > div > div > div > div > div > div > div > div > div > div:nth-child(5) > div", "[data-visualcompletion=\"ignore\"] [role=\"dialog\"] [role=\"button\"]", "[style=\"transform: translateX(0%) translateZ(1px);\"]>div>div:nth-child(2)>div:nth-child(3)>div", "[style=\"transform: translate(16px, 0px);\"] [role=\"button\"]", "[style=\"padding-top: 40px;\"]>div>div>[role=\"button\"]", "[style=\"transform: translateX(0%) translateZ(1px);\"] [role=\"button\"]", "[role=\"dialog\"]>div>div>div:nth-child(3)>div", "[role=\"dialog\"] [style*=\"transform: translate\"]>div>div>div [role=\"button\"]"}))
+            {
+            default:
+                return;
+            case 1:
+                ScrollSmoothv2("document.querySelector('[aria-label=\"Done\"]')");
+                DelayTime(1.0);
+                ExecuteScript("document.querySelector('[aria-label=\"Done\"]').click()");
+                break;
+            case 2:
+                ScrollSmoothv2("document.querySelector('[aria-label=\"Xong\"]')");
+                DelayTime(1.0);
+                click(4, "[aria-label=\"Xong\"]");
+                break;
+            case 4:
+                ExecuteScript("document.querySelector('[data-visualcompletion=\"ignore\"] [role=\"dialog\"] [role=\"button\"]').click()");
+                DelayTime(1.0);
+                break;
+            case 5:
+                ScrollSmoothv2("document.querySelector('[method=\"POST\"]>div>div:nth-child(2)>div>div>div:nth-child(2)>div:nth-child(3) [role=\"button\"]')");
+                DelayTime(1.0);
+                click(4, "[method=\"POST\"]>div>div:nth-child(2)>div>div>div:nth-child(2)>div:nth-child(3) [role=\"button\"]");
+                DelayTime(1.0);
+                break;
+            case 6:
+                ScrollSmoothv2("document.querySelector('[style=\"transform: translate(16px, 0px);\"] [role=\"button\"]')");
+                DelayTime(1.0);
+                click(4, "[style=\"transform: translate(16px, 0px);\"] [role=\"button\"]");
+                DelayTime(1.0);
+                break;
+            case 7:
+                click(4, "[style=\"padding-top: 40px;\"]>div>div>[role=\"button\"]");
+                DelayTime(1.0);
+                break;
+            case 8:
+                ExecuteScript("document.querySelector('[style=\"transform: translateX(0%) translateZ(1px);\"] [role=\"button\"]').click()");
+                DelayTime(1.0);
+                break;
+            case 9:
+                ExecuteScript("document.querySelector('[role=\"dialog\"]>div>div>div:nth-child(3)>div').click()");
+                DelayRandom(2, 4);
+                break;
+            case 10:
+                ExecuteScript("document.querySelector('[role=\"dialog\"] [style*=\"transform: translate\"]>div>div>div [role=\"button\"]').click()");
+                DelayTime(1.0);
+                break;
+            case 3:
+                break;
+            }
+            DelayTime(1.0);
+        }
+    }
+    catch(...)
+    {
+    }
+}
+
+void Chrome::DelayRandom(int timeFrom, int timeTo)
+{
+    if (timeFrom > timeTo)
+    {
+        DelayTime(QRandomGenerator::global()->bounded(timeTo, timeFrom + 1));
+    }
+    else
+    {
+        DelayTime(QRandomGenerator::global()->bounded(timeFrom, timeTo + 1));
+    }
+}
+
+void Chrome::DelayThaoTacNho(int timeAdd)
+{
+    DelayTime(QRandomGenerator::global()->bounded(timeAdd + 1, timeAdd + 4));
 }

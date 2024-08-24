@@ -1,3 +1,5 @@
-2024/08/02-16:57:21.111 5ac Reusing MANIFEST D:\AutoWorker\XWorker\AutoWoker\build\Desktop_Qt_6_7_1_MinGW_64_bit-Debug\profiles\61558557825368\Default\Local Storage\leveldb/MANIFEST-000001
-2024/08/02-16:57:21.119 5ac Recovering log #3
-2024/08/02-16:57:21.120 5ac Reusing old log D:\AutoWorker\XWorker\AutoWoker\build\Desktop_Qt_6_7_1_MinGW_64_bit-Debug\profiles\61558557825368\Default\Local Storage\leveldb/000003.log 
+2024/08/15-13:38:47.399 3f90 Reusing MANIFEST D:\AutoWorker\XWorker\AutoWoker\build\Desktop_Qt_6_7_1_MinGW_64_bit-Debug\profiles\61558557825368\Default\Local Storage\leveldb/MANIFEST-000001
+2024/08/15-13:38:47.405 3f90 Recovering log #4
+2024/08/15-13:38:47.407 3f90 Reusing old log D:\AutoWorker\XWorker\AutoWoker\build\Desktop_Qt_6_7_1_MinGW_64_bit-Debug\profiles\61558557825368\Default\Local Storage\leveldb/000004.log 
+2024/08/15-14:00:17.695 3b44 Level-0 table #7: started
+2024/08/15-14:00:17.844 3b44 Level-0 table #7: 13977 bytes OK

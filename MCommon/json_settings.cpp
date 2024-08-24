@@ -8,13 +8,13 @@
 #include <QDir>
 
 JSON_Settings::JSON_Settings(QString jsonStringOrPathFile, bool isJsonString) {
-    QString content;
     if(isJsonString){
         if(jsonStringOrPathFile.trimmed() == ""){
-            content = "{}";
+            jsonStringOrPathFile = "{}";
         }
-        QJsonDocument Document = QJsonDocument::fromJson(content.toUtf8());
+        QJsonDocument Document = QJsonDocument::fromJson(jsonStringOrPathFile.toUtf8());
         JSON = Document.object();
+        return;
     }
     try {
         PathFileSetting = "settings\\"+jsonStringOrPathFile+".json";
@@ -158,6 +158,7 @@ bool JSON_Settings::stringToBool(const QString& str) {
 int JSON_Settings::GetValueInt(QString key, int valueDefault){
     int result = valueDefault;
     try {
+        auto check = JSON[key];
         int i = JSON[key].toString().toInt();
         if(i!=0){
             result =i;

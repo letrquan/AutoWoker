@@ -26,7 +26,7 @@ private:
     static int getHeightScreen;
 public:
     typedef void* (*RandomStringFunc)(const char*, const char*);
-    static void ExportError(const QException* ex = nullptr, QString error ="");
+    static void ExportError(QException* ex = nullptr, QString error ="");
     static bool IsNumber(QString pValue);
     static QString convertToUnSign(QString s);
     static QString RunCMD(const QString& cmd);

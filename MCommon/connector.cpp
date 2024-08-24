@@ -31,7 +31,7 @@ void Connector::CheckConnectServer(){
                 connection.open();
             }
         }
-    } catch (const QException& ex) {
+    } catch (QException& ex) {
         Common::ExportError(&ex, "CheckConnectServer");
     }
 }

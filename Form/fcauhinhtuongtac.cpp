@@ -31,6 +31,7 @@ void fCauhinhtuongtac::LoadcbbKichBan(){
         num = ui->cbbKichban->currentIndex();
     }
     QVariantList allKichBan = *InteractSQL::GetAllKichBan();
+    ui->cbbKichban->clear();
     for (int i = 0; i < allKichBan.size(); ++i) {
         auto rowMap = allKichBan[i].toMap();
         ui->cbbKichban->addItem(rowMap["Ten"].toString() , rowMap["Id_KichBan"].toString());

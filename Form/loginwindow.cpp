@@ -70,8 +70,6 @@ void LoginWindow::on_LoginButton_clicked()
                 QString phone = result["phone"].toString();
                 QString max_devices = result["status"].toString();
                 int status_u = result["status"].toString().toInt();
-                QString boxchao = name + " đăng nhập thành công";
-                QMessageBox::information(this, "Đăng nhập", boxchao);
                 if(status_u==1){
                     auto  mainWindow = new MainWindow(token,name,phone,max_devices,this);
                     this->close();

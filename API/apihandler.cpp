@@ -167,7 +167,7 @@ QString ApiHandler::executeScript(int instanceId, const QString &script)
         QString status = response["status"].toString();
         if (status == "success")
         {
-            return status;
+            return response["result"].toString();
         }
         else if (status == "error")
         {
@@ -521,6 +521,54 @@ QString ApiHandler::sendKeys(int instanceId, int typeAttribute, QString attribut
     return "Unexpected response format";
 }
 
+
+QString ApiHandler::ClearText(int instanceId, int typeAttribute, QString attributeValue){
+    QJsonObject jsonObject;
+    jsonObject["type_attribute"] = typeAttribute;
+    jsonObject["attribute_value"] = attributeValue;
+    auto response = sendRequest(QString("/send_keys_without_time_delay_second/%1").arg(instanceId), jsonObject);
+    if (response.contains("status"))
+    {
+        QString status = response["status"].toString();
+        if (status == "success")
+        {
+            return status;
+        }
+        else if (status == "error")
+        {
+            return "errorHandler:" + response["message"].toString();
+        }
+    }
+    return "Unexpected response format";
+}
+
+
+QString ApiHandler::SendKeysv2(int instanceId, int typeAttribute, QString attributeValue, int index, int subTypeAttribute, QString subAttributeValue, int subIndex, QString content, bool isClick, double timeDelayAfterClick){
+    QJsonObject jsonObject;
+    jsonObject["type_attribute"] = typeAttribute;
+    jsonObject["attribute_value"] = attributeValue;
+    jsonObject["index"] = index;
+    jsonObject["subTypeAttribute"] = subTypeAttribute;
+    jsonObject["subAttributeValue"] = subAttributeValue;
+    jsonObject["subIndex"] = subIndex;
+    jsonObject["isClick"] = isClick;
+    jsonObject["timeDelayAfterClick"] = timeDelayAfterClick;
+    auto response = sendRequest(QString("/send_keys_without_time_delay_second/%1").arg(instanceId), jsonObject);
+    if (response.contains("status"))
+    {
+        QString status = response["status"].toString();
+        if (status == "success")
+        {
+            return status;
+        }
+        else if (status == "error")
+        {
+            return "errorHandler:" + response["message"].toString();
+        }
+    }
+    return "Unexpected response format";
+}
+
 QString ApiHandler::clickJs(int instanceId, int timeOut, const QStringList &lstCssSelectors){
     QJsonObject jsonObject;
     jsonObject["css_selectors"] = QJsonArray::fromStringList(lstCssSelectors);
@@ -853,7 +901,7 @@ QString ApiHandler::SetSize(int instanceId, int width, int height){
     QJsonObject jsonObject;
     jsonObject["width"] = width;
     jsonObject["height"] = height;
-    auto response = sendRequest(QString("/set_size/%1").arg(instanceId));
+    auto response = sendRequest(QString("/set_size/%1").arg(instanceId),jsonObject);
     if (response.contains("status"))
     {
         QString status = response["status"].toString();
@@ -868,6 +916,42 @@ QString ApiHandler::SetSize(int instanceId, int width, int height){
     }
     return "Unexpected response format";
 }
+
+QVariant ApiHandler::GetSize(int instanceId){
+    auto response = sendRequest(QString("/get_size/%1").arg(instanceId));
+    if (response.contains("status"))
+    {
+        QString status = response["status"].toString();
+        if (status == "success")
+        {
+            return QPoint(response["width"].toInt(),response["height"].toInt());
+        }
+        else if (status == "error")
+        {
+            return response["message"].toString();
+        }
+    }
+    return "Unexpected response format";
+}
+
+
+QString ApiHandler::GotoBackPage(int instanceId){
+    auto response = sendRequest(QString("/go_back/%1").arg(instanceId));
+    if (response.contains("status"))
+    {
+        QString status = response["status"].toString();
+        if (status == "success")
+        {
+            return status;
+        }
+        else if (status == "error")
+        {
+            return response["message"].toString();
+        }
+    }
+    return "Unexpected response format";
+}
+
 
 bool ApiHandler::switch_to_alert_accept(int instanceId){
     auto response = sendRequest(QString("/switch_to_alert_accept/%1").arg(instanceId));

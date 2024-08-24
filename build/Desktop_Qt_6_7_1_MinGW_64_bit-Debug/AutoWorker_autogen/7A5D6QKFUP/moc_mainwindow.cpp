@@ -52,6 +52,10 @@ constexpr auto qt_meta_stringdata_CLASSMainWindowENDCLASS = QtMocHelpers::string
     "column",
     "value",
     "isAllowEmptyValue",
+    "updateCellAccountv2",
+    "id",
+    "field",
+    "updateCellAccountv3",
     "showContextMenu",
     "pos",
     "on_btnLoadAcc_clicked",
@@ -67,6 +71,8 @@ constexpr auto qt_meta_stringdata_CLASSMainWindowENDCLASS = QtMocHelpers::string
     "checkCookie",
     "SetInfoAccount",
     "SetCellAccount",
+    "SetCellAccountv2",
+    "SetCellAccountv3",
     "SetStatusAccount",
     "SetRowColor",
     "on_pushButton_3_clicked",
@@ -78,7 +84,10 @@ constexpr auto qt_meta_stringdata_CLASSMainWindowENDCLASS = QtMocHelpers::string
     "statusAction",
     "isUnlock956",
     "typeWebUnlock956",
-    "on_metroButton1_clicked"
+    "on_metroButton1_clicked",
+    "setAllCheckStates",
+    "Qt::CheckState",
+    "state"
 );
 #else  // !QT_MOC_HAS_STRINGDATA
 #error "qtmochelpers.h not found or too old."
@@ -91,50 +100,59 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSMainWindowENDCLASS[] = {
       12,       // revision
        0,       // classname
        0,    0, // classinfo
-      34,   14, // methods
+      43,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       8,       // signalCount
+      12,       // signalCount
 
  // signals: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    3,  218,    2, 0x06,    1 /* Public */,
-       1,    2,  225,    2, 0x26,    5 /* Public | MethodCloned */,
-       6,    2,  230,    2, 0x06,    8 /* Public */,
-       8,    2,  235,    2, 0x06,   11 /* Public */,
-      11,    1,  240,    2, 0x06,   14 /* Public */,
-      11,    0,  243,    2, 0x26,   16 /* Public | MethodCloned */,
-      12,    4,  244,    2, 0x06,   17 /* Public */,
-      12,    3,  253,    2, 0x26,   22 /* Public | MethodCloned */,
+       1,    3,  272,    2, 0x06,    1 /* Public */,
+       1,    2,  279,    2, 0x26,    5 /* Public | MethodCloned */,
+       6,    2,  284,    2, 0x06,    8 /* Public */,
+       8,    2,  289,    2, 0x06,   11 /* Public */,
+      11,    1,  294,    2, 0x06,   14 /* Public */,
+      11,    0,  297,    2, 0x26,   16 /* Public | MethodCloned */,
+      12,    4,  298,    2, 0x06,   17 /* Public */,
+      12,    3,  307,    2, 0x26,   22 /* Public | MethodCloned */,
+      16,    6,  314,    2, 0x06,   26 /* Public */,
+      16,    5,  327,    2, 0x26,   33 /* Public | MethodCloned */,
+      19,    5,  338,    2, 0x06,   39 /* Public */,
+      19,    4,  349,    2, 0x26,   45 /* Public | MethodCloned */,
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-      16,    1,  260,    2, 0x08,   26 /* Private */,
-      18,    0,  263,    2, 0x08,   28 /* Private */,
-      19,    0,  264,    2, 0x08,   29 /* Private */,
-      20,    0,  265,    2, 0x08,   30 /* Private */,
-      21,    0,  266,    2, 0x08,   31 /* Private */,
-      22,    0,  267,    2, 0x08,   32 /* Private */,
-      23,    0,  268,    2, 0x08,   33 /* Private */,
-      24,    1,  269,    2, 0x08,   34 /* Private */,
-      26,    1,  272,    2, 0x08,   36 /* Private */,
-      27,    0,  275,    2, 0x08,   38 /* Private */,
-      28,    0,  276,    2, 0x08,   39 /* Private */,
-      29,    2,  277,    2, 0x08,   40 /* Private */,
-      30,    4,  282,    2, 0x08,   43 /* Private */,
-      30,    3,  291,    2, 0x28,   48 /* Private | MethodCloned */,
-      31,    3,  298,    2, 0x08,   52 /* Private */,
-      31,    2,  305,    2, 0x28,   56 /* Private | MethodCloned */,
-      32,    1,  310,    2, 0x08,   59 /* Private */,
-      32,    0,  313,    2, 0x28,   61 /* Private | MethodCloned */,
-      32,    2,  314,    2, 0x08,   62 /* Private */,
-      33,    0,  319,    2, 0x08,   65 /* Private */,
-      34,    0,  320,    2, 0x08,   66 /* Private */,
-      35,    0,  321,    2, 0x08,   67 /* Private */,
-      36,    5,  322,    2, 0x08,   68 /* Private */,
-      36,    4,  333,    2, 0x28,   74 /* Private | MethodCloned */,
-      36,    3,  342,    2, 0x28,   79 /* Private | MethodCloned */,
-      42,    0,  349,    2, 0x08,   83 /* Private */,
+      20,    1,  358,    2, 0x08,   50 /* Private */,
+      22,    0,  361,    2, 0x08,   52 /* Private */,
+      23,    0,  362,    2, 0x08,   53 /* Private */,
+      24,    0,  363,    2, 0x08,   54 /* Private */,
+      25,    0,  364,    2, 0x08,   55 /* Private */,
+      26,    0,  365,    2, 0x08,   56 /* Private */,
+      27,    0,  366,    2, 0x08,   57 /* Private */,
+      28,    1,  367,    2, 0x08,   58 /* Private */,
+      30,    1,  370,    2, 0x08,   60 /* Private */,
+      31,    0,  373,    2, 0x08,   62 /* Private */,
+      32,    0,  374,    2, 0x08,   63 /* Private */,
+      33,    2,  375,    2, 0x08,   64 /* Private */,
+      34,    4,  380,    2, 0x08,   67 /* Private */,
+      34,    3,  389,    2, 0x28,   72 /* Private | MethodCloned */,
+      35,    6,  396,    2, 0x08,   76 /* Private */,
+      35,    5,  409,    2, 0x28,   83 /* Private | MethodCloned */,
+      36,    5,  420,    2, 0x08,   89 /* Private */,
+      36,    4,  431,    2, 0x28,   95 /* Private | MethodCloned */,
+      37,    3,  440,    2, 0x08,  100 /* Private */,
+      37,    2,  447,    2, 0x28,  104 /* Private | MethodCloned */,
+      38,    1,  452,    2, 0x08,  107 /* Private */,
+      38,    0,  455,    2, 0x28,  109 /* Private | MethodCloned */,
+      38,    2,  456,    2, 0x08,  110 /* Private */,
+      39,    0,  461,    2, 0x08,  113 /* Private */,
+      40,    0,  462,    2, 0x08,  114 /* Private */,
+      41,    0,  463,    2, 0x08,  115 /* Private */,
+      42,    5,  464,    2, 0x08,  116 /* Private */,
+      42,    4,  475,    2, 0x28,  122 /* Private | MethodCloned */,
+      42,    3,  484,    2, 0x28,  127 /* Private | MethodCloned */,
+      48,    0,  491,    2, 0x08,  131 /* Private */,
+      49,    1,  492,    2, 0x08,  132 /* Private */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::Int, QMetaType::QString, QMetaType::Int,    3,    4,    5,
@@ -145,22 +163,30 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSMainWindowENDCLASS[] = {
     QMetaType::Void,
     QMetaType::Void, QMetaType::Int, QMetaType::QString, QMetaType::QVariant, QMetaType::Bool,    9,   13,   14,   15,
     QMetaType::Void, QMetaType::Int, QMetaType::QString, QMetaType::QVariant,    9,   13,   14,
+    QMetaType::Void, QMetaType::QString, QMetaType::QString, QMetaType::Int, QMetaType::QString, QMetaType::QVariant, QMetaType::Bool,   17,   18,    9,   13,   14,   15,
+    QMetaType::Void, QMetaType::QString, QMetaType::QString, QMetaType::Int, QMetaType::QString, QMetaType::QVariant,   17,   18,    9,   13,   14,
+    QMetaType::Void, QMetaType::Int, QMetaType::QString, QMetaType::QVariant, QMetaType::QString, QMetaType::Bool,    9,   13,   14,   18,   15,
+    QMetaType::Void, QMetaType::Int, QMetaType::QString, QMetaType::QVariant, QMetaType::QString,    9,   13,   14,   18,
 
  // slots: parameters
-    QMetaType::Void, QMetaType::QPoint,   17,
+    QMetaType::Void, QMetaType::QPoint,   21,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::Int,   25,
-    QMetaType::Void, QMetaType::Int,   25,
+    QMetaType::Void, QMetaType::Int,   29,
+    QMetaType::Void, QMetaType::Int,   29,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void, QMetaType::Int, QMetaType::QString,    9,   14,
     QMetaType::Void, QMetaType::Int, QMetaType::QString, QMetaType::QVariant, QMetaType::Bool,    9,   13,   14,   15,
     QMetaType::Void, QMetaType::Int, QMetaType::QString, QMetaType::QVariant,    9,   13,   14,
+    QMetaType::Void, QMetaType::QString, QMetaType::QString, QMetaType::Int, QMetaType::QString, QMetaType::QVariant, QMetaType::Bool,   17,   18,    9,   13,   14,   15,
+    QMetaType::Void, QMetaType::QString, QMetaType::QString, QMetaType::Int, QMetaType::QString, QMetaType::QVariant,   17,   18,    9,   13,   14,
+    QMetaType::Void, QMetaType::Int, QMetaType::QString, QMetaType::QVariant, QMetaType::QString, QMetaType::Bool,    9,   13,   14,   18,   15,
+    QMetaType::Void, QMetaType::Int, QMetaType::QString, QMetaType::QVariant, QMetaType::QString,    9,   13,   14,   18,
     QMetaType::Void, QMetaType::Int, QMetaType::QString, QMetaType::Int,    9,   14,    5,
     QMetaType::Void, QMetaType::Int, QMetaType::QString,    9,   14,
     QMetaType::Void, QMetaType::Int,    9,
@@ -169,10 +195,11 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSMainWindowENDCLASS[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Bool, 0x80000000 | 37, QMetaType::Int, QMetaType::QString, QMetaType::Bool, QMetaType::Int,   38,    9,   39,   40,   41,
-    QMetaType::Bool, 0x80000000 | 37, QMetaType::Int, QMetaType::QString, QMetaType::Bool,   38,    9,   39,   40,
-    QMetaType::Bool, 0x80000000 | 37, QMetaType::Int, QMetaType::QString,   38,    9,   39,
+    QMetaType::Bool, 0x80000000 | 43, QMetaType::Int, QMetaType::QString, QMetaType::Bool, QMetaType::Int,   44,    9,   45,   46,   47,
+    QMetaType::Bool, 0x80000000 | 43, QMetaType::Int, QMetaType::QString, QMetaType::Bool,   44,    9,   45,   46,
+    QMetaType::Bool, 0x80000000 | 43, QMetaType::Int, QMetaType::QString,   44,    9,   45,
     QMetaType::Void,
+    QMetaType::Void, 0x80000000 | 50,   51,
 
        0        // eod
 };
@@ -219,6 +246,34 @@ Q_CONSTINIT const QMetaObject MainWindow::staticMetaObject = { {
         QtPrivate::TypeAndForceComplete<int, std::false_type>,
         QtPrivate::TypeAndForceComplete<QString, std::false_type>,
         QtPrivate::TypeAndForceComplete<QVariant, std::false_type>,
+        // method 'updateCellAccountv2'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<QString, std::false_type>,
+        QtPrivate::TypeAndForceComplete<QString, std::false_type>,
+        QtPrivate::TypeAndForceComplete<int, std::false_type>,
+        QtPrivate::TypeAndForceComplete<QString, std::false_type>,
+        QtPrivate::TypeAndForceComplete<QVariant, std::false_type>,
+        QtPrivate::TypeAndForceComplete<bool, std::false_type>,
+        // method 'updateCellAccountv2'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<QString, std::false_type>,
+        QtPrivate::TypeAndForceComplete<QString, std::false_type>,
+        QtPrivate::TypeAndForceComplete<int, std::false_type>,
+        QtPrivate::TypeAndForceComplete<QString, std::false_type>,
+        QtPrivate::TypeAndForceComplete<QVariant, std::false_type>,
+        // method 'updateCellAccountv3'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<int, std::false_type>,
+        QtPrivate::TypeAndForceComplete<QString, std::false_type>,
+        QtPrivate::TypeAndForceComplete<QVariant, std::false_type>,
+        QtPrivate::TypeAndForceComplete<QString, std::false_type>,
+        QtPrivate::TypeAndForceComplete<bool, std::false_type>,
+        // method 'updateCellAccountv3'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<int, std::false_type>,
+        QtPrivate::TypeAndForceComplete<QString, std::false_type>,
+        QtPrivate::TypeAndForceComplete<QVariant, std::false_type>,
+        QtPrivate::TypeAndForceComplete<QString, std::false_type>,
         // method 'showContextMenu'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         QtPrivate::TypeAndForceComplete<const QPoint &, std::false_type>,
@@ -259,6 +314,34 @@ Q_CONSTINIT const QMetaObject MainWindow::staticMetaObject = { {
         QtPrivate::TypeAndForceComplete<int, std::false_type>,
         QtPrivate::TypeAndForceComplete<QString, std::false_type>,
         QtPrivate::TypeAndForceComplete<QVariant, std::false_type>,
+        // method 'SetCellAccountv2'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<QString, std::false_type>,
+        QtPrivate::TypeAndForceComplete<QString, std::false_type>,
+        QtPrivate::TypeAndForceComplete<int, std::false_type>,
+        QtPrivate::TypeAndForceComplete<QString, std::false_type>,
+        QtPrivate::TypeAndForceComplete<QVariant, std::false_type>,
+        QtPrivate::TypeAndForceComplete<bool, std::false_type>,
+        // method 'SetCellAccountv2'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<QString, std::false_type>,
+        QtPrivate::TypeAndForceComplete<QString, std::false_type>,
+        QtPrivate::TypeAndForceComplete<int, std::false_type>,
+        QtPrivate::TypeAndForceComplete<QString, std::false_type>,
+        QtPrivate::TypeAndForceComplete<QVariant, std::false_type>,
+        // method 'SetCellAccountv3'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<int, std::false_type>,
+        QtPrivate::TypeAndForceComplete<QString, std::false_type>,
+        QtPrivate::TypeAndForceComplete<QVariant, std::false_type>,
+        QtPrivate::TypeAndForceComplete<QString, std::false_type>,
+        QtPrivate::TypeAndForceComplete<bool, std::false_type>,
+        // method 'SetCellAccountv3'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<int, std::false_type>,
+        QtPrivate::TypeAndForceComplete<QString, std::false_type>,
+        QtPrivate::TypeAndForceComplete<QVariant, std::false_type>,
+        QtPrivate::TypeAndForceComplete<QString, std::false_type>,
         // method 'SetStatusAccount'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         QtPrivate::TypeAndForceComplete<int, std::false_type>,
@@ -302,7 +385,10 @@ Q_CONSTINIT const QMetaObject MainWindow::staticMetaObject = { {
         QtPrivate::TypeAndForceComplete<int, std::false_type>,
         QtPrivate::TypeAndForceComplete<QString, std::false_type>,
         // method 'on_metroButton1_clicked'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'setAllCheckStates'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<Qt::CheckState, std::false_type>
     >,
     nullptr
 } };
@@ -321,35 +407,44 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 5: _t->updateRowColor(); break;
         case 6: _t->updateCellAccount((*reinterpret_cast< std::add_pointer_t<int>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<QVariant>>(_a[3])),(*reinterpret_cast< std::add_pointer_t<bool>>(_a[4]))); break;
         case 7: _t->updateCellAccount((*reinterpret_cast< std::add_pointer_t<int>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<QVariant>>(_a[3]))); break;
-        case 8: _t->showContextMenu((*reinterpret_cast< std::add_pointer_t<QPoint>>(_a[1]))); break;
-        case 9: _t->on_btnLoadAcc_clicked(); break;
-        case 10: _t->on_pushButton_4_clicked(); break;
-        case 11: _t->on_button9_clicked(); break;
-        case 12: _t->onSubActionAll(); break;
-        case 13: _t->onActionDeselect(); break;
-        case 14: _t->checkWall(); break;
-        case 15: _t->on_cbbThuMuc_currentIndexChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
-        case 16: _t->on_cbbTinhTrang_currentIndexChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
-        case 17: _t->onActionCopy(); break;
-        case 18: _t->checkCookie(); break;
-        case 19: _t->SetInfoAccount((*reinterpret_cast< std::add_pointer_t<int>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[2]))); break;
-        case 20: _t->SetCellAccount((*reinterpret_cast< std::add_pointer_t<int>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<QVariant>>(_a[3])),(*reinterpret_cast< std::add_pointer_t<bool>>(_a[4]))); break;
-        case 21: _t->SetCellAccount((*reinterpret_cast< std::add_pointer_t<int>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<QVariant>>(_a[3]))); break;
-        case 22: _t->SetStatusAccount((*reinterpret_cast< std::add_pointer_t<int>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[3]))); break;
-        case 23: _t->SetStatusAccount((*reinterpret_cast< std::add_pointer_t<int>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[2]))); break;
-        case 24: _t->SetRowColor((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
-        case 25: _t->SetRowColor(); break;
-        case 26: _t->SetRowColor((*reinterpret_cast< std::add_pointer_t<int>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[2]))); break;
-        case 27: _t->on_pushButton_3_clicked(); break;
-        case 28: _t->on_pushButton_clicked(); break;
-        case 29: _t->on_btnInteract_clicked(); break;
-        case 30: { bool _r = _t->CheckDangCheckpointNew((*reinterpret_cast< std::add_pointer_t<Chrome*>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[3])),(*reinterpret_cast< std::add_pointer_t<bool>>(_a[4])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[5])));
+        case 8: _t->updateCellAccountv2((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[3])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[4])),(*reinterpret_cast< std::add_pointer_t<QVariant>>(_a[5])),(*reinterpret_cast< std::add_pointer_t<bool>>(_a[6]))); break;
+        case 9: _t->updateCellAccountv2((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[3])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[4])),(*reinterpret_cast< std::add_pointer_t<QVariant>>(_a[5]))); break;
+        case 10: _t->updateCellAccountv3((*reinterpret_cast< std::add_pointer_t<int>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<QVariant>>(_a[3])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[4])),(*reinterpret_cast< std::add_pointer_t<bool>>(_a[5]))); break;
+        case 11: _t->updateCellAccountv3((*reinterpret_cast< std::add_pointer_t<int>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<QVariant>>(_a[3])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[4]))); break;
+        case 12: _t->showContextMenu((*reinterpret_cast< std::add_pointer_t<QPoint>>(_a[1]))); break;
+        case 13: _t->on_btnLoadAcc_clicked(); break;
+        case 14: _t->on_pushButton_4_clicked(); break;
+        case 15: _t->on_button9_clicked(); break;
+        case 16: _t->onSubActionAll(); break;
+        case 17: _t->onActionDeselect(); break;
+        case 18: _t->checkWall(); break;
+        case 19: _t->on_cbbThuMuc_currentIndexChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
+        case 20: _t->on_cbbTinhTrang_currentIndexChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
+        case 21: _t->onActionCopy(); break;
+        case 22: _t->checkCookie(); break;
+        case 23: _t->SetInfoAccount((*reinterpret_cast< std::add_pointer_t<int>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[2]))); break;
+        case 24: _t->SetCellAccount((*reinterpret_cast< std::add_pointer_t<int>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<QVariant>>(_a[3])),(*reinterpret_cast< std::add_pointer_t<bool>>(_a[4]))); break;
+        case 25: _t->SetCellAccount((*reinterpret_cast< std::add_pointer_t<int>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<QVariant>>(_a[3]))); break;
+        case 26: _t->SetCellAccountv2((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[3])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[4])),(*reinterpret_cast< std::add_pointer_t<QVariant>>(_a[5])),(*reinterpret_cast< std::add_pointer_t<bool>>(_a[6]))); break;
+        case 27: _t->SetCellAccountv2((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[3])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[4])),(*reinterpret_cast< std::add_pointer_t<QVariant>>(_a[5]))); break;
+        case 28: _t->SetCellAccountv3((*reinterpret_cast< std::add_pointer_t<int>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<QVariant>>(_a[3])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[4])),(*reinterpret_cast< std::add_pointer_t<bool>>(_a[5]))); break;
+        case 29: _t->SetCellAccountv3((*reinterpret_cast< std::add_pointer_t<int>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<QVariant>>(_a[3])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[4]))); break;
+        case 30: _t->SetStatusAccount((*reinterpret_cast< std::add_pointer_t<int>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[3]))); break;
+        case 31: _t->SetStatusAccount((*reinterpret_cast< std::add_pointer_t<int>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[2]))); break;
+        case 32: _t->SetRowColor((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
+        case 33: _t->SetRowColor(); break;
+        case 34: _t->SetRowColor((*reinterpret_cast< std::add_pointer_t<int>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[2]))); break;
+        case 35: _t->on_pushButton_3_clicked(); break;
+        case 36: _t->on_pushButton_clicked(); break;
+        case 37: _t->on_btnInteract_clicked(); break;
+        case 38: { bool _r = _t->CheckDangCheckpointNew((*reinterpret_cast< std::add_pointer_t<Chrome*>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[3])),(*reinterpret_cast< std::add_pointer_t<bool>>(_a[4])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[5])));
             if (_a[0]) *reinterpret_cast< bool*>(_a[0]) = std::move(_r); }  break;
-        case 31: { bool _r = _t->CheckDangCheckpointNew((*reinterpret_cast< std::add_pointer_t<Chrome*>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[3])),(*reinterpret_cast< std::add_pointer_t<bool>>(_a[4])));
+        case 39: { bool _r = _t->CheckDangCheckpointNew((*reinterpret_cast< std::add_pointer_t<Chrome*>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[3])),(*reinterpret_cast< std::add_pointer_t<bool>>(_a[4])));
             if (_a[0]) *reinterpret_cast< bool*>(_a[0]) = std::move(_r); }  break;
-        case 32: { bool _r = _t->CheckDangCheckpointNew((*reinterpret_cast< std::add_pointer_t<Chrome*>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[3])));
+        case 40: { bool _r = _t->CheckDangCheckpointNew((*reinterpret_cast< std::add_pointer_t<Chrome*>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[3])));
             if (_a[0]) *reinterpret_cast< bool*>(_a[0]) = std::move(_r); }  break;
-        case 33: _t->on_metroButton1_clicked(); break;
+        case 41: _t->on_metroButton1_clicked(); break;
+        case 42: _t->setAllCheckStates((*reinterpret_cast< std::add_pointer_t<Qt::CheckState>>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -389,6 +484,20 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
                 return;
             }
         }
+        {
+            using _t = void (MainWindow::*)(QString , QString , int , QString , QVariant , bool );
+            if (_t _q_method = &MainWindow::updateCellAccountv2; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
+                *result = 8;
+                return;
+            }
+        }
+        {
+            using _t = void (MainWindow::*)(int , QString , QVariant , QString , bool );
+            if (_t _q_method = &MainWindow::updateCellAccountv3; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
+                *result = 10;
+                return;
+            }
+        }
     }
 }
 
@@ -411,13 +520,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 34)
+        if (_id < 43)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 34;
+        _id -= 43;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 34)
+        if (_id < 43)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 34;
+        _id -= 43;
     }
     return _id;
 }
@@ -455,5 +564,19 @@ void MainWindow::updateCellAccount(int _t1, QString _t2, QVariant _t3, bool _t4)
 {
     void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))), const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t2))), const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t3))), const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t4))) };
     QMetaObject::activate(this, &staticMetaObject, 6, _a);
+}
+
+// SIGNAL 8
+void MainWindow::updateCellAccountv2(QString _t1, QString _t2, int _t3, QString _t4, QVariant _t5, bool _t6)
+{
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))), const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t2))), const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t3))), const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t4))), const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t5))), const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t6))) };
+    QMetaObject::activate(this, &staticMetaObject, 8, _a);
+}
+
+// SIGNAL 10
+void MainWindow::updateCellAccountv3(int _t1, QString _t2, QVariant _t3, QString _t4, bool _t5)
+{
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))), const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t2))), const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t3))), const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t4))), const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t5))) };
+    QMetaObject::activate(this, &staticMetaObject, 10, _a);
 }
 QT_WARNING_POP

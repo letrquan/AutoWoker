@@ -62,19 +62,22 @@ QString RequestHandle::RequestPost(QString url, const QString &data, QString con
         request.setHeader(QNetworkRequest::ContentTypeHeader, contentType);
     }
     setRequestHeaders(request);
-    if(cookies!=""){
+    if (!cookies.isEmpty()) {
         AddCookie(cookies, request);
     }
-    QByteArray postData;
 
-    // Append the data only if it's not empty.
-    if (!data.isEmpty()) {
-        postData.append(data.toUtf8());
+    QNetworkReply *reply;
+    if (data.isEmpty()) {
+        // Send a POST request without any data
+        reply = manager->post(request, QByteArray());
+    } else {
+        // Send a POST request with data
+        QByteArray postData = data.toUtf8();
+        reply = manager->post(request, postData);
     }
-    QNetworkReply *reply = manager->post(request, postData);
+
     QTimer timer;
     timer.setSingleShot(true);
-
     QEventLoop loop;
     connect(&timer, &QTimer::timeout, &loop, [&]() {
         qDebug() << "Request timed out";
@@ -82,19 +85,19 @@ QString RequestHandle::RequestPost(QString url, const QString &data, QString con
         loop.quit();
     });
     connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
-
     timer.start(_connectTimeout);
     loop.exec();
 
+    QString response;
     if (reply->isFinished()) {
         QByteArray response_data = reply->readAll();
-        QString response(response_data);
-        reply->deleteLater();
-        return response;
+        response = QString(response_data);
     } else {
-        reply->deleteLater();
-        return "Request timed out";
+        response = "Request timed out";
     }
+
+    reply->deleteLater();
+    return response;
 }
 
 void RequestHandle::Parse(int typeProxy, QString proxyAddress){

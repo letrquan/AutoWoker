@@ -71,8 +71,9 @@ MainWindow::MainWindow(QString tokemem, QString namemem, QString phoneMem, QStri
     connect(this, &MainWindow::updateInfoAccount, this, &MainWindow::SetInfoAccount, Qt::QueuedConnection);
     connect(this, &MainWindow::updateRowColor2, this, static_cast<void (MainWindow::*)(int, int)>(&MainWindow::SetRowColor), Qt::QueuedConnection);
     connect(this, &MainWindow::updateRowColor, this, static_cast<void (MainWindow::*)(int)>(&MainWindow::SetRowColor), Qt::QueuedConnection);
+    connect(this, &MainWindow::updateCellAccountv2, this, &MainWindow::SetCellAccountv2, Qt::QueuedConnection);
+    connect(this, &MainWindow::updateCellAccountv3, this, &MainWindow::SetCellAccountv3, Qt::QueuedConnection);
     OnLoaded();
-    
 }
 
 MainWindow::~MainWindow()
@@ -466,12 +467,11 @@ void MainWindow::KiemTraTaiKhoan(int type, bool useProxy) {
     QThreadPool::globalInstance()->setMaxThreadCount(SettingsTool::GetSettings("configGeneral").GetValueInt("nudHideThread", 10));
     auto tokenTrunggian = SettingsTool::GetSettings("configGeneral").GetValue("token");
     QFutureWatcher<void> *watcher = new QFutureWatcher<void>(this);
-    
+
     connect(watcher, &QFutureWatcher<void>::started, this, [this]() {
         cControl("start");
     });
     connect(watcher, &QFutureWatcher<void>::finished, this, [this]() {
-        cControl("database");
         if(!statusSQL->isEmpty()){
             if (CommonSQL::UpdateStatuses(*statusSQL, "status")) {
                 statusSQL->clear();
@@ -484,7 +484,7 @@ void MainWindow::KiemTraTaiKhoan(int type, bool useProxy) {
         }
         cControl("stop");
     });
-    
+
     QFuture<void> future = QtConcurrent::run([this, tokenTrunggian, type]() {
         switch (type) {
         case 0:
@@ -492,27 +492,20 @@ void MainWindow::KiemTraTaiKhoan(int type, bool useProxy) {
                 QtConcurrent::run(&MainWindow::CheckMyWall, this, num, tokenTrunggian);
             });
             break;
-            
+
         case 3:
             checkAccounts([this](int num) {
                 QtConcurrent::run(&MainWindow::CheckDangCheckpoint, this, num);
             });
             break;
-            
+
         default:
             break;
         }
-        
-        // auto tickCount = QDateTime::currentSecsSinceEpoch();
-        // while (QThreadPool::globalInstance()->activeThreadCount() > 0 && QDateTime::currentSecsSinceEpoch() - tickCount <= 60) {
-        //     QMetaObject::invokeMethod(QCoreApplication::instance(), []() {
-        //             QCoreApplication::processEvents();
-        //         }, Qt::BlockingQueuedConnection);
-        //     QThread::sleep(1);
-        // }
     });
-    
+
     watcher->setFuture(future);
+    future.waitForFinished();
 }
 
 void MainWindow::checkAccounts(const std::function<void(int)>& task) {
@@ -613,6 +606,13 @@ void MainWindow::SetCellAccount(int indexRow, QString column, QVariant value, bo
     }
 }
 
+void MainWindow::SetCellAccountv2(QString id, QString field,int indexRow, QString column, QVariant value, bool isAllowEmptyValue){
+    if (isAllowEmptyValue || !(value.toString().trimmed() == ""))
+    {
+        DatagridviewHelper::SetStatusDataGridView(ui->tableView, indexRow, column, value);
+        Common::UpdateFieldToAccount(id, field, value.toString());
+    }
+}
 
 void MainWindow::CheckAccountMail(int row){
     try {
@@ -1080,15 +1080,38 @@ void MainWindow::showContextMenu(const QPoint &pos) {
     // Show the context menu at the cursor position
     contextMenu.exec(ui->tableView->viewport()->mapToGlobal(pos));
 }
-void MainWindow::onSubActionAll(){
-    for(int i =0; i<ui->tableView->model()->rowCount();i++){
-        ui->tableView->model()->setData(ui->tableView->model()->index(i,0),Qt::Checked,Qt::CheckStateRole);
+
+void MainWindow::setAllCheckStates(Qt::CheckState state)
+{
+    // Stop any ongoing operation
+    if (stateChangeTimer) {
+        stateChangeTimer->stop();
+        delete stateChangeTimer;
     }
+
+    int* currentRow = new int(0);  // Dynamically allocate to share between lambda calls
+
+    stateChangeTimer = new QTimer(this);
+    connect(stateChangeTimer, &QTimer::timeout, this, [=]() mutable {
+        for (int i = 0; i < BATCH_SIZE && *currentRow < ui->tableView->model()->rowCount(); ++i, ++(*currentRow)) {
+            ui->tableView->model()->setData(ui->tableView->model()->index(*currentRow,0),state,Qt::CheckStateRole);
+        }
+
+        if (*currentRow >= ui->tableView->model()->rowCount()) {
+            stateChangeTimer->stop();
+            delete stateChangeTimer;
+            stateChangeTimer = nullptr;
+            delete currentRow;  // Clean up the dynamically allocated integer
+        }
+    });
+    stateChangeTimer->start(0);
+}
+
+void MainWindow::onSubActionAll(){
+    setAllCheckStates(Qt::Checked);
 }
 void MainWindow::onActionDeselect(){
-    for(int i =0; i<ui->tableView->model()->rowCount();i++){
-        ui->tableView->model()->setData(ui->tableView->model()->index(i,0),Qt::Unchecked,Qt::CheckStateRole);
-    }
+    setAllCheckStates(Qt::Unchecked);
 }
 void MainWindow::checkWall(){
     KiemTraTaiKhoan(0);
@@ -1232,8 +1255,8 @@ void MainWindow::Execute(const JSON_Settings &settings){
                         if (SettingsTool::GetSettings("configInteractGeneral").GetValueBool("ckbRandomThuTuTaiKhoan"))
                         {
                             QMetaObject::invokeMethod(ui->tableView, [this]() {
-                                    RandomThuTuTaiKhoan();
-                                }, Qt::QueuedConnection);
+                                RandomThuTuTaiKhoan();
+                            }, Qt::QueuedConnection);
                         }
                         dicUidNhom = GetDictionaryIntoHanhDong(idKichBan, "HDThamGiaNhomUid");
                         dicUidNhom2 = GetDictionaryIntoHanhDong(idKichBan, "HDThamGiaNhomUidv2");
@@ -1556,7 +1579,7 @@ void MainWindow::ExcuteOneThread(int indexRow, int indexPos, QString idKichBan, 
                         emit updateStatusAccount(indexRow, "Get token fail (Sai pass)");
                         num2 = 1;
                         goto end_IL_0482;
-                    IL_0863:
+IL_0863:
                         emit updateStatusAccount(indexRow, statusProxy + Language::GetValue("Chờ đến lượt..."));
                         {
                             QMutexLocker locker(&mutex);
@@ -1833,7 +1856,7 @@ void MainWindow::ExcuteOneThread(int indexRow, int indexPos, QString idKichBan, 
                                         flag7 = true;
                                     }
                                     goto IL_1322;
-                                IL_17a9:
+IL_17a9:
                                     if (settings.GetValueBool("Unlock956")){
                                         if (flag8)
                                         {
@@ -1915,40 +1938,160 @@ void MainWindow::ExcuteOneThread(int indexRow, int indexPos, QString idKichBan, 
                                                 num2 = 1;
                                                 break;
                                             }
+                                            try {
+                                                text13 = dataTable[num10].toMap()["TenHanhDong"].toString();
+                                                text12 = dataTable[num10].toMap()["Id_HanhDong"].toString();
+                                                emit updateStatusAccount(indexRow, statusProxy + Language::GetValue("Đang") + " " + text13 + "...");
+                                                dataTable2 = *InteractSQL::GetHanhDongById(text12);
+                                                JSON_Settings jSON_Settings2(dataTable2[0].toMap()["CauHinh"].toString(), true);
+                                                try {
+                                                    auto tenTuongTac = dataTable2[0].toMap()["TenTuongTac"].toString();
+                                                    if (tenTuongTac == "HDXoaNhatKyHoatDong") {
+                                                        num = HDXoaNhatKyHoatDong(indexRow, statusProxy, chrome, jSON_Settings2);
+                                                    } else if (tenTuongTac == "HDTaoPage") {
+                                                        num = HDTaoPage_Fix(text177, indexRow, statusProxy, chrome, jSON_Settings2, text13, text12);
+                                                    } else if (tenTuongTac == "HDDocThongBaov2") {
+                                                        num = HDDocThongBaov2(indexRow, statusProxy, chrome, jSON_Settings2.GetValueInt("nudSoLuongFrom"), jSON_Settings2.GetValueInt("nudSoLuongTo"), jSON_Settings2.GetValueInt("nudDelayFrom"), jSON_Settings2.GetValueInt("nudDelayTo"), text13);
+                                                    }else if (tenTuongTac == "HDTuongTacNewsfeed") {
+                                                        num = HDTuongTacNewsfeed(indexRow, statusProxy, chrome, jSON_Settings2.GetValueInt("nudTimeFrom"), jSON_Settings2.GetValueInt("nudTimeTo"), jSON_Settings2.GetValueInt("nudDelayFrom"), jSON_Settings2.GetValueInt("nudDelayTo"), jSON_Settings2.GetValueBool("ckbInteract"), jSON_Settings2.GetValueInt("nudCountLikeFrom", 1), jSON_Settings2.GetValueInt("nudCountLikeTo", 3), jSON_Settings2.GetValue("typeCamXuc"), jSON_Settings2.GetValueBool("ckbComment"), jSON_Settings2.GetValueInt("nudCountCommentFrom", 1), jSON_Settings2.GetValueInt("nudCountCommentTo", 3), jSON_Settings2.GetValueList("txtComment", jSON_Settings2.GetValueInt("typeNganCach")), text13);
+                                                    } else if (tenTuongTac == "HDXemStory") {
+                                                        num = HDXemStory(indexRow, statusProxy, chrome, jSON_Settings2.GetValueInt("nudSoLuongFrom"), jSON_Settings2.GetValueInt("nudSoLuongTo"), jSON_Settings2.GetValueInt("nudDelayFrom"), jSON_Settings2.GetValueInt("nudDelayTo"), jSON_Settings2.GetValueBool("ckbInteract"), jSON_Settings2.GetValue("typeReaction"), jSON_Settings2.GetValueBool("ckbComment"), jSON_Settings2.GetValueList("txtComment"), text13);
+                                                    }
+                                                    //     } else if (tenTuongTac == "HDXemStoryv2") {
+                                                    //         num = HDXemStoryv2(indexRow, statusProxy, chrome, jSON_Settings2.GetValueInt("nudSoLuongFrom"), jSON_Settings2.GetValueInt("nudSoLuongTo"), jSON_Settings2.GetValueInt("nudDelayFrom"), jSON_Settings2.GetValueInt("nudDelayTo"), jSON_Settings2.GetValueBool("ckbInteract").toBool(), jSON_Settings2.GetValue("typeReaction"), jSON_Settings2.GetValueBool("ckbComment"), jSON_Settings2.GetValueList("txtComment"), text13);
+                                                    //     } else if (tenTuongTac == "HDXemStoryChiDinh") {
+                                                    //         num = HDXemStoryChiDinh(indexRow, statusProxy, chrome, jSON_Settings2, text13);
+                                                    //     } else if (tenTuongTac == "HDDangStory") {
+                                                    //         num = HDDangStory(indexRow, statusProxy, chrome, jSON_Settings2, text13);
+                                                    //     } else if (tenTuongTac == "HDXemWatch") {
+                                                    //         num = HDXemWatch(indexRow, statusProxy, chrome, jSON_Settings2.GetValueInt("nudSoLuongFrom"), jSON_Settings2.GetValueInt("nudSoLuongTo"), jSON_Settings2.GetValueInt("nudTimeWatchFrom"), jSON_Settings2.GetValueInt("nudTimeWatchTo"), jSON_Settings2.GetValueBool("ckbInteract"), jSON_Settings2.GetValueInt("nudCountLikeFrom"), jSON_Settings2.GetValueInt("nudCountLikeTo"), jSON_Settings2.GetValueBool("ckbShareWall"), jSON_Settings2.GetValueInt("nudCountShareFrom"), jSON_Settings2.GetValueInt("nudCountShareTo"), jSON_Settings2.GetValueBool("ckbComment"), jSON_Settings2.GetValueList("txtComment"), jSON_Settings2.GetValueInt("nudCountCommentFrom"), jSON_Settings2.GetValueInt("nudCountCommentTo"), jSON_Settings2.GetValueBool("ckbFollow"), jSON_Settings2.GetValueInt("nudFollowFrom"), jSON_Settings2.GetValueInt("nudFollowTo"), text13);
+                                                } catch (QException &ex) {
+                                                    Common::ExportError(&ex, dataTable2[0].toMap()["TenTuongTac"].toString());
+                                                }
+                                            } catch (QException &ex2) {
+                                                Common::ExportError(&ex2, "Tuong tac theo kich ban");
+                                            }
+                                            if (num != -4)
+                                            {
+                                                num = CheckFacebookLogout(chrome, text3, cellAccount5, cellAccount4, true);
+                                                switch (num)
+                                                {
+                                                case -3:
+                                                    chrome->Status = StatusChromeAccount::NoInternet;
+                                                    num2 = 1;
+                                                    goto end_IL_4ed7;
+                                                case -2:
+                                                    chrome->Status = StatusChromeAccount::ChromeClosed;
+                                                    num2 = 1;
+                                                    goto end_IL_4ed7;
+                                                case -1:
+                                                    chrome->Status = StatusChromeAccount::Checkpoint;
+                                                    SetInfoAccount(indexRow, Language::GetValue("Checkpoint"));
+                                                    num2 = 1;
+                                                    goto end_IL_4ed7;
+                                                case 2:
+                                                    num2 = 0;
+                                                    goto end_IL_4ed7;
+                                                }
+                                                num10++;
+                                                continue;
+                                            }
+                                            flag2 = true;
                                         }
-                                        try {
-                                            text13 = dataTable[num10].toMap()["TenHanhDong"].toString();
-                                            text12 = dataTable[num10].toMap()["Id_HanhDong"].toString();
-                                            emit updateStatusAccount(indexRow, statusProxy + Language::GetValue("Đang") + " " + text13 + "...");
-                                            dataTable2 = *InteractSQL::GetHanhDongById(text12);
-                                            JSON_Settings jSON_Settings2(dataTable2[0].toMap()["CauHinh"].toString(), true);
-                                            // try {
-                                            //     auto tenTuongTac = dataTable2[0].toMap()["TenTuongTac"].toString();
-                                            //     if (tenTuongTac == "HDXoaNhatKyHoatDong") {
-                                            //         num = HDXoaNhatKyHoatDong(indexRow, statusProxy, chrome, jSON_Settings2);
-                                            //     } else if (tenTuongTac == "HDTaoPage") {
-                                            //         num = HDTaoPage_Fix(text177, indexRow, statusProxy, chrome, jSON_Settings2, text13, text12);
-                                            //     } else if (tenTuongTac == "HDDocThongBao") {
-                                            //         num = HDDocThongBao(indexRow, statusProxy, chrome, jSON_Settings2.GetValueInt("nudSoLuongFrom"), jSON_Settings2.GetValueInt("nudSoLuongTo"), jSON_Settings2.GetValueInt("typeDocThongBao"), jSON_Settings2.GetValueInt("nudDelayFrom"), jSON_Settings2.GetValueInt("nudDelayTo"), text13);
-                                            //     } else if (tenTuongTac == "HDDocThongBaov2") {
-                                            //         num = HDDocThongBaov2(indexRow, statusProxy, chrome, jSON_Settings2.GetValueInt("nudSoLuongFrom"), jSON_Settings2.GetValueInt("nudSoLuongTo"), jSON_Settings2.GetValueInt("nudDelayFrom"), jSON_Settings2.GetValueInt("nudDelayTo"), text13);
-                                            //     } else if (tenTuongTac == "HDXemStory") {
-                                            //         num = HDXemStory(indexRow, statusProxy, chrome, jSON_Settings2.GetValueInt("nudSoLuongFrom"), jSON_Settings2.GetValueInt("nudSoLuongTo"), jSON_Settings2.GetValueInt("nudDelayFrom"), jSON_Settings2.GetValueInt("nudDelayTo"), jSON_Settings2.GetValueBool("ckbInteract"), jSON_Settings2.GetValue("typeReaction"), jSON_Settings2.GetValueBool("ckbComment"), jSON_Settings2.GetValueList("txtComment"), text13);
-                                            //     } else if (tenTuongTac == "HDXemStoryv2") {
-                                            //         num = HDXemStoryv2(indexRow, statusProxy, chrome, jSON_Settings2.GetValueInt("nudSoLuongFrom"), jSON_Settings2.GetValueInt("nudSoLuongTo"), jSON_Settings2.GetValueInt("nudDelayFrom"), jSON_Settings2.GetValueInt("nudDelayTo"), jSON_Settings2.GetValueBool("ckbInteract").toBool(), jSON_Settings2.GetValue("typeReaction"), jSON_Settings2.GetValueBool("ckbComment"), jSON_Settings2.GetValueList("txtComment"), text13);
-                                            //     } else if (tenTuongTac == "HDXemStoryChiDinh") {
-                                            //         num = HDXemStoryChiDinh(indexRow, statusProxy, chrome, jSON_Settings2, text13);
-                                            //     } else if (tenTuongTac == "HDDangStory") {
-                                            //         num = HDDangStory(indexRow, statusProxy, chrome, jSON_Settings2, text13);
-                                            //     } else if (tenTuongTac == "HDXemWatch") {
-                                            //         num = HDXemWatch(indexRow, statusProxy, chrome, jSON_Settings2.GetValueInt("nudSoLuongFrom"), jSON_Settings2.GetValueInt("nudSoLuongTo"), jSON_Settings2.GetValueInt("nudTimeWatchFrom"), jSON_Settings2.GetValueInt("nudTimeWatchTo"), jSON_Settings2.GetValueBool("ckbInteract"), jSON_Settings2.GetValueInt("nudCountLikeFrom"), jSON_Settings2.GetValueInt("nudCountLikeTo"), jSON_Settings2.GetValueBool("ckbShareWall"), jSON_Settings2.GetValueInt("nudCountShareFrom"), jSON_Settings2.GetValueInt("nudCountShareTo"), jSON_Settings2.GetValueBool("ckbComment"), jSON_Settings2.GetValueList("txtComment"), jSON_Settings2.GetValueInt("nudCountCommentFrom"), jSON_Settings2.GetValueInt("nudCountCommentTo"), jSON_Settings2.GetValueBool("ckbFollow"), jSON_Settings2.GetValueInt("nudFollowFrom"), jSON_Settings2.GetValueInt("nudFollowTo"), text13);
-                                            // } catch (...) {
-                                            // }
-                                        } catch (...) {
+                                        if (SettingsTool::GetSettings("configInteractGeneral").GetValueBool("ckbCheckBanBeGoiY") && check_HDKetBanGoiY == "")
+                                        {
+                                            emit updateStatusAccount(indexRow, statusProxy + Language::GetValue("Check gợi ý kết bạn..."));
+                                            check_HDKetBanGoiY = "Yes";
+                                            chrome->GotoURL("https://mobile.facebook.com/friends/center/suggestions/?mff_nav=1&ref=bookmarks");
+                                            if (chrome->ExecuteScript("return document.querySelectorAll('[data-sigil=\"m-add-friend-button-container\"]>div>div>div>a').length+''") == "0")
+                                            {
+                                                check_HDKetBanGoiY = "No";
+                                            }
                                         }
+                                        if (SettingsTool::GetSettings("configInteractGeneral").GetValueBool("ckbCheckSpam") && CommonChrome::RequestGet(chrome, "https://mbasic.facebook.com/support/?ref=settings", "https://mbasic.facebook.com/").contains("background-color: #4a90e2"))
+                                        {
+                                            flag3 = true;
+                                        }
+                                        if (SettingsTool::GetSettings("configInteractGeneral").GetValueBool("ckbAllowFollow"))
+                                        {
+                                            emit updateStatusAccount(indexRow, statusProxy + Language::GetValue("Cho phe\u0301p ngươ\u0300i kha\u0301c follow..."));
+                                            AllowFollow(chrome);
+                                            Common::DelayTime(QRandomGenerator::global()->bounded(1,4));
+                                        }
+                                        if (SettingsTool::GetSettings("configInteractGeneral").GetValueBool("ckbReviewTag"))
+                                        {
+                                            emit updateStatusAccount(indexRow, statusProxy + Language::GetValue("Bật duyệt bài viết..."));
+                                            ReviewTag(chrome);
+                                            Common::DelayTime(QRandomGenerator::global()->bounded(1,4));
+                                        }
+                                        if (SettingsTool::GetSettings("configInteractGeneral").GetValueBool("ckbBatThongBaoDangNhap"))
+                                        {
+                                            emit updateStatusAccount(indexRow, statusProxy + Language::GetValue("Bật thông báo đăng nhập..."));
+                                            BatThongBaoDangNhap(chrome, indexRow);
+                                            Common::DelayTime(QRandomGenerator::global()->bounded(1,4));
+                                        }
+                                        if (SettingsTool::GetSettings("configInteractGeneral").GetValueBool("ckbCapNhatThongTin"))
+                                        {
+                                            try
+                                            {
+                                                emit updateStatusAccount(indexRow, statusProxy + Language::GetValue("Cập nhật thông tin..."));
+                                                CheckInfoWhenInteracting(chrome, indexRow);
+                                                Common::DelayTime(QRandomGenerator::global()->bounded(1,4));
+                                            }
+                                            catch (QException ex3)
+                                            {
+                                                Common::ExportError(nullptr, ex3.what());
+                                            }
+                                        }
+                                        if (SettingsTool::GetSettings("configInteractGeneral").GetValueBool("ckbGetToken"))
+                                        {
+                                            switch (SettingsTool::GetSettings("configInteractGeneral").GetValueInt("typeToken"))
+                                            {
+                                            case 0:
+                                                text5 = CommonChrome::GetTokenEAAG(chrome, cellAccount4);
+                                                break;
+                                            case 1:
+                                                text5 = CommonChrome::GetTokenEAABw(chrome);
+                                                break;
+                                            case 2:
+                                                text5 = CommonChrome::GetTokenEAABs(chrome);
+                                                break;
+                                            case 3:
+                                                text5 = CommonChrome::GetTokenEAAAAU(chrome, text3, cellAccount5, cellAccount4);
+                                                break;
+                                            }
+                                            if (text5 != "")
+                                            {
+                                                Common::UpdateFieldToAccount(cellAccount, "token", text5);
+                                                emit updateCellAccount(indexRow, "cToken", text5);
+                                            }
+                                        }
+                                        if (SettingsTool::GetSettings("configInteractGeneral").GetValueBool("ckbLogOut"))
+                                        {
+                                            Common::DelayTime(QRandomGenerator::global()->bounded(1,4));
+                                            emit updateStatusAccount(indexRow, statusProxy + Language::GetValue("Đăng xuất..."));
+                                            Logout(chrome);
+                                            Common::DelayTime(QRandomGenerator::global()->bounded(1,4));
+                                        }
+                                        if (SettingsTool::GetSettings("configInteractGeneral").GetValueBool("ckbCauHinhTaiKhoan"))
+                                        {
+                                            emit updateStatusAccount(indexRow, statusProxy + Language::GetValue("Cấu hình tài khoản..."));
+                                            CauHinhTaiKhoan(chrome);
+                                            Common::DelayTime(QRandomGenerator::global()->bounded(1,4));
+                                        }
+                                        if (SettingsTool::GetSettings("configInteractGeneral").GetValueBool("ckbCongKhaiBanBe"))
+                                        {
+                                            SetStatusAccount(indexRow, statusProxy + Language::GetValue("Cấu hình tài khoản..."));
+                                            CongKhaiBanBe(chrome);
+                                            Common::DelayTime(QRandomGenerator::global()->bounded(1,4));
+                                        }
+                                        break;
+                                        continue;
+end_IL_4ed7:
+                                        break;
                                     }
                                     break;
-                                IL_1322:
+IL_1322:
                                     if (!flag7) {
                                         int num11 = SettingsTool::GetSettings("configInteractGeneral").GetValueInt("typeLogin");
                                         QString text14;
@@ -2038,7 +2181,7 @@ void MainWindow::ExcuteOneThread(int indexRow, int indexPos, QString idKichBan, 
                                             goto IL_178b;
                                         }
 
-                                    IL_178b:
+IL_178b:
                                         if (flag7) {
                                             break;
                                         }
@@ -2051,14 +2194,14 @@ void MainWindow::ExcuteOneThread(int indexRow, int indexPos, QString idKichBan, 
                                     goto IL_17a9;
                                     continue;
 
-                                end_IL_0d65:
+end_IL_0d65:
                                     break;
 
                                 }
 
                             }
                             goto end_IL_0482;
-                        IL_0533:
+IL_0533:
                             if (settings.GetValueBool("Bat2FA"))
                             {
                                 flag5 = true;
@@ -2159,7 +2302,7 @@ void MainWindow::ExcuteOneThread(int indexRow, int indexPos, QString idKichBan, 
                                     num2 = 1;
                                 }
                             }
-                        end_IL_0482:;
+end_IL_0482:;
                         }
                     } catch (QException ex5) {
                         emit updateStatusAccount(indexRow, statusProxy + Language::GetValue("Lô\u0303i không xa\u0301c đi\u0323nh!"));
@@ -2169,11 +2312,11 @@ void MainWindow::ExcuteOneThread(int indexRow, int indexPos, QString idKichBan, 
             }
         }
         goto IL_5233;
-    IL_0396:
+IL_0396:
         emit updateStatusAccount(indexRow, statusProxy + Language::GetValue("Đã dừng!"));
         num2 = 1;
         goto IL_5233;
-    IL_5233:
+IL_5233:
         QString text18 = "";
         if(num2 == 1){
             if(chrome != nullptr){
@@ -2195,7 +2338,7 @@ void MainWindow::ExcuteOneThread(int indexRow, int indexPos, QString idKichBan, 
             }
         }else if (CheckIsUidFacebook(text3) && CommonRequest::CheckLiveWall(text3).startsWith("0|"))
         {
-            SetInfoAccount(indexRow, "Die");
+            emit updateInfoAccount(indexRow, "Die");
             text18 = Language::GetValue("Tài khoản Die!");
         }else{
             chrome->Status = StatusChromeAccount::Empty;
@@ -2203,7 +2346,7 @@ void MainWindow::ExcuteOneThread(int indexRow, int indexPos, QString idKichBan, 
             StatusChromeAccount status = chrome->Status;
             if (status == StatusChromeAccount::ChromeClosed || status == StatusChromeAccount::Checkpoint || status == StatusChromeAccount::NoInternet)
             {
-                SetRowColor(indexRow, 1);
+                emit updateRowColor2(indexRow, 1);
                 text18 = GetContentStatusChrome::GetContent(chrome->Status);
             }
         }
@@ -2214,7 +2357,7 @@ void MainWindow::ExcuteOneThread(int indexRow, int indexPos, QString idKichBan, 
                 if (!chrome->CheckChromeClose() && SettingsTool::GetSettings("configGeneral").GetValueBool("ckbDelayCloseChrome"))
                 {
                     int timeWait = QRandomGenerator::global()->bounded(SettingsTool::GetSettings("configGeneral").GetValueInt("nudDelayCloseChromeFrom"), SettingsTool::GetSettings("configGeneral").GetValueInt("nudDelayCloseChromeTo") + 1);
-                    SetStatusAccount(indexRow, statusProxy + "Đóng tri\u0300nh duyê\u0323t sau {time}s...", timeWait);
+                    emit updateStatusAccount(indexRow, statusProxy + "Đóng tri\u0300nh duyê\u0323t sau {time}s...", timeWait);
                 }
                 CloseChrome(indexRow, statusProxy, chrome);
             }
@@ -2288,16 +2431,16 @@ void MainWindow::ExcuteOneThread(int indexRow, int indexPos, QString idKichBan, 
                 text20 += " -Follow fail!";
                 break;
             }
-            SetStatusAccount(indexRow, statusProxy + Language::GetValue("Đã tương tác xong!") + (flag2 ? "- Facebook blocked!" : "") + (flag3 ? "- Facebook spam!" : "") + text20 + ((text2 != "") ? ("- " + text2) : "") + text19 + " [" /*+ account.GetTimeRun()*/ + "(s)]");
-            SetCellAccount(indexRow, "cInteractEnd", QDateTime::currentDateTime().toString("dd/MM/yyyy HH:mm:ss"), "interactEnd");
+            emit updateStatusAccount(indexRow, statusProxy + Language::GetValue("Đã tương tác xong!") + (flag2 ? "- Facebook blocked!" : "") + (flag3 ? "- Facebook spam!" : "") + text20 + ((text2 != "") ? ("- " + text2) : "") + text19 + " [" /*+ account.GetTimeRun()*/ + "(s)]");
+            emit updateCellAccount(indexRow, "cInteractEnd", QDateTime::currentDateTime().toString("dd/MM/yyyy HH:mm:ss"), "interactEnd");
             if (GetInfoAccount(indexRow) != "Changed pass")
             {
-                SetInfoAccount(indexRow, "Live");
+                emit updateInfoAccount(indexRow, "Live");
             }
         }
         else
         {
-            SetStatusAccount(indexRow, statusProxy + text18 + (flag2 ? "- Facebook blocked!" : ""));
+            emit updateStatusAccount(indexRow, statusProxy + text18 + (flag2 ? "- Facebook blocked!" : ""));
         }
         if (flag && QFileInfo::exists(SettingsTool::GetSettings("configGeneral").GetValue("txbPathProfile") + "\\" + text) && QFileInfo(SettingsTool::GetSettings("configGeneral").GetValue("txbPathProfile") + "\\" + text).isDir() && text != "")
         {
@@ -2330,11 +2473,892 @@ void MainWindow::ExcuteOneThread(int indexRow, int indexPos, QString idKichBan, 
     }
 }
 
-int MainWindow::HDXoaNhatKyHoatDong(int indexRow, const QString& statusProxy, Chrome& chrome, JSON_Settings& cauHinh) {
+
+int MainWindow::HDXemStory(int int_1, QString string_0, Chrome* gclass3_0, JSON_Settings* gclass10_0, QString F31C9996 = ""){
+    int result = 0;
+    int minValue = gclass10_0->GetValueInt("nudSoLuongFrom");
+    int num = gclass10_0->GetValueInt("nudSoLuongTo");
+    int num2 = gclass10_0->GetValueInt("nudDelayFrom");
+    int num3 = gclass10_0->GetValueInt("nudDelayTo");
+    gclass10_0->GetValueBool("ckbInteract");
+    QString text = gclass10_0->GetValue("typeReaction");
+    gclass10_0->GetValueBool("ckbComment");
+    QStringList comment = gclass10_0->GetValueList("txtComment");
+    bool flag = false;
+    try
+    {
+        if (Common::IsNumber(text.replace("|", "")))
+        {
+            QStringList list { "Like", "Love", "Care", "Haha", "Wow", "Sad", "Angry" };
+            for (int i = 0; i < list.count(); i++)
+            {
+                text = text.replace(QString::number(i), list[i]);
+            }
+        }
+        int int_2 = QRandomGenerator::global()->bounded(minValue, num + 1);
+        int num5;
+        while (true)
+        {
+            if (!flag)
+            {
+                CommonChrome::GoToHome(gclass3_0);
+            }
+            else
+            {
+                gclass3_0->GotoURL("https://www.facebook.com/stories");
+            }
+            int num4 = gclass3_0->();
+            if (num4 != 1)
+            {
+                if ((new QList<int> { -3, -2, -1, 2 })->contains(num4))
+                {
+                    return -1;
+                }
+                num5 = gclass3_0->GetFbWeb();
+                if (num5 != 1)
+                {
+                    break;
+                }
+                if (flag)
+                {
+                    gclass3_0.method_55();
+                    break;
+                }
+                flag = true;
+                gclass3_0.FFA28502(1000);
+                gclass3_0.method_47();
+            }
+        }
+        CloneList(comment);
+        if (num5 == 1)
+        {
+            gclass3_0.D09A398A(int_2, text.ToLower(), gclass10_0.GetValue("txtComment"), num2, num3);
+        }
+        else
+        {
+            gclass3_0.A115290C(int_2, text.ToLower(), gclass10_0.GetValue("txtComment"), num2, num3);
+        }
+    }
+    catch
+    {
+    }
+    if (flag)
+    {
+        gclass3_0.A72DB9A2();
+    }
+    return result;
+}
+
+void MainWindow::CongKhaiBanBe(Chrome* chrome)
+{
+    try
+    {
+        chrome->GotoURL("https://m.facebook.com/settings/how_people_find_and_contact_you/");
+        chrome->DelayTime(1.0);
+        if (chrome->CheckExistElement("[data-store*=\"8787365733\"]", 15.0) != 1)
+        {
+            return;
+        }
+        chrome->click(4, "[data-store*=\"8787365733\"]");
+        chrome->DelayTime(1.0);
+        if (chrome->CheckExistElement("[name=\"privacyx\"]", 15.0) == 1)
+        {
+            if (chrome->click(2, "privacyx") == 0)
+            {
+                chrome->ExecuteScript("document.querySelector('[name=\"privacyx\"]').click()");
+            }
+            chrome->DelayTime(3.0);
+        }
+    }
+    catch(QException)
+    {
+    }
+}
+
+void MainWindow::CauHinhTaiKhoan(Chrome* chrome)
+{
+    try
+    {
+        chrome->GotoURL("https://m.facebook.com/settings/how_people_find_and_contact_you/");
+        chrome->DelayTime(1.0);
+        if (chrome->CheckExistElement("[data-store*=\"8787540733\"]", 20.0) == 1)
+        {
+            chrome->click(4, "[data-store*=\"8787540733\"]");
+            chrome->DelayTime(1.0);
+            if (chrome->CheckExistElement("[name=\"privacyx\"]", 15.0) == 1)
+            {
+                if (chrome->click(2, "privacyx") == 0)
+                {
+                    chrome->ExecuteScript("document.querySelector('[name=\"privacyx\"]').click()");
+                }
+                chrome->DelayTime(3.0);
+            }
+        }
+        chrome->GotoURL("https://m.facebook.com/settings/framework/msite/posts/?entry_point=unknown");
+        chrome->DelayTime(1.0);
+        if (chrome->CheckExistElement("#root [role=\"button\"]", 15.0) == 1)
+        {
+            chrome->click(4, "#root [role=\"button\"]");
+            chrome->DelayTime(1.0);
+            if (chrome->CheckExistElement("[name=\"privacyx\"]", 15.0) == 1)
+            {
+                if (chrome->click(2, "privacyx") == 0)
+                {
+                    chrome->ExecuteScript("document.querySelector('[name=\"privacyx\"]').click()");
+                }
+                chrome->DelayTime(3.0);
+            }
+        }
+        chrome->GotoURL("https://m.facebook.com/privacy/touch/timeline_and_tagging");
+        chrome->DelayTime(1.0);
+        if (chrome->CheckExistElement("[data-store*=\"10153940308610734\"]", 15.0) == 1)
+        {
+            chrome->click(4, "[data-store*=\"10153940308610734\"]");
+            chrome->DelayTime(1.0);
+            if (chrome->CheckExistElement("[data-store*=\"286958161406148\"]", 15.0) == 1)
+            {
+                if (chrome->click(4, "[data-store*=\"286958161406148\"]") == 0)
+                {
+                    chrome->ExecuteScript("document.querySelector('[data-store*=\"286958161406148\"]').click()");
+                }
+                chrome->DelayTime(3.0);
+            }
+        }
+        chrome->GotoURL("https://m.facebook.com/privacy/touch/timeline_and_tagging");
+        if (chrome->CheckExistElement("[data-store*=\"8787530733\"]", 15.0) != 1)
+        {
+            return;
+        }
+        chrome->click(4, "[data-store*=\"8787530733\"]");
+        chrome->DelayTime(1.0);
+        if (chrome->CheckExistElement("[value=\"286958161406148\"]", 15.0) == 1)
+        {
+            if (chrome->click(4, "[value=\"286958161406148\"]") == 0)
+            {
+                chrome->ExecuteScript("document.querySelector('[value=\"286958161406148\"]').click()");
+            }
+            chrome->DelayTime(3.0);
+        }
+    }
+    catch(QException)
+    {
+    }
+}
+
+
+void MainWindow::Logout(Chrome* chrome)
+{
+    try
+    {
+        CommonChrome::GoToHome(chrome);
+        if (chrome->CheckExistElement("#bookmarks_jewel a", 3.0) != 1)
+        {
+            return;
+        }
+        DelayThaoTacNho();
+        chrome->click(4, "#bookmarks_jewel a");
+        DelayThaoTacNho(1);
+        if (chrome->CheckExistElementv2("document.querySelector('[data-sigil=\"logout\"]')", 3.0) == 1)
+        {
+            chrome->ScrollSmoothv2("document.querySelector('[data-sigil=\"logout\"]')");
+            DelayThaoTacNho(1);
+            chrome->click(4, "[data-sigil=\"logout\"]");
+            DelayThaoTacNho();
+            if (chrome->CheckExistElement("[name=\"m_savepass\"]", 3.0) == 1)
+            {
+                chrome->click(2, "m_savepass");
+                DelayThaoTacNho();
+            }
+        }
+    }
+    catch (QException ex)
+    {
+        Chrome::ExportError(chrome, ex, "Logout error");
+    }
+}
+
+void MainWindow::DelayThaoTacNho(int timeAdd)
+{
+    Common::DelayTime(QRandomGenerator::global()->bounded(timeAdd + 1, timeAdd + 4));
+}
+
+void MainWindow::CheckInfoWhenInteracting(Chrome* chrome, int indexRow){
+    try {
+        QString cellAccount = GetCellAccount(indexRow, "cId");
+        QString cellAccount2 = GetCellAccount(indexRow, "cToken");
+        QString uid = chrome->GetUid();
+        QString text = "";
+        emit updateCellAccount(indexRow, "Uid", uid, "uid");
+        if(SettingsTool::GetSettings("configInteractGeneral").GetValueBool("ckbBirthday", true) || SettingsTool::GetSettings("configInteractGeneral").GetValueBool("ckbGender")){
+            if (!chrome->GetUrl().startsWith("https://mobile.facebook.com/"))
+            {
+                chrome->GotoURL("https://mobile.facebook.com/");
+            }
+            QString text2 = chrome->ExecuteScript(Common::Base64Decode("YXN5bmMgZnVuY3Rpb24gUmVxdWVzdEdldCh1cmwpIHsKICAgIHZhciBvdXRwdXQgPSAnJzsKICAgIHRyeSB7CiAgICAgICAgdmFyIHJlc3BvbnNlID0gYXdhaXQgZmV0Y2godXJsKTsKICAgICAgICBpZiAocmVzcG9uc2Uub2spIHsKICAgICAgICAgICAgdmFyIGJvZHkgPSBhd2FpdCByZXNwb25zZS50ZXh0KCk7CiAgICAgICAgICAgIHJldHVybiBib2R5OwogICAgICAgIH0KICAgIH0gY2F0Y2ggeyB9CiAgICByZXR1cm4gb3V0cHV0Owp9OwoKdmFyIGh0bWwgPSBhd2FpdCBSZXF1ZXN0R2V0KCdodHRwczovL21iYXNpYy5mYWNlYm9vay5jb20vcHJvZmlsZS9lZGl0L2luZm90YWIvc2VjdGlvbi9mb3Jtcy8/c2VjdGlvbj1iYXNpYy1pbmZvJyk7Cmh0bWwgPSB1bmVzY2FwZShodG1sKS5yZXBsYWNlKC8mYW1wOy9nLCAnJicpCgp2YXIgZWwgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KCdodG1sJyk7CmVsLmlubmVySFRNTCA9IGh0bWw7Cgp2YXIgYmlydGhkYXkgPSBlbC5xdWVyeVNlbGVjdG9yKCdbbmFtZT0iYmlydGhkYXlfbW9udGgiXT5vcHRpb25bc2VsZWN0ZWQ9IjEiXScpLnZhbHVlICsgJy8nICsgZWwucXVlcnlTZWxlY3RvcignW25hbWU9ImJpcnRoZGF5X2RheSJdPm9wdGlvbltzZWxlY3RlZD0iMSJdJykudmFsdWUgKyAnLycgKwplbC5xdWVyeVNlbGVjdG9yKCdbbmFtZT0iYmlydGhkYXlfeWVhciJdPm9wdGlvbltzZWxlY3RlZD0iMSJdJykudmFsdWU7CnZhciBnZW5kZXIgPSBlbC5xdWVyeVNlbGVjdG9yKCdpbnB1dFtjaGVja2VkPSIxIl1bbmFtZT0iZ2VuZGVyIl0nKS52YWx1ZT09MT8nZmVtYWxlJzonbWFsZSc7CnJldHVybiBiaXJ0aGRheSsnfCcrZ2VuZGVyOw=="));
+            if (text2.split('|').length() > 1)
+            {
+                QString value = text2.split('|')[0];
+                QString value2 = text2.split('|')[1];
+                if (SettingsTool::GetSettings("configInteractGeneral").GetValueBool("ckbBirthday", true))
+                {
+                    emit updateCellAccountv2(cellAccount, "birthday", indexRow, "Ngày sinh", value, false);
+                }
+                if (SettingsTool::GetSettings("configInteractGeneral").GetValueBool("ckbGender", true))
+                {
+                    emit updateCellAccountv2(cellAccount, "gender", indexRow, "Giới tính", value2, false);
+                }
+            }else
+            {
+                cellAccount2 = CommonChrome::GetTokenEAAGv2(chrome);
+                if (cellAccount2 != "")
+                {
+                    QJsonObject jObject = Utils::parseJsonString(CommonChrome::RequestGet(chrome, "https://graph.facebook.com/me?access_token=" + cellAccount2, "https://graph.facebook.com"));
+                    QString value3 = jObject["birthday"].toString();
+                    QString value4 = jObject["gender"].toString();
+                    if (SettingsTool::GetSettings("configInteractGeneral").GetValueBool("ckbBirthday"))
+                    {
+                        emit updateCellAccountv2(cellAccount, "birthday", indexRow, "Ngày sinh", value3, false);
+                    }
+                    if (SettingsTool::GetSettings("configInteractGeneral").GetValueBool("ckbGender"))
+                    {
+                        emit updateCellAccountv2(cellAccount, "gender", indexRow, "Giới tính", value4, false);
+                    }
+                }
+            }
+        }
+        if (SettingsTool::GetSettings("configInteractGeneral").GetValueBool("ckbPage", false))
+        {
+            if (!cellAccount2.startsWith("EAABs"))
+            {
+                cellAccount2 = CommonChrome::GetTokenEAABs(chrome);
+            }
+            if (cellAccount2 != "")
+            {
+                QString text111 = CommonChrome::RequestGet(chrome, "https://graph.facebook.com/me?fields=accounts.limit(0).summary(1)&access_token=" + cellAccount2, "https://graph.facebook.com");
+                try
+                {
+                    QJsonObject jobject22 = Utils::parseJsonString(text111);
+                    QString text122 = jobject22["accounts"].toObject()["summary"].toObject()["total_count"].toString();
+                    emit updateCellAccountv2(cellAccount, "pages", indexRow, "Page", text122, false);
+
+                }
+                catch (QException)
+                {
+                }
+            }
+        }
+        if (SettingsTool::GetSettings("configInteractGeneral").GetValueBool("ckbPagePro5", false))
+        {
+            if (!cellAccount2.startsWith("EAABs"))
+            {
+                cellAccount2 = CommonChrome::GetTokenEAABs(chrome);
+            }
+            if (cellAccount2.isEmpty())
+            {
+                QString text1112 = CommonChrome::RequestGet(chrome, "https://graph.facebook.com/me?fields=accounts.limit(0).summary(1)&access_token=" + cellAccount2, "https://graph.facebook.com");
+                try
+                {
+                    QJsonObject jobject221 = Utils::parseJsonString(text1112);
+                    QString text1221 = jobject221["accounts"].toObject()["summary"].toObject()["total_count"].toString();
+                    emit updateCellAccountv2(cellAccount, "PagePro5", indexRow, "PagePro5", text1221, false);
+                }
+                catch (QException)
+                {
+                }
+            }
+        }
+        if (SettingsTool::GetSettings("configInteractGeneral").GetValueBool("ckbName") || SettingsTool::GetSettings("configInteractGeneral").GetValueBool("ckbEmail"))
+        {
+            if (!chrome->GetUrl().startsWith("https://m.facebook.com/"))
+            {
+                chrome->GotoURL("https://m.facebook.com/");
+            }
+            QString text3 = chrome->ExecuteScript(Common::Base64Decode("YXN5bmMgZnVuY3Rpb24gUmVxdWVzdEdldCh1cmwpIHsKICAgIHZhciBvdXRwdXQgPSAnJzsKICAgIHRyeSB7CiAgICAgICAgdmFyIHJlc3BvbnNlID0gYXdhaXQgZmV0Y2godXJsKTsKICAgICAgICBpZiAocmVzcG9uc2Uub2spIHsKICAgICAgICAgICAgdmFyIGJvZHkgPSBhd2FpdCByZXNwb25zZS50ZXh0KCk7CiAgICAgICAgICAgIHJldHVybiBib2R5OwogICAgICAgIH0KICAgIH0gY2F0Y2ggeyB9CiAgICByZXR1cm4gb3V0cHV0Owp9OwoKdmFyIGh0bWwgPSBhd2FpdCBSZXF1ZXN0R2V0KCdodHRwczovL20uZmFjZWJvb2suY29tL3Byb2ZpbGUucGhwP3Y9aW5mbycpOwpodG1sID0gdW5lc2NhcGUoaHRtbCkucmVwbGFjZSgvJmFtcDsvZywgJyYnKQoKdmFyIGVsID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgnaHRtbCcpOwplbC5pbm5lckhUTUwgPSBodG1sOwoKdmFyIGVtYWlsID0gZWwucXVlcnlTZWxlY3RvcignW2hyZWYqPSJtYWlsdG86Il0nKSE9bnVsbD9lbC5xdWVyeVNlbGVjdG9yKCdbaHJlZio9Im1haWx0bzoiXScpLmlubmVyVGV4dDoiIjsKdmFyIG5hbWUgPSBodG1sLm1hdGNoKG5ldyBSZWdFeHAoJzx0aXRsZT4oLio/KTwvdGl0bGU+JykpWzFdOwpyZXR1cm4gZW1haWwrJ3wnK25hbWU7Cg=="));
+            if (text3.split('|').length() > 1)
+            {
+                QString value5 = text3.split('|')[0];
+                QString value6 = text3.split('|')[1];
+                if (SettingsTool::GetSettings("configInteractGeneral").GetValueBool("ckbEmail"))
+                {
+                    emit updateCellAccountv2(cellAccount, "email", indexRow, "Email", value5, false);
+                }
+                if (SettingsTool::GetSettings("configInteractGeneral").GetValueBool("ckbName"))
+                {
+                    emit updateCellAccountv2(cellAccount, "name", indexRow, "Tên", value6, false);
+                }
+            }
+        }
+        if (SettingsTool::GetSettings("configInteractGeneral").GetValueBool("ckbFollow", false))
+        {
+            if (!cellAccount2.startsWith("EAABs"))
+            {
+                cellAccount2 = CommonChrome::GetTokenEAABs(chrome);
+            }
+            if (cellAccount2.isEmpty())
+            {
+                QString text111 = CommonChrome::RequestGet(chrome, "https://graph.facebook.com/me?fields=accounts.limit(0).summary(1)&access_token=" + cellAccount2, "https://graph.facebook.com");
+                try
+                {
+                    QJsonObject jobject221 = Utils::parseJsonString(text111);
+                    QString text1221 = jobject221["accounts"].toObject()["summary"].toObject()["total_count"].toString();
+                    emit updateCellAccountv2(cellAccount, "follow", indexRow, "cFollow", text1221, false);
+                }
+                catch (QException)
+                {
+                }
+            }
+        }
+        if (SettingsTool::GetSettings("configInteractGeneral").GetValueBool("ckbFriend"))
+        {
+            if (!chrome->GetUrl().startsWith("https://m.facebook.com/"))
+            {
+                chrome->GotoURL("https://m.facebook.com/");
+            }
+            QString value8 = chrome->ExecuteScript(Common::Base64Decode("YXN5bmMgZnVuY3Rpb24gUmVxdWVzdEdldCh1cmwpIHsKICAgIHZhciBvdXRwdXQgPSAnJzsKICAgIHRyeSB7CiAgICAgICAgdmFyIHJlc3BvbnNlID0gYXdhaXQgZmV0Y2godXJsKTsKICAgICAgICBpZiAocmVzcG9uc2Uub2spIHsKICAgICAgICAgICAgdmFyIGJvZHkgPSBhd2FpdCByZXNwb25zZS50ZXh0KCk7CiAgICAgICAgICAgIHJldHVybiBib2R5OwogICAgICAgIH0KICAgIH0gY2F0Y2ggeyB9CiAgICByZXR1cm4gb3V0cHV0Owp9OwoKdmFyIGh0bWwgPSBhd2FpdCBSZXF1ZXN0R2V0KCdodHRwczovL20uZmFjZWJvb2suY29tL2ZyaWVuZHMvY2VudGVyL2ZyaWVuZHMvP21mZl9uYXY9MScpOwpodG1sID0gdW5lc2NhcGUoaHRtbCkucmVwbGFjZSgvJmFtcDsvZywgJyYnKQoKdmFyIGVsID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgnaHRtbCcpOwplbC5pbm5lckhUTUwgPSBodG1sOwoKdmFyIGZyaWVuZCA9IGVsLnF1ZXJ5U2VsZWN0b3IoJyNmcmllbmRzX2NlbnRlcl9tYWluIGhlYWRlcj5oMycpLmlubmVyVGV4dC5yZXBsYWNlQWxsKCcuJywnJykucmVwbGFjZUFsbCgnLCcsJycpLnNwbGl0KCcgJylbMF07CnJldHVybiBmcmllbmQ7Cg=="));
+            emit updateCellAccountv2(cellAccount, "friends", indexRow, "Bạn Bè", value8, false);
+        }
+        if (SettingsTool::GetSettings("configInteractGeneral").GetValueBool("ckbNgayTao"))
+        {
+            if (!chrome->GetUrl().startsWith("https://m.facebook.com/"))
+            {
+                chrome->GotoURL("https://m.facebook.com/");
+            }
+            uid = chrome->GetUid();
+            if (text == "")
+            {
+                text = chrome->GetFbdtsg();
+            }
+            QString data = "av=" + uid + "&__user=" + uid + "&__a=1&__dyn=1KQdAGm1gxu4U4ifDg9ppkdwjEO3m2i5UfXwqobEdEc8uxa0CErx64o14Ue8hwem0iy1gCwSxu0BU3JxO1ZxObwro7ifw5KzHzo2XwgE7e2l0Fwwyo36w9y3S0H8-7E2swjomwci1qw8W1uwa6dx-220gO2S3qazo11E&__csr=&__req=1&__hs=18971.BP%3Amtouch_pkg.2.0.0.0.&dpr=1&__ccg=GOOD&__rev=1004845060&__s=do7c8y%3Aww1r8l%3A0v2z8s&__hsi=7040004543784139804-0&__comet_req=0&fb_dtsg=" + text + "&jazoest=22054&lsd=a6ZTh8EqdA92mjLKRptlTx&fb_api_caller_class=RelayModern&fb_api_req_friendly_name=MUserDataAccessHubListContainerQuery&variables=%7B%22logging_id%22%3A%22PERSONAL_INFO_GROUPING%22%7D&server_timestamps=true&doc_id=4080140792107320";
+            QString json = CommonChrome::RequestPost(chrome, "https://m.facebook.com/api/graphql/", data, "https://m.facebook.com");
+            QString text4 = "";
+            for (int i = 0; i < 2; i++)
+            {
+                if (i == 1)
+                {
+                    json = CommonChrome::RequestPost(chrome, "https://www.facebook.com/api/graphql/", data, "https://www.facebook.com");
+                }
+                try
+                {
+                    text4 = Utils::parseJsonString(json)["data"].toObject()["ayi_tile_action_list_page"].toObject()["links"].toArray()[0].toObject()["non_link_content"].toObject()["metadata"].toString();
+                    emit updateCellAccountv2(cellAccount, "dateCreateAcc", indexRow, "Ngày tạo tài khoản", text4, false);
+                }
+                catch(QException)
+                {
+                    continue;
+                }
+                break;
+            }
+        }
+        if (SettingsTool::GetSettings("configInteractGeneral").GetValueBool("ckbGroup"))
+        {
+            if (!chrome->GetUrl().startsWith("https://www.facebook.com/"))
+            {
+                chrome->GotoURL("https://www.facebook.com/");
+            }
+            if (text == "")
+            {
+                text = chrome->ExecuteScript("return require('DTSGInitData').token");
+            }
+            QString value9 = Utils::parseJsonString(CommonChrome::RequestPost(chrome, "https://www.facebook.com/api/graphql/", "q=me(){groups{count}}&fb_dtsg=" + text, "https://www.facebook.com/"))[uid].toObject()["groups"].toObject()["count"].toString();
+            emit updateCellAccountv2(cellAccount, "groups", indexRow, "Nhóm", value9, false);
+        }
+        if (SettingsTool::GetSettings("configInteractGeneral").GetValueBool("ckbPhone"))
+        {
+            if (!chrome->GetUrl().startsWith("https://mbasic.facebook.com/settings/sms/?refid=70&ref=tn_tnmn"))
+            {
+                chrome->GotoURL("https://mbasic.facebook.com/settings/sms/?refid=70&ref=tn_tnmn");
+            }
+            QString input = chrome->ExecuteScript(Common::Base64Decode("YXN5bmMgZnVuY3Rpb24gUmVxdWVzdEdldCh1cmwpIHsKICAgIHZhciBvdXRwdXQgPSAnJzsKICAgIHRyeSB7CiAgICAgICAgdmFyIHJlc3BvbnNlID0gYXdhaXQgZmV0Y2godXJsKTsKICAgICAgICBpZiAocmVzcG9uc2Uub2spIHsKICAgICAgICAgICAgdmFyIGJvZHkgPSBhd2FpdCByZXNwb25zZS50ZXh0KCk7CiAgICAgICAgICAgIHJldHVybiBib2R5OwogICAgICAgIH0KICAgIH0gY2F0Y2ggeyB9CiAgICByZXR1cm4gb3V0cHV0Owp9OwoKdmFyIGh0bWwgPSBhd2FpdCBSZXF1ZXN0R2V0KCdodHRwczovL21iYXNpYy5mYWNlYm9vay5jb20vc2V0dGluZ3Mvc21zLz9yZWZpZD03MCZyZWY9dG5fdG5tbicpOwpodG1sID0gdW5lc2NhcGUoaHRtbCkucmVwbGFjZSgvJmFtcDsvZywgJyYnKQoKdmFyIGVsID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgnaHRtbCcpOwplbC5pbm5lckhUTUwgPSBodG1sOwp2YXIgcGhvbmUgPSAnJzsKaWYoaHRtbC5pbmNsdWRlcygnc2V0dGluZ3Mvc21zLz9yZW1vdmUnKSl7CiAgICB2YXIgZGVtID0gZWwucXVlcnlTZWxlY3RvckFsbCgnW2hyZWYqPSIvc2V0dGluZ3Mvc21zLz9yZW1vdmUiXScpLmxlbmd0aDsKICAgIGZvcih2YXIgaT0wOyBpPGRlbTsgaSsrKXsKICAgICAgICB2YXIgeCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3JBbGwoJ1tocmVmKj0iL3NldHRpbmdzL3Ntcy8/cmVtb3ZlIl0nKVtpXS5wYXJlbnROb2RlLnF1ZXJ5U2VsZWN0b3IoJ2EnKS5nZXRBdHRyaWJ1dGUoJ2hyZWYnKS5pbmNsdWRlcygncGhvbmVhY3F3cml0ZScpOwogICAgICAgICBpZigheCl7CiAgICAgICAgICAgICBwaG9uZT1lbC5xdWVyeVNlbGVjdG9yQWxsKCdbaHJlZio9Ii9zZXR0aW5ncy9zbXMvP3JlbW92ZSJdJylbaV0uZ2V0QXR0cmlidXRlKCdocmVmJyk7CiAgICAgICAgICAgICBicmVhazsKICAgICAgICAgfSAgIAogICAgfQp9OwpyZXR1cm4gcGhvbmU7"));
+            emit updateCellAccountv2(cellAccount, "phone", indexRow, "Phone", QRegularExpression("phone_number=(.*?)&").match(input).captured(1));
+        }
+        if (SettingsTool::GetSettings("configInteractGeneral").GetValueBool("ckbLocation"))
+        {
+            if (text == "")
+            {
+                text = chrome->GetFbdtsg();
+            }
+            chrome->SetFbLanguage();
+            //string text5 = Common.GetText("dataPost_CheckLocation");
+            QString text5 = "dataPost_CheckLocation";
+            QString url = "https://www.facebook.com/api/graphql/";
+            QString data2 = text5.replace("{uid}", uid).replace("{fb_dtsg}", text).replace("{jazoest}", "")
+                    .replace("{lsd}", "");
+            QString text6 = chrome->RequestPost(url, data2);
+            QString text7 = "";
+            try
+            {
+                text7 = QRegularExpression("\"From (.*?)\"").match(text6).captured(1);
+            }
+            catch(QException)
+            {
+            }
+            if (text7 == "")
+            {
+                text6 = chrome->RequestGet("https://www.facebook.com/primary_location/info/");
+                text7 = QRegularExpression("\"props\":{\"city\":\"(.*?)\"").match(text6).captured(1);
+                // text6 = chrome.RequestGet(Common.GetText("url_primary_location"), "");
+                // text7 = Regex.Match(text6, Common.GetText("regex_primary_location")).Groups[1].Value;
+            }
+            text7 = Utils::unescapeString(text7);
+            emit updateCellAccountv2(cellAccount, "location", indexRow, "Location", text7, true);
+        }
+        if (SettingsTool::GetSettings("configInteractGeneral").GetValueBool("ckbAvatar"))
+        {
+            chrome->GotoURL("https://m.facebook.com/profile.php");
+            chrome->DelayTime(2.0);
+            QString value10 = ((chrome->CheckExistElement("[data-sigil=\"timeline-cover\"]>div:nth-child(2)>div a") == 1) ? "Yes" : "No");
+            emit updateCellAccount(indexRow, "Avatar", value10, "avatar");
+        }
+        //tut check dating
+        if (SettingsTool::GetSettings("configInteractGeneral").GetValueBool("ckbDating"))
+        {
+            QString text100 = "";
+            if (text100 == "")
+            {
+                text100 = chrome->method_113();
+                emit updateCellAccountv3(indexRow, "Dating", text100, "dating", false);
+            }
+        }
+        //tut check bm
+        if (SettingsTool::GetSettings("configInteractGeneral").GetValueBool("ckbBM"))
+        {
+            QString text166 = "";
+            QString text222 = CommonChrome::GetTokenEAABs(chrome);
+            if (text166 == "")
+            {
+                text166 = chrome->method_110(text222);
+                emit updateCellAccountv3(indexRow, "BM", text166, "bm", false);
+            }
+
+            //tut check ads
+            if (SettingsTool::GetSettings("configInteractGeneral").GetValueBool("ckbAds"))
+            {
+                QString text33 = "";
+                QString text44 = "";
+                QString text144 = "";
+                QString text22 = CommonChrome::GetTokenEAABs(chrome);
+                if (text33 == "" || text44 == "" || text144 == "")
+                {
+                    QString text244 = chrome->method_112(text22, text33, text44, text144);
+                    if (text244 != "")
+                    {
+                        try
+                        {
+                            QJsonObject jobject = Utils::parseJsonString(text244);
+
+                            if (text144 == "")
+                            {
+                                text144 = jobject["ads"].toString();
+                                emit updateCellAccountv3(indexRow, "Ads", text144, "ads", false);
+                            }
+                            //check Hometown,CurrentCity
+                            if (SettingsTool::GetSettings("configInteractGeneral").GetValueBool("ckbHometown"))
+                            {
+                                chrome->SetFbLanguage("en_US");
+                                QString text88 = "";
+                                text88 = chrome->A9015F2E();
+                                // SetCellAccount(indexRow, "cHometown", (QString)((object[])E2896034.smethod_05(text88, new char[1] { '|' }))[0], "hometown");
+                            }
+                        }
+                        catch (QException)
+                        {
+                        }
+                    }
+                }
+
+            }
+        }
+    } catch (QException) {
+    }
+}
+
+int MainWindow::BatThongBaoDangNhap(Chrome* chrome, int indexRow)
+{
+    int result = 1;
+    QString cellAccount = GetCellAccount(indexRow, "cPassword");
+    try
+    {
+        chrome->GotoURL("https://m.facebook.com/login_alerts/settings/");
+        Common::DelayTime(QRandomGenerator::global()->bounded(1,4));
+        for (int i = 0; i < 2; i++)
+        {
+            if (chrome->CheckExistElement("article [data-sigil=\"touchable\"] a", 5.0) != 1)
+            {
+                continue;
+            }
+            chrome->click(4, "article [data-sigil=\"touchable\"] a", i);
+            chrome->DelayTime(1.0);
+            if (chrome->CheckExistElement("fieldset label:nth-child(1) [checked=\"1\"]", 5.0) == 1)
+            {
+                chrome->click(4, "fieldset label:nth-child(1)");
+                chrome->DelayTime(1.0);
+                chrome->click(4, "[type=\"submit\"]");
+                chrome->DelayTime(1.0);
+                if (chrome->CheckExistElement("[type=\"password\"]", 5.0) == 1)
+                {
+                    chrome->sendKeys(4, "[type=\"password\"]", cellAccount);
+                    Common::DelayTime(QRandomGenerator::global()->bounded(1,4));
+                    chrome->click(4, "[type=\"submit\"]");
+                    Common::DelayTime(QRandomGenerator::global()->bounded(1,4));
+                }
+            }
+        }
+        return result;
+    }
+    catch(QException)
+    {
+        return result;
+    }
+}
+
+void MainWindow::SetCellAccountv3(int indexRow, QString column, QVariant value, QString field, bool isAllowEmptyValue)
+{
+    if (isAllowEmptyValue || !(value.toString().trimmed() == ""))
+    {
+        DatagridviewHelper::SetStatusDataGridView(ui->tableView, indexRow, column, value);
+        Common::UpdateFieldToAccount(GetCellAccount(indexRow, "Id"), field, value.toString());
+    }
+}
+
+bool MainWindow::ReviewTag(Chrome* chrome)
+{
+    bool result = true;
+    try
+    {
+        CommonChrome::GoToSetting_TimelineAndTagging(chrome);
+        if (chrome->click(4, "[data-store*=\"timeline_and_tagging_selectors\"]") == 1)
+        {
+            chrome->DelayThaoTacNho();
+            if (QVariant(chrome->ExecuteScript("return document.querySelector('[name=\"privacyX\"]').checked")).toBool())
+            {
+                chrome->ExecuteScript("document.querySelectorAll('[name=\"privacyX\"]')[1].click()");
+            }
+            else
+            {
+                chrome->GotoBackPage();
+            }
+            chrome->DelayThaoTacNho();
+        }
+        if (chrome->click(4, "[href*=\"/privacy/touch/tags/review/?type=tag\"]") == 1)
+        {
+            chrome->DelayThaoTacNho();
+            if (!QVariant(chrome->ExecuteScript("return document.querySelector('input[type=\"checkbox\"]').checked+''")).toBool())
+            {
+                chrome->click(4, "form div[role=\"button\"]");
+            }
+            else
+            {
+                chrome->GotoBackPage();
+            }
+            chrome->DelayThaoTacNho();
+        }
+        if (chrome->click(4, "[href*=\"/privacy/touch/tags/review/?type=profile\"]") == 1)
+        {
+            chrome->DelayThaoTacNho();
+            if (!QVariant(chrome->ExecuteScript("return document.querySelector('input[type=\"checkbox\"]').checked+''")).toBool())
+            {
+                chrome->click(4, "form div[role=\"button\"]");
+            }
+            else
+            {
+                chrome->GotoBackPage();
+            }
+            chrome->DelayThaoTacNho();
+            return result;
+        }
+        return result;
+    }
+    catch(QException ex)
+    {
+        return false;
+    }
+}
+
+bool MainWindow::AllowFollow(Chrome* chrome)
+{
+    bool result = true;
+    try
+    {
+        chrome->GotoURL("https://m.facebook.com/settings/subscribe/");
+        chrome->DelayTime(1.0);
+        QString text = chrome->CheckExistElementsString(10.0, QStringList { "[data-sigil=\"audience-options-list\"]>label", "[href^=\"/settings/subscribe/save/?setting=follow_optin&optin=\"]" });
+        if (text == "[href^=\"/settings/subscribe/save/?setting=follow_optin&optin=\"]")
+        {
+            chrome->click("[href^=\"/settings/subscribe/save/?setting=follow_optin&optin=1\"]");
+            return result;
+        }
+        if (text == "[data-sigil=\"audience-options-list\"]>label")
+        {
+            chrome->click("[data-sigil=\"audience-options-list\"]>label");
+            return result;
+        }
+        return result;
+    }
+    catch(QException)
+    {
+        return result;
+    }
+}
+
+
+
+int MainWindow::HDTuongTacNewsfeed(int indexRow, QString statusProxy, Chrome* chrome, int timeFrom, int timeTo, int delayFrom, int delayTo, bool isLike, int countLikeFrom, int countLikeTo, QString type, bool isComment, int countCommentFrom, int countCommentTo, QList<QString> lstComment, QString tenHanhDong){
+    QString cellAccount = GetCellAccount(indexRow, "Uid");
+    QString cellAccount2 = GetCellAccount(indexRow, "Mật khẩu");
+    QString cellAccount3 = GetCellAccount(indexRow, "Mã 2FA");
+    int result = 0;
+    QPoint screen = chrome->GetSize();
+    chrome->SetSize();
+    try {
+        if (chrome->CheckChromeClose())
+        {
+            return -2;
+        }
+        while(chrome->GotoURLIfNotExist("https://www.facebook.com") == 1){
+            int num = 0;
+            int num2 = 0;
+            int value = 0;
+            int num3 = 0;
+            int num4 = 0;
+            int value2 = 0;
+            if (isLike)
+            {
+                num3 = QRandomGenerator::global()->bounded(countLikeFrom, countLikeTo + 1);
+            }
+            lstComment = Common::RemoveEmptyItems(lstComment);
+            QStringList list = CloneList(lstComment);
+            QString text = "";
+            if (isComment)
+            {
+                num4 = QRandomGenerator::global()->bounded(countCommentFrom, countCommentTo + 1);
+            }
+            chrome->ClosePopup();
+            int num5 = 1;
+            int num6 = 0;
+            int num7 = QRandomGenerator::global()->bounded(timeFrom, timeTo + 1);
+            QElapsedTimer timer;
+            timer.start();
+            while(timer.elapsed() < num7*5000){
+                int num8 = CheckFacebookLogout(chrome, cellAccount, cellAccount2, cellAccount3);
+                if (num8 == 1)
+                {
+                    goto IL_009e;
+                }
+                if ((new QList<int> { -3, -2, -1, 2 })->contains(num8))
+                {
+                    return -1;
+                }
+                QString statusMessage = QString("%1 %2(Like:%3/%4, Comment:%5/%6, Share:%7/%8)...")
+                        .arg(statusProxy)
+                        .arg(Language::GetValue("Đang"))
+                        .arg(num)
+                        .arg(num3)
+                        .arg(num2)
+                        .arg(num4)
+                        .arg(value)
+                        .arg(value2);
+                emit updateStatusAccount(indexRow, statusMessage);
+                auto check = chrome->ExecuteScript(QString("return document.querySelectorAll('div[aria-posinset=\""+QString::number(num5)+"\"]').length"));
+                if (chrome->CheckExistElementv2(QString("document.querySelectorAll('[role=\"feed\"] [data-pagelet]')[%1]").arg(num5)) == 1 || chrome->ExecuteScript("return document.querySelectorAll('div[aria-posinset=\""+QString::number(num5)+"\"]').length") == "1"){
+                    num8 = chrome->CheckExistElementOnScreen(QString("document.querySelectorAll('div[aria-posinset=\"%1\"]>div>div>div>div>div>div:nth-child(13)>div>div>div:nth-child(4)>div>div>div>div>div:nth-child(2)>div>div>div')[0]").arg(num5));
+                    switch (num8) {
+                    case -1:
+                    case 1:
+                        if (chrome->scrollSmooth(num8 * QRandomGenerator::global()->bounded(chrome->GetSize().x() / 2, chrome->GetSize().y())) != 2)
+                        {
+                            break;
+                        }
+                        goto end_IL_0623;
+                    case 0:
+                        if (isLike && num < num3 && QRandomGenerator::global()->bounded(1, 100) % 2 == 0 && chrome->ExecuteScript("return document.querySelectorAll('[role=\"article\"] div[data-visualcompletion=\"ignore-dynamic\"] >div>div>div>div:nth-child(2)>div>div:nth-child(1)>[role=\"button\"]')[" + QString::number(num5 * 2) + "].querySelectorAll('span')[2].getAttribute('style')+''") == "null")
+                        {
+                            chrome->ScrollSmoothv2("document.querySelectorAll('[role=\"article\"] div[data-visualcompletion=\"ignore-dynamic\"] >div>div>div>div:nth-child(2)>div>div:nth-child(1)>[role=\"button\"]')[" + QString::number(num5 * 2) + "]");
+                            chrome->DelayTime(1.0);
+                            int num9 = type[QRandomGenerator::global()->bounded(0, type.length())].digitValue() - 48;
+                            chrome->ExecuteScript("document.querySelectorAll('[role=\"article\"] div[data-visualcompletion=\"ignore-dynamic\"] >div>div>div>div:nth-child(2)>div>div:nth-child(1)>[role=\"button\"]')[" + QString::number(num5 * 2 + 1) + "].click()");
+                            if (chrome->click(4, "[role=\"dialog\"] [role=\"toolbar\"] [role=\"button\"]", num9 + 1) == 1)
+                            {
+                                num++;
+                                Common::DelayTime(QRandomGenerator::global()->bounded(1, 4));
+                            }
+                        }
+                        if (isComment && num2 < num4 && QRandomGenerator::global()->bounded(1, 100) % 2 == 0 && QVariant(chrome->ExecuteScript(QString("return document.querySelectorAll('[role=\"feed\"]>[data-pagelet] div:nth-child(4)>[data-visualcompletion=\"ignore-dynamic\"]')[%1].querySelectorAll('div:nth-child(2)>div>div>[role=\"button\"]')[2] !=null").arg(num5))).toBool())
+                        {
+                            chrome->ScrollSmoothv2("document.querySelectorAll('[role=\"feed\"]>[data-pagelet] div:nth-child(4)>[data-visualcompletion=\"ignore-dynamic\"]')["+QString::number(num5)+"].querySelectorAll('div:nth-child(2)>div>div>[role=\"button\"]')[2]");
+                            chrome->DelayTime(1.0);
+                            if (list.count() == 0)
+                            {
+                                list = CloneList(lstComment);
+                            }
+                            text = list[QRandomGenerator::global()->bounded(0, list.count())];
+                            list.removeAll(text);
+                            text = Common::SpinText(text);
+                            if (chrome->click(4, "[role=\"feed\"]>[data-pagelet] div:nth-child(4)>[data-visualcompletion=\"ignore-dynamic\"]", num5, 4, "div:nth-child(2)>div>div>[role=\"button\"]", 2) == 1)
+                            {
+                                Common::DelayTime(QRandomGenerator::global()->bounded(1, 4));
+                                if (chrome->CheckExistElementv2("document.querySelectorAll('[role=\"article\"] div[data-visualcompletion=\"ignore-dynamic\"] >div>div>div>div:nth-child(2)>div>div:nth-child(1) [role=\"textbox\"]')[" + QString::number(num5) + "]", 10.0) == 1)
+                                {
+                                    chrome->DelayTime(1.0);
+                                    chrome->ScrollSmoothv2("document.querySelectorAll('[role=\"article\"] div[data-visualcompletion=\"ignore-dynamic\"] >div>div>div>div:nth-child(2)>div>div:nth-child(1) [role=\"textbox\"]')[" + QString::number(num5) + "]");
+                                    chrome->DelayTime(1.0);
+                                    text = text.replace("[u]", CommonChrome::GetNameFromPost(chrome));
+                                    chrome->SendKeysv2(4, "[role=\"article\"] div[data-visualcompletion=\"ignore-dynamic\"] >div>div>div>div:nth-child(2)>div>div:nth-child(1) [role=\"textbox\"]", num5, 0, "", 0, text);
+                                    Common::DelayTime(QRandomGenerator::global()->bounded(1, 4));
+                                    chrome->sendEnter(4, "[role=\"article\"] div[data-visualcompletion=\"ignore-dynamic\"] >div>div>div>div:nth-child(2)>div>div:nth-child(1) [role=\"textbox\"]", num5);
+                                }
+                                Common::DelayTime(QRandomGenerator::global()->bounded(1, 4));
+                                num2++;
+                            }
+                        }
+                        num5++;
+                        break;
+                    default:
+                        num5++;
+                        break;
+                    }
+                    Common::DelayTime(QRandomGenerator::global()->bounded(delayFrom, delayTo + 1));
+                }else
+                {
+                    num6++;
+                    if (num6 >= 3)
+                    {
+                        break;
+                    }
+                    CommonChrome::scrollRandom(chrome);
+                }
+                continue;
+end_IL_0623:
+                break;
+            }
+            break;
+IL_009e:;
+        }
+    }catch (QException ex)
+    {
+        Chrome::ExportError(chrome, ex, "Error HDTuongTacNewsfeedv2");
+        result = -1;
+    }
+    chrome->SetSize(screen.x(),screen.y());
+    return result;
+}
+
+QStringList MainWindow::CloneList(const QStringList &lstFrom)
+{
+    return QStringList(lstFrom);
+}
+
+
+int MainWindow::HDDocThongBaov2(int indexRow, QString statusProxy, Chrome* chrome, int nudSoLuongFrom, int nudSoLuongTo, int nudDelayFrom, int nudDelayTo, QString tenHanhDong){
+    QString cellAccount = GetCellAccount(indexRow, "Uid");
+    QString cellAccount2 = GetCellAccount(indexRow, "Mật khẩu");
+    QString cellAccount3 = GetCellAccount(indexRow, "Mã 2FA");
+    int num = 0;
+    QPoint screen = chrome->GetSize();
+    chrome->SetSize();
+    try {
+        int num2 = 0;
+        int num3 = QRandomGenerator::global()->bounded(nudSoLuongFrom, nudSoLuongTo + 1);
+        while(true){
+            chrome->GotoURL("https://www.facebook.com/notifications");
+            chrome->ClosePopup();
+            num2 = CheckFacebookLogout(chrome, cellAccount, cellAccount2, cellAccount3);
+            if (num2 == 1)
+            {
+                continue;
+            }
+            if ((new QList<int> { -3, -2, -1, 2 })->contains(num2))
+            {
+                return -1;
+            }
+            if (chrome->ExecuteScript("return document.querySelectorAll('[role=\"complementary\"] [role=\"grid\"] [role=\"row\"]').length+''").toInt() <= 0)
+            {
+                return num;
+            }
+            int num4 = 0;
+            while (true)
+            {
+                num2 = CheckFacebookLogout(chrome, cellAccount, cellAccount2, cellAccount3);
+                if (num2 == 1)
+                {
+                    break;
+                }
+                if ((new QList<int> { -3, -2, -1, 2 })->contains(num2))
+                {
+                    return -1;
+                }
+                if (chrome->ScrollSmoothv2("document.querySelectorAll('[role=\"complementary\"] [role=\"grid\"] [role=\"row\"] a')[" + QString::number(num4) + "]") == 1)
+                {
+                    chrome->DelayTime(1.0);
+                    if (chrome->click(4, "[role=\"complementary\"] [role=\"grid\"] [role=\"row\"] a", num4) == 1)
+                    {
+                        chrome->DelayThaoTacNho();
+                        CommonChrome::scrollRandom(chrome);
+                        chrome->GotoBackPage();
+                        chrome->GotoURLIfNotExist("https://www.facebook.com/notifications");
+                        num++;
+                    }
+                    num4++;
+                    emit updateStatusAccount(indexRow, statusProxy + Language::GetValue("Đang") + " "+tenHanhDong+" ("+QString::number(num)+"/"+QString::number(num3)+")...");
+                    if (num < num3)
+                    {
+                        chrome->DelayTime(QRandomGenerator::global()->bounded(nudDelayFrom, nudDelayTo + 1));
+                        if (num >= num3)
+                        {
+                            goto end_IL_00a2;
+                        }
+                        continue;
+                    }
+                    goto end_IL_00a2;
+                }
+                return num;
+            }
+            continue;
+end_IL_00a2:
+            break;
+        }
+    } catch (...) {
+        return -1;
+    }
+    chrome->SetSize(screen.x(),screen.y());
+    return num;
+}
+
+int MainWindow::CheckFacebookLogout(Chrome* chrome, QString uid, QString pass, QString fa2, bool isSendRequest)
+{
+    int result = 0;
+    CommonChrome::CheckStatusAccount(chrome, isSendRequest, result);
+    if (result == 0)
+    {
+        switch (chrome->Status)
+        {
+        case StatusChromeAccount::ChromeClosed:
+            result = -2;
+            break;
+        case StatusChromeAccount::LoginWithUserPass:
+        case StatusChromeAccount::LoginWithSelectAccount:
+            result = ((CommonChrome::LoginFacebookUsingUidPassNew(chrome, uid, pass, fa2, "https://m.facebook.com/", 2, SettingsTool::GetSettings("configGeneral").GetValueBool("ckbDontSaveBrowser"), SettingsTool::GetSettings("configGeneral").GetValueInt("type2Fa")) == "1") ? 1 : 2);
+            break;
+        case StatusChromeAccount::Checkpoint:
+            result = -1;
+            break;
+        case StatusChromeAccount::NoInternet:
+            result = -3;
+            break;
+        case StatusChromeAccount::Empty:
+        case StatusChromeAccount::Logined:
+        case StatusChromeAccount::Blocked:
+        case StatusChromeAccount::Noveri:
+            break;
+        }
+    }
+    return result;
+}
+
+int MainWindow::HDXoaNhatKyHoatDong(int indexRow, const QString& statusProxy, Chrome* chrome, JSON_Settings& cauHinh) {
     int num = cauHinh.GetValueInt("nudSoLuong");
     try {
         QString format = "https://m.facebook.com/%1/allactivity/?category_key=all&timestart=%2&timeend=%3";
-        QString arg = chrome.ExecuteScript("return (document.cookie + ';').match(new RegExp('c_user=(.*?);'))[1]");
+        QString arg = chrome->ExecuteScript("return (document.cookie + ';').match(new RegExp('c_user=(.*?);'))[1]");
         QString text, text2, text3;
         int i = 0;
         if (cauHinh.GetValueBool("ckbXoaThangNay")) {
@@ -2353,46 +3377,46 @@ int MainWindow::HDXoaNhatKyHoatDong(int indexRow, const QString& statusProxy, Ch
             text = QString::number(Common::ConvertDatetimeToTimestamp(startOfMonth));
             text2 = QString::number(Common::ConvertDatetimeToTimestamp(startOfNextMonth));
             text3 = format.arg(arg).arg(text).arg(text2);
-            chrome.GotoURL(text3);
-            chrome.DelayTime(1.0);
-            if (chrome.CheckExistElement("[href*=\"allactivity/?category_key=trash\"]", 30.0) != 1) {
+            chrome->GotoURL(text3);
+            chrome->DelayTime(1.0);
+            if (chrome->CheckExistElement("[href*=\"allactivity/?category_key=trash\"]", 30.0) != 1) {
                 continue;
             }
             SetStatusAccount(indexRow, statusProxy + tr("Đang lấy link xóa tháng %1...").arg(dateTime.date().month()));
-            if (chrome.CheckExistElement(QString("[id*=\"month_%1_%2_more\"]").arg(dateTime.date().year()).arg(dateTime.date().month()), 5.0) != 1) {
+            if (chrome->CheckExistElement(QString("[id*=\"month_%1_%2_more\"]").arg(dateTime.date().year()).arg(dateTime.date().month()), 5.0) != 1) {
                 continue;
             }
             for (int j = 0; j < 5; j++) {
-                if (chrome.CheckExistElement(QString("[id*=\"month_%1_%2_more\"]").arg(dateTime.date().year()).arg(dateTime.date().month()), 5.0) != 1) {
+                if (chrome->CheckExistElement(QString("[id*=\"month_%1_%2_more\"]").arg(dateTime.date().year()).arg(dateTime.date().month()), 5.0) != 1) {
                     break;
                 }
-                chrome.ScrollSmoothv2(QString("document.querySelector('[id*=\"month_%1_%2_more\"]')").arg(dateTime.date().year()).arg(dateTime.date().month()));
-                chrome.click(4, QString("[id*=\"month_%1_%2_more\"]").arg(dateTime.date().year()).arg(dateTime.date().month()));
-                chrome.DelayTime(1.0);
+                chrome->ScrollSmoothv2(QString("document.querySelector('[id*=\"month_%1_%2_more\"]')").arg(dateTime.date().year()).arg(dateTime.date().month()));
+                chrome->click(4, QString("[id*=\"month_%1_%2_more\"]").arg(dateTime.date().year()).arg(dateTime.date().month()));
+                chrome->DelayTime(1.0);
             }
-            int num2 = chrome.ExecuteScript("return document.querySelectorAll('[href*=\"activity_log/confirm_dialog\"]').length").toInt();
+            int num2 = chrome->ExecuteScript("return document.querySelectorAll('[href*=\"activity_log/confirm_dialog\"]').length").toInt();
             for (int k = 0; k < num2; k++) {
-                list.append(chrome.ExecuteScript(QString("return document.querySelectorAll('[href*=\"activity_log/confirm_dialog\"]')[%1].href").arg(k)));
+                list.append(chrome->ExecuteScript(QString("return document.querySelectorAll('[href*=\"activity_log/confirm_dialog\"]')[%1].href").arg(k)));
             }
             for (int l = 0; l < list.count(); l++) {
                 if (isStop) {
                     return 0;
                 }
                 SetStatusAccount(indexRow, statusProxy + tr("Đang xóa (%1/%2) - Tháng %3...").arg(l + 1).arg(list.count()).arg(dateTime.date().month()));
-                chrome.GotoURL(list[l]);
-                chrome.DelayTime(1.0);
-                if (chrome.CheckExistElement("[rel=\"async-post\"]", 10.0) != 1) {
+                chrome->GotoURL(list[l]);
+                chrome->DelayTime(1.0);
+                if (chrome->CheckExistElement("[rel=\"async-post\"]", 10.0) != 1) {
                     continue;
                 }
-                chrome.click(4, "[rel=\"async-post\"]");
-                chrome.DelayTime(1.0);
+                chrome->click(4, "[rel=\"async-post\"]");
+                chrome->DelayTime(1.0);
                 for (int m = 0; m < 20; m++) {
-                    if (chrome.GetUrl() != list[l]) {
+                    if (chrome->GetUrl() != list[l]) {
                         break;
                     }
-                    chrome.DelayTime(1.0);
+                    chrome->DelayTime(1.0);
                 }
-                chrome.DelayTime(QRandomGenerator::global()->bounded(cauHinh.GetValueInt("nudDelayFrom"), cauHinh.GetValueInt("nudDelayTo") + 1));
+                chrome->DelayTime(QRandomGenerator::global()->bounded(cauHinh.GetValueInt("nudDelayFrom"), cauHinh.GetValueInt("nudDelayTo") + 1));
             }
         }
     } catch (...) {
@@ -2401,7 +3425,7 @@ int MainWindow::HDXoaNhatKyHoatDong(int indexRow, const QString& statusProxy, Ch
     return 0;
 }
 
-int MainWindow::HDTaoPage_Fix(QString& F62A033F, int B5193F02, const QString& string_1, Chrome& b901B28A_0, JSON_Settings& cauHinh, const QString& string_2, const QString& text12) {
+int MainWindow::HDTaoPage_Fix(QString& F62A033F, int B5193F02, const QString& string_1, Chrome* b901B28A_0, JSON_Settings& cauHinh, const QString& string_2, const QString& text12) {
     int num = cauHinh.GetValueInt("nudSoLuongFrom");
     int num2 = cauHinh.GetValueInt("nudSoLuongTo");
     int num3 = cauHinh.GetValueInt("nudDelayFrom");
@@ -2440,7 +3464,7 @@ int MainWindow::HDTaoPage_Fix(QString& F62A033F, int B5193F02, const QString& st
         if (!list4.isEmpty()) {
             text4 = list4.takeFirst();
         }
-        QString text5 = b901B28A_0.method_72(text3, text4);
+        QString text5 = b901B28A_0->method_72(text3, text4);
         if (text5.isEmpty()) {
             num7++;
             if (num7 >= num8) {
@@ -2456,11 +3480,11 @@ int MainWindow::HDTaoPage_Fix(QString& F62A033F, int B5193F02, const QString& st
             }
             SetStatusAccount(B5193F02,
                              string_1 + Language::GetValue("Đang") +
-                                 QString(" %1 (%2/%3), %4 {{time}}s...")
-                                     .arg(string_2)
-                                     .arg(num6)
-                                     .arg(num5)
-                                     .arg(Language::GetValue("đợi")),
+                             QString(" %1 (%2/%3), %4 {{time}}s...")
+                             .arg(string_2)
+                             .arg(num6)
+                             .arg(num5)
+                             .arg(Language::GetValue("đợi")),
                              num3, num4);
         }
     }
@@ -2476,8 +3500,8 @@ void MainWindow::SetStatusAccount(int indexRow, QString value, int timeWaitFrom,
 }
 
 void MainWindow::FinishProxy(TinsoftProxy* tinsoft, XproxyProxy* xproxy, TMProxy* tmproxy,
-                 ProxyV6Net* proxyWeb, ShopLike* shopLike, MinProxy* minProxy,
-                 ObcProxy* obcProxy)
+                             ProxyV6Net* proxyWeb, ShopLike* shopLike, MinProxy* minProxy,
+                             ObcProxy* obcProxy)
 {
     QMutexLocker locker(&mutex);
 
@@ -2642,7 +3666,7 @@ QString MainWindow::TurnOn2FA(QString password, QString token, QString proxy, in
                 return text;
             }
             return text;
-            
+
         }
         return text;
     }catch (std::exception ex) {
@@ -2679,7 +3703,7 @@ void MainWindow::GetProxy(int indexRow, bool &isStop, QString &proxy, int &typeP
                                 {
                                     tinsoft = tinsoftProxy;
                                 }
-                                
+
                             }
                         }
                         if (tinsoft->daSuDung != tinsoft->limitThreadsUse)
@@ -3223,7 +4247,7 @@ void MainWindow::GetProxy(int indexRow, bool &isStop, QString &proxy, int &typeP
             }
             return;
         }
-        IL_0f67:{
+IL_0f67:{
             if (!flag2)
             {
                 minProxy->dangSuDung--;
@@ -3232,7 +4256,7 @@ void MainWindow::GetProxy(int indexRow, bool &isStop, QString &proxy, int &typeP
             }
             return;
         }
-        IL_0d06:{
+IL_0d06:{
             emit updateStatusAccount(indexRow, Language::GetValue("Đang lấy Proxy từ API..."));
             num2 = 0;
             if (num > 1)
@@ -3286,7 +4310,7 @@ void MainWindow::GetProxy(int indexRow, bool &isStop, QString &proxy, int &typeP
                         goto IL_0e83;
                     }
                     goto end_IL_0019;
-                IL_0e83:
+IL_0e83:
                     if (proxy != "")
                     {
                         break;
@@ -3313,7 +4337,7 @@ void MainWindow::GetProxy(int indexRow, bool &isStop, QString &proxy, int &typeP
                 }
             }
             goto IL_0f67;
-        end_IL_0019:
+end_IL_0019:
             break;
         }
         default:
@@ -3349,8 +4373,8 @@ QMap<QString,QStringList> MainWindow::GetDictionaryIntoHanhDong(QString idKichBa
             JSON_Settings jSON_Settings(InteractSQL::GetCauHinhFromHanhDong(text), true);
             QStringList fieldList = {"txtUid", "lstNhomTuNhap", "txtLinkChiaSe", "txtIdPost", "txtLink"};
             QStringList list = fieldList.contains(field) ?
-                                   jSON_Settings.GetValueList(field) :
-                                   jSON_Settings.GetValueList(field, jSON_Settings.GetValueInt("typeNganCach"));
+                        jSON_Settings.GetValueList(field) :
+                        jSON_Settings.GetValueList(field, jSON_Settings.GetValueInt("typeNganCach"));
             dictionary.insert(text, list);
         }
     } catch (const std::exception& e) {
@@ -3407,14 +4431,14 @@ void MainWindow::RandomThuTuTaiKhoan(int soLuot){
 }
 void ShowTrangThai(const QString& content, QWidget* plTrangThai, QLabel* lblTrangThai) {
     QMetaObject::invokeMethod(plTrangThai, [plTrangThai]() {
-            if (!plTrangThai->isVisible()) {
-                plTrangThai->setVisible(true);
-            }
-        }, Qt::QueuedConnection);
-    
+        if (!plTrangThai->isVisible()) {
+            plTrangThai->setVisible(true);
+        }
+    }, Qt::QueuedConnection);
+
     QMetaObject::invokeMethod(lblTrangThai, [lblTrangThai, content]() {
-            lblTrangThai->setText(content);
-        }, Qt::QueuedConnection);
+        lblTrangThai->setText(content);
+    }, Qt::QueuedConnection);
 }
 void MainWindow::DeleteCacheProfile(int row){
     try {
@@ -3459,7 +4483,7 @@ int MainWindow::CountChooseRowInDatagridview(){
         if (dir.exists()) {
             // Directory exists, do nothing or add your logic here if needed
         }
-        
+
         bool ok;
         int count = ui->lblCountSelect->text().toInt(&ok);
         if (ok) {
@@ -3472,7 +4496,7 @@ int MainWindow::CountChooseRowInDatagridview(){
         // Handle any unexpected exceptions
         qDebug() << "An unexpected error occurred.";
     }
-    
+
     return result;
 }
 
@@ -3579,12 +4603,12 @@ QList<ProxyTool*> MainWindow::GetListProxy(int maxThread){
                     listObcDcom.append(obcDcom);
                 }
                 ObcProxy* obcProxy = new ObcProxy(
-                    SettingsTool::GetSettings("configGeneral").GetValue("txtLinkWebObcProxy"),
-                    valueList6[num],
-                    0,
-                    SettingsTool::GetSettings("configGeneral").GetValueInt("nudLuongPerIPObcProxy"),
-                    key
-                    );
+                            SettingsTool::GetSettings("configGeneral").GetValue("txtLinkWebObcProxy"),
+                            valueList6[num],
+                            0,
+                            SettingsTool::GetSettings("configGeneral").GetValueInt("nudLuongPerIPObcProxy"),
+                            key
+                            );
                 obcDcom->AddProxy(obcProxy);
             }
         }

@@ -53,15 +53,18 @@ public:
     QString Refresh(int instanceId);
     QString ClearText(int instanceId);
     QString SetSize(int instanceId, int width = 500, int height = 700);
+    QVariant GetSize(int instanceId);
     bool switch_to_alert_accept(int instanceId);
     bool SendKeys(int instanceId, QString csselectorsOrXPath, QString keys);
     bool sendKeysWithSpeed(int instanceId, QString elementSelector, QString text, double speed, bool click_before = true, double click_delay = 0.1);
+    QString SendKeysv2(int instanceId,int typeAttribute, QString attributeValue, int index, int subTypeAttribute, QString subAttributeValue, int subIndex, QString content, bool isClick = true, double timeDelayAfterClick = 0.1);
     bool Clear(int instanceId,QString elementSelector);
+    QString ClearText(int instanceId, int typeAttribute, QString attributeValue);
     void apiStarted();
     void apiStopped();
     void urlOpened(const QString &message);
     void errorOccurred(const QString &errorString);
-
+    QString GotoBackPage(int instanceId);
 private:
     QJsonObject sendRequest(const QString &endpoint, const QJsonObject &jsonObject);
     QJsonObject sendRequest(const QString &endpoint);

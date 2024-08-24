@@ -94,7 +94,7 @@ bool ObcProxy::CheckLiveProxy(int timeOut) {
             }
             QThread::sleep(1);
             if (!flag) {
-                if (QDateTime::currentMSecsSinceEpoch() - tickCount >= timeOut * 1000) {
+                if (QDateTime::currentMSecsSinceEpoch() - tickCount >= timeOut) {
                     return flag;
                 }
                 continue;

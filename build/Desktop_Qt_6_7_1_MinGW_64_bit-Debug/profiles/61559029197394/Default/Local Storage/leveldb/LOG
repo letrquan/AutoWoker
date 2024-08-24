@@ -1,0 +1,13 @@
+2024/08/15-13:20:53.903 1ad4 Reusing MANIFEST D:\AutoWorker\XWorker\AutoWoker\build\Desktop_Qt_6_7_1_MinGW_64_bit-Debug\profiles\61559029197394\Default\Local Storage\leveldb/MANIFEST-000001
+2024/08/15-13:20:53.909 1ad4 Recovering log #8
+2024/08/15-13:20:53.910 1ad4 Level-0 table #11: started
+2024/08/15-13:20:53.995 1ad4 Level-0 table #11: 17071 bytes OK
+2024/08/15-13:20:54.085 1ad4 Delete type=0 #8
+2024/08/15-13:20:54.087 50c Compacting 4@0 + 0@1 files
+2024/08/15-13:20:54.167 50c Generated table #13@0: 25 keys, 4265 bytes
+2024/08/15-13:20:54.167 50c Compacted 4@0 + 0@1 files => 4265 bytes
+2024/08/15-13:20:54.257 50c compacted to: files[ 0 1 0 0 0 0 0 ]
+2024/08/15-13:20:54.258 50c Delete type=2 #3
+2024/08/15-13:20:54.276 50c Delete type=2 #6
+2024/08/15-13:20:54.276 50c Delete type=2 #9
+2024/08/15-13:20:54.276 50c Delete type=2 #11

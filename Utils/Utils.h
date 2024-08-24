@@ -26,6 +26,30 @@ public:
 
         return true;
     }
+    static QString unescapeString(const QString& input)
+    {
+        QString result = input;
+
+        // Define a regular expression to match escaped characters
+        QRegularExpression regex("\\\\(.)");
+
+        QRegularExpressionMatchIterator i = regex.globalMatch(input);
+        while (i.hasNext()) {
+            QRegularExpressionMatch match = i.next();
+            QString escaped = match.captured(0);
+            QString unescaped = match.captured(1);
+
+            // Handle special cases
+            if (unescaped == "n") unescaped = "\n";
+            else if (unescaped == "r") unescaped = "\r";
+            else if (unescaped == "t") unescaped = "\t";
+
+            result.replace(escaped, unescaped);
+        }
+
+        return result;
+    }
+
     static bool isNumber(const QString &str) {
         bool isNumeric;
         str.toDouble(&isNumeric);

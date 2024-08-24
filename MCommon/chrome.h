@@ -70,6 +70,7 @@ public:
     int GetFbWeb(QString url = "");
     int ScreenCapture(QString imagePath, QString fileName);
     QString GetUid();
+    QString A9015F2E();
     QString GetCookie(QString domain = "facebook");
     int ClickWithAction(QString cssSelectorsOrXpath);
     bool click(QString cssSelectorsOrXpath);
@@ -77,10 +78,12 @@ public:
     int AddCookieIntoChrome(QString cookie, QString domain = ".facebook.com");
     int Refresh();
     void AcceptCookie();
+    QString method_113();
+    QString method_112(QString string_10, QString string_11, QString string_12, QString string_13);
     bool SendKeysWithSpeedNew(QString elementSelector, QString text, double speed, bool click_before = true, double click_delay = 0.1);
     bool Clear(QString elementSelector);
-    QString CheckExistElementsString(double timeOut,const QStringList &lstCssSelectors);
     int ScrollSmoothv2(QString jsPath);
+    QString method_110(QString string_10);
     QString ConvertCssSelectorToJSDom(const QString& cssSelectorsOrXpath);
     QString GetDomainFb(const QString& url);
     int SetFbLanguage(const QString& language = "en_US");
@@ -93,7 +96,22 @@ public:
     QString method_72(QString B686CD07, QString DF35EF25);
     void method_75();
     bool ClearText();
+    int ClearText(int typeAttribute, QString attributeValue);
+    QString CheckExistElementsString(double timeOut,const QStringList &lstCssSelectors);
     void SetSize(int width = 500, int height = 700);
+    QPoint GetSize();
+    void ClosePopup();
+    void DelayRandom(int timeFrom, int timeTo);
+    int SendKeysv2(int typeAttribute, QString attributeValue, int index, int subTypeAttribute, QString subAttributeValue, int subIndex, QString content, bool isClick = true, double timeDelayAfterClick = 0.1);
+    void DelayThaoTacNho(int timeAdd = 0);
+    int scrollSmooth(int distance);
+    bool GotoBackPage();
+    QString GetFbdtsg();
+    int CheckExistElementv2(QString JSPath, double timeWait_Second = 0.0);
+    int ScrollSmoothIfNotExistOnScreen(QString JSpath);
+    QString ConvertFbUrl(QString url, QString currentUrl = "");
+    QString GetCssSelector(QString querySelector, QString attributeName, QString attributeValue);
+    int CheckExistElementOnScreen(QString JSpath, int timeOut = 0);
     int WaitForSearchElement(QString querySelector, int typeSearch = 0, double timeWait_Second = 0.0);
     QString RequestPost(QString url, QString data, QString contentType = "application/x-www-form-urlencoded", QString currentUrl = "");
     static void ExportError(Chrome* chrome, const QException& ex, const QString& error = "") {
